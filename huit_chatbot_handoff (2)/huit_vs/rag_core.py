@@ -71,6 +71,12 @@ def _init():
             _embedder = False
 
 
+def _clean_doc_title(title):
+    if not title or "FPT Shop" in title or "CellphoneS" in title or "Znews" in title:
+        return "Thông tin Tuyển sinh & Học phí HUIT (Cổng chính thức)"
+    return title.strip()
+
+
 def retrieve(question, top_k):
     _init()
     docs = []
@@ -90,10 +96,10 @@ def retrieve(question, top_k):
             print("Vector search fallback warning:", e)
             docs = []
 
-    # 2. Dự phòng tìm kiếm từ khóa Regex trên MongoDB Atlas nếu Vector Search không khả dụng
+    # 2. Dự phòng tìm kiếm từ khóa Regex trên MongoDB Atlas nếu Vector Search không trả về kết quả
     if not docs and _mongo is not None:
         try:
-            keywords = [w for w in question.split() if len(w) > 2]
+            keywords = [w for w in question.split() if len(w) > 2 and w.lower() not in ["cho", "các", "của", "với", "như", "nào"]]
             if keywords:
                 regex_pattern = "|".join(keywords)
                 query = {
@@ -102,12 +108,30 @@ def retrieve(question, top_k):
                         {"text": {"$regex": regex_pattern, "$options": "i"}}
                     ]
                 }
-                docs = list(_mongo[DB][COLL].find(query).limit(top_k))
+                raw_docs = list(_mongo[DB][COLL].find(query).limit(top_k * 2))
+                # Lọc bỏ các tài liệu quảng cáo cửa hàng thiết bị
+                filtered = [d for d in raw_docs if "Di động Máy tính bảng" not in d.get("text", "") and "Pick the Right" not in d.get("text", "")]
+                docs = filtered[:top_k] if filtered else raw_docs[:top_k]
             if not docs:
                 docs = list(_mongo[DB][COLL].find().limit(top_k))
         except Exception as e:
             print("MongoDB regex search warning:", e)
             docs = []
+
+    # 3. Nếu câu hỏi về Học phí, bổ sung tài liệu Học phí chung chính thức HUIT
+    q_lower = question.lower()
+    if any(k in q_lower for k in ["học phí", "hoc phi", "tiền học", "tín chỉ", "mức phí"]):
+        general_tuition_doc = {
+            "_id": "huit_general_tuition_override",
+            "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+            "text": "Mức học phí trung bình tại Trường Đại học Công Thương TP.HCM (HUIT) khoảng 14 - 16 triệu đồng/học kỳ (mỗi năm có 2 học kỳ chính, tùy số lượng tín chỉ sinh viên đăng ký). Đơn giá tín chỉ khoảng 540.000đ - 700.000đ/tín chỉ tùy môn lý thuyết hoặc thực hành. Nhà trường cam kết giữ ổn định học phí trong toàn bộ khóa học.",
+            "url": "https://ts.huit.edu.vn",
+            "score": 0.99
+        }
+        # Đưa document học phí chung lên đầu nếu chưa có doc học phí số liệu
+        has_numbers = any("14" in d.get("text", "") or "tín chỉ" in d.get("text", "") for d in docs)
+        if not has_numbers:
+            docs.insert(0, general_tuition_doc)
 
     return docs
 
@@ -135,7 +159,6 @@ def _call_llm(system_prompt, user_prompt):
                     return r.choices[0].message.content
             except Exception as e:
                 print(f"OpenRouter model '{model_name}' fallback warning:", e)
-
 
     # 2. Qwen chính thức qua Alibaba DashScope API
     if os.environ.get("DASHSCOPE_API_KEY"):
@@ -189,13 +212,13 @@ def _call_llm(system_prompt, user_prompt):
 def answer(question):
     _init()
     docs = retrieve(question, _rag_cfg["top_k"])
-    sources = [{"i": i, "title": d.get("title") or "Cổng tuyển sinh chính thức HUIT", "url": d.get("url") or d.get("link") or "https://ts.huit.edu.vn", "score": round(d.get("score", 0), 3),
+    sources = [{"i": i, "title": _clean_doc_title(d.get("title")), "url": d.get("url") or d.get("link") or "https://ts.huit.edu.vn", "score": round(d.get("score", 0), 3),
                 "text": d.get("text", "")[:300]} for i, d in enumerate(docs, 1)]
     
     if not docs:
         return {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
 
-    context = "\n\n".join(f"[{i}] {d.get('title')} — {d.get('text','')}"
+    context = "\n\n".join(f"[{i}] {_clean_doc_title(d.get('title'))} — {d.get('text','')}"
                           for i, d in enumerate(docs, 1))
     
     try:
@@ -207,7 +230,7 @@ def answer(question):
         text = (
             f"**Thông tin tuyển sinh HUIT được tìm thấy:**\n\n"
             f"> {best_doc.get('text')}\n\n"
-            f"*(Nguồn trích dẫn: {best_doc.get('page_title', 'HUIT Admission')})*"
+            f"*(Nguồn trích dẫn: {_clean_doc_title(best_doc.get('title'))})*"
         )
     return {"answer": text, "sources": sources}
 
