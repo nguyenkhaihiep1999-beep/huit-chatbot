@@ -32,7 +32,15 @@ if os.path.exists(_env_path):
                 os.environ.setdefault(_k.strip(), _v.strip().strip('"\''))
 
 
-os.environ.setdefault("FASTEMBED_CACHE_DIR", "/tmp/fastembed_cache")
+import tempfile
+
+_tmp_dir = tempfile.gettempdir()
+os.environ["HF_HOME"] = os.path.join(_tmp_dir, "huggingface")
+os.environ["HF_HUB_CACHE"] = os.path.join(_tmp_dir, "huggingface", "hub")
+os.environ["FASTEMBED_CACHE_DIR"] = os.path.join(_tmp_dir, "fastembed_cache")
+os.environ["XDG_CACHE_HOME"] = os.path.join(_tmp_dir, "cache")
+os.environ["TORCH_HOME"] = os.path.join(_tmp_dir, "torch")
+os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
 _embedder = None
 _mongo = None
@@ -42,32 +50,66 @@ _rag_cfg = None
 
 def _init():
     global _embedder, _mongo, _retrieval_pipeline, _rag_cfg
-    if _embedder is None:
-        from fastembed import TextEmbedding
-        _embedder = TextEmbedding(MODEL, cache_dir=os.environ.get("FASTEMBED_CACHE_DIR", "/tmp/fastembed_cache"))
+    if _mongo is None:
+        pwd = os.environ.get("MONGODB_PASSWORD", "qwertyuio12A")
+        uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
+        _mongo = MongoClient(uri, serverSelectionTimeoutMS=15000)
     if _retrieval_pipeline is None:
         mod = json.load(open(RETRIEVAL_MODULE, encoding="utf-8"))
         _retrieval_pipeline = mod["private"]["node_function"]["edge"][0]["pipeline"]
     if _rag_cfg is None:
         rag = json.load(open(RAG_MODULE, encoding="utf-8"))
         _rag_cfg = rag["private"]["node_function"]["edge"][0]["config"]
-    if _mongo is None:
-        pwd = os.environ.get("MONGODB_PASSWORD", "qwertyuio12A")
-        uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
-        _mongo = MongoClient(uri, serverSelectionTimeoutMS=15000)
+    if _embedder is None:
+        try:
+            from fastembed import TextEmbedding
+            cache_path = os.environ.get("FASTEMBED_CACHE_DIR", os.path.join(_tmp_dir, "fastembed_cache"))
+            os.makedirs(cache_path, exist_ok=True)
+            _embedder = TextEmbedding(MODEL, cache_dir=cache_path)
+        except Exception as e:
+            print("FastEmbed init warning (falling back to MongoDB keyword search):", e)
+            _embedder = False
 
 
 def retrieve(question, top_k):
     _init()
-    pipeline = copy.deepcopy(_retrieval_pipeline)
-    qv = list(_embedder.embed([question]))[0].tolist()
-    for stage in pipeline:
-        vs = stage.get("$vectorSearch")
-        if vs and vs.get("queryVector") == "<<QUERY_VECTOR_384>>":
-            vs["queryVector"] = qv
-            vs["limit"] = top_k
-            vs["numCandidates"] = max(100, top_k * 20)
-    return list(_mongo[DB][COLL].aggregate(pipeline))
+    docs = []
+    # 1. Thử Vector Search nếu FastEmbed hoạt động thành công
+    if _embedder and _retrieval_pipeline:
+        try:
+            pipeline = copy.deepcopy(_retrieval_pipeline)
+            qv = list(_embedder.embed([question]))[0].tolist()
+            for stage in pipeline:
+                vs = stage.get("$vectorSearch")
+                if vs and vs.get("queryVector") == "<<QUERY_VECTOR_384>>":
+                    vs["queryVector"] = qv
+                    vs["limit"] = top_k
+                    vs["numCandidates"] = max(100, top_k * 20)
+            docs = list(_mongo[DB][COLL].aggregate(pipeline))
+        except Exception as e:
+            print("Vector search fallback warning:", e)
+            docs = []
+
+    # 2. Dự phòng tìm kiếm từ khóa Regex trên MongoDB Atlas nếu Vector Search không khả dụng
+    if not docs and _mongo is not None:
+        try:
+            keywords = [w for w in question.split() if len(w) > 2]
+            if keywords:
+                regex_pattern = "|".join(keywords)
+                query = {
+                    "$or": [
+                        {"title": {"$regex": regex_pattern, "$options": "i"}},
+                        {"text": {"$regex": regex_pattern, "$options": "i"}}
+                    ]
+                }
+                docs = list(_mongo[DB][COLL].find(query).limit(top_k))
+            if not docs:
+                docs = list(_mongo[DB][COLL].find().limit(top_k))
+        except Exception as e:
+            print("MongoDB regex search warning:", e)
+            docs = []
+
+    return docs
 
 
 def _call_llm(system_prompt, user_prompt):
