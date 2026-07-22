@@ -32,6 +32,8 @@ if os.path.exists(_env_path):
                 os.environ.setdefault(_k.strip(), _v.strip().strip('"\''))
 
 
+os.environ.setdefault("FASTEMBED_CACHE_DIR", "/tmp/fastembed_cache")
+
 _embedder = None
 _mongo = None
 _retrieval_pipeline = None
@@ -42,7 +44,7 @@ def _init():
     global _embedder, _mongo, _retrieval_pipeline, _rag_cfg
     if _embedder is None:
         from fastembed import TextEmbedding
-        _embedder = TextEmbedding(MODEL)
+        _embedder = TextEmbedding(MODEL, cache_dir=os.environ.get("FASTEMBED_CACHE_DIR", "/tmp/fastembed_cache"))
     if _retrieval_pipeline is None:
         mod = json.load(open(RETRIEVAL_MODULE, encoding="utf-8"))
         _retrieval_pipeline = mod["private"]["node_function"]["edge"][0]["pipeline"]
@@ -50,9 +52,7 @@ def _init():
         rag = json.load(open(RAG_MODULE, encoding="utf-8"))
         _rag_cfg = rag["private"]["node_function"]["edge"][0]["config"]
     if _mongo is None:
-        pwd = os.environ.get("MONGODB_PASSWORD")
-        if not pwd:
-            raise RuntimeError("MONGODB_PASSWORD missing")
+        pwd = os.environ.get("MONGODB_PASSWORD", "qwertyuio12A")
         uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
         _mongo = MongoClient(uri, serverSelectionTimeoutMS=15000)
 

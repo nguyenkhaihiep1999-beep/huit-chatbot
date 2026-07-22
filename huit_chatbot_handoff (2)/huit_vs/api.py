@@ -10,6 +10,11 @@ Chạy:
 Mở: http://localhost:8000   ·   API: POST /api/chat  {"question": "..."}
 """
 import os
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
@@ -18,7 +23,6 @@ from pydantic import BaseModel
 
 import rag_core
 
-HERE = os.path.dirname(os.path.abspath(__file__))
 app = FastAPI(title="HUIT Chatbot API", version="1.0")
 
 
