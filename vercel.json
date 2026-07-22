@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "huit_chatbot_handoff (2)/huit_vs/api.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "huit_chatbot_handoff (2)/huit_vs/static/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/huit_chatbot_handoff (2)/huit_vs/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/huit_chatbot_handoff (2)/huit_vs/api.py"
+    }
+  ]
+}
