@@ -1,0 +1,64 @@
+{
+  "_id": "huit_semantic_search",
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "HUIT Knowledge Base Entry",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Tiêu đề mục tri thức"
+          },
+          "text": {
+            "type": "string",
+            "description": "Nội dung văn bản"
+          },
+          "embedding": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "Vector embedding 384 chiều (multilingual MiniLM)"
+          }
+        },
+        "required": [
+          "title",
+          "text",
+          "embedding"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "pipeline": [
+            {
+              "$vectorSearch": {
+                "index": "huit_vector_index",
+                "path": "embedding",
+                "queryVector": "<<QUERY_VECTOR_384>>",
+                "numCandidates": 100,
+                "limit": 3
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "title": 1,
+                "text": 1,
+                "score": {
+                  "$meta": "vectorSearchScore"
+                }
+              }
+            }
+          ],
+          "purpose": "Tìm kiếm ngữ nghĩa trên kho tri thức HUIT bằng Atlas Vector Search. Nhận query vector 384 chiều, trả về top tài liệu liên quan nhất kèm điểm cosine. Đây là module lõi cho phần retrieval của chatbot (RAG)."
+        }
+      ]
+    }
+  }
+}

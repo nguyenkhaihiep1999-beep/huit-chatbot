@@ -1,0 +1,2 @@
+pymongo[srv]>=4.7
+fastembed>=0.3

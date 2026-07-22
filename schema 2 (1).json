@@ -1,0 +1,741 @@
+{
+    "collections": [
+    {
+      "_id": "danh_muc_phong_ban",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Danh mục phòng ban",
+            "type": "object",
+            "properties": {
+              "phong_ban_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-7[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+                "description": "UUID v7 của phòng ban (khóa chính)"
+              },
+              "ten_phong_ban": {
+                "type": "string",
+                "description": "Tên phòng ban"
+              },
+              "mo_ta": {
+                "type": ["string", "null"],
+                "description": "Mô tả phòng ban"
+              },
+              "truong_phong_did": {
+                "type": ["string", "null"],
+                "format": "uuid",
+                "description": "UUID v7 của trưởng phòng"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["phong_ban_id", "ten_phong_ban", "createdAt", "updatedAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "phong_ban_id": "01926d2c-a8d1-7c3e-8f2a-1b3c4d5e6f7a",
+              "ten_phong_ban": "Phòng Nhân sự",
+              "mo_ta": "Chịu trách nhiệm về tuyển dụng và quản lý nhân sự.",
+              "truong_phong_did": "01926d2c-b9e2-7a4f-9a3b-2c4d5e6f7a8b",
+              "createdAt": "2025-10-12T10:00:00Z",
+              "updatedAt": "2025-10-12T10:00:00Z"
+            },
+            {
+              "phong_ban_id": "01926d2c-a8d1-7c3e-8f2a-1b3c4d5e6f7b",
+              "ten_phong_ban": "Phòng Kỹ thuật",
+              "mo_ta": "Phát triển và bảo trì hệ thống công nghệ.",
+              "truong_phong_did": "01926d2c-b9e2-7a4f-9a3b-2c4d5e6f7a8c",
+              "createdAt": "2025-10-12T10:00:00Z",
+              "updatedAt": "2025-10-12T10:00:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": {
+          "edge": [
+            {
+              "pipeline": [
+                {
+                  "$merge": {
+                    "into": "danh_muc_phong_ban",
+                    "on": "phong_ban_id",
+                    "whenMatched": "merge",
+                    "whenNotMatched": "insert"
+                  }
+                }
+              ],
+              "purpose": "Chuẩn hóa và quản lý danh mục các phòng ban trong tổ chức."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "_id": "ho_so_nhan_vien",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Hồ sơ nhân viên",
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "MongoDB ObjectId"
+              },
+              "employee_did": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-7[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+                "description": "Định danh nội bộ của nhân viên"
+              },
+              "chuc_vu": {
+                "type": "string",
+                "enum": [
+                  "Intern", "Junior Developer", "Senior Developer", "Tech Lead", "Designer", "QA Engineer", "DevOps Engineer", "Data Engineer", "Data Scientist", "Product Manager", "Project Manager", "HR Specialist", "Finance Analyst", "Sales Executive", "Customer Support", "Marketing Specialist", "Team Lead", "Manager", "Director", "VP", "CTO", "CFO", "COO", "CEO"
+                ]
+              },
+              "phong_ban_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Tham chiếu đến danh_muc_phong_ban"
+              },
+              "trang_thai": {
+                "type": "string",
+                "enum": ["Đang làm việc", "Nghỉ phép", "Tạm nghỉ", "Đã nghỉ việc"],
+                "default": "Đang làm việc"
+              },
+              "ngay_vao_lam": {
+                "type": "string",
+                "format": "date",
+                "description": "Ngày bắt đầu làm việc"
+              },
+              "vc_uris": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(ipfs|https)://.*"
+                },
+                "description": "Danh sách Verifiable Credentials (Employment, Role, Education)"
+              },
+              "consent_pointer": {
+                "type": ["string", "null"],
+                "description": "Transaction hash của consent on-chain gần nhất"
+              },
+              "ai_profile_summary": {
+                "type": ["string", "null"],
+                "description": "Tóm tắt hồ sơ do AI tạo (không chứa PII)"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "_id", "employee_did", "chuc_vu", "phong_ban_id", "trang_thai", "createdAt", "updatedAt"
+            ],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "672c8a2c5b8e4e0e8f2a1b3c",
+              "employee_did": "01926d2c-b9e2-7a4f-9a3b-2c4d5e6f7a8b",
+              "chuc_vu": "Senior Developer",
+              "phong_ban_id": "01926d2c-a8d1-7c3e-8f2a-1b3c4d5e6f7a",
+              "trang_thai": "Đang làm việc",
+              "ngay_vao_lam": "2023-01-15",
+              "vc_uris": ["ipfs://bafy.../employment-vc", "ipfs://bafy.../education-vc"],
+              "consent_pointer": "0x456def789abc123...",
+              "ai_profile_summary": "Nhân viên có kinh nghiệm trong phát triển web và blockchain.",
+              "createdAt": "2025-10-12T10:05:00Z",
+              "updatedAt": "2025-10-12T10:05:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": {
+          "edge": [
+            {
+              "pipeline": [
+                {
+                  "$merge": {
+                    "into": "ho_so_nhan_vien",
+                    "on": "employee_did",
+                    "whenMatched": "merge",
+                    "whenNotMatched": "insert"
+                  }
+                }
+              ],
+              "purpose": "Lưu trữ metadata của nhân viên, không chứa thông tin định danh cá nhân."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "_id": "cham_cong",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Chấm công (Attendance & Timesheet)",
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "MongoDB ObjectId"
+              },
+              "employee_did": {
+                "type": "string",
+                "format": "uuid",
+                "description": "UUID v7 của nhân viên"
+              },
+              "ngay": {
+                "type": "string",
+                "format": "date",
+                "description": "Ngày chấm công"
+              },
+              "gio_vao": {
+                "type": ["string", "null"],
+                "format": "time",
+                "description": "Giờ check-in (HH:MM:SS)"
+              },
+              "gio_ra": {
+                "type": ["string", "null"],
+                "format": "time",
+                "description": "Giờ check-out (HH:MM:SS)"
+              },
+              "tong_gio_lam": {
+                "type": ["number", "null"],
+                "minimum": 0,
+                "description": "Tổng số giờ làm việc trong ngày"
+              },
+              "loai_ngay": {
+                "type": "string",
+                "enum": ["Ngày thường", "Cuối tuần", "Lễ", "Nghỉ phép", "Nghỉ ốm", "Vắng không phép"],
+                "default": "Ngày thường"
+              },
+              "ghi_chu": {
+                "type": ["string", "null"],
+                "maxLength": 500
+              },
+              "xac_thuc_qua": {
+                "type": "string",
+                "enum": ["QR Code", "Fingerprint", "Face Recognition", "Manual"],
+                "description": "Phương thức xác thực chấm công"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["_id", "employee_did", "ngay", "loai_ngay", "xac_thuc_qua", "createdAt", "updatedAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "att_672c8a2c5b8e4e0e8f2a1b3d",
+              "employee_did": "01926d2c-b9e2-7a4f-9a3b-2c4d5e6f7a8b",
+              "ngay": "2025-10-12",
+              "gio_vao": "08:30:00",
+              "gio_ra": "17:35:00",
+              "tong_gio_lam": 8.08,
+              "loai_ngay": "Ngày thường",
+              "ghi_chu": null,
+              "xac_thuc_qua": "QR Code",
+              "createdAt": "2025-10-12T08:30:00Z",
+              "updatedAt": "2025-10-12T17:35:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": {
+          "edge": [
+            {
+              "pipeline": [
+                {
+                  "$merge": {
+                    "into": "cham_cong",
+                    "on": ["employee_did", "ngay"],
+                    "whenMatched": "merge",
+                    "whenNotMatched": "insert"
+                  }
+                }
+              ],
+              "purpose": "Ghi lại dữ liệu chấm công hàng ngày của nhân viên. Hỗ trợ xác thực qua QR Code vật lý."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "_id": "kpi_tieu_chi",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "KPI Tiêu chí đánh giá",
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "description": "MongoDB ObjectId" },
+              "kpi_id": { "type": "string", "format": "uuid", "description": "UUID v7 của tiêu chí KPI" },
+              "ten_kpi": { "type": "string", "description": "Tên tiêu chí KPI" },
+              "mo_ta": { "type": ["string", "null"], "description": "Mô tả chi tiết" },
+              "loai_kpi": { "type": "string", "enum": ["Định lượng", "Định tính", "Hành vi", "Kỹ năng"], "description": "Loại KPI" },
+              "don_vi_do": { "type": ["string", "null"], "description": "Đơn vị đo (%, số lượng, điểm, v.v.)" },
+              "trong_so": { "type": "number", "minimum": 0, "maximum": 100, "description": "Trọng số % trong tổng đánh giá" },
+              "nguong_dat": { "type": ["number", "null"], "description": "Ngưỡng đạt yêu cầu" },
+              "nguong_xuat_sac": { "type": ["number", "null"], "description": "Ngưỡng xuất sắc" },
+              "ap_dung_cho_chuc_vu": { "type": "array", "items": { "type": "string" }, "description": "Danh sách chức vụ áp dụng KPI này" },
+              "chu_ky_danh_gia": { "type": "string", "enum": ["Tuần", "Tháng", "Quý", "Năm"], "description": "Chu kỳ đánh giá" },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "required": ["_id", "kpi_id", "ten_kpi", "loai_kpi", "trong_so", "chu_ky_danh_gia", "createdAt", "updatedAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "kpi_crit_672c8a2c5b8e4e0e8f2a1b3e",
+              "kpi_id": "01926d2c-cbe3-7b5a-8d4c-3d5e6f7a8b9c",
+              "ten_kpi": "Số lượng task hoàn thành",
+              "mo_ta": "Tổng số task được đánh dấu 'Hoàn thành' trong kỳ.",
+              "loai_kpi": "Định lượng",
+              "don_vi_do": "số lượng",
+              "trong_so": 40,
+              "nguong_dat": 10,
+              "nguong_xuat_sac": 15,
+              "ap_dung_cho_chuc_vu": ["Senior Developer", "Junior Developer"],
+              "chu_ky_danh_gia": "Quý",
+              "createdAt": "2025-10-12T10:10:00Z",
+              "updatedAt": "2025-10-12T10:10:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": { "edge": [{ "pipeline": [{ "$merge": { "into": "kpi_tieu_chi", "on": "kpi_id", "whenMatched": "merge", "whenNotMatched": "insert" } }], "purpose": "Định nghĩa các tiêu chí đánh giá KPI cho từng chức vụ và chu kỳ." }] }
+      }
+    },
+    {
+      "_id": "danh_gia_kpi",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Đánh giá KPI nhân viên",
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "description": "MongoDB ObjectId" },
+              "employee_did": { "type": "string", "format": "uuid", "description": "UUID v7 của nhân viên" },
+              "kpi_id": { "type": "string", "format": "uuid", "description": "Tham chiếu kpi_tieu_chi" },
+              "ky_danh_gia": { "type": "string", "description": "Kỳ đánh giá (VD: 2025-Q4, 2025-10)" },
+              "ngay_bat_dau": { "type": "string", "format": "date" },
+              "ngay_ket_thuc": { "type": "string", "format": "date" },
+              "gia_tri_thuc_te": { "type": "number", "description": "Giá trị thực tế đạt được" },
+              "diem_so": { "type": "number", "minimum": 0, "maximum": 100, "description": "Điểm số đánh giá (0-100)" },
+              "xep_loai": { "type": "string", "enum": ["Xuất sắc", "Tốt", "Đạt", "Chưa đạt"], "description": "Xếp loại dựa trên điểm số" },
+              "nguoi_danh_gia_did": { "type": "string", "format": "uuid", "description": "UUID v7 của người đánh giá" },
+              "nhan_xet": { "type": ["string", "null"], "maxLength": 2000, "description": "Nhận xét của người đánh giá" },
+              "ai_analysis": {
+                "type": ["object", "null"],
+                "properties": {
+                  "sentiment_score": { "type": "number", "minimum": -1, "maximum": 1, "description": "Điểm sentiment từ phân tích BERT (-1 đến 1)" },
+                  "key_strengths": { "type": "array", "items": { "type": "string" }, "description": "Điểm mạnh được AI trích xuất" },
+                  "improvement_areas": { "type": "array", "items": { "type": "string" }, "description": "Điểm cần cải thiện" },
+                  "confidence_score": { "type": "number", "minimum": 0, "maximum": 1, "description": "Độ tin cậy của phân tích AI" }
+                },
+                "description": "Kết quả phân tích AI từ BERT"
+              },
+              "trang_thai": { "type": "string", "enum": ["Nháp", "Đã gửi", "Đã phê duyệt", "Đã đóng"], "default": "Nháp" },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "required": ["_id", "employee_did", "kpi_id", "ky_danh_gia", "ngay_bat_dau", "ngay_ket_thuc", "gia_tri_thuc_te", "diem_so", "xep_loai", "nguoi_danh_gia_did", "trang_thai", "createdAt", "updatedAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "kpi_eval_672c8a2c5b8e4e0e8f2a1b3f",
+              "employee_did": "01926d2c-b9e2-7a4f-9a3b-2c4d5e6f7a8b",
+              "kpi_id": "01926d2c-cbe3-7b5a-8d4c-3d5e6f7a8b9c",
+              "ky_danh_gia": "2025-Q4",
+              "ngay_bat_dau": "2025-10-01",
+              "ngay_ket_thuc": "2025-12-31",
+              "gia_tri_thuc_te": 16,
+              "diem_so": 95.5,
+              "xep_loai": "Xuất sắc",
+              "nguoi_danh_gia_did": "01926d2c-a8d1-7c3e-8f2a-1b3c4d5e6f7a",
+              "nhan_xet": "Hoàn thành vượt chỉ tiêu đề ra, chất lượng code tốt.",
+              "ai_analysis": { "sentiment_score": 0.92, "key_strengths": ["vượt chỉ tiêu", "chất lượng code"], "improvement_areas": [], "confidence_score": 0.98 },
+              "trang_thai": "Đã phê duyệt",
+              "createdAt": "2026-01-05T11:00:00Z",
+              "updatedAt": "2026-01-05T11:00:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": { "edge": [{ "pipeline": [{ "$merge": { "into": "danh_gia_kpi", "on": ["employee_did", "kpi_id", "ky_danh_gia"], "whenMatched": "merge", "whenNotMatched": "insert" } }], "purpose": "Lưu trữ kết quả đánh giá KPI của nhân viên theo từng kỳ. Tích hợp phân tích AI (BERT) để trích xuất insights." }] }
+      }
+    },
+    {
+      "_id": "phan_hoi_khach_hang",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Phản hồi khách hàng về nhân viên",
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "description": "MongoDB ObjectId" },
+              "employee_did": { "type": "string", "format": "uuid", "description": "UUID v7 của nhân viên được đánh giá" },
+              "loai_phan_hoi": { "type": "string", "enum": ["Khen ngợi", "Khiếu nại", "Góp ý", "Đánh giá chung"] },
+              "noi_dung": { "type": "string", "maxLength": 5000, "description": "Nội dung phản hồi (sẽ được AI phân tích)" },
+              "diem_danh_gia": { "type": ["integer", "null"], "minimum": 1, "maximum": 5, "description": "Điểm đánh giá 1-5 sao" },
+              "ai_sentiment": {
+                "type": ["object", "null"],
+                "properties": {
+                  "sentiment": { "type": "string", "enum": ["Tích cực", "Trung lập", "Tiêu cực"] },
+                  "sentiment_score": { "type": "number", "minimum": -1, "maximum": 1, "description": "Điểm sentiment từ BERT" },
+                  "keywords": { "type": "array", "items": { "type": "string" }, "description": "Từ khóa chính được trích xuất" },
+                  "categories": { "type": "array", "items": { "type": "string" }, "description": "Phân loại nội dung (thái độ, chuyên môn, tốc độ, v.v.)" },
+                  "embedding_cid": { "type": ["string", "null"], "description": "CID của vector embedding (để giảm chiều bằng CNN)" }
+                },
+                "description": "Kết quả phân tích AI (BERT + CNN)"
+              },
+              "trang_thai_xu_ly": { "type": "string", "enum": ["Chờ xử lý", "Đang xử lý", "Đã xử lý", "Đã đóng"], "default": "Chờ xử lý" },
+              "ngay_phan_hoi": { "type": "string", "format": "date-time" },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "required": ["_id", "employee_did", "loai_phan_hoi", "noi_dung", "ngay_phan_hoi", "trang_thai_xu_ly", "createdAt", "updatedAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "fb_672c8a2c5b8e4e0e8f2a1b40",
+              "employee_did": "01926d2c-b9e2-7a4f-9a3b-2c4d5e6f7a8b",
+              "loai_phan_hoi": "Khen ngợi",
+              "noi_dung": "Rất hài lòng với sự hỗ trợ nhiệt tình và chuyên nghiệp của bạn.",
+              "diem_danh_gia": 5,
+              "ai_sentiment": { "sentiment": "Tích cực", "sentiment_score": 0.98, "keywords": ["hài lòng", "hỗ trợ nhiệt tình", "chuyên nghiệp"], "categories": ["thái độ", "chuyên môn"], "embedding_cid": "ipfs://bafy.../embedding-fb-1" },
+              "trang_thai_xu_ly": "Đã xử lý",
+              "ngay_phan_hoi": "2025-11-20T14:30:00Z",
+              "createdAt": "2025-11-20T14:30:00Z",
+              "updatedAt": "2025-11-21T09:00:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": { "edge": [{ "pipeline": [{ "$merge": { "into": "phan_hoi_khach_hang", "on": "_id", "whenMatched": "merge", "whenNotMatched": "insert" } }], "purpose": "Thu thập và phân tích phản hồi của khách hàng về nhân viên. Sử dụng BERT cho sentiment analysis và CNN cho giảm chiều embedding." }] }
+      }
+    },
+    {
+      "_id": "xep_hang_nhan_vien",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Xếp hạng nhân viên (AI-powered)",
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "description": "MongoDB ObjectId" },
+              "employee_did": { "type": "string", "format": "uuid", "description": "UUID v7 của nhân viên" },
+              "ky_xep_hang": { "type": "string", "description": "Kỳ xếp hạng (VD: 2025-Q4, 2025-10)" },
+              "tong_diem_kpi": { "type": "number", "minimum": 0, "maximum": 100, "description": "Tổng điểm KPI trung bình" },
+              "diem_phan_hoi_khach_hang": { "type": "number", "minimum": 0, "maximum": 100, "description": "Điểm từ phản hồi khách hàng" },
+              "diem_cham_cong": { "type": "number", "minimum": 0, "maximum": 100, "description": "Điểm chấm công (đúng giờ, đầy đủ)" },
+              "diem_ai_tong_hop": { "type": "number", "minimum": 0, "maximum": 100, "description": "Điểm tổng hợp do AI tính toán" },
+              "thu_hang": { "type": "integer", "minimum": 1, "description": "Thứ hạng trong phòng ban/công ty" },
+              "pham_vi_xep_hang": { "type": "string", "enum": ["Phòng ban", "Công ty", "Chức vụ"], "description": "Phạm vi so sánh xếp hạng" },
+              "xep_loai": { "type": "string", "enum": ["A+", "A", "B+", "B", "C+", "C", "D"], "description": "Xếp loại tổng thể" },
+              "ai_insights": {
+                "type": ["object", "null"],
+                "properties": {
+                  "performance_trend": { "type": "string", "enum": ["Tăng", "Ổn định", "Giảm"], "description": "Xu hướng hiệu suất" },
+                  "predicted_next_quarter": { "type": "number", "description": "Dự đoán điểm kỳ tiếp theo" },
+                  "risk_factors": { "type": "array", "items": { "type": "string" }, "description": "Yếu tố rủi ro (nghỉ việc, giảm hiệu suất)" },
+                  "recommendations": { "type": "array", "items": { "type": "string" }, "description": "Khuyến nghị cải thiện" }
+                },
+                "description": "Phân tích và dự đoán từ AI"
+              },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "required": ["_id", "employee_did", "ky_xep_hang", "tong_diem_kpi", "diem_ai_tong_hop", "thu_hang", "pham_vi_xep_hang", "xep_loai", "createdAt", "updatedAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "rank_672c8a2c5b8e4e0e8f2a1b41",
+              "employee_did": "01926d2c-b9e2-7a4f-9a3b-2c4d5e6f7a8b",
+              "ky_xep_hang": "2025-Q4",
+              "tong_diem_kpi": 95.5,
+              "diem_phan_hoi_khach_hang": 98.0,
+              "diem_cham_cong": 92.0,
+              "diem_ai_tong_hop": 95.8,
+              "thu_hang": 1,
+              "pham_vi_xep_hang": "Phòng ban",
+              "xep_loai": "A+",
+              "ai_insights": { "performance_trend": "Tăng", "predicted_next_quarter": 96.5, "risk_factors": [], "recommendations": ["Phát huy vai trò mentor cho các thành viên mới."] },
+              "createdAt": "2026-01-10T15:00:00Z",
+              "updatedAt": "2026-01-10T15:00:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": { "edge": [{ "pipeline": [{ "$merge": { "into": "xep_hang_nhan_vien", "on": ["employee_did", "ky_xep_hang", "pham_vi_xep_hang"], "whenMatched": "merge", "whenNotMatched": "insert" } }], "purpose": "Tổng hợp điểm và xếp hạng nhân viên theo kỳ. AI dự đoán xu hướng và đưa ra khuyến nghị cải thiện." }] }
+      }
+    },
+    {
+      "_id": "luong_thuong",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Lương thưởng",
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "description": "MongoDB ObjectId" },
+              "employee_did": { "type": "string", "format": "uuid", "description": "UUID v7 của nhân viên" },
+              "ky_luong": { "type": "string", "description": "Kỳ lương (VD: 2025-12)" },
+              "luong_co_ban": { "type": "number", "minimum": 0, "description": "Lương cơ bản" },
+              "thuong_kpi": { "type": "number", "minimum": 0, "description": "Thưởng dựa trên KPI" },
+              "phu_cap": { "type": "number", "minimum": 0, "description": "Các khoản phụ cấp" },
+              "khau_tru": { "type": "number", "minimum": 0, "description": "Các khoản khấu trừ" },
+              "tong_thuc_linh": { "type": "number", "minimum": 0, "description": "Tổng thực lĩnh" },
+              "trang_thai_thanh_toan": { "type": "string", "enum": ["Chờ xử lý", "Đang xử lý", "Đã thanh toán", "Thất bại"], "default": "Chờ xử lý" },
+              "ngay_thanh_toan": { "type": ["string", "null"], "format": "date-time" },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "required": ["_id", "employee_did", "ky_luong", "luong_co_ban", "tong_thuc_linh", "trang_thai_thanh_toan", "createdAt", "updatedAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "pay_672c8a2c5b8e4e0e8f2a1b42",
+              "employee_did": "01926d2c-b9e2-7a4f-9a3b-2c4d5e6f7a8b",
+              "ky_luong": "2025-12",
+              "luong_co_ban": 50000000,
+              "thuong_kpi": 15000000,
+              "phu_cap": 2000000,
+              "khau_tru": 5250000,
+              "tong_thuc_linh": 61750000,
+              "trang_thai_thanh_toan": "Đã thanh toán",
+              "ngay_thanh_toan": "2026-01-15T10:00:00Z",
+              "createdAt": "2026-01-14T17:00:00Z",
+              "updatedAt": "2026-01-15T10:00:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": { "edge": [{ "pipeline": [{ "$merge": { "into": "luong_thuong", "on": ["employee_did", "ky_luong"], "whenMatched": "merge", "whenNotMatched": "insert" } }], "purpose": "Quản lý thông tin lương và thưởng của nhân viên." }] }
+      }
+    },
+    {
+      "_id": "smart_contract_logs",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Smart Contract Transaction Logs",
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "description": "MongoDB ObjectId" },
+              "contract_address": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$", "description": "Địa chỉ smart contract" },
+              "transaction_hash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$", "description": "Transaction hash" },
+              "block_number": { "type": "integer", "minimum": 0 },
+              "function_name": { "type": "string", "description": "Tên function được gọi" },
+              "parameters": { "type": "object", "description": "Tham số của function call" },
+              "gas_used": { "type": "integer", "minimum": 0 },
+              "status": { "type": "string", "enum": ["Success", "Failed", "Pending"] },
+              "event_logs": { "type": "array", "items": { "type": "object", "properties": { "event_name": { "type": "string" }, "data": { "type": "object" } } }, "description": "Events emitted từ smart contract" },
+              "timestamp": { "type": "string", "format": "date-time" },
+              "createdAt": { "type": "string", "format": "date-time" }
+            },
+            "required": ["_id", "contract_address", "transaction_hash", "function_name", "status", "timestamp", "createdAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "sclog_672c8a2c5b8e4e0e8f2a1b43",
+              "contract_address": "0xFaKe1234567890abcdef1234567890abcdef1234",
+              "transaction_hash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+              "block_number": 12345678,
+              "function_name": "payKPIBonus",
+              "parameters": { "amount": "15000000000000000000", "kpi_score": 955 },
+              "gas_used": 55000,
+              "status": "Success",
+              "event_logs": [{ "event_name": "PaymentSent", "data": { "amount": "15000000000000000000" } }],
+              "timestamp": "2026-01-15T09:59:58Z",
+              "createdAt": "2026-01-15T10:00:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": { "edge": [{ "pipeline": [{ "$merge": { "into": "smart_contract_logs", "on": "transaction_hash", "whenMatched": "merge", "whenNotMatched": "insert" } }], "purpose": "Lưu trữ nhật ký giao dịch từ các smart contract trên blockchain." }] }
+      }
+    },
+    {
+      "_id": "audit_logs",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Audit Logs (Nhật ký hệ thống)",
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "description": "MongoDB ObjectId" },
+              "user_did": { "type": "string", "format": "uuid", "description": "UUID v7 của người thực hiện hành động" },
+              "action": { "type": "string", "description": "Hành động thực hiện (VD: CREATE, UPDATE, DELETE, VIEW)" },
+              "resource_type": { "type": "string", "description": "Loại tài nguyên (VD: ho_so_nhan_vien, danh_gia_kpi)" },
+              "resource_id": { "type": "string", "description": "ID của tài nguyên bị tác động" },
+              "changes": { "type": ["object", "null"], "properties": { "before": { "type": "object" }, "after": { "type": "object" } }, "description": "Thay đổi trước/sau (nếu có)" },
+              "status": { "type": "string", "enum": ["Success", "Failed", "Unauthorized"], "description": "Kết quả hành động" },
+              "error_message": { "type": ["string", "null"], "description": "Thông báo lỗi (nếu failed)" },
+              "timestamp": { "type": "string", "format": "date-time" }
+            },
+            "required": ["_id", "user_did", "action", "resource_type", "status", "timestamp"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "audit_672c8a2c5b8e4e0e8f2a1b44",
+              "user_did": "01926d2c-a8d1-7c3e-8f2a-1b3c4d5e6f7a",
+              "action": "UPDATE",
+              "resource_type": "danh_gia_kpi",
+              "resource_id": "kpi_eval_672c8a2c5b8e4e0e8f2a1b3f",
+              "changes": { "before": { "trang_thai": "Đã gửi" }, "after": { "trang_thai": "Đã phê duyệt" } },
+              "status": "Success",
+              "error_message": null,
+              "timestamp": "2026-01-05T11:00:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": { "edge": [{ "pipeline": [{ "$merge": { "into": "audit_logs", "on": "_id", "whenMatched": "keepExisting", "whenNotMatched": "insert" } }], "purpose": "Ghi lại mọi hành động quan trọng trên hệ thống để kiểm toán và đảm bảo tuân thủ quy định bảo mật." }] }
+      }
+    },
+    {
+      "_id": "qr_authentication",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "QR Code Authentication (Thẻ vật lý)",
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "description": "MongoDB ObjectId" },
+              "qr_code_id": { "type": "string", "description": "ID duy nhất của thẻ QR Code" },
+              "employee_did": { "type": "string", "format": "uuid", "description": "UUID v7 của nhân viên sở hữu thẻ" },
+              "qr_hash": { "type": "string", "description": "Hash của QR code để xác thực" },
+              "trang_thai": { "type": "string", "enum": ["Hoạt động", "Tạm khóa", "Đã thu hồi"], "default": "Hoạt động" },
+              "ngay_cap": { "type": "string", "format": "date" },
+              "ngay_het_han": { "type": ["string", "null"], "format": "date" },
+              "so_lan_su_dung": { "type": "integer", "minimum": 0, "default": 0, "description": "Số lần đã sử dụng để xác thực" },
+              "lan_su_dung_cuoi": { "type": ["string", "null"], "format": "date-time" },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "required": ["_id", "qr_code_id", "employee_did", "qr_hash", "trang_thai", "ngay_cap", "createdAt", "updatedAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "qr_672c8a2c5b8e4e0e8f2a1b45",
+              "qr_code_id": "QR-EMP-00123",
+              "employee_did": "01926d2c-b9e2-7a4f-9a3b-2c4d5e6f7a8b",
+              "qr_hash": "0x3a5c8d9e2f1b4a6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c",
+              "trang_thai": "Hoạt động",
+              "ngay_cap": "2023-01-15",
+              "ngay_het_han": null,
+              "so_lan_su_dung": 152,
+              "lan_su_dung_cuoi": "2025-10-12T08:30:00Z",
+              "createdAt": "2023-01-15T09:00:00Z",
+              "updatedAt": "2025-10-12T08:30:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": { "edge": [{ "pipeline": [{ "$merge": { "into": "qr_authentication", "on": "qr_code_id", "whenMatched": "merge", "whenNotMatched": "insert" } }], "purpose": "Quản lý thông tin và trạng thái thẻ xác thực QR code vật lý. Nâng cao bảo mật cho hệ thống chấm công." }] }
+      }
+    },
+    {
+      "_id": "ai_model_metadata",
+      "public": {
+        "node_data": {
+          "jsonSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "AI Model Metadata (BERT, CNN)",
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "description": "MongoDB ObjectId" },
+              "model_name": { "type": "string", "description": "Tên model" },
+              "model_version": { "type": "string", "description": "Phiên bản model" },
+              "model_type": { "type": "string", "enum": ["BERT", "CNN", "Hybrid"], "description": "Loại model" },
+              "use_case": { "type": "string", "description": "Mục đích sử dụng" },
+              "training_data_summary": { "type": ["string", "null"], "description": "Tóm tắt dữ liệu training" },
+              "accuracy": { "type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "Độ chính xác model" },
+              "f1_score": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+              "model_uri": { "type": ["string", "null"], "pattern": "^(ipfs|https)://.*", "description": "URI lưu trữ model weights" },
+              "last_trained": { "type": ["string", "null"], "format": "date-time" },
+              "trang_thai": { "type": "string", "enum": ["Active", "Deprecated", "Testing"], "default": "Active" },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "required": ["_id", "model_name", "model_version", "model_type", "use_case", "trang_thai", "createdAt", "updatedAt"],
+            "additionalProperties": false
+          },
+          "jsonSample": [
+            {
+              "_id": "aimodel_672c8a2c5b8e4e0e8f2a1b46",
+              "model_name": "bert-base-vietnamese-sentiment",
+              "model_version": "1.2.0",
+              "model_type": "BERT",
+              "use_case": "sentiment-analysis",
+              "training_data_summary": "Fine-tuned on 10k customer feedbacks.",
+              "accuracy": 0.94,
+              "f1_score": 0.93,
+              "model_uri": "ipfs://bafy.../bert-sentiment-v1.2",
+              "last_trained": "2025-09-01T18:00:00Z",
+              "trang_thai": "Active",
+              "createdAt": "2025-09-02T10:00:00Z",
+              "updatedAt": "2025-09-02T10:00:00Z"
+            }
+          ]
+        }
+      },
+      "private": {
+        "node_function": { "edge": [{ "pipeline": [{ "$merge": { "into": "ai_model_metadata", "on": ["model_name", "model_version"], "whenMatched": "merge", "whenNotMatched": "insert" } }], "purpose": "Quản lý metadata cho các mô hình AI (BERT, CNN) được sử dụng trong hệ thống. Theo dõi phiên bản và hiệu suất." }] }
+      }
+    }
+  ]
+}

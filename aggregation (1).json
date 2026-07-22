@@ -1,0 +1,462 @@
+[
+  {
+    "name": "getTaskStats",
+    "file": "backend/controllers/congViecGiaoController.js",
+    "collection": "CongViecGiao",
+    "pipeline": [
+      {
+        "$group": {
+          "_id": null,
+          "totalTasks": {
+            "$sum": 1
+          },
+          "completedTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai",
+                    "Hoàn thành"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "inProgressTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai",
+                    "Đang thực hiện"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "overdueTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$and": [
+                    {
+                      "$lt": [
+                        "$ngay_ket_thuc_du_kien",
+                        "__NOW__"
+                      ]
+                    },
+                    {
+                      "$nin": [
+                        "$trang_thai",
+                        [
+                          "Hoàn thành",
+                          "Hủy bỏ"
+                        ]
+                      ]
+                    }
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "avgProgress": {
+            "$avg": "$tien_do"
+          }
+        }
+      }
+    ],
+    "notes": "__NOW__ tương ứng new Date() trong code."
+  },
+  {
+    "name": "getDetailedTaskStats_overview",
+    "file": "backend/controllers/congViecGiaoController.js",
+    "collection": "CongViecGiao",
+    "pipeline": [
+      {
+        "$group": {
+          "_id": null,
+          "totalTasks": {
+            "$sum": 1
+          },
+          "completedTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai",
+                    "Hoàn thành"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "inProgressTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai",
+                    "Đang thực hiện"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "pendingTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai",
+                    "Chờ bắt đầu"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "reviewTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai",
+                    "Chờ review"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "pausedTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai",
+                    "Tạm dừng"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "cancelledTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai",
+                    "Hủy bỏ"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "overdueTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$and": [
+                    {
+                      "$lt": [
+                        "$ngay_ket_thuc_du_kien",
+                        "__NOW__"
+                      ]
+                    },
+                    {
+                      "$nin": [
+                        "$trang_thai",
+                        [
+                          "Hoàn thành",
+                          "Hủy bỏ"
+                        ]
+                      ]
+                    }
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "avgProgress": {
+            "$avg": "$tien_do"
+          },
+          "avgEstimatedHours": {
+            "$avg": "$gio_uoc_tinh"
+          },
+          "totalEstimatedHours": {
+            "$sum": "$gio_uoc_tinh"
+          },
+          "highPriorityTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$do_uu_tien",
+                    "Cao"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "urgentTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$do_uu_tien",
+                    "Khẩn cấp"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          }
+        }
+      },
+      {
+        "$addFields": {
+          "completionRate": {
+            "$multiply": [
+              {
+                "$divide": [
+                  "$completedTasks",
+                  {
+                    "$max": [
+                      "$totalTasks",
+                      1
+                    ]
+                  }
+                ]
+              },
+              100
+            ]
+          },
+          "overdueRate": {
+            "$multiply": [
+              {
+                "$divide": [
+                  "$overdueTasks",
+                  {
+                    "$max": [
+                      "$totalTasks",
+                      1
+                    ]
+                  }
+                ]
+              },
+              100
+            ]
+          }
+        }
+      }
+    ],
+    "notes": "__NOW__ tương ứng new Date() trong code."
+  },
+  {
+    "name": "getDetailedTaskStats_priorityDistribution",
+    "file": "backend/controllers/congViecGiaoController.js",
+    "collection": "CongViecGiao",
+    "pipeline": [
+      {
+        "$group": {
+          "_id": "$do_uu_tien",
+          "count": {
+            "$sum": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "getDetailedTaskStats_departmentStats",
+    "file": "backend/controllers/congViecGiaoController.js",
+    "collection": "CongViecGiao",
+    "pipeline": [
+      {
+        "$match": {
+          "phong_ban_id": {
+            "$ne": null
+          }
+        }
+      },
+      {
+        "$group": {
+          "_id": "$phong_ban_id",
+          "totalTasks": {
+            "$sum": 1
+          },
+          "completedTasks": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai",
+                    "Hoàn thành"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          }
+        }
+      },
+      {
+        "$addFields": {
+          "completionRate": {
+            "$multiply": [
+              {
+                "$divide": [
+                  "$completedTasks",
+                  {
+                    "$max": [
+                      "$totalTasks",
+                      1
+                    ]
+                  }
+                ]
+              },
+              100
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "getAttendanceReport",
+    "file": "backend/controllers/chamCongController.js",
+    "collection": "ChamCong",
+    "pipelineTemplate": [
+      {
+        "$match": "__MATCH_CONDITIONS__"
+      },
+      {
+        "$group": {
+          "_id": {
+            "employee_did": "$employee_did",
+            "month": {
+              "$dateToString": {
+                "format": "%Y-%m",
+                "date": "$ngay"
+              }
+            }
+          },
+          "totalRecords": {
+            "$sum": 1
+          },
+          "totalWorkingDays": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$or": [
+                    {
+                      "$eq": [
+                        "$trang_thai_phe_duyet",
+                        "Đã phê duyệt"
+                      ]
+                    },
+                    {
+                      "$eq": [
+                        "$trang_thai_phe_duyet",
+                        "Không cần phê duyệt"
+                      ]
+                    }
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          },
+          "totalOvertimeHours": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai_lam_them",
+                    "Đã phê duyệt"
+                  ]
+                },
+                "$gio_lam_them",
+                0
+              ]
+            }
+          },
+          "totalLeaveDays": {
+            "$sum": {
+              "$cond": [
+                {
+                  "$eq": [
+                    "$trang_thai_nghi_phep",
+                    "Đã phê duyệt"
+                  ]
+                },
+                "$so_ngay_nghi",
+                0
+              ]
+            }
+          },
+          "totalWorkingHours": {
+            "$sum": "$tong_gio_lam"
+          }
+        }
+      },
+      {
+        "$project": {
+          "employee_did": "$_id.employee_did",
+          "month": "$_id.month",
+          "totalRecords": 1,
+          "totalWorkingDays": 1,
+          "totalOvertimeHours": 1,
+          "totalLeaveDays": 1,
+          "totalWorkingHours": 1,
+          "averageWorkingHours": {
+            "$cond": [
+              {
+                "$gt": [
+                  "$totalWorkingDays",
+                  0
+                ]
+              },
+              {
+                "$divide": [
+                  "$totalWorkingHours",
+                  "$totalWorkingDays"
+                ]
+              },
+              0
+            ]
+          }
+        }
+      },
+      {
+        "$sort": {
+          "month": -1,
+          "employee_did": 1
+        }
+      }
+    ]
+  }
+]

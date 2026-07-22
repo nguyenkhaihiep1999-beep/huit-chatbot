@@ -1,0 +1,73 @@
+{
+  "modules": [
+    {
+      "_id": "huit_semantic_search",
+      "module_name": "huit_semantic_search",
+      "version": "2.5.0",
+      "description": "Module tra cứu ngữ nghĩa Vector Search 384D trên MongoDB Atlas huit_kb",
+      "private": {
+        "node_function": {
+          "edge": [
+            {
+              "config": {
+                "vector_index": "huit_vector_index",
+                "embedding_field": "embedding",
+                "num_candidates": 100,
+                "top_k": 3
+              },
+              "pipeline": [
+                {
+                  "$vectorSearch": {
+                    "index": "huit_vector_index",
+                    "path": "embedding",
+                    "queryVector": "<<QUERY_VECTOR_384>>",
+                    "numCandidates": 100,
+                    "limit": 3
+                  }
+                },
+                {
+                  "$project": {
+                    "_id": 1,
+                    "title": 1,
+                    "text": 1,
+                    "url": 1,
+                    "score": { "$meta": "vectorSearchScore" }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "_id": "huit_rag_answer",
+      "module_name": "huit_rag_answer",
+      "version": "2.5.0",
+      "description": "Module tổng hợp câu trả lời RAG tư vấn tuyển sinh HUIT kèm trích dẫn nguồn",
+      "private": {
+        "node_function": {
+          "edge": [
+            {
+              "config": {
+                "system_prompt": "Bạn là Trợ Lý AI Tuyển Sinh HUIT (ĐH Công Thương TP.HCM). Hãy trả lời câu hỏi dựa trên các đoạn văn bản tri thức được cung cấp. Nếu thông tin không có trong văn bản, hãy nói rõ không có thông tin.",
+                "answer_template": "Dữ liệu tri thức HUIT:\n{context}\n\nCâu hỏi: {question}\n\nTrả lời:",
+                "top_k": 3
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "_id": "huit_mcp_stdio_server",
+      "module_name": "huit_mcp_stdio_server",
+      "version": "1.0.0",
+      "description": "Module giao tiếp chuẩn Model Context Protocol (MCP) over Stdio JSON-RPC",
+      "private": {
+        "protocol_version": "2024-11-05",
+        "supported_tools": ["ask_huit_admission", "search_huit_kb"]
+      }
+    }
+  ]
+}

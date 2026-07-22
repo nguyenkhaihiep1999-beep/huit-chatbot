@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hệ Thống Trợ Lý AI Tuyển Sinh HUIT - ĐH Công Thương TP.HCM</title>
+
+<!-- Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+<!-- Marked JS for Markdown Parsing -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<style>
+  :root {
+    /* HUIT SIGNATURE BLUE PALETTE (Xanh HUIT Chuẩn Thương Hiệu) */
+    --bg-main: #f0f7ff;
+    --sidebar-bg: #ffffff;
+    --chat-bg: #ffffff;
+    --card-bg: #ffffff;
+    --border-color: #dbeafe;
+    --border-accent: #bfdbfe;
+    
+    --brand-primary: #0072ce; /* HUIT Official Royal Blue */
+    --brand-dark: #005bb5;
+    --brand-cyan: #0284c7;
+    --brand-light: #eff6ff;
+    --brand-emerald: #059669;
+    
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --text-subtle: #94a3b8;
+    
+    --user-bubble-bg: linear-gradient(135deg, #0072ce 0%, #0284c7 100%);
+    --user-bubble-text: #ffffff;
+    --bot-bubble-bg: #f8fafc;
+    --bot-bubble-border: #dbeafe;
+    
+    --radius-xl: 24px;
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --radius-sm: 6px;
+    
+    --shadow-subtle: 0 4px 14px rgba(0, 114, 206, 0.05);
+    --shadow-card: 0 16px 36px -10px rgba(0, 114, 206, 0.15), 0 4px 14px rgba(0,0,0,0.03);
+    
+    --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [data-theme="dark"] {
+    --bg-main: #061325;
+    --sidebar-bg: #0b1e38;
+    --chat-bg: #061325;
+    --card-bg: #0f2747;
+    --border-color: #1e3a5f;
+    --border-accent: #2563eb;
+    
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --text-subtle: #64748b;
+    
+    --bot-bubble-bg: #0f2747;
+    --bot-bubble-border: #1e3a5f;
+    --brand-light: rgba(0, 114, 206, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  .app-container {
+    width: 100%;
+    max-width: 1440px;
+    height: 94vh;
+    min-height: 700px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+
+  /* SIDEBAR LỊCH SỬ TÌM KIẾM CÓ Ô TÌM KIẾM NHANH */
+  .sidebar {
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+    overflow-y: auto;
+  }
+
+  .brand-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .huit-logo-box {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--brand-primary);
+    box-shadow: 0 4px 14px rgba(0, 114, 206, 0.25);
+    flex-shrink: 0;
+  }
+
+  .brand-info h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--brand-primary);
+    line-height: 1.2;
+  }
+
+  .brand-info p {
+    font-size: 11px;
+    color: var(--text-subtle);
+    font-weight: 600;
+  }
+
+  .sidebar-actions-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .new-chat-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-dark));
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 114, 206, 0.25);
+    transition: var(--transition);
+  }
+
+  .new-chat-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 114, 206, 0.35);
+  }
+
+  .clear-history-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .clear-history-btn:hover {
+    color: #ef4444;
+    border-color: #fca5a5;
+    background: #fef2f2;
+  }
+
+  /* History Search Box */
+  .history-search-input-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 6px 12px;
+  }
+
+  .history-search-input-box svg { width: 14px; height: 14px; color: var(--text-subtle); }
+  
+  #history-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 12.5px;
+    color: var(--text-main);
+    font-family: inherit;
+  }
+
+  /* History List */
+  .history-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-subtle);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .history-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .history-item:hover, .history-item.active {
+    background: var(--brand-light);
+    border-color: rgba(0, 114, 206, 0.25);
+    color: var(--brand-primary);
+  }
+
+  .history-item svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    color: var(--brand-primary);
+  }
+
+  .history-item span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+  }
+
+  /* Contact Card */
+  .contact-card {
+    background: var(--brand-light);
+    border: 1px solid rgba(0, 114, 206, 0.2);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .contact-card-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+
+  .contact-card-item svg { width: 15px; height: 15px; color: var(--brand-primary); flex-shrink: 0; }
+
+  /* Sidebar Controls */
+  .sidebar-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .ctrl-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+  }
+
+  .ctrl-btn:hover {
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+  }
+
+  /* CHAT CANVAS AREA */
+  .chat-canvas {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    background: var(--chat-bg);
+  }
+
+  /* Header Bar */
+  .chat-header {
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--sidebar-bg);
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bot-status-ring {
+    position: relative;
+  }
+
+  .mini-robot-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--brand-primary);
+    box-shadow: 0 4px 12px rgba(0, 114, 206, 0.25);
+  }
+
+  .online-badge {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 11px;
+    height: 11px;
+    background: #10b981;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+  }
+
+  .header-title-group h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brand-primary);
+  }
+
+  .header-title-group p {
+    font-size: 12px;
+    color: var(--text-subtle);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .pulse-dot {
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+  }
+
+  .header-quick-widgets {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .widget-btn {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+  }
+
+  .widget-btn:hover {
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+    background: var(--brand-light);
+  }
+
+  /* Chat Viewport */
+  .chat-viewport {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    scroll-behavior: smooth;
+  }
+
+  .chat-viewport::-webkit-scrollbar { width: 6px; }
+  .chat-viewport::-webkit-scrollbar-track { background: transparent; }
+  .chat-viewport::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  /* Welcome Banner Card */
+  .welcome-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: auto 0;
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .mascot-robot-hero-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--brand-primary);
+    box-shadow: 0 12px 28px rgba(0, 114, 206, 0.25);
+    animation: robotLiveMotion 3.5s infinite ease-in-out, robotGlowPulse 2.5s infinite ease-in-out;
+  }
+
+  .welcome-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--brand-primary);
+  }
+
+  .welcome-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 540px;
+    line-height: 1.5;
+  }
+
+  /* Message Rows */
+  .msg-row {
+    display: flex;
+    gap: 12px;
+    max-width: 85%;
+    animation: msgFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .msg-row.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+  }
+
+  .msg-row.bot {
+    align-self: flex-start;
+  }
+
+  .bot-icon-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid var(--brand-primary);
+    flex-shrink: 0;
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .user .avatar-icon-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-cyan));
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .msg-container-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bubble-box {
+    padding: 15px 18px;
+    border-radius: var(--radius-lg);
+    font-size: 14.5px;
+    line-height: 1.6;
+    word-break: break-word;
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .user .bubble-box {
+    background: var(--user-bubble-bg);
+    color: var(--user-bubble-text);
+    border-top-right-radius: 4px;
+  }
+
+  .bot .bubble-box {
+    background: var(--bot-bubble-bg);
+    color: var(--text-main);
+    border: 1px solid var(--bot-bubble-border);
+    border-top-left-radius: 4px;
+  }
+
+  /* Formatting Bot Markdown */
+  .bot .bubble-box p { margin-bottom: 8px; }
+  .bot .bubble-box p:last-child { margin-bottom: 0; }
+  .bot .bubble-box ul, .bot .bubble-box ol { margin: 6px 0 8px 20px; }
+  .bot .bubble-box li { margin-bottom: 4px; }
+  .bot .bubble-box blockquote {
+    border-left: 3.5px solid var(--brand-primary);
+    padding: 6px 12px;
+    margin: 8px 0;
+    background: var(--brand-light);
+    color: var(--text-muted);
+    font-style: italic;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  /* CUTE 3D MASCOT ROBOT HUIT THINKING ROW */
+  .robot-thinking-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card-bg);
+    border: 1.5px solid var(--brand-primary);
+    padding: 12px 20px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 114, 206, 0.15);
+  }
+
+  .mascot-robot-thinking-img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--brand-primary);
+    animation: robotLiveMotion 2.8s infinite ease-in-out, robotGlowPulse 1.8s infinite ease-in-out;
+    flex-shrink: 0;
+  }
+
+  .thinking-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--brand-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .thinking-bouncing-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .thinking-bouncing-dots span {
+    width: 7px;
+    height: 7px;
+    background: var(--brand-primary);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: dotsBounce 1.4s infinite ease-in-out both;
+  }
+
+  .thinking-bouncing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .thinking-bouncing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  /* Industrial Data Ticket Citations (BẤM TRỰC TIẾP VÀO THẺ ĐỂ MỞ LINK CỔNG TRƯỜNG HUIT) */
+  .citation-section {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+  }
+
+  .citation-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--brand-primary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .data-ticket-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    background: var(--brand-light);
+    color: var(--brand-primary);
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    margin-right: 8px;
+    text-decoration: none;
+    border: 1px solid rgba(0, 114, 206, 0.25);
+    transition: var(--transition);
+    cursor: pointer;
+  }
+
+  .data-ticket-badge:hover {
+    background: var(--brand-primary);
+    color: #ffffff;
+    border-color: var(--brand-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 114, 206, 0.3);
+  }
+
+  .data-ticket-badge svg {
+    width: 13px;
+    height: 13px;
+    transition: transform 0.2s ease;
+  }
+
+  .data-ticket-badge:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  /* Tool Actions Bar for Bot Responses */
+  .msg-action-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 2px;
+  }
+
+  .tool-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-subtle);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: var(--transition);
+  }
+
+  .tool-btn:hover {
+    color: var(--brand-primary);
+    background: var(--brand-light);
+  }
+
+  .tool-btn.speaking {
+    color: #ef4444;
+    background: #fef2f2;
+    animation: speakingPulse 1.2s infinite;
+  }
+
+  .tool-btn svg { width: 14px; height: 14px; }
+
+  /* CHAT FOOTER & INPUT BAR */
+  .chat-footer {
+    padding: 16px 28px 20px;
+    border-top: 1px solid var(--border-color);
+    background: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Chips Carousel */
+  .chips-carousel {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .chips-carousel::-webkit-scrollbar { display: none; }
+
+  .chip-pill {
+    background: var(--brand-light);
+    border: 1px solid rgba(0, 114, 206, 0.2);
+    border-radius: 30px;
+    padding: 7px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--brand-primary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .chip-pill:hover {
+    background: var(--brand-primary);
+    color: #ffffff;
+  }
+
+  .chip-pill svg { width: 14px; height: 14px; }
+
+  /* Input Form */
+  .input-form-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-main);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 6px 6px 6px 14px;
+    transition: var(--transition);
+  }
+
+  .input-form-container:focus-within {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(0, 114, 206, 0.2);
+  }
+
+  #user-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14.5px;
+    font-family: inherit;
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  /* Microphone Button STT */
+  #mic-button {
+    background: transparent;
+    border: none;
+    color: var(--text-subtle);
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+
+  #mic-button:hover {
+    color: var(--brand-primary);
+    background: var(--brand-light);
+  }
+
+  #mic-button.listening {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.15);
+    animation: micPulse 1.2s infinite;
+  }
+
+  #send-button {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-cyan));
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 114, 206, 0.25);
+  }
+
+  #send-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 114, 206, 0.35);
+  }
+
+  /* STOP GENERATING BUTTON STATE (NÚT DỪNG TRẢ LỜI ĐỎ) */
+  #send-button.stop-state {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35) !important;
+    color: #ffffff !important;
+  }
+
+  #send-button.stop-state:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+  }
+
+  #send-button:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
+
+  /* ADVANCED LIVE MOTION ANIMATIONS FOR 3D ROBOT MASCOT */
+  @keyframes robotLiveMotion {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg) scale(1);
+    }
+    25% {
+      transform: translateY(-7px) rotate(2deg) scale(1.02);
+    }
+    50% {
+      transform: translateY(-3px) rotate(0deg) scale(1.04);
+    }
+    75% {
+      transform: translateY(-9px) rotate(-2deg) scale(1.02);
+    }
+  }
+
+  @keyframes robotGlowPulse {
+    0%, 100% {
+      box-shadow: 0 6px 18px rgba(0, 114, 206, 0.25), 0 0 0 0 rgba(0, 114, 206, 0.3);
+    }
+    50% {
+      box-shadow: 0 10px 26px rgba(0, 114, 206, 0.45), 0 0 0 6px rgba(0, 114, 206, 0);
+    }
+  }
+
+  @keyframes dotsBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1.2); opacity: 1; }
+  }
+  @keyframes micPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+  }
+  @keyframes speakingPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  @keyframes msgFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 900px) {
+    .app-container { grid-template-columns: 1fr; height: 100vh; border-radius: 0; border: none; }
+    body { padding: 0; }
+    .sidebar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- CỘT LỊCH SỬ TÌM KIẾM BÊN TRÁI -->
+  <aside class="sidebar">
+    <div class="brand-header">
+      <img src="/static/robot_huit.png" alt="Logo HUIT" class="huit-logo-box" onerror="this.src='https://ts.huit.edu.vn/images/logo.png'">
+      <div class="brand-info">
+        <h1>Tuyển Sinh HUIT</h1>
+        <p>ĐH Công Thương TP.HCM</p>
+      </div>
+    </div>
+
+    <div class="sidebar-actions-row">
+      <button class="new-chat-btn" id="new-chat">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+        Cuộc trò chuyện mới
+      </button>
+      <button class="clear-history-btn" id="clear-history" title="Xóa lịch sử trò chuyện">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+      </button>
+    </div>
+
+    <!-- Ô Tìm Kiếm Nhanh Trong Lịch Sử -->
+    <div class="history-search-input-box">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <input type="text" id="history-search-input" placeholder="Tìm kiếm trong lịch sử...">
+    </div>
+
+    <!-- Danh Sách Lịch Sử Tìm Kiếm -->
+    <div class="history-section">
+      <div class="section-title">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Lịch sử tra cứu
+      </div>
+      <div class="history-list" id="history-list">
+        <div class="history-item active" onclick="sendQuickPrompt('Hỏi về học phí K26 HUIT')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          <span>Hỏi về học phí K26 HUIT</span>
+        </div>
+        <div class="history-item" onclick="sendQuickPrompt('Điểm sàn ngành CNTT 2025')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          <span>Điểm sàn ngành CNTT 2025</span>
+        </div>
+        <div class="history-item" onclick="sendQuickPrompt('Học bổng Viện Quốc tế HUIT')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          <span>Học bổng Viện Quốc tế HUIT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-card-item">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <span>140 Lê Trọng Tấn, Tân Phú, TP.HCM</span>
+      </div>
+      <div class="contact-card-item">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        <span>Hotline: 028 3816 3585</span>
+      </div>
+    </div>
+
+    <div class="sidebar-controls">
+      <button class="ctrl-btn" id="theme-toggle">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+        Chế độ tối
+      </button>
+    </div>
+  </aside>
+
+  <!-- CHAT CANVAS CHÍNH SÁNG SỦA -->
+  <main class="chat-canvas">
+    <header class="chat-header">
+      <div class="header-left">
+        <div class="bot-status-ring">
+          <img src="/static/robot_huit.png" alt="HUIT Mascot Robot" class="mini-robot-img" onerror="this.src='https://ts.huit.edu.vn/images/logo.png'">
+          <div class="online-badge"></div>
+        </div>
+        <div class="header-title-group">
+          <h2>Tư Vấn Tuyển Sinh HUIT</h2>
+          <p><span class="pulse-dot"></span> Đang trực tuyến · Trả lời bằng AI RAG MongoDB</p>
+        </div>
+      </div>
+
+      <!-- Quick Utility Widgets -->
+      <div class="header-quick-widgets">
+        <button class="widget-btn" onclick="sendQuickPrompt('Hãy tóm tắt ngắn gọn các phương thức xét tuyển HUIT năm 2025')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Tóm tắt nhanh
+        </button>
+      </div>
+    </header>
+
+    <div class="chat-viewport" id="chat-viewport">
+      <div class="welcome-card" id="welcome-card">
+        <img src="/static/robot_huit.png" alt="HUIT Mascot Robot" class="mascot-robot-hero-img" onerror="this.src='https://ts.huit.edu.vn/images/logo.png'">
+        <h3 class="welcome-title">Xin chào! Trợ Lý AI Tuyển Sinh HUIT Đã Sẵn Sàng</h3>
+        <p class="welcome-subtitle">
+          Bạn có thể nhập câu hỏi hoặc bấm nút Micro 🎙️ để hỏi bằng giọng nói Tiếng Việt. Bạn cũng có thể bấm trực tiếp vào các thẻ nguồn MongoDB Atlas để tới trang tuyển sinh HUIT!
+        </p>
+      </div>
+    </div>
+
+    <footer class="chat-footer">
+      <div class="chips-carousel">
+        <button class="chip-pill" onclick="sendQuickPrompt('Học phí HUIT năm 2026 khoảng bao nhiêu?')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Học phí HUIT năm 2026?
+        </button>
+        <button class="chip-pill" onclick="sendQuickPrompt('Trường HUIT có những ngành đào tạo nào?')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+          Danh sách ngành đào tạo?
+        </button>
+        <button class="chip-pill" onclick="sendQuickPrompt('Điểm sàn xét tuyển năm 2025 là bao nhiêu?')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          Điểm sàn xét tuyển 2025?
+        </button>
+        <button class="chip-pill" onclick="sendQuickPrompt('Chính sách học bổng của Viện Quốc tế HUIT?')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+          Học bổng Viện Quốc tế HUIT?
+        </button>
+      </div>
+
+      <div class="input-form-container">
+        <!-- Nút Micro thu âm Giọng nói Tiếng Việt STT -->
+        <button id="mic-button" title="Hỏi bằng giọng nói Tiếng Việt">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+          </svg>
+        </button>
+
+        <input type="text" id="user-input" placeholder="Nhập câu hỏi hoặc bấm Mic 🎙️ để nói..." autocomplete="off">
+        
+        <button id="send-button">
+          <span class="btn-label">Gửi</span>
+          <svg class="btn-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+  const viewport = document.getElementById('chat-viewport');
+  const userInput = document.getElementById('user-input');
+  const sendButton = document.getElementById('send-button');
+  const micButton = document.getElementById('mic-button');
+  const welcomeCard = document.getElementById('welcome-card');
+  const newChatBtn = document.getElementById('new-chat');
+  const clearHistoryBtn = document.getElementById('clear-history');
+  const themeToggle = document.getElementById('theme-toggle');
+  const historyList = document.getElementById('history-list');
+  const historySearchInput = document.getElementById('history-search-input');
+
+  // ABORT CONTROLLER DÙNG ĐỂ DỪNG AI TRẢ LỜI NGANG!
+  let currentAbortController = null;
+  let activeTtsButton = null;
+
+  function setButtonState(loading) {
+    if (loading) {
+      userInput.disabled = true;
+      sendButton.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg> <span>🛑 Dừng</span>`;
+      sendButton.classList.add('stop-state');
+      sendButton.disabled = false;
+    } else {
+      userInput.disabled = false;
+      sendButton.innerHTML = `<span>Gửi</span><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>`;
+      sendButton.classList.remove('stop-state');
+      sendButton.disabled = false;
+      userInput.focus();
+    }
+  }
+
+  function stopGenerating() {
+    if (currentAbortController) {
+      currentAbortController.abort();
+      currentAbortController = null;
+    }
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+    removeRobotThinkingRow();
+    appendMsgRow('bot', '🛑 *Đã dừng phản hồi theo yêu cầu của bạn.*');
+    setButtonState(false);
+  }
+
+  function toggleSpeech(text, buttonEl) {
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      if (activeTtsButton) {
+        activeTtsButton.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg> Đọc giọng nói (vi-VN)`;
+        activeTtsButton.classList.remove('speaking');
+      }
+      if (activeTtsButton === buttonEl) {
+        activeTtsButton = null;
+        return;
+      }
+    }
+
+    const cleanText = text.replace(/[#*`>]/g, '');
+    const u = new SpeechSynthesisUtterance(cleanText);
+    u.lang = 'vi-VN';
+
+    u.onend = u.onerror = () => {
+      buttonEl.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg> Đọc giọng nói (vi-VN)`;
+      buttonEl.classList.remove('speaking');
+      activeTtsButton = null;
+    };
+
+    buttonEl.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg> ⏸️ Dừng đọc`;
+    buttonEl.classList.add('speaking');
+    activeTtsButton = buttonEl;
+
+    window.speechSynthesis.speak(u);
+  }
+
+  // Tải câu trả lời dạng file văn bản (.txt)
+  function downloadResponse(text) {
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Tu_van_HUIT_${Date.now()}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Dark mode toggle
+  let isDark = localStorage.getItem('huit_theme_dark') === 'true';
+  if (isDark) document.body.setAttribute('data-theme', 'dark');
+
+  themeToggle.addEventListener('click', () => {
+    isDark = !isDark;
+    if (isDark) {
+      document.body.setAttribute('data-theme', 'dark');
+      localStorage.setItem('huit_theme_dark', 'true');
+    } else {
+      document.body.removeAttribute('data-theme');
+      localStorage.setItem('huit_theme_dark', 'false');
+    }
+  });
+
+  newChatBtn.addEventListener('click', () => {
+    if (currentAbortController) currentAbortController.abort();
+    if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+    viewport.innerHTML = '';
+    if (welcomeCard) viewport.appendChild(welcomeCard);
+    userInput.value = '';
+    userInput.focus();
+  });
+
+  clearHistoryBtn.addEventListener('click', () => {
+    if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử trò chuyện?')) {
+      historyList.innerHTML = '';
+      viewport.innerHTML = '';
+      if (welcomeCard) viewport.appendChild(welcomeCard);
+    }
+  });
+
+  // Tìm kiếm trong lịch sử chat
+  historySearchInput.addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase();
+    const items = historyList.querySelectorAll('.history-item');
+    items.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.style.display = text.includes(q) ? 'flex' : 'none';
+    });
+  });
+
+  // SPEECH-TO-TEXT (MICROPHONE VIỆT NAM STT)
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recognition = null;
+  let isListening = false;
+
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = 'vi-VN';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => {
+      isListening = true;
+      micButton.classList.add('listening');
+      userInput.placeholder = '🎙️ Đang nghe giọng nói Tiếng Việt...';
+    };
+
+    recognition.onresult = (e) => {
+      const transcript = e.results[0][0].transcript;
+      userInput.value = transcript;
+      performSend();
+    };
+
+    recognition.onerror = (e) => {
+      console.warn('Speech error:', e.error);
+      stopListening();
+    };
+
+    recognition.onend = () => {
+      stopListening();
+    };
+  }
+
+  function stopListening() {
+    isListening = false;
+    micButton.classList.remove('listening');
+    userInput.placeholder = 'Nhập câu hỏi hoặc bấm Mic 🎙️ để nói...';
+  }
+
+  micButton.addEventListener('click', () => {
+    if (!recognition) {
+      alert('Rất tiếc, trình duyệt này không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome hoặc Edge.');
+      return;
+    }
+    if (isListening) {
+      recognition.stop();
+    } else {
+      try {
+        recognition.start();
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+  });
+
+  // CUTE 3D MASCOT ROBOT HUIT THINKING ROW
+  function showRobotThinkingRow() {
+    if (welcomeCard && welcomeCard.parentNode === viewport) {
+      welcomeCard.remove();
+    }
+    const row = document.createElement('div');
+    row.className = 'msg-row bot';
+    row.id = 'robot-thinking-indicator';
+    row.innerHTML = `
+      <div class="robot-thinking-card">
+        <img src="/static/robot_huit.png" alt="HUIT Mascot Robot" class="mascot-robot-thinking-img" onerror="this.src='https://ts.huit.edu.vn/images/logo.png'">
+        <div class="thinking-label">
+          <span>HUIT Robot đang tra cứu dữ liệu</span>
+          <div class="thinking-bouncing-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    `;
+    viewport.appendChild(row);
+    viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
+  }
+
+  function removeRobotThinkingRow() {
+    const el = document.getElementById('robot-thinking-indicator');
+    if (el) el.remove();
+  }
+
+  function addHistoryItem(questionText) {
+    const item = document.createElement('div');
+    item.className = 'history-item';
+    item.innerHTML = `
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+      <span>${questionText}</span>
+    `;
+    item.onclick = () => sendQuickPrompt(questionText);
+    historyList.prepend(item);
+  }
+
+  function appendMsgRow(role, text, sources = []) {
+    if (welcomeCard && welcomeCard.parentNode === viewport) {
+      welcomeCard.remove();
+    }
+
+    const row = document.createElement('div');
+    row.className = `msg-row ${role}`;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'msg-container-wrapper';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble-box';
+
+    if (role === 'bot') {
+      const avatar = document.createElement('img');
+      avatar.src = '/static/robot_huit.png';
+      avatar.className = 'bot-icon-img';
+      avatar.onerror = () => { avatar.src = 'https://ts.huit.edu.vn/images/logo.png'; };
+      row.appendChild(avatar);
+
+      try {
+        bubble.innerHTML = marked.parse(text);
+      } catch (e) {
+        bubble.textContent = text;
+      }
+
+      // Industrial Data Tickets Citations (BẤM TRỰC TIẾP VÀO CHÍNH NÓ ĐỂ MỞ TRANG WEB CỔNG TRUYỂN SINH HUIT!)
+      if (sources && sources.length > 0) {
+        const srcBox = document.createElement('div');
+        srcBox.className = 'citation-section';
+        srcBox.innerHTML = `<div class="citation-title"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>Trích dẫn nguồn MongoDB Atlas (Bấm trực tiếp để mở trang):</div>`;
+        sources.forEach((s, idx) => {
+          const chip = document.createElement('a');
+          chip.className = 'data-ticket-badge';
+          chip.href = s.url || s.link || 'https://ts.huit.edu.vn';
+          chip.target = '_blank';
+          chip.rel = 'noopener noreferrer';
+          chip.title = `Bấm để mở trang nguồn chính thức: ${s.url || 'https://ts.huit.edu.vn'}`;
+          chip.innerHTML = `#${idx + 1} ${s.title || 'HUIT (cổng tuyển sinh chính thức)'} <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>`;
+          srcBox.appendChild(chip);
+        });
+        bubble.appendChild(srcBox);
+      }
+    } else {
+      const userIcon = document.createElement('div');
+      userIcon.className = 'avatar-icon-badge';
+      userIcon.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>`;
+      row.appendChild(userIcon);
+      bubble.textContent = text;
+    }
+
+    wrapper.appendChild(bubble);
+
+    // Bot Action Toolbar (TTS Voice Speech WITH TOGGLE STOP, Copy, & Download)
+    if (role === 'bot') {
+      const toolbar = document.createElement('div');
+      toolbar.className = 'msg-action-bar';
+      
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'tool-btn';
+      copyBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Sao chép`;
+      copyBtn.onclick = () => {
+        navigator.clipboard.writeText(text);
+        copyBtn.innerHTML = `✓ Đã chép`;
+        setTimeout(() => { copyBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Sao chép`; }, 2000);
+      };
+
+      // Nút Đọc Giọng Nói CÓ THỂ TẮT ĐƯỢC
+      const ttsBtn = document.createElement('button');
+      ttsBtn.className = 'tool-btn';
+      ttsBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg> Đọc giọng nói (vi-VN)`;
+      ttsBtn.onclick = () => toggleSpeech(text, ttsBtn);
+
+      // Nút Tải câu trả lời về máy
+      const downloadBtn = document.createElement('button');
+      downloadBtn.className = 'tool-btn';
+      downloadBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Tải về`;
+      downloadBtn.onclick = () => downloadResponse(text);
+
+      toolbar.appendChild(copyBtn);
+      toolbar.appendChild(ttsBtn);
+      toolbar.appendChild(downloadBtn);
+      wrapper.appendChild(toolbar);
+    }
+
+    row.appendChild(wrapper);
+    viewport.appendChild(row);
+    viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
+  }
+
+  async function performSend() {
+    const text = userInput.value.trim();
+    if (!text) return;
+
+    appendMsgRow('user', text);
+    addHistoryItem(text);
+    userInput.value = '';
+    
+    currentAbortController = new AbortController();
+    setButtonState(true);
+    showRobotThinkingRow();
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: text }),
+        signal: currentAbortController.signal
+      });
+      const data = await res.json();
+      currentAbortController = null;
+      removeRobotThinkingRow();
+
+      if (data.answer) {
+        appendMsgRow('bot', data.answer, data.sources || []);
+      } else {
+        appendMsgRow('bot', '⚠️ Rất tiếc, máy chủ không thể xử lý câu hỏi này vào lúc này.');
+      }
+    } catch (e) {
+      if (e.name === 'AbortError') {
+        console.log('User stopped generation');
+        return;
+      }
+      currentAbortController = null;
+      removeRobotThinkingRow();
+      appendMsgRow('bot', `⚠️ Lỗi kết nối: ${e.message}. Vui lòng kiểm tra lại server backend.`);
+    } finally {
+      currentAbortController = null;
+      setButtonState(false);
+    }
+  }
+
+  function sendQuickPrompt(t) {
+    userInput.value = t;
+    performSend();
+  }
+
+  sendButton.addEventListener('click', () => {
+    if (sendButton.classList.contains('stop-state')) {
+      stopGenerating();
+    } else {
+      performSend();
+    }
+  });
+
+  userInput.addEventListener('keydown', e => { 
+    if (e.key === 'Enter') {
+      if (!sendButton.classList.contains('stop-state')) {
+        performSend();
+      }
+    } 
+  });
+</script>
+</body>
+</html>

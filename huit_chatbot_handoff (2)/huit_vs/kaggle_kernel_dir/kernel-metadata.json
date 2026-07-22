@@ -1,0 +1,15 @@
+{
+  "id": "hiepnk/huit-chatbot-data-mining-mongo-aggregation",
+  "title": "Huit Chatbot Data Mining Mongo Aggregation",
+  "code_file": "huit_chatbot_pipeline.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "false",
+  "enable_gpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [
+    "hiepnk/huit-admissions-kb"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

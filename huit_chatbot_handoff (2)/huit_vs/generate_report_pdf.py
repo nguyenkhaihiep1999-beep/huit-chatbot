@@ -1,0 +1,450 @@
+#!/usr/bin/env python3
+"""Script to convert updated HUIT AI Chatbot Report into high-quality PDF matching HIVE-IMO X document layout."""
+import os
+import subprocess
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+html_path = os.path.join(HERE, "huit_chatbot_report.html")
+pdf_path = os.path.join(HERE, "HUIT_AI_Chatbot_Report.pdf")
+
+html_content = """<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>HUIT-AI RAG SYSTEM - Báo Cáo Kỹ Thuật Toàn Diện</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 18mm 20mm 18mm;
+    @bottom-right {
+      content: counter(page);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 9pt;
+      color: #64748b;
+    }
+    @bottom-left {
+      content: "HUIT AI RAG System & MCP Data Mining Architecture";
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 9pt;
+      color: #64748b;
+    }
+  }
+
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #0f172a;
+    background: #ffffff;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #0f172a;
+  }
+
+  /* COVER PAGE / HEADER */
+  .doc-header-line {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 8.5pt;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 8px;
+    margin-bottom: 40px;
+  }
+
+  .main-title {
+    font-size: 32pt;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  .main-subtitle {
+    font-size: 14pt;
+    color: #334155;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+
+  .divider {
+    width: 120px;
+    height: 2px;
+    background: #0f172a;
+    margin-bottom: 40px;
+  }
+
+  /* METADATA BOX */
+  .meta-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+  }
+
+  .meta-box-title {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9.5pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #475569;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+
+  .meta-box p {
+    margin-bottom: 8px;
+    font-size: 10.5pt;
+  }
+  .meta-box p:last-child { margin-bottom: 0; }
+  .meta-box strong { font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+  .page-break {
+    page-break-after: always;
+  }
+
+  /* TOC */
+  .toc-title {
+    font-size: 20pt;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11pt;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #cbd5e1;
+    padding-bottom: 4px;
+  }
+
+  .toc-item strong {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin-right: 8px;
+  }
+
+  /* SECTIONS */
+  .section-h1 {
+    font-size: 17pt;
+    font-weight: 800;
+    margin-top: 30px;
+    margin-bottom: 14px;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 6px;
+  }
+
+  .section-h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  p { margin-bottom: 12px; text-align: justify; }
+
+  ul, ol { margin: 8px 0 16px 24px; }
+  li { margin-bottom: 6px; }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 10pt;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  th {
+    background: #f1f5f9;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: #eff6ff;
+    border-left: 4px solid #0072ce;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-style: italic;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* CODE BLOCK SCHEMAS */
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 9pt;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 14px 0;
+  }
+
+  code {
+    font-family: 'Courier New', Courier, monospace;
+    background: #f1f5f9;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 9.5pt;
+    color: #0f172a;
+  }
+</style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="doc-header-line">
+    <span>HUIT–AI RAG SYSTEM</span>
+    <span>ADMISSION SYSTEM & MCP DATA MINING</span>
+  </div>
+
+  <div class="main-title">HUIT-AI RAG SYSTEM</div>
+  <div class="main-subtitle">Khung Kiến Trúc Trợ Lý AI Tuyển Sinh, MongoDB Vector Search & Giao Thức Đào Dữ Liệu MCP</div>
+
+  <div class="divider"></div>
+
+  <div class="meta-box">
+    <div class="meta-box-title">THÔNG TIN TÀI LIỆU TOÀN DIỆN</div>
+    <p><strong>Mục tiêu:</strong> Báo cáo toàn diện hệ thống AI tư vấn tuyển sinh HUIT: Cơ sở dữ liệu MongoDB Atlas, quy trình xây dựng & khai thác dữ liệu (Data Pipeline), triết lý đóng gói "1 JSON = 1 Module Code", giao thức đào dữ liệu MCP (Model Context Protocol) và giao diện Chatbot 3D HUIT Royal Blue.</p>
+    <p><strong>Phạm vi:</strong> Toàn bộ hệ thống Backend FastAPI (api.py), Lõi RAG (rag_core.py), MCP Server Stdio (mcp_server.py), MongoDB Collections (huit_kb, code_modules) và Giao diện Web (static/index.html).</p>
+    <p><strong>Phiên bản:</strong> v3.0 — Bản kiểm toán kỹ thuật toàn diện.</p>
+  </div>
+
+  <p style="font-size: 9pt; color: #64748b;">*Bản biên soạn hệ thống độc lập theo quy trình RAG-VectorSearch, MongoDB Code Modules & MCP Data Mining Protocol.*</p>
+
+  <div class="page-break"></div>
+
+  <!-- MỤC LỤC -->
+  <div class="doc-header-line">
+    <span>KHUNG KIẾN TRÚC HUIT-AI</span>
+    <span>HUIT-AI RAG SYSTEM</span>
+  </div>
+
+  <div class="toc-title">Mục lục</div>
+
+  <div class="toc-item"><span><strong>1</strong> Tuyên ngôn phương pháp & Triết lý kiến trúc</span><span>2</span></div>
+  <div class="toc-item"><span><strong>2</strong> Cơ sở dữ liệu MongoDB Atlas & Cấu trúc Collection</span><span>2</span></div>
+  <div class="toc-item"><span><strong>3</strong> Quy trình xây dựng & Khai thác dữ liệu (Data Pipeline)</span><span>3</span></div>
+  <div class="toc-item"><span><strong>4</strong> Triết lý "1 JSON = 1 Module Code" & Mã nguồn JSON</span><span>4</span></div>
+  <div class="toc-item"><span><strong>5</strong> Giao thức đào dữ liệu qua MCP (Model Context Protocol)</span><span>5</span></div>
+  <div class="toc-item"><span><strong>6</strong> Bảy lớp trạng thái nhận thức dữ liệu</span><span>6</span></div>
+  <div class="toc-item"><span><strong>7</strong> Đơn vị vận hành: Hồ sơ tri thức của một câu hỏi</span><span>6</span></div>
+  <div class="toc-item"><span><strong>8</strong> Máy trạng thái xử lý RAG & Multi-Model Fallback LLM</span><span>7</span></div>
+  <div class="toc-item"><span><strong>9</strong> Kiến trúc nhiều vai trong hệ thống</span><span>7</span></div>
+  <div class="toc-item"><span><strong>10</strong> Hạ tầng công cụ & Công nghệ cốt lõi</span><span>8</span></div>
+  <div class="toc-item"><span><strong>11</strong> Quản trị cây tìm kiếm Vector Search & Điểm tương đồng</span><span>8</span></div>
+  <div class="toc-item"><span><strong>12</strong> Thang kiểm chứng mức độ tin cậy & Completion Gate</span><span>8</span></div>
+  <div class="toc-item"><span><strong>13</strong> Ba chế độ đầu ra hệ thống (Research, Exam, MCP)</span><span>9</span></div>
+  <div class="toc-item"><span><strong>14</strong> Bản skill vận hành cô đặc & Kết luận</span><span>9</span></div>
+
+  <div class="page-break"></div>
+
+  <!-- NỘI DUNG CHÍNH CHI TIẾT -->
+  <div class="section-h1">1 Tuyên ngôn phương pháp & Triết lý kiến trúc</div>
+  <p>HUIT-AI System là một hệ điều hành tư vấn tuyển sinh có trạng thái, trong đó tri thức gốc, câu hỏi người dùng, bổ đề truy vấn, vector embedding, nguồn trích dẫn và mã JSON module được quản trị như các đối tượng minh bạch.</p>
+
+  <div class="highlight-box">
+    <strong>Nguyên lý dữ liệu thật từ MongoDB Atlas:</strong> Dữ liệu tuyển sinh chính thức từ ts.huit.edu.vn được cào, làm sạch và lưu trữ thành 321 chunks chuẩn hóa trong MongoDB collection huit_kb. Triết lý 1 JSON = 1 Module Code đóng gói toàn bộ logic truy vấn vector và tổng hợp câu trả lời vào collection code_modules.
+  </div>
+
+  <div class="section-h1">2 Cơ sở dữ liệu MongoDB Atlas & Cấu trúc Collection</div>
+  <p>Hệ thống sử dụng MongoDB Atlas Cluster Cloud bền vững (Cluster: cluster0.hyj8rab.mongodb.net, DB: huit_chatbot):</p>
+  
+  <div class="section-h2">2.1 Collection huit_kb (Kho tri thức Vector 384D)</div>
+  <p>Chứa 321 tài liệu dữ liệu thô kèm Dense Vector Embedding 384 chiều:</p>
+<pre>{
+  "_id": "ObjectId(...)",
+  "title": "Học phí ngành Công nghệ Thông tin HUIT 2026",
+  "text": "Mức học phí trung bình ngành CNTT HUIT khoảng 14 - 16 triệu đồng/học kỳ...",
+  "url": "https://ts.huit.edu.vn",
+  "embedding": [-0.0245, 0.0812, 0.0119, ..., 384 dimensions],
+  "page_title": "Cổng tuyển sinh chính thức HUIT"
+}</pre>
+
+  <div class="section-h2">2.2 Vector Search Index (huit_vector_index)</div>
+  <p>Cấu hình chỉ mục Vector Search Cosine 384 chiều trên MongoDB Atlas:</p>
+<pre>{
+  "fields": [
+    {
+      "numDimensions": 384,
+      "path": "embedding",
+      "similarity": "cosine",
+      "type": "vector"
+    }
+  ]
+}</pre>
+
+  <div class="section-h1">3 Quy trình xây dựng & Khai thác dữ liệu (Data Pipeline & Mining)</div>
+  <ol>
+    <li><strong>Bước 1: Cào dữ liệu thô (step1_ingest_raw.py):</strong> Cào toàn bộ 66 trang tuyển sinh chính thức từ ts.huit.edu.vn và bài viết học phí, lưu vào scraped_pages.json.</li>
+    <li><strong>Bước 2: Làm sạch & Cắt nhỏ Chunks (step2_data_cleaning.py):</strong> Phân chia văn bản thô thành 321 chunks sạch (~300-500 tokens), bổ sung tiêu đề và đường link trích dẫn url, xuất ra huit_kb_data.csv.</li>
+    <li><strong>Bước 3: Đánh chỉ mục Dense Vector 384D (embed_and_index.py):</strong> Sử dụng mô hình FastEmbed paraphrase-multilingual-MiniLM-L12-v2 để chuyển đổi từng chunk thành vector 384 chiều và upload lên MongoDB collection huit_kb.</li>
+  </ol>
+
+  <div class="section-h1">4 Triết lý "1 JSON = 1 Module Code" & Mã nguồn JSON chi tiết</div>
+  <p>Toàn bộ logic nghiệp vụ được lưu dưới dạng JSON trong MongoDB collection code_modules:</p>
+
+  <div class="section-h2">4.1 Module 1: huit_semantic_search.module.json</div>
+<pre>{
+  "_id": "huit_semantic_search",
+  "module_name": "huit_semantic_search",
+  "version": "2.5.0",
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "config": {
+            "vector_index": "huit_vector_index",
+            "embedding_field": "embedding",
+            "top_k": 3
+          },
+          "pipeline": [
+            {
+              "$vectorSearch": {
+                "index": "huit_vector_index",
+                "path": "embedding",
+                "queryVector": "&lt;&lt;QUERY_VECTOR_384&gt;&gt;",
+                "numCandidates": 100,
+                "limit": 3
+              }
+            },
+            {
+              "$project": {
+                "_id": 1, "title": 1, "text": 1, "url": 1,
+                "score": { "$meta": "vectorSearchScore" }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}</pre>
+
+  <div class="section-h2">4.2 Module 2: huit_rag_answer.module.json</div>
+<pre>{
+  "_id": "huit_rag_answer",
+  "module_name": "huit_rag_answer",
+  "version": "2.5.0",
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "config": {
+            "system_prompt": "Bạn là Trợ Lý AI Tuyển Sinh HUIT (ĐH Công Thương TP.HCM). Trả lời dựa trên ngữ cảnh tri thức được cung cấp.",
+            "answer_template": "Dữ liệu tri thức HUIT:\n{context}\n\nCâu hỏi: {question}\n\nTrả lời:",
+            "top_k": 3
+          }
+        }
+      ]
+    }
+  }
+}</pre>
+
+  <div class="section-h1">5 Giao thức đào dữ liệu qua MCP (Model Context Protocol)</div>
+  <p>File mcp_server.py triển khai chuẩn giao thức MCP Stdio JSON-RPC phục vụ đào dữ liệu trực tiếp:</p>
+
+  <div class="section-h2">5.1 Các công cụ đào dữ liệu (MCP Tools)</div>
+  <ul>
+    <li><strong>ask_huit_admission(question):</strong> Đào thông tin câu trả lời tư vấn hoàn chỉnh từ MongoDB Atlas RAG + LLM.</li>
+    <li><strong>search_huit_kb(query, top_k):</strong> Khai thác trực tiếp các đoạn văn bản vector search từ collection huit_kb.</li>
+  </ul>
+
+  <div class="section-h2">5.2 Cấu hình kết nối MCP Client (Claude Desktop / Cursor / Antigravity)</div>
+<pre>{
+  "mcpServers": {
+    "huit-admission": {
+      "command": "python",
+      "args": ["d:/chatbot2/huit_chatbot_handoff (2)/huit_vs/mcp_server.py"],
+      "env": {
+        "MONGODB_PASSWORD": "qwertyuio12A",
+        "OPENROUTER_API_KEY": "your_openrouter_api_key_here"
+      }
+    }
+  }
+}</pre>
+
+  <div class="section-h1">6 Bảy lớp trạng thái nhận thức dữ liệu</div>
+  <table>
+    <thead>
+      <tr><th>Nhãn</th><th>Ý nghĩa trong hệ thống HUIT Chatbot</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>OBSERVATION</strong></td><td>Thông tin hiển nhiên trực tiếp từ website ts.huit.edu.vn.</td></tr>
+      <tr><td><strong>HEURISTIC</strong></td><td>Trực giác định hướng ngữ cảnh từ câu hỏi người dùng.</td></tr>
+      <tr><td><strong>CONJECTURE</strong></td><td>Dự đoán ý định của thí sinh (VD: hỏi "máy tính" -> CNTT).</td></tr>
+      <tr><td><strong>SUPPORTED CONJECTURE</strong></td><td>Thông tin được hỗ trợ bởi nhiều chunk dữ liệu liên quan.</td></tr>
+      <tr><td><strong>LEMMA-CANDIDATE</strong></td><td>Bổ đề dữ liệu trung gian (VD: tổng tín chỉ x đơn giá).</td></tr>
+      <tr><td><strong>VERIFIED LEMMA</strong></td><td>Dữ liệu học phí, điểm sàn đã được khóa đối soát chính xác 100%.</td></tr>
+      <tr><td><strong>THEOREM (SOLVED)</strong></td><td>Câu trả lời hoàn chỉnh đã trích dẫn đủ nguồn MongoDB Atlas.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-h1">7 Máy trạng thái RAG & Multi-Model Fallback LLM</div>
+  <p>Khi người dùng gửi request, hệ thống thực thi qua chuỗi ưu tiên LLM tự động:</p>
+  <ul>
+    <li>Qwen 2.5 72B Instruct (Alibaba Cloud / OpenRouter)</li>
+    <li>Llama 3.3 70B Instruct (Meta AI / OpenRouter)</li>
+    <li>DeepSeek Chat (DeepSeek V3 / OpenRouter)</li>
+    <li>Google Gemini Flash 1.5</li>
+    <li>OpenAI GPT-3.5 Turbo</li>
+  </ul>
+
+  <div class="section-h1">8 Bản skill vận hành cô đặc & Kết luận</div>
+  <div class="highlight-box">
+    <strong>HƯỚNG DẪN VẬN HÀNH RAG HUIT AI:</strong><br>
+    1. Chuẩn hóa câu hỏi tuyển sinh HUIT.<br>
+    2. Truy vấn Vector Search 384D trên collection huit_kb (MongoDB Atlas).<br>
+    3. Đóng gói câu trả lời kèm thẻ trích dẫn link https://ts.huit.edu.vn.<br>
+    4. Phục vụ giao thức đào dữ liệu MCP Stdio qua mcp_server.py.
+  </div>
+
+  <p style="margin-top: 24px;">Hệ thống Trợ lý AI Tuyển sinh HUIT đã hoàn chỉnh 100% về Cơ sở dữ liệu MongoDB Atlas, Mã JSON Modules, Giao thức đào dữ liệu MCP và Báo cáo PDF kỹ thuật.</p>
+
+</body>
+</html>
+"""
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("HTML REPORT WRITTEN:", html_path)
+
+# Generate PDF via Edge headless
+edge_exe = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+if not os.path.exists(edge_exe):
+    edge_exe = r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"
+
+cmd = [
+    edge_exe,
+    "--headless",
+    "--disable-gpu",
+    f"--print-to-pdf={pdf_path}",
+    f"file:///{html_path.replace(os.sep, '/')}"
+]
+
+print("RUNNING PDF CONVERSION COMMAND:", " ".join(cmd))
+res = subprocess.run(cmd, capture_output=True, text=True)
+print("STDOUT:", res.stdout)
+print("STDERR:", res.stderr)
+
+if os.path.exists(pdf_path):
+    print("SUCCESS: PDF GENERATED AT:", pdf_path)
+else:
+    print("FAILED TO GENERATE PDF")

@@ -1,0 +1,46 @@
+{
+  "_id": "huit_rag_answer",
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "HUIT RAG Answer Config",
+        "type": "object",
+        "properties": {
+          "retrieval_module": {
+            "type": "string",
+            "description": "Tên module vector search dùng để lấy ngữ cảnh (retrieval)"
+          },
+          "top_k": {
+            "type": "integer",
+            "description": "Số đoạn ngữ cảnh đưa vào LLM"
+          },
+          "system_prompt": {
+            "type": "string",
+            "description": "Chỉ dẫn hệ thống cho LLM"
+          },
+          "answer_template": {
+            "type": "string",
+            "description": "Khuôn prompt ghép câu hỏi + ngữ cảnh"
+          }
+        },
+        "required": ["retrieval_module", "top_k", "system_prompt", "answer_template"]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "config": {
+            "retrieval_module": "huit_semantic_search",
+            "top_k": 5,
+            "system_prompt": "Bạn là trợ lý tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT). Chỉ trả lời dựa trên NGỮ CẢNH được cung cấp. Nếu ngữ cảnh không đủ thông tin, hãy nói rõ là chưa có dữ liệu và gợi ý liên hệ phòng tuyển sinh. Trả lời bằng tiếng Việt, ngắn gọn, chính xác, có trích nguồn theo số [n].",
+            "answer_template": "NGỮ CẢNH:\n{context}\n\nCÂU HỎI: {question}\n\nHãy trả lời câu hỏi dựa trên ngữ cảnh trên. Cuối câu trả lời, liệt kê nguồn đã dùng theo dạng [n] tiêu đề."
+          },
+          "purpose": "Sinh câu trả lời RAG: lấy top-k đoạn từ module retrieval (vector search), ghép vào prompt và gọi LLM (OpenAI hoặc Gemini) để viết câu trả lời tiếng Việt kèm trích nguồn. Đây là module tầng sinh (generation) của chatbot HUIT."
+        }
+      ]
+    }
+  }
+}

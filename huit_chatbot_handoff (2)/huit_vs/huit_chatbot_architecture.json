@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "project_name": "HUIT-AI Admission RAG System",
+  "organization": "Trường Đại học Công Thương TP.HCM (HUIT)",
+  "version": "2.5.0",
+  "architecture_pattern": "RAG Vector Search & Multi-Model Fallback",
+  "rule": "1 JSON = 1 module code",
+  "database": {
+    "provider": "MongoDB Atlas",
+    "cluster": "cluster0.hyj8rab.mongodb.net",
+    "database_name": "huit_chatbot",
+    "collections": {
+      "knowledge_base": {
+        "name": "huit_kb",
+        "total_chunks": 321,
+        "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "embedding_dimensions": 384,
+        "search_index": "huit_vector_index"
+      },
+      "code_modules": {
+        "name": "code_modules",
+        "registered_modules": [
+          "huit_semantic_search",
+          "huit_rag_answer",
+          "huit_speech_synthesis",
+          "huit_mcp_stdio_server"
+        ]
+      }
+    }
+  },
+  "backend": {
+    "framework": "FastAPI",
+    "runtime": "Python 3.10+",
+    "server_entrypoint": "api.py",
+    "core_logic": "rag_core.py",
+    "mcp_server": "mcp_server.py",
+    "llm_fallback_chain": [
+      "qwen/qwen-2.5-72b-instruct",
+      "meta-llama/llama-3.3-70b-instruct",
+      "deepseek/deepseek-chat",
+      "google/gemini-flash-1.5",
+      "openai/gpt-3.5-turbo"
+    ]
+  },
+  "frontend": {
+    "type": "Vanilla HTML5 / CSS3 / JavaScript ES6+",
+    "theme": "HUIT Signature Royal Blue (#0072ce)",
+    "entrypoint": "static/index.html",
+    "mascot_robot": "static/robot_huit.png",
+    "features": [
+      "3D HUIT Mascot Live Motion Floating & Tilt Animation",
+      "Web Speech API vi-VN Speech-To-Text (STT)",
+      "Web Speech Synthesis vi-VN Text-To-Speech (TTS) with Instant Toggle Stop",
+      "AbortController Stop Generation Button",
+      "Clickable Direct MongoDB Atlas Source Citation Badges",
+      "Session History Sidebar with Live Search Filter",
+      "Text Answer Download (.txt)"
+    ]
+  },
+  "mcp_protocol": {
+    "enabled": true,
+    "entrypoint": "mcp_server.py",
+    "transport": "stdio",
+    "tools": [
+      {
+        "name": "ask_huit_admission",
+        "description": "Hỏi đáp thông tin tuyển sinh HUIT bằng AI RAG MongoDB"
+      },
+      {
+        "name": "search_huit_kb",
+        "description": "Tra cứu Dense Vector Search 384D trên collection huit_kb"
+      }
+    ]
+  }
+}
