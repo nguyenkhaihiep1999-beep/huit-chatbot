@@ -5,48 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hệ Thống Trợ Lý AI Tuyển Sinh HUIT - ĐH Công Thương TP.HCM</title>
 
-<!-- Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+<!-- Fonts: Times New Roman Serif Emphasis & Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Marked JS for Markdown Parsing -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <style>
   :root {
-    /* HUIT SIGNATURE BLUE PALETTE (Xanh HUIT Chuẩn Thương Hiệu) */
-    --bg-main: #f0f7ff;
+    /* HUIT SIGNATURE SOFT ELEGANT BLUE PALETTE */
+    --bg-main: #f4f8fe;
     --sidebar-bg: #ffffff;
     --chat-bg: #ffffff;
     --card-bg: #ffffff;
-    --border-color: #dbeafe;
-    --border-accent: #bfdbfe;
+    --border-color: #e2eefb;
+    --border-accent: #cce3fd;
     
-    --brand-primary: #0072ce; /* HUIT Official Royal Blue */
-    --brand-dark: #005bb5;
+    --brand-primary: #0066c4; /* Soft Official HUIT Royal Blue */
+    --brand-dark: #004c99;
     --brand-cyan: #0284c7;
-    --brand-light: #eff6ff;
-    --brand-emerald: #059669;
+    --brand-light: #f0f7ff;
+    --brand-emerald: #10b981;
     
-    --text-main: #0f172a;
+    --text-main: #1e293b;
     --text-muted: #475569;
-    --text-subtle: #94a3b8;
+    --text-subtle: #64748b;
     
-    --user-bubble-bg: linear-gradient(135deg, #0072ce 0%, #0284c7 100%);
+    --user-bubble-bg: linear-gradient(135deg, #0066c4 0%, #0284c7 100%);
     --user-bubble-text: #ffffff;
     --bot-bubble-bg: #f8fafc;
-    --bot-bubble-border: #dbeafe;
+    --bot-bubble-border: #e2eefb;
     
-    --radius-xl: 24px;
-    --radius-lg: 16px;
-    --radius-md: 10px;
-    --radius-sm: 6px;
+    --radius-xl: 28px;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 8px;
     
-    --shadow-subtle: 0 4px 14px rgba(0, 114, 206, 0.05);
-    --shadow-card: 0 16px 36px -10px rgba(0, 114, 206, 0.15), 0 4px 14px rgba(0,0,0,0.03);
+    --shadow-subtle: 0 6px 20px rgba(0, 102, 196, 0.06);
+    --shadow-card: 0 20px 48px -12px rgba(0, 102, 196, 0.12), 0 8px 20px rgba(0, 0, 0, 0.02);
     
-    --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   [data-theme="dark"] {
@@ -69,8 +69,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    background: var(--bg-main);
+    font-family: 'Times New Roman', Times, 'Merriweather', serif;
+    background: linear-gradient(135deg, #eef6ff 0%, #f8fafc 50%, #e2f0fe 100%);
     color: var(--text-main);
     min-height: 100vh;
     height: 100vh;
@@ -80,6 +80,7 @@
     padding: 16px;
     overflow: hidden;
   }
+
 
   .app-container {
     width: 100%;
@@ -125,17 +126,17 @@
   }
 
   .brand-info h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 17px;
-    font-weight: 800;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 19px;
+    font-weight: 700;
     color: var(--brand-primary);
     line-height: 1.2;
   }
 
   .brand-info p {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-subtle);
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .sidebar-actions-row {
@@ -371,14 +372,14 @@
   }
 
   .header-title-group h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
     font-weight: 700;
     color: var(--brand-primary);
   }
 
   .header-title-group p {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-subtle);
     display: flex;
     align-items: center;
@@ -464,9 +465,9 @@
   }
 
   .welcome-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 21px;
-    font-weight: 800;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 23px;
+    font-weight: 700;
     color: var(--brand-primary);
   }
 
@@ -958,7 +959,7 @@
         </div>
         <div class="header-title-group">
           <h2>Tư Vấn Tuyển Sinh HUIT</h2>
-          <p><span class="pulse-dot"></span> Đang trực tuyến · Trả lời bằng AI RAG MongoDB</p>
+          <p><span class="pulse-dot"></span> Đang trực tuyến · Cổng Thông Tin Tuyển Sinh</p>
         </div>
       </div>
 
@@ -974,9 +975,9 @@
     <div class="chat-viewport" id="chat-viewport">
       <div class="welcome-card" id="welcome-card">
         <img src="/static/robot_huit.png" alt="HUIT Mascot Robot" class="mascot-robot-hero-img" onerror="this.src='https://ts.huit.edu.vn/images/logo.png'">
-        <h3 class="welcome-title">Xin chào! Trợ Lý AI Tuyển Sinh HUIT Đã Sẵn Sàng</h3>
+        <h3 class="welcome-title">Xin chào! Trợ Lý Tuyển Sinh HUIT Đã Sẵn Sàng</h3>
         <p class="welcome-subtitle">
-          Bạn có thể nhập câu hỏi hoặc bấm nút Micro 🎙️ để hỏi bằng giọng nói Tiếng Việt. Bạn cũng có thể bấm trực tiếp vào các thẻ nguồn MongoDB Atlas để tới trang tuyển sinh HUIT!
+          Bạn có thể nhập câu hỏi hoặc bấm nút Micro 🎙️ để hỏi bằng giọng nói. Bạn cũng có thể bấm trực tiếp vào các thẻ nguồn để tới cổng thông tin tuyển sinh HUIT!
         </p>
       </div>
     </div>
@@ -1268,11 +1269,11 @@
         bubble.textContent = text;
       }
 
-      // Industrial Data Tickets Citations (BẤM TRỰC TIẾP VÀO CHÍNH NÓ ĐỂ MỞ TRANG WEB CỔNG TRUYỂN SINH HUIT!)
+      // Citation Sources (BẤM TRỰC TIẾP VÀO THẺ ĐỂ MỞ LINK CỔNG TRƯỜNG HUIT)
       if (sources && sources.length > 0) {
         const srcBox = document.createElement('div');
         srcBox.className = 'citation-section';
-        srcBox.innerHTML = `<div class="citation-title"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>Trích dẫn nguồn MongoDB Atlas (Bấm trực tiếp để mở trang):</div>`;
+        srcBox.innerHTML = `<div class="citation-title"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 01-2-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>Nguồn tham khảo từ Cổng tuyển sinh HUIT:</div>`;
         sources.forEach((s, idx) => {
           const chip = document.createElement('a');
           chip.className = 'data-ticket-badge';
