@@ -4,11 +4,15 @@ Kaggle HUIT Data Miner & Dataset Synchronizer.
 Cào dữ liệu tuyển sinh HUIT, định dạng và tải/đồng bộ lên Kaggle Datasets & MongoDB Atlas.
 """
 import os
+import sys
 import json
 import csv
 import urllib.request
 from urllib.parse import quote_plus
 from pymongo import MongoClient
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCAPED_JSON = os.path.join(HERE, "scraped_pages.json")

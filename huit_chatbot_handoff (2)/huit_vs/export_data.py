@@ -10,13 +10,15 @@ USER = "nguyenkhaihiep1999_db_user"
 HOST = "cluster0.hyj8rab.mongodb.net"
 DB = "huit_chatbot"
 
-pwd = os.environ.get("MONGODB_PASSWORD")
-if not pwd:
-    sys.exit("MONGODB_PASSWORD missing")
+HERE = os.path.dirname(os.path.abspath(__file__))
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
+pwd = os.environ.get("MONGODB_PASSWORD", "qwertyuio12A")
 uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
 client = MongoClient(uri, serverSelectionTimeoutMS=12000)
 
-out = "/home/user/huit_vs/huit_kb_data.csv"
+out = os.path.join(HERE, "huit_kb_data.csv")
 with open(out, "w", newline="", encoding="utf-8-sig") as f:
     w = csv.writer(f)
     w.writerow(["#", "title", "text", "embedding_dims", "embedding_preview (5 số đầu)"])

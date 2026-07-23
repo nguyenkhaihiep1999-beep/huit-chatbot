@@ -34,6 +34,25 @@ def chat_endpoint(payload: dict):
         return {"answer": "Vui lòng nhập câu hỏi.", "sources": []}
     return rag_core.answer(q)
 
+@app.post("/api/sync-data")
+def sync_data_endpoint():
+    """Trigger real-time scraper and rebuild dataset & KB."""
+    try:
+        import build_full_huit_dataset
+        import step1_ingest_raw
+        import build_real_kb
+        import export_data
+        
+        count = build_full_huit_dataset.build_full_dataset()
+        build_real_kb.run_rebuild()
+        return {
+            "status": "success",
+            "message": f"Đã cập nhật dữ liệu tuyển sinh thời gian thực & 39 ngành nghề HUIT thành công!",
+            "documents_count": count
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
 # Entrypoint for Hugging Face Spaces port 7860
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=7860)

@@ -1,108 +1,982 @@
 ﻿#,title,text,embedding_dims,embedding_preview (5 số đầu)
-1,HUIT (cổng tuyển sinh chính thức),"Trường ĐH Công nghiệp Thực phẩm TP.HCM nhận hồ sơ xét tuyển học bạ lớp 12 từ ngày 25/5 Theo thông tin từ Trường Đại học Công nghiệp Thực phẩm TP.HCM (Tên viết tắt HUFI, mã trường DCT), năm 2020 trường xét tuyển 3.500 chỉ tiêu bằng 4 phương thức. Năm nay**, Trường Đại học Công nghiệp Thực phẩm TP.HCM dự kiến tuyển thêm 2 ngành học mới gồm Ngôn ngữ Trung Quốc và Quản trị khách sạn, nâng tổng số ngành của HUFI lên 28 ngành.",384,"0.1865, 0.2096, 0.0729, -0.0376, 0.0451 ..."
-2,HUIT (cổng tuyển sinh chính thức),"Theo đó, thí sinh có thể nộp hồ sơ bằng điểm học bạ lớp 12 theo tổ hợp môn. Điều kiện xét tuyển: thí sinh phải tốt nghiệp THPT và tổng điểm trung bình cả năm của 03 môn trong tổ hợp môn xét tuyển lớp 12 đạt từ **18 điểm** trở lên. **Điểm xét tuyển** bằng tổng điểm trung bình cả năm lớp 12 môn X cộng Điểm trung bình cả năm lớp 12 môn Y cộng Điểm trung bình cả năm lớp 12 môn Z cộng điểm ưu tiên.",384,"0.1195, 0.1747, -0.0108, -0.2011, 0.1144 ..."
-3,HUIT (cổng tuyển sinh chính thức),Những điều thí sinh cần biết khi xét tuyển học bạ Phương thức xét tuyển học bạ như thế nào? điều kiện và hồ sơ xét tuyển ra sao? thời gian xét tuyển và điểm thi xét tuyển như thế nào? Chắc hẳng rất nhiều bạn sẽ thắc mắc. Vậy hãy cùng HUFI giải đáp các thắc mắc đó nhé! Xét tuyển học bạ như thế nào?,384,"0.1536, 0.0953, -0.1186, -0.0389, -0.0599 ..."
-4,HUIT (cổng tuyển sinh chính thức),"Phương thức xét tuyển học bạ dần được nhiều trường đại học, cao đẳng áp dụng. Vậy xét tuyển học bạ như thế nào? Tùy vào điều kiện, tổ hợp môn xét tuyển của ngành mà mỗi trường sẽ đưa ra các điều kiện, điểm xét tuyển khác nhau. Phương thức xét tuyển học bạ được các trường đưa ra và áp dụng nhằm đánh giá năng lực học sinh một cách toàn diện.Thay vì đánh giá học sinh dựa trên 1 kết quả duy nhất là tốt nghiệp – đại học.",384,"0.1089, 0.1398, -0.0330, -0.0471, 0.0267 ..."
-5,HUIT (cổng tuyển sinh chính thức),"Vì vậy để trả lời cho câu hỏi : Xét tuyển học bạ như thế nào? các em thí sinh có thể hiểu đó là xét tuyển dựa trên kết quả thi tốt nghiệp THPT và học bạ của các lớp có thể 10, 11, 12 tùy vào từng ngành, từng trường mà các em đăng ký xét tuyển.** **Ví dụ: Trường Đại học Công nghiệp Thực phẩm TP.HCM có điều kiện xét tuyển là thí sinh phải có điểm xét tuyển của các khối xét tuyển, của năm lớp 10, 11 và học kỳ 1 của lớp 12 cộng lại và chia đều cho 3 mà đạt từ 18 điểm trở lên (chưa bao gồm điểm ưu tiên) hoặc điểm xét tuyển các khối, của lớp 12 đạt từ 18 điểm trở lên (chưa bao gồm điểm ưu tiên).",384,"0.2936, 0.1643, 0.0302, -0.1231, -0.0405 ..."
-6,HUIT (cổng tuyển sinh chính thức),"Điều kiện và phương thức xét tuyển học bạ như thế nào? Dựa vào hình thức xét tuyển, ngành mà các em học sinh đăng ký xét tuyển mà các trường sẽ đưa ra các điều kiện và phương thức xét tuyển khác nhau. Dựa trên điểm thi tốt nghiệp THPT quốc gia, hoặc điểm tổng các môn trong tổ hợp môn xét tuyển phải đạt ở mốc điểm nhất định.",384,"0.1696, 0.1734, -0.0688, -0.1420, -0.0739 ..."
-7,HUIT (cổng tuyển sinh chính thức),"Điều kiện xét tuyển học bạ phải phù hợp với chất lượng đào tạo đầu vào của trường, phù hợp với quy định xét tuyển của Bộ Giáo dục và Đào tạo. Để bảo đảm chất lượng đầu vào, đầu ra của trường. Ở Trường Đại học Công nghiệp Thực phẩm TP.HCM có 02 cách thức xét học bạ như sau: (1)** **Tuyển sinh dựa trên điểm trung bình cộng của tổ hợp môn xét tuyển của 3 năm lớp 10, lớp 11 và học kỳ 1 lớp 12 đạt từ 18 điểm trở lên** **và** **(2) tổng điểm lớp 12 theo tổ hợp môn xét tuyển, ứng với từng ngành xét tuyển đạt từ 18 điểm trở lên. Hồ sơ xét học bạ vào đại học như thế nào?",384,"0.2873, 0.1727, 0.0728, -0.0885, -0.0543 ..."
-8,HUIT (cổng tuyển sinh chính thức),"Đơn giản, dễ dàng không phức tạp như xét tuyển nguyện vọng. Các em đăng ký hồ sơ xét tuyển học bạ chỉ cần photo công chứng một số giấy tờ cơ bản sau: Giấy chứng nhận tốt nghiệp (nếu chưa có, sử dụng giấy chứng nhận tốt nghiệp tạm thời, hoặc sẽ bổ sung sau) Chứng minh nhân dân hoặc Thẻ căn cước công dân (Photo công chứng). _Thí sinh nộp hồ sơ xét tuyển học bạ vào Trường Đại học Công nghiệp Thực phẩm TP.HCM_ Thời gian xét học bạ vào đại học như thế nào?",384,"0.1088, 0.2687, -0.0508, -0.0445, 0.1005 ..."
-9,HUIT (cổng tuyển sinh chính thức),"Đối vời thời gian đăng ký xét tuyển học bạ mỗi năm sẽ khác nhau. Tùy vào điều kiện, phương thức xét tuyển, thời gian công bố điểm thi tốt nghiệp THPT mà các trường cao đẳng, đại học sẽ đưa ra các mốc thời gian xét tuyển khác nhau.",384,"0.1956, 0.1419, -0.1002, -0.0454, -0.0105 ..."
-10,HUIT (cổng tuyển sinh chính thức),"Vì vậy, các em thí sinh có thể cập nhật tin tức tại các các trang website của trường, để có thông tin chính xác nhất về thời gian xét tuyển học bạ nhé. Thời gian xét tuyển học bạ hiện chưa xác định được mốc thời gian cụ thể, bởi nó phụ thuộc vào điều kiện, thời gian tuyển sinh của các trường. Đối với** **Trường Đại học Công nghiệp Thực phẩm TP.HCM** **thời gian xét tuyển học bạ 3 năm THPT** **từ** **ngày 01/3/2021 đến 25/4/2021** **. Còn phương thức xét tuyển học bạ cả năm lớp 12 Nhà trường dự kiến nhận hồ sơ** **từ ngày 17/5** **. Điểm chuẩn xét học bạ vào đại học như thế nào?",384,"-0.0117, 0.1204, 0.0023, -0.2137, 0.0339 ..."
-11,HUIT (cổng tuyển sinh chính thức),"Điểm chuẩn xét tuyển là điểm nằm trong điều kiện xét tuyển của từng trường. Tùy vào ngành học, chỉ tiêu tuyển sinh mà các trường đại học sẽ đưa ra điểm tuyển sinh khác nhau. Hầu hết, với các trường đại học, cao đẳng sẽ xét tuyển dựa trên kết quả thi tốt nghiệp THPT và điểm tổng trung bình môn (trong tổ hợp môn xét tuyển).",384,"0.1700, 0.0950, -0.0599, -0.0279, 0.1514 ..."
-12,HUIT (cổng tuyển sinh chính thức),"Ở một số trường cao đẳng, đại học sẽ xét điểm tổng trung bình môn trong tổ hợp môn xét tuyển phải đạt 6.0 điểm trở lên hoặc điểm tổng 3 môn trong tổng hợp môn xét tuyển + điểm ưu tiên đạt từ 18.0 điểm trở lên. Hơn nữa, điểm chuẩn xét tuyển cá năm sẽ khác nhau, vì vậy các em cần phải cập nhật thông tin liên tục để biết được điều kiện, hồ sơ, điểm xét tuyển chính xác nhất nhé. Trên đây là một số chia sẻ của chúng tôi về những điều cần biết khi xét tuyển học bạ. Với những thông tin chia sẻ trên sẽ giúp các em có thêm nhiều thông tin chi tiết tuyển sinh hơn. Để biết thêm thông tin tuyển sinh năm 2021, liên hệ ngay:",384,"0.2829, 0.0169, 0.0371, -0.1171, 0.0866 ..."
-13,HUIT (cổng tuyển sinh chính thức),"Điện thoại: (028) 38161673 - 124 hoặc (028) 54082904 Kế toán “Ngôn ngữ của con số”, nền tảng của minh bạch và quản trị hiện đại Tài chính – Ngân hàng: Làm chủ dòng tiền, dẫn đầu kỷ nguyên tài chính số Điều gì làm nên hình ảnh sinh viên tiêu biểu thời đại mới? Người “giữ nhịp” hình ảnh phía sau những sự kiện HUIT Bộ Giáo dục và Đào tạo công bố đáp án tất cả môn thi tốt nghiệp THPT năm 2026",384,"-0.0345, 0.1804, -0.2021, -0.0254, 0.0718 ..."
-14,HUIT (cổng tuyển sinh chính thức),"Điểm chuẩn đại học các khối xét tuyển sẽ tăng, giảm ra sao? Dựa vào phổ điểm, đại diện Trường Đại học Công Thương TP. HCM dự đoán điểm chuẩn xét tuyển từ khối A00, A01, D00 tăng nhưng không nhiều. _Thí sinh và phụ huynh tìm hiểu về thông tin tuyển sinh của Trường Đại học Công Thương TP.HCM_",384,"0.1928, 0.2683, 0.0116, -0.0751, 0.0758 ..."
-15,HUIT (cổng tuyển sinh chính thức),"Với điểm thi tốt nghiệp THPT năm 2024, ThS. Phạm Thái Sơn - Giám đốc Trung tâm Tuyển sinh và Truyền thông Trường Đại học Công Thương TP. HCM, dự đoán điểm chuẩn các khối như A00, A01, D00 sẽ tương tự như năm 2023. Tức là điểm từ 25 trở lên cho các trường đại học top trên và các ngành nghề top trên của các trường đại học. Các trường đại học top trung bình, điểm chuẩn sẽ dao động từ 20 - 24, phần còn lại là mức điểm chuẩn từ 15 - 20.",384,"0.1952, 0.0983, 0.0958, -0.1844, 0.1549 ..."
-16,HUIT (cổng tuyển sinh chính thức),"Điểm thi tốt nghiệp THPT năm nay cao hơn năm ngoái nhưng lượng chỉ tiêu xét tuyển bằng điểm thi tốt nghiệp THPT cũng cao hơn năm ngoái. Khối có môn Văn, Địa và Lịch sử sẽ có điểm chuẩn cao hơn năm 2023 từ 1 - 1,5 trở lên. Theo đó, trường top, dự đoán sẽ ở mức từ 25 - 26 điểm trở lên mới trúng tuyển, phần lớn các trường đại học ở mức điểm dự kiến trúng tuyển là từ 21 - 24.",384,"0.3197, 0.0714, 0.0084, -0.1170, 0.1440 ..."
-17,HUIT (cổng tuyển sinh chính thức),"Dự kiến điểm chuẩn của Trường Đại học Công Thương TP.HCM xét theo điểm thi tốt nghiệp THPT năm 2024 là từ 16 - 23 điểm. Các ngành hot như Marketing, Kinh doanh quốc tế, Logistics và chuỗi cung ứng mức điểm chuẩn khoảng 22 - 23 điểm. Các ngành như Kế toán, Tài chính ngân hàng, Quản trị kinh doanh, Công nghệ thực phẩm,... sẽ có dự kiến điểm chuẩn là từ 21 - 22, còn lại một số ngành từ 16 - 18 điểm. Điểm sàn xét tuyển bằng phương thức điểm thi tốt nghiệp THPT năm 2024",384,"0.2253, 0.1311, -0.0067, -0.1483, 0.1837 ..."
-18,HUIT (cổng tuyển sinh chính thức),"ĐH Công thương TP.HCM tư vấn trực tuyến tuyển sinh đại học 2026 ThS Phạm Thái Sơn, Giám đốc Trung tâm Tuyển sinh và Truyền thông của Đại học Công thương TP.HCM, sẽ trực tiếp giải đáp thắc mắc của phụ huynh, học sinh về thi THPT 2026 và bản đồ ngành, nghề mới nhất. Năm 2026, thế hệ học sinh 2k8 bước vào kỳ thi tốt nghiệp với nhiều điểm mới về quy chế tuyển sinh và phương thức xét tuyển đại học, từ việc siết nguyện vọng, thay đổi điểm cộng cho đến chuẩn đầu vào.",384,"0.1098, 0.1272, -0.0241, -0.1366, 0.0141 ..."
-19,HUIT (cổng tuyển sinh chính thức),"Tuy nhiên, áp lực lớn nhất không nằm ở phòng thi, mà nằm ở khâu lựa chọn nguyện vọng. Trong bối cảnh học phí đại học có xu hướng điều chỉnh tăng và sự lên ngôi của trí tuệ nhân tạo (AI) đang định hình lại toàn bộ bức tranh nghề nghiệp, câu hỏi: ""Học gì để không thất nghiệp?"" hay ""Chọn ngành theo đam mê hay tỷ lệ đỗ?"" trở nên nóng hơn bao giờ hết. Nhiều phụ huynh và học sinh đang rơi vào trạng thái nhiễu thông tin khi đứng trước hàng loạt phương thức xét tuyển, cùng sự phân vân giữa việc chọn ngành theo sở thích cá nhân hay chạy theo xu hướng thị trường lao động đang thay đổi từng ngày.",384,"0.2317, 0.0429, 0.0456, 0.0532, 0.1303 ..."
-20,HUIT (cổng tuyển sinh chính thức),"Thấu hiểu những băn khoăn đó, Tri thức - Znews chính thức ra mắt Pick the Right - series tư vấn tuyển sinh mùa thi 2026, đồng hành cùng hàng triệu thí sinh đang đứng trước ngưỡng cửa đại học. Không dừng lại ở những con số chỉ tiêu hay thông tin tuyển sinh thông thường, Pick the Right là không gian đối thoại chuyên sâu giữa độc giả Znews và các giảng viên, chuyên gia đầu ngành, nhà tuyển dụng, đại diện những trường đại học hàng đầu Việt Nam. Tại đây, mọi góc khuất của từng ngành học đều được lật mở - từ thực tế giảng đường, bài toán chi phí đào tạo, cho đến triển vọng thu nhập và lộ trình thăng tiến sau khi ra trường.",384,"-0.0979, 0.1082, -0.2490, 0.0108, 0.0868 ..."
-21,HUIT (cổng tuyển sinh chính thức),"Pick the Right tin rằng một quyết định đúng không đến từ may mắn, mà đến từ thông tin đủ, góc nhìn rõ và sự chuẩn bị kỹ càng. Bởi mỗi lựa chọn nguyện vọng không chỉ là một tấm vé vào đại học, đó là bản thiết kế đầu tiên cho cả cuộc đời. Mở màn mùa thứ ba, Pick the Right chính thức khởi động chuỗi tư vấn tuyển sinh 2026 với khách mời đầu tiên: ThS Phạm Thái Sơn, Giám đốc Trung tâm Tuyển sinh và Truyền thông, trường Đại học Công thương TP.HCM (HUIT). Trong tập này, chuyên gia tuyển sinh Đại học Công thương TP.HCM sẽ trực tiếp tư vấn và lý giải những vấn đề nóng nhất của mùa thi 2026, bao gồm: Những điểm mới của kỳ thi tốt nghiệp THPT 2026",384,"0.1379, 0.0886, -0.1462, -0.1502, -0.0563 ..."
-22,HUIT (cổng tuyển sinh chính thức),"Độc giả có thể đặt câu hỏi cho ThS Phạm Thái Sơn từ bây giờ. Tri thức - Znews chính thức ra mắt Pick the Right - series tư vấn tuyển sinh mùa thi 2026, đồng hành cùng hàng triệu thí sinh đang đứng trước ngưỡng cửa đại học.",384,"-0.1966, -0.0254, -0.2755, 0.0308, -0.0279 ..."
-23,HUIT (cổng tuyển sinh chính thức),"Không dừng lại ở những con số chỉ tiêu hay thông tin tuyển sinh thông thường, Pick the Right là không gian đối thoại chuyên sâu giữa độc giả Znews và các giảng viên, chuyên gia đầu ngành, nhà tuyển dụng, đại diện những trường đại học hàng đầu Việt Nam. Tại đây, mọi góc khuất của từng ngành học đều được lật mở - từ thực tế giảng đường, bài toán chi phí đào tạo, cho đến triển vọng thu nhập và lộ trình thăng tiến sau khi ra trường. Pick the Right tin rằng một quyết định đúng không đến từ may mắn, mà đến từ thông tin đủ, góc nhìn rõ và sự chuẩn bị kỹ càng.",384,"-0.0594, 0.1739, -0.2679, 0.0393, 0.0799 ..."
-24,HUIT (cổng tuyển sinh chính thức),"_Nguồn trích dẫn: zarsrc=30&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo&gidzl=KASuCLfoOZvSi3WoM6fXErwsEZ13RM5lG-KpDKblO6qSkcrlJ6OsPakxQ3b8CM5X6BivQJWpx6ixKdfbCW_ Kế toán “Ngôn ngữ của con số”, nền tảng của minh bạch và quản trị hiện đại Tài chính – Ngân hàng: Làm chủ dòng tiền, dẫn đầu kỷ nguyên tài chính số Điều gì làm nên hình ảnh sinh viên tiêu biểu thời đại mới? Người “giữ nhịp” hình ảnh phía sau những sự kiện HUIT Bộ Giáo dục và Đào tạo công bố đáp án tất cả môn thi tốt nghiệp THPT năm 2026",384,"-0.3049, 0.0071, -0.3457, 0.0738, 0.1374 ..."
-25,HUIT (cổng tuyển sinh chính thức),"Trường Đại học Công Thương TP. HCM công bố dự kiến điểm sàn xét tuyển năm 2025 Trường Đại học Công Thương TP. HCM (Tên viết tắt: HUIT - Mã trường: DCT) vừa thông tin về dự kiến mức điểm sàn xét tuyển đại học hệ chính quy năm 2025 cho một số phương thức tuyển sinh. Đây là cơ sở để thí sinh tham khảo, chuẩn bị cho giai đoạn đăng ký nguyện vọng từ ngày 16/7 đến 17h ngày 28/7/2025. Năm 2025, Trường Đại học Công Thương TP. HCM tuyển sinh 37 ngành** **đào tạo",384,"-0.0542, 0.4283, -0.0501, -0.2044, 0.1034 ..."
-26,HUIT (cổng tuyển sinh chính thức),"Năm 2025, Trường Đại học Công Thương TP. HCM tuyển sinh 37 ngành đào tạo, trải rộng trên các khối ngành kỹ thuật – công nghệ, kinh tế – tài chính, thực phẩm – môi trường và ngôn ngữ – luật – du lịch. Chương trình đào tạo theo định hướng ứng dụng – thực hành – hội nhập, gắn với nhu cầu thực tiễn của doanh nghiệp và thị trường lao động. Một điểm mới đáng chú ý là nhà trường đã mở rộng tổ hợp xét tuyển khối C (C00, C01, C02, C03, C14) cho 27/37 ngành, tạo điều kiện thuận lợi hơn cho các thí sinh theo học các môn xã hội. Song song đó, Trường Đại học Công Thương TP. HCM tiếp tục triển khai nhiều chính sách học bổng hấp dẫn dành sinh viên như:",384,"0.1650, 0.1164, -0.0817, -0.0744, 0.0713 ..."
-27,HUIT (cổng tuyển sinh chính thức),"Học bổng 50% học phí học kỳ đầu cho thí sinh trúng tuyển vào một số ngành như: Kỹ thuật Nhiệt; Công nghệ Vật liệu; Khoa học Chế biến Món ăn; Công nghệ Dệt, May; Kinh doanh Thời trang và Dệt may; Quản lý Tài nguyên và Môi trường; Công nghệ Kỹ thuật Môi trường; Công nghệ Chế biến Thủy sản; Khoa học Dinh dưỡng và Ẩm thực. Chính sách giảm học phí cho anh chị em ruột, sinh đối học cùng học tại HUIT Chính sách giảm học phí theo Nghị định 81/2021/NĐ-CP Điểm sàn xét tuyển từ kết quả kỳ thi tốt nghiệp THPT** **năm 2025: 16 điểm",384,"0.1162, 0.3013, 0.1040, 0.0413, 0.1538 ..."
-28,HUIT (cổng tuyển sinh chính thức),"Theo dự kiến, điểm sàn đối với phương thức 1: Xét tuyển dựa trên kết quả kỳ thi tốt nghiệp THPT năm 2025 là **16 điểm cho tất cả các ngành**. Mức điểm này áp dụng cho 37 ngành đào tạo tại Trường Đại học Công Thương TP. HCM. Điểm xét tuyển được tính bằng tổng điểm của ba môn trong tổ hợp xét tuyển (không nhân hệ số), chưa cộng điểm ưu tiên theo khu vực hoặc đối tượng.",384,"0.2072, 0.1245, -0.1013, -0.1361, 0.0832 ..."
-29,HUIT (cổng tuyển sinh chính thức),"ThS. Phạm Thái Sơn – Giám đốc Trung tâm Tuyển sinh và Truyền thông HUIT cho biết, việc xác định mức điểm sàn này căn cứ vào thực tế phổ điểm thi THPT năm nay có xu hướng giảm nhẹ, đặc biệt ở các tổ hợp có môn Tiếng Anh – do đề thi được đánh giá có tính phân loại cao hơn. Theo ThS. Phạm Thái Sơn, điểm chuẩn năm nay của một số ngành có thể giảm từ 0,5 đến 1,5 điểm so với năm 2024. Do đó, ngưỡng 16 điểm được đưa ra nhằm mở rộng cơ hội trúng tuyển cho thí sinh, đồng thời vẫn đảm bảo chất lượng đầu vào phù hợp với yêu cầu đào tạo. Điểm sàn xét tuyển sử dụng kết quả kỳ thi Đánh giá năng lực do ĐHQG-HCM tổ chức năm 2025****: 600 điểm",384,"0.1983, 0.1100, -0.0280, -0.1464, -0.0472 ..."
-30,HUIT (cổng tuyển sinh chính thức),"Đối với phương thức 3:Xét tuyển sử dụng kết quả kỳ thi Đánh giá năng lực (ĐGNL) do ĐHQG-HCM tổ chức, điểm sàn dự kiến là **600 điểm cho các ngành**. Riêng đối với nhóm ngành Pháp luật, ngưỡng đảm bảo chất lượng đầu vào có tổng điểm tối thiểu bằng 720 điểm, đồng thời thành phần điểm Tiếng Việt tối thiểu bằng 180 điểm và thành phần điểm Toán tối thiểu bằng 180 điểm. Việc áp dụng điều kiện riêng cho ngành Luật được lý giải là để đảm bảo năng lực ngôn ngữ và tư duy logic – những yếu tố then chốt trong chương trình đào tạo ngành này.",384,"0.1287, 0.0638, -0.0969, -0.2453, -0.1186 ..."
-31,HUIT (cổng tuyển sinh chính thức),"Trường lưu ý, các mức điểm nói trên hiện chỉ mang tính chất tham khảo và chưa phải là thông báo chính thức. Ngưỡng điểm sàn chính thức sẽ được công bố sau khi Bộ GD&ĐT tạo ban hành quy định chung về đảm bảo chất lượng đầu vào trong kỳ tuyển sinh năm nay.",384,"0.0568, 0.0410, 0.0117, -0.1647, 0.0238 ..."
-32,HUIT (cổng tuyển sinh chính thức),"Tuyển sinh 2024: Xét tuyển học bạ - Năm lớp 10, năm lớp 11 và học kỳ I năm lớp 12 Trường Đại học Công Thương Thành phố Hồ Chí Minh (HUIT - Mã trường DCT) thông báo về việc tuyển sinh đại học hệ chính quy năm 2024 theo hình thức xét tuyển học bạ THPT năm lớp 10, năm lớp 11 và học kỳ 1 năm lớp 12. Thời gian nhận hồ sơ đăng ký xét tuyển đến 23/6/2024. I. Điều kiện xét tuyển:** Trung bình cộng của tổ hợp môn xét tuyển, ứng với từng ngành xét tuyển của năm lớp 10, năm lớp 11 và học kỳ I năm lớp 12 đạt từ 20 điểm trở lên. Nguyên tắc xét tuyển** | **Ngưỡng đầu vào** | **Chỉ tiêu** | **Tiêu chí phụ",384,"0.0626, 0.3874, 0.0156, -0.1649, 0.1347 ..."
-33,HUIT (cổng tuyển sinh chính thức),"Xét tuyển từ cao trở xuống đến khi đủ chỉ tiêu. Trường hợp xét tuyển đến một mức điểm nhất định vẫn còn chỉ tiêu nhưng số thí sinh cùng bằng điểm cao hơn số lượng chỉ tiêu còn lại, thực hiện xét tuyển theo các tiêu chí phụ. | Xét tuyển theo kết quả học tập THPT của năm lớp 10, năm lớp 11 và của học kỳ I năm lớp 12. Trung bình cộng của tổ hợp môn xét tuyển, ứng với từng ngành xét tuyển của năm lớp 10, năm lớp 11 và của học kỳ I năm lớp 12 đạt từ 20 điểm trở lên. Mức điểm này là mức điểm dành cho thí sinh khu vực 3, việc tính điểm ưu tiên khu vực và đối tượng theo quy chế hiện hành. | Trường dành khoảng 30% chỉ tiêu cho phương thức xét tuyển này, theo quy định của Bộ Giáo dục và Đào tạo. | Thí sinh có điểm thi môn Toán (hoặc môn Ngữ văn đối với tổ hợp D15) cao hơn sẽ trúng tuyển, riêng 2 ngành Ngôn ngữ Anh và Ngôn ngữ Trung Quốc là môn Tiếng Anh.",384,"0.2507, 0.2142, 0.0486, -0.0644, 0.0718 ..."
-34,HUIT (cổng tuyển sinh chính thức),"Lưu ý quy đổi điểm môn Tiếng Anh: Đối với thí sinh có những chứng chỉ (CC) ngoại ngữ theo quy định có thể sử dụng để quy đổi điểm môn Tiếng Anh để xét tuyển các tổ hợp có môn Tiếng Anh thông qua hệ thống quy đổi của Nhà trường. Danh mục chứng chỉ ngoại ngữ dùng để quy đổi điểm môn tiếng Anh đối với thí sinh xét tuyển đại học chính quy năm 2024. Thí sinh sẽ quy đổi điểm trong quá trình nộp hồ sơ về Trường, còn đối với phương thức 1 Nhà trường sẽ có thông báo riêng khung thời gian và cách thức thí sinh nộp chứng chỉ ngoại ngữ về Trường để Trường quy đổi điểm môn Tiếng Anh khi khung thời gian xét tuyển sinh năm 2024 của Bộ được công bố.",384,"0.0014, -0.1277, 0.0365, -0.2086, -0.0436 ..."
-35,HUIT (cổng tuyển sinh chính thức),II. Danh sách các ngành xét tuyển đại học hệ chính quy năm 2024 bằng phương thức xét tuyển học bạ THPT Stt | Mã ngành xét tuyển | Tên ngành xét tuyển | Tổ hợp môn 1 | 7540101 | Công nghệ thực phẩm | A00 | A01 | D07 | B00 2 | 7540106 | Đảm bảo chất lượng & ATTP | A00 | A01 | D07 | B00 3 | 7540105 | Công nghệ chế biến thủy sản | A00 | A01 | D07 | B00 4 | 7340129 | Quản trị kinh doanh thực phẩm | A00 | A01 | D01 | D10 5 | 7340101 | Quản trị kinh doanh | A00 | A01 | D01 | D10 6 | 7340120 | Kinh doanh quốc tế | A00 | A01 | D01 | D10 7 | 7340115 | Marketing | A00 | A01 | D01 | D10 8 | 7340122 | Thương mại điện tử | A00 | A01 | D01 | D10,384,"-0.0031, 0.1540, 0.1831, -0.0299, 0.0698 ..."
-36,HUIT (cổng tuyển sinh chính thức),9 | 7510605 | Logistic và quản lý chuỗi cung ứng | A00 | A01 | D01 | D10 10 | 7340301 | Kế toán | A00 | A01 | D01 | D10 11 | 7340201 | Tài chính ngân hàng | A00 | A01 | D01 | D10 12 | 7340205 | Công nghệ tài chính | A00 | A01 | D01 | D07 13 | 7380107 | Luật kinh tế | A00 | A01 | D01 | D15 14 | 7510401 | Công nghệ kỹ thuật hóa học | A00 | A01 | D07 | B00 15 | 7510406 | Công nghệ kỹ thuật môi trường | A00 | A01 | D07 | B00 16 | 7850101 | Quản lý tài nguyên và môi trường | A00 | A01 | D07 | B00 17 | 7420201 | Công nghệ sinh học | A00 | A01 | D07 | B00 18 | 7480201 | Công nghệ thông tin | A00 | A01 | D01 | D07,384,"-0.2243, -0.0188, 0.1157, -0.1515, -0.0186 ..."
-37,HUIT (cổng tuyển sinh chính thức),"19 | 7480202 | An toàn thông tin | A00 | A01 | D01 | D07 20 | 7460108 | Khoa học dữ liệu | A00 | A01 | D01 | D07 21 | 7340123 | Kinh doanh thời trang và Dệt may | A00 | A01 | D01 | D10 22 | 7540204 | Công nghệ dệt, may | A00 | A01 | D01 | D07 23 | 7510202 | Công nghệ chế tạo máy | A00 | A01 | D01 | D07 24 | 7510203 | Công nghệ kỹ thuật cơ điện tử | A00 | A01 | D01 | D07 25 | 7520115 | Kỹ thuật nhiệt | A00 | A01 | D01 | D07 26 | 7510301 | Công nghệ kỹ thuật Điện - Điện tử | A00 | A01 | D01 | D07 27 | 7510303 | Công nghệ kỹ thuật điều khiển và tự động hóa | A00 | A01 | D01 | D07",384,"-0.1709, 0.2082, 0.1322, -0.0187, 0.0703 ..."
-38,HUIT (cổng tuyển sinh chính thức),28 | 7819009 | Khoa học dinh dưỡng và ẩm thực | A00 | A01 | D07 | B00 29 | 7819010 | Khoa học chế biến món ăn | A00 | A01 | D07 | B00 30 | 7810103 | Quản trị dịch vụ du lịch và lữ hành | A00 | A01 | D01 | D15 31 | 7810202 | Quản trị nhà hàng và dịch vụ ăn uống | A00 | A01 | D01 | D15 32 | 7810201 | Quản trị khách sạn | A00 | A01 | D01 | D15 33 | 7220201 | Ngôn ngữ Anh | A01 | D01 | D09 | D10 34 | 7220204 | Ngôn ngữ Trung Quốc | A01 | D01 | D09 | D10 III. Cách thức đăng ký hồ sơ xét tuyển và lệ phí: 3.1 Hồ sơ đăng ký xét tuyển/Thời gian đăng ký xét tuyển 1. Phiếu đăng ký xét tuyển (theo mẫu) tải về tại:,384,"-0.1030, 0.0536, 0.2788, -0.0046, 0.0008 ..."
-39,HUIT (cổng tuyển sinh chính thức),"3. Bằng tốt nghiệp hoặc Giấy chứng nhận tốt nghiệp tạm thời (Photo công chứng) 4. Chứng minh nhân dân hoặc Thẻ căn cước công dân (Photo công chứng) 5. Giấy chứng nhận ưu tiên (nếu có). 6. Hồ sơ minh chứng quy đổi điểm môn Anh văn (nếu có) Trực tuyến:**thí sinh đăng ký trên cổng đăng ký của Trường theo đường link: Trực tiếp:**thí sinh nộp hồ sơ trực tiếp tại Trường hoặc gửi qua đường bưu điện về Trung tâm Tuyển sinh & Truyền thông (Tầng trệt nhà F, số 140 Lê Trọng Tấn, phường Tây Thạnh, quận Tân Phú, Tp. Hồ Chí Minh). Thí sinh đóng tiền lệ phí trực tiếp hoặc trực tuyến cho Trường. Lệ phí:****150.000 đồng/01 hồ sơ.",384,"0.1580, 0.1000, 0.0556, -0.1647, 0.0769 ..."
-40,HUIT (cổng tuyển sinh chính thức),"Lưu ý:**Thí sinh có thể nộp lệ phí trực tiếp tại Phòng giao dịch OCB nằm tại cơ sở chính 140 Lê Trọng Tấn, phường Tây Thạnh, quận Tân Phú, Tp. Hồ Chí Minh hoặc chuyển khoản tới một trong hai ngân hàng sau: Tên đơn vị thụ hưởng: Trường Đại học Công Thương Thành phố Hồ Chí Minh Stt** | **Số tài khoản** | **Tên ngân hàng** | **Chi nhánh 1 | 6460211900007 | Ngân hàng Nông nghiệp & Phát triển nông thôn Việt Nam (Ngân hàng Agribank) | Chi nhánh Tân Phú 2 | 0016107779797979 | Ngân hàng Phương Đông (Ngân hàng OCB) | Chi nhánh Tân Bình, PGD: Tân Phú",384,"0.1095, 0.3433, -0.0922, -0.0575, 0.0783 ..."
-41,HUIT (cổng tuyển sinh chính thức),"_**Nội dung chuyển khoản:** số CMND/CCCD của thí sinh + Họ tên thí sinh + LPXT + Tên ngành thí sinh đăng ký (có thể viết tắt)_ _VD: 0123456789 NGUYỄN VĂN AN LPXT Cong nghe thong tin_ IV. Quyền lợi, cơ hội học tập và học bổng: 4.1. Quyền lợi: Được giới thiệu chỗ ở cho sinh viên có nhu cầu, được giới thiệu việc làm trong quá trình học và sau khi tốt nghiệp, được vay vốn ngân hàng trong quá trình học.",384,"0.0165, 0.1266, -0.2043, -0.1254, -0.0743 ..."
-42,HUIT (cổng tuyển sinh chính thức),"Được hưởng các chế độ theo quy định của pháp luật đối với sinh viên; được tạo điều kiện trong học tập, tham gia hoạt động nghiên cứu khoa học và công nghệ, tham gia các hội nghị khoa học, công bố các công trình khoa học và công nghệ trong các ấn phẩm của nhà trường. Người học thuộc diện cử tuyển, con em các dân tộc ở các vùng có điều kiện kinh tế - xã hội đặc biệt khó khăn, diện chính sách xã hội và các gia đình nghèo được cấp học bổng, trợ cấp, miễn giảm học phí.",384,"0.2545, 0.2566, -0.0391, 0.0049, 0.1061 ..."
-43,HUIT (cổng tuyển sinh chính thức),"Được cố vấn học tập, tư vấn và hướng dẫn xây dựng kế hoạch học tập, lựa chọn đăng ký các môn học, phương pháp học tập, nghiên cứu khoa học, phát triển kỹ năng nghề nghiệp, kỹ năng mềm. Được đăng ký môn học, lịch học phù hợp với điều kiện cá nhân trên cơ sở thời khóa biểu của nhà trường. Được đăng ký học bằng 2 nếu đáp ứng quy định. Nhà trường có ký túc xá cho sinh viên - học sinh mới đưa vào sử dụng, với trang thiết bị hiện đại đáp ứng nhu cầu ăn, ở cho sinh viên. 4.2. Cơ hội học tập:",384,"0.0513, 0.0979, 0.0442, 0.0486, -0.0830 ..."
-44,HUIT (cổng tuyển sinh chính thức),"Được học tập trong môi trường hiện đại, chuyên nghiệp, gắn lý thuyết với thực hành, có nhiều điều kiện thực hành, học tập tại các doanh nghiệp. Sinh viên nhà trường sau khi tốt nghiệp đều có thể có việc làm phù hợp. Được trang bị kỹ năng sống, kỹ năng làm việc, sau khi tốt nghiệp sinh viên có đủ bản lĩnh và tự tin tạo lập tương lai. Cơ hội du học tại nước ngoài và học tiếp ở bậc học cao hơn. Có cơ hội phát triển trong các tổ chức đoàn thể như Đoàn thanh niên, Đảng, Hội sinh viên. 4.3. Học bổng dành cho tân sinh viên trúng tuyển năm 2024: Học bổng Thủ khoa, Á khoa của Trường đối với Tân sinh viên năm 2024",384,"0.2273, 0.1612, -0.0247, -0.0934, 0.0067 ..."
-45,HUIT (cổng tuyển sinh chính thức),"Học bổng dành cho sinh viên có kết quả học tập cao nhất theo ngành. Học bổng sinh viên vượt khó và hỗ trợ sinh viên nghèo, sinh viên có hoàn cảnh khó khăn trong các năm học. Học bổng Khuyến khích học tập cho sinh viên trong từng học kỳ của các năm học. Hỗ trợ tiếp sức đến trường cho Tân sinh viên năm 2024. Chi giảm học phí cho sinh viên là anh chị em sinh đôi, anh chị em ruột học chung Trường. Giảm 50% học phí học kỳ đầu tiên cho các sinh viên trúng tuyển các ngành thuộc chương trình đại học hệ chính quy năm 2024 như sau: 5 | 7340123 | Kinh doanh thời trang và dệt may 6 | 7850101 | Quản lý tài nguyên và môi trường",384,"-0.0273, 0.1165, -0.0070, -0.1062, 0.1780 ..."
-46,HUIT (cổng tuyển sinh chính thức),"TRƯỜNG ĐẠI HỌC CÔNG THƯƠNG THÀNH PHỐ HỒ CHÍ MINH Địa chỉ: 140 Lê Trọng Tấn, phường Tây Thạnh, quận Tân Phú, Tp. Hồ Chí Minh. Số điện thoại: 028 3816 3315 - 124 hoặc 028 6270 6275. Hotline: 096 205 1080",384,"0.0158, 0.5261, -0.0340, 0.0383, -0.0282 ..."
-47,HUIT (cổng tuyển sinh chính thức),"Thí sinh chỉ được chọn một trong hai phương thức đăng ký xét tuyển đại học Bộ Giáo dục và đào tạo vừa công bố hướng dẫn công tác tuyển sinh trình độ đại học; tuyển sinh trình độ cao đẳng ngành giáo dục mầm non năm 2021. Trong đó, Bộ Giáo dục và đào tạo quy định, hướng dẫn việc thí sinh đăng ký nguyện vọng xét tuyển chỉ được chọn một trong hai phương thức sau:",384,"0.1342, 0.2216, -0.0468, 0.0236, 0.0844 ..."
-48,HUIT (cổng tuyển sinh chính thức),Phương thức 1: Đăng ký trực tiếp tất cả các thông tin trên phiếu đăng ký dự thi kỳ thi tốt nghiệp THPT và xét tuyển vào đại học; cao đẳng năm 2021 (phiếu ĐKDT và ĐKXT); thí sinh không được điều chỉnh thông tin đăng ký nguyện vọng xét tuyển khi điểm tiếp nhận đã cập nhật thông tin của thí sinh vào cơ sở dữ liệu trong thời gian quy định.,384,"0.0898, 0.2970, -0.2602, -0.1918, 0.0265 ..."
-49,HUIT (cổng tuyển sinh chính thức),"Phương thức 2: Đăng ký trực tuyến (tại các nơi có đủ điều kiện), thí sinh đăng ký trực tiếp trên phiếu ĐKDT và ĐKXT phần thông tin phục vụ kỳ thi tốt nghiệp THPT; phần đăng ký nguyện vọng xét tuyển trực tuyến phải hoàn thành trong thời gian quy định và thí sinh có thể điều chỉnh nhiều lần thông tin đăng ký nguyện vọng xét tuyển trong thời gian quy định. Thí sinh có nhu cầu điều chỉnh nguyện vọng ĐKXT, chỉ được thực hiện theo phương thức trực tuyến: sau khi có kết quả thi tốt nghiệp THPT, mỗi thí sinh được điều chỉnh ĐKXT tối đa 3 lần trong thời gian quy định;",384,"0.0482, 0.1054, -0.2353, -0.1663, -0.0911 ..."
-50,HUIT (cổng tuyển sinh chính thức),"Các thí sinh phúc khảo các bài thi/môn thi sẽ điều chỉnh nguyện vọng ĐKXT sau khi có kết quả phúc khảo thi tốt nghiệp THPT. Thí sinh điều chỉnh không lớn hơn số lượng nguyện vọng đã đăng ký ban đầu, sử dụng tài khoản và mật khẩu cá nhân đã được cấp để thực hiện việc điều chỉnh. Thí sinh điều chỉnh lớn hơn số lượng nguyện vọng đã đăng ký ban đầu hoặc điều chỉnh sai sót các nội dung liên quan đến đối tượng ưu tiên, khu vực ưu tiên phải khai chính xác thông tin này và nộp tại điểm thu nhận hồ sơ để bổ sung kinh phí tương đương với số lượng nguyện vọng tăng so với số nguyện vọng đã đăng ký ban đầu.",384,"0.0752, 0.3444, -0.2068, -0.1482, -0.1041 ..."
-51,HUIT (cổng tuyển sinh chính thức),"Sau đó sử dụng tài khoản và mật khẩu cá nhân đã được cấp để thực hiện việc điều chỉnh sau khi cán bộ điểm tiếp nhận cập nhật thông tin bổ sung số nguyện vọng của thí sinh trên cổng thông tin tuyển sinh; (lưu ý: thí sinh ghi đúng mã cơ sở đào tạo - nhà trường, mã ngành/nhóm ngành, mã tổ hợp xét tuyển theo quy định của nhà trường. Nguyện vọng nào ghi không đúng sẽ không được hệ thống phần mềm chấp nhận và bị loại). Không báo trúng tuyển dưới mọi hình thức khi thí sinh chưa tốt nghiệp",384,"-0.0074, 0.2019, -0.2791, -0.1987, -0.0598 ..."
-52,HUIT (cổng tuyển sinh chính thức),"Bộ Giáo dục và đào tạo yêu cầu đề án tuyển sinh của các trường phải cung cấp đầy đủ, rõ ràng các thông tin tuyển sinh theo quy định, trong đó lưu ý: tránh việc để thí sinh nhầm lẫn giữa quy định xét tuyển thẳng theo quy định tại điều 7 của quy chế với phương án tuyển sinh riêng của trường; giữa tên các trường; tuyển sinh đối tượng trong và ngoài tỉnh; tuyển sinh vào phân hiệu của nhà trường với cơ sở đào tạo; chương trình đào tạo chuẩn và các chương trình đào tạo khác của trường.",384,"0.2773, 0.1197, -0.1405, -0.0253, 0.1406 ..."
-53,HUIT (cổng tuyển sinh chính thức),"Công bố công khai, minh bạch điều kiện đảm bảo chất lượng trong việc xác định chỉ tiêu tuyển sinh, các điều kiện sơ tuyển, điều kiện xét tuyển, tổ hợp xét tuyển, ngưỡng đảm bảo chất lượng, chính sách ưu tiên của trường gắn với yêu cầu của ngành đào tạo, hướng tới mục đích lựa chọn thí sinh có học lực tốt, tâm huyết với ngành nghề để nâng cao chất lượng đào tạo, đảm bảo khả năng có việc làm của sinh viên sau tốt nghiệp.",384,"0.0896, 0.1553, -0.2443, -0.0665, 0.0310 ..."
-54,HUIT (cổng tuyển sinh chính thức),"Các trường phải có biện pháp kiểm soát các điều kiện sơ tuyển khi yêu cầu thí sinh trong tuyển sinh, không để xảy ra tình trạng thí sinh đã trúng tuyển nhưng bị loại khi nhập học do không đủ điều kiện sơ tuyển, không thông báo thí sinh trúng tuyển dưới mọi hình thức khi thí sinh chưa tốt nghiệp THPT, gây bức xúc xã hội. Đề án tuyển sinh của các trường phải xây dựng và công khai trên trang thông tin điện tử của trường trước ít nhất 15 ngày tính đến ngày thí sinh bắt đầu ĐKXT.",384,"0.1680, 0.2611, -0.0879, -0.0879, 0.1171 ..."
-55,HUIT (cổng tuyển sinh chính thức),"Trong đợt 1, các trường có thủ tục sơ tuyển; các trường tổ chức thi đánh giá năng lực hoặc có môn thi năng khiếu kết hợp với sử dụng kết quả kỳ thi tốt nghiệp THPT theo quy định phải hoàn thành việc cập nhật kết quả vào cơ sở dữ liệu của Cổng thông tin tuyển sinh của Bộ Giáo dục và đào tạo theo quy định, thực hiện quy trình xét tuyển quy định; khi xét tuyển đợt tiếp theo (nếu có) phải hoàn thành việc cập nhật kết quả vào cơ sở dữ liệu của Cổng thông tin tuyển sinh của bộ trước khi xét tuyển. Phải công bố chỉ tiêu từng phương thức tuyển sinh",384,"0.0616, 0.1393, -0.1825, -0.2025, -0.0676 ..."
-56,HUIT (cổng tuyển sinh chính thức),"Các trường sử dụng đồng thời nhiều phương thức tuyển sinh cho một ngành hoặc nhóm ngành phải xác định và công bố công khai chỉ tiêu, mức điểm nhận ĐKXT cho từng phương thức tuyển sinh theo quy định của quy chế tuyển sinh. Các trường công khai mức điểm nhận ĐKXT đối với các tổ hợp xét tuyển khác nhau, sau khi có kết quả thi tốt nghiệp THPT và các điều kiện khác không trái với quy chế tuyển sinh. Mức điểm tối thiểu của từng bài thi/môn thi của tổ hợp dùng để xét tuyển do các trường quy định nhưng không trái với quy chế thi tốt nghiệp THPT và nêu rõ trong đề án tuyển sinh.",384,"0.0712, 0.1523, -0.0753, -0.0443, -0.0173 ..."
-57,HUIT (cổng tuyển sinh chính thức),"Các trường tuyển sinh ngành đào tạo giáo viên; ngành thuộc lĩnh vực sức khỏe có cấp chứng chỉ hành nghề phải công khai mức điểm nhận ĐKXT đối với các tổ hợp xét tuyển khác nhau sau khi có kết quả thi tốt nghiệp THPT phù hợp với ngưỡng đảm bảo chất lượng đầu vào do Bộ Giáo dục và đào tạo quy định và các điều kiện khác không trái với quy chế tuyển sinh. Trong thời gian thí sinh điều chỉnh nguyện vọng ĐKXT, các trường không cập nhật, không công bố thông tin thí sinh ĐKXT vào trường. Thông báo tuyển sinh chương trình Internship Nhật Bản thời hạn 01 năm Chương trình tuyển dụng kỹ sư vận hành máy làm việc tại Nhật Bản",384,"0.1060, 0.2368, -0.0567, -0.0042, 0.1411 ..."
-58,Bài viết học phí HUIT (CellphoneS),Di động Máy tính bảng Máy tính Âm thanh Đồ chơi công nghệ Gia dụng Games Mobile Games PC Game Console Gaming Gear Di động Máy tính Âm thanh Đồ chơi công nghệ Gia dụng Di động Máy tính Âm thanh Đồ chơi công nghệ Gia dụng Ứng dụng iOS - Android Máy tính - Laptop - Tablet Đồng hồ thông minh Phụ kiện công nghệ Gia dụng Điện máy Tin học văn phòng Trí tuệ nhân tạo Wiki - Thuật ngữ Trending Học phí Đại học Công Thương TP.HCM mới nhất 2026 Học phí Đại học Công Thương TP.HCM mới nhất 2026 Học phí Đại học Công Thương TP.HCM mới nhất 2026,384,"-0.1249, 0.0671, 0.1626, -0.2825, -0.0801 ..."
-59,Bài viết học phí HUIT (CellphoneS),"Học phí Đại học Công Thương 2026 hiện đang là vấn đề được nhiều tân sinh viên quan tâm. Hiểu được vấn đề này, Sforum mời bạn cùng theo dõi nội dung sau để nắm thông tin chính xác về học phí Trường Đại học Công thương TP.HCM mới nhất 2026. Đồng thời tìm hiểu thêm các thông tin quan trọng khác về học phí để chuẩn bị hành trang tốt nhất cho mình khi nhập học. Trường Đại học Công Thương TP.HCM có tên tiếng Anh chính thức là Ho Chi Minh City University of Industry and Trade HUIT. Đây là một trong số các trường đại học công lập hiện được Bộ Công Thương trực tiếp quản lý.",384,"0.1024, 0.2306, -0.0139, -0.1062, 0.2355 ..."
-60,Bài viết học phí HUIT (CellphoneS),"Chính thức được thành lập từ năm 1982, Trường Đại học Công Thương TP.HCM hướng tới mục tiêu đào tạo đa ngành, đa lĩnh vực. Đặc biệt là đang chiếm ưu thế trong hai lĩnh vực đào tạo công nghiệp và thương mại. Với điều kiện chất lượng đảm bảo và cam kết đào tạo nguồn nhân lực tài giỏi cho đất nước, HUIT đang dần chứng minh được sự uy tín của mình đối với hệ thống giáo dục đại học trong và ngoài khu vực. Học phí Đại học Công Thương TP.HCM 2026 dự kiến",384,"0.0745, 0.2340, -0.0812, -0.0950, 0.0899 ..."
-61,Bài viết học phí HUIT (CellphoneS),"Học phí Đại học Công Thương 2026 dự kiến nằm trong khoảng từ 140 triệu đến 170 triệu đồng** cho toàn bộ chương trình học. Mức thu này có thể thay đổi tùy ngành đào tạo và loại chương trình, áp dụng cho cả bậc cử nhân lẫn kỹ sư. Theo lộ trình điều chỉnh, học phí khóa 2026 - 2030 dự kiến sẽ tăng không quá 10% so với khóa 2025 - 2029. Điều này nhằm đáp ứng mục tiêu nâng tầm chất lượng giảng dạy và cơ sở trang thiết bị tại trường. Lưu ý: Mức học phí đề cập ở trên chỉ là dự kiến, không phải chính thức. Để cập nhật thông tin chính xác và mới nhất, người học nên theo dõi trên website chính thức của trường.",384,"0.1266, 0.1110, 0.0472, -0.0475, 0.1126 ..."
-62,Bài viết học phí HUIT (CellphoneS),"Học phí Trường Đại học Công Thương TP.HCM khóa 2025 Dự kiến, h **ọc phí Đại học Công Thương toàn khóa 2025 - 2029 sẽ ở mức tối đa khoảng 132 triệu đồng** (tùy theo từng khoa), tăng khoảng 12 triệu đồng so với khóa 2024 - 2028. Theo quy định hiện hành, học phí Đại học Công Thương 2025 sẽ được điều chỉnh, tuy nhiên không được vượt quá 10% so với mức học phí áp dụng cho khóa 2024 - 2028. Mức học phí Trường Đại học Công Thương TP.HCM 2024 - 2025",384,"0.1250, 0.2277, 0.1330, 0.0050, 0.1791 ..."
-63,Bài viết học phí HUIT (CellphoneS),"Trong năm học gần đây, học phí Trường Đại học Công Thương đã được nhà trường công khai rõ ràng theo từng ngành và chương trình đào tạo. Những mức phí thực tế này được xem là cơ sở tham khảo quan trọng để dự đoán chi phí học tập cho giai đoạn tuyển sinh khóa 2026 - 2030. Học phí các ngành tại Đại học Công Thương 2024 - 2025 Tùy thuộc vào chương trình đào tạo Cử nhân hay Kỹ sư, tổng mức học phí Đại học Công Thương sẽ có sự khác biệt giữa các ngành. Tuy vậy, xét trên mặt bằng chung, đây vẫn là mức phí phù hợp với chất lượng đào tạo, cơ sở vật chất cùng môi trường học tập chuyên nghiệp.",384,"0.0884, 0.1353, 0.1040, -0.0165, 0.1103 ..."
-64,Bài viết học phí HUIT (CellphoneS),"Một trong những điểm nổi bật trong chính sách tài chính của HUIT chính là cam kết ổn định học phí trong toàn bộ khóa học. Chính sách này giúp sinh viên và phụ huynh chủ động hơn trong kế hoạch tài chính dài hạn, đồng thời giảm bớt áp lực trước biến động chi phí. Lưu ý: Học phí Đại học Công Thương 2024 - 2025 chỉ là thông tin được dự kiến. Các bạn hãy truy cập vào website chính thức của trường để cập nhật thông tin chính xác về học phí mới nhất nhé. So sánh học phí Đại học Công Thương qua từng năm",384,"0.0576, 0.3559, -0.1092, -0.0257, 0.2523 ..."
-65,Bài viết học phí HUIT (CellphoneS),"Qua thống kê trong 3 năm gần đây, học phí Đại học Công Thương TP. HCM nhìn chung được điều chỉnh theo lộ trình ổn định và minh bạch. Nhà trường luôn chủ động công bố tăng học phí từ sớm, giúp sinh viên và phụ huynh dễ dàng chuẩn bị kế hoạch tài chính kịp thời. Với hệ cử nhân: 2026 - 2030 (Dự kiến)** | ~ 140 đến 170 triệu đồng",384,"0.0555, 0.2408, -0.0428, -0.0400, 0.1090 ..."
-66,Bài viết học phí HUIT (CellphoneS),"Nhìn vào các mức thu qua từng năm, có thể thấy học phí Đại học Công Thương được điều chỉnh theo hướng ổn định và có kiểm soát. Sự chênh lệch chủ yếu đến từ việc nhà trường nâng cấp hệ thống cơ sở, trang thiết bị và chất lượng đào tạo. Điều này giúp phụ huynh và sinh viên yên tâm hơn về sự minh bạch trong chính sách tài chính của trường. Học phí Trường Đại học Công Thương TP.HCM năm 2023 - 2024 Bên cạnh bản dự kiến học phí trường Đại học Công Thương mới nhất, nhiều tân sinh viên cũng quan tâm đến học phí của trường hiện tại. Cụ thể, học phí Đại học Công thương TP.HCM 2023 - 2024 đối với các ngành học sẽ có mức phí theo bảng dưới đây:",384,"0.1129, 0.1903, 0.0491, -0.0176, 0.1782 ..."
-67,Bài viết học phí HUIT (CellphoneS),"Bạn là một tân sinh viên và muốn trang bị cho mình những thiết bị tốt nhất để hỗ trợ cho việc học? Hãy đến CellphoneS và chọn cho mình các mẫu laptop tốt nhất. Tuy nhiên thì trước đó, bạn hãy tham khảo các mẫu laptop sinh viên được Sforum gợi ý dưới đây: [Product_Listing categoryid=""1054"" propertyid="""" customlink="" title=""Tham khảo danh sách laptop sinh viên được quan tâm tại CellphoneS!""] Các chính sách miễn giảm học phí của Đại học Công Thương TP.HCM",384,"0.1073, 0.2305, 0.0539, -0.0843, 0.1330 ..."
-68,Bài viết học phí HUIT (CellphoneS),"Ngoài học phí Đại học Công Thương mới nhất, những thông tin liên quan đến chính sách miễn giảm học phí tại trường cũng rất được quan tâm. Cụ thể, nhằm thúc đẩy tinh thần hiếu học của các bạn sinh viên, Trường Đại học Công Thương đã công bố các chính sách miễn giảm học phí như sau: Miễn 100% học phí: Sinh viên là con của những người có công trong thời kỳ kháng chiến, bao gồm: Anh hùng Lực lượng vũ trang nhân dân, Anh hùng lao động, liệt sĩ, thương binh, bệnh binh,... Sinh viên dưới 22 tuổi mồ côi, không còn ai nuôi dưỡng. Sinh viên là người dân tộc thiểu số và nằm trong hộ nghèo hoặc cận nghèo.",384,"0.0868, 0.3657, -0.0588, -0.0904, 0.3595 ..."
-69,Bài viết học phí HUIT (CellphoneS),"Sinh viên là người dân tộc thiểu số cực kỳ ít người. Miễn 70% học phí: Sinh viên là người dân tộc thiểu số, sống tại các khu vực đặc biệt khó khăn. Miễn 50% học phí: Sinh viên có bố mẹ là công nhân, cán bộ viên chức của nhà nước nhưng hiện đang có bệnh nghề nghiệp, bị tai nạn lao động đang được nhận trợ cấp. Sinh viên trúng tuyển thuộc 8 ngành: Khoa học dinh dưỡng và ẩm thực; Công nghệ kỹ thuật môi trường và Công nghệ chế biến thủy sản; Kỹ thuật Nhiệt; Công nghệ dệt, may; Khoa học chế biến, món ăn; Quản lý tài nguyên và môi trường; Kinh doanh thời trang và dệt may. Chính sách miễn giảm học phí Đại học Công Thương",384,"0.3548, 0.2264, 0.1722, 0.0706, 0.1912 ..."
-70,Bài viết học phí HUIT (CellphoneS),"Cách đóng học phí Trường Đại học Công Thương TP.HCM khi nhập học Hiện nay, việc thanh toán giá học phí Đại học Công Thương đã được số hóa nhằm giúp sinh viên thực hiện nhanh chóng và thuận tiện hơn. Chỉ với vài thao tác đơn giản, người học có thể hoàn tất quá trình đóng học phí tại nhà mà không cần đến trực tiếp nhà trường. 1.Vào website nhập học của trường: Truy cập vào cổng thông tin sinh viên chính thức của trường. 2.Tra cứu thông tin thí sinh: Nhập thông tin **mã hồ sơ** và **số CCCD/số điện thoại**. 3.Kiểm tra thông tin xét tuyển: Kiểm tra các **thông tin hồ sơ** thí sinh. 4.Nhập thông tin liên lạc:",384,"0.0790, 0.2343, 0.0466, -0.0569, 0.1144 ..."
-71,Bài viết học phí HUIT (CellphoneS),"Nhập tất cả **thông tin liên lạc** cần thiết như là số điện thoại, email, địa chỉ. 5.Thanh toán học phí: Chọn một hình thức thanh toán bằng **quét mã QR** hoặc chọn **thanh toán trực tuyến**. Tiến hành thanh toán học phí. Lưu lại kết quả thanh toán và chọn **Hoàn thành**. Học phí Đại học Công thương có đắt không? Đánh giá thực tế Xét trên mặt bằng chung hiện nay, học phí Đại học Công Thương được đánh giá ở mức hợp lý so với chất lượng đào tạo và điều kiện học tập. Mức học phí thuộc phân khúc tầm trung so với các trường công lập tự chủ tài chính tại khu vực TP.HCM.",384,"0.0619, 0.0345, 0.0150, 0.0313, -0.0161 ..."
-72,Bài viết học phí HUIT (CellphoneS),"Sinh viên được tiếp cận môi trường học tập hiện đại với hệ thống phòng học, phòng thí nghiệm và khu thực hành được đầu tư đồng bộ. Nhà trường cũng liên tục nâng cấp trang thiết bị nhằm hỗ trợ tốt hơn cho việc học và thực hành chuyên môn. Nhờ đó, người học có cơ hội phát triển kỹ năng thực tế từ sớm, gia tăng lợi thế nghề nghiệp sau khi tốt nghiệp. Với những giá trị mang lại, mức chi phí đào tạo được xem là tương xứng và đáng đầu tư.",384,"0.1118, 0.1372, -0.0022, 0.0149, 0.0016 ..."
-73,Bài viết học phí HUIT (CellphoneS),"Vừa rồi là những thông tin về **học phí Đại học Công Thương** 2026 mới nhất mà Sforum muốn chia sẻ. Hy vọng là từ bài viết này, các bạn đã nắm được cho mình những nội dung quan trọng liên quan đến học phí và các chính sách khác của trường Đại học Công thương TP.HCM. Đừng quên truy cập Sforum để tìm hiểu thêm học phí của những ngôi trường đại học khác nhé. Xem thêm các bài viết trong chuyên mục: **Mẹo vặt Trường Đại học Công Thương là công lập hay dân lập?",384,"0.0876, -0.0484, 0.0990, -0.0816, 0.2260 ..."
-74,Bài viết học phí HUIT (CellphoneS),"Trường Đại học Công Thương TP.HCM (Ho Chi Minh City University of Industry and Trade HUIT) là một trường công lập. Chính thức được thành lập vào ngày 9/9/1989, Trường Đại học Công Thương hiện đang hoạt động dưới sự quản lý của Bộ Công Thương. Chính vì lý do trên mà ngôi trường này hiện được xếp vào loại hình trường công lập chứ không phải dân lập. Trường đại học công thương 1 năm bao nhiêu học kỳ? Cũng giống như nhiều trường đại học khác tại Việt Nam, Trường Đại học Công Thương cũng chia năm học thành hai học kỳ chính, bao gồm: Học kỳ 1:** Bắt đầu vào tháng 9 và kết thúc năm học vào tháng 12 hoặc kéo dài đến đầu tháng 1 của năm sau.",384,"0.0188, 0.4221, -0.0519, 0.0569, 0.0841 ..."
-75,Bài viết học phí HUIT (CellphoneS),"Học kỳ 2:** Năm học bắt đầu vào khoảng tháng 2 và chính thức kết thúc vào tháng 5 hoặc tháng 6 cùng năm. Bên cạnh hai học kỳ chính, trường cũng tổ chức thêm một học kỳ hè và thường kéo dài trong vòng 2 tháng từ tháng 6 đến tháng 8.",384,"0.1757, 0.0803, 0.2765, 0.1142, -0.0310 ..."
-76,Bài viết học phí HUIT (CellphoneS),"Tôi là Hà Huyền Trang, chuyên viên Marketing sáng tạo xây dựng ý tưởng. Chịu trách nhiệm chính tạo ra những bài viết phù hợp, thiết thực nhất hữu ích cho người dùng. Với sứ mệnh cải thiện mang đến những giá trị tốt nhất đến với người dùng, tôi và Sforum đang nỗ lực cải tiến và phát triển nội dung được chọn lọc nhất để tạo hành trình trải nghiệm và hướng lối người dùng tới những thông tin bổ ích nhất. Hãy follow tôi để cập nhật thêm nhiều thông tin và được giải đáp chi tiết tận tình nhé. Top 5 laptop cho sinh viên Logistics ""cân"" mượt Excel đáng mua năm 2026** HảiTrần 17/07/2026 14:04",384,"-0.0888, -0.0608, -0.1492, -0.0322, -0.0655 ..."
-77,Bài viết học phí HUIT (CellphoneS),"Top 4 laptop gaming cũ dưới 15 triệu: Có RTX, màn 144Hz, chiến game mượt giá mềm cho sinh viên 2026** HảiTrần 17/07/2026 11:05 Top 10 mẫu laptop dành cho học sinh cấp 3 tốt nhất 2026** Seklakly 16/07/2026 17:05 Top laptop cấu hình mạnh đáng mua nhất 2026** Seklakly 16/07/2026 14:20 Top 10 laptop lập trình chất lượng, đáng mua nhất 2026** NguyễnThư 15/07/2026 18:50 Hướng dẫn tạo slide bằng Faces App AI chi tiết cho người mới** SHIRO 15/07/2026 18:35 Mời bạn cài app Sforum để truy cập nhanh hơn, cập nhật tin công nghệ mới nhất!",384,"-0.0178, -0.0465, 0.1490, -0.1379, 0.0084 ..."
-78,Bài viết học phí HUIT (CellphoneS),"Cookies được sử dụng nhằm ghi nhận các thiết lập cần thiết để website hoạt động ổn định và hỗ trợ trải nghiệm mua sắm thuận tiện hơn. Việc từ chối một số loại cookie sẽ có thể ảnh hưởng đến hoạt động của một số chức năng trên website Nâng cao chất lượng dịch vụ và cá nhân hóa trải nghiệm Cung cấp thông tin sản phẩm, dịch vụ, khuyến mại và quảng cáo phù hợp với sở thích của bạn Tìm hiểu thêm tại Chính sách thu thập và xử lý dữ liệu cá nhân.",384,"-0.2097, -0.3155, 0.0220, 0.1005, -0.1252 ..."
-79,HUIT (cổng tuyển sinh chính thức),"Trong bối cảnh phụ huynh và thí sinh ngày càng quan tâm nhiều hơn đến bài toán tài chính khi chọn trường đại học, thông tin về học phí luôn là một trong những nội dung được chú ý trong mỗi mùa tuyển sinh. Tại Trường Đại học Công Thương TP.HCM (HUIT), dự kiến học phí dành cho khóa tuyển sinh 2026–2030 sẽ dao động trong khoảng từ 140 triệu đến 170 triệu đồng cho toàn khóa học, tùy theo ngành đào tạo và chương trình học, áp dụng cho cả hệ cử nhân và hệ kỹ sư. Mức điều chỉnh này được xây dựng theo lộ trình, với mức tăng tối đa khoảng 10% so với năm trước, nhằm phù hợp với định hướng nâng cao chất lượng đào tạo và bảo đảm các điều kiện học tập ngày càng tốt hơn cho sinh viên.",384,"0.1523, 0.1360, -0.0538, 0.0016, 0.1501 ..."
-80,HUIT (cổng tuyển sinh chính thức),"Theo tính toán chung, với tổng học phí khoảng 140–170 triệu đồng/toàn khóa, chi phí đào tạo bình quân mỗi năm vẫn ở mức hợp lý so với mặt bằng chung của nhiều trường đại học hiện nay, đặc biệt đối với một cơ sở giáo dục đại học công lập theo định hướng ứng dụng, chú trọng đầu tư vào chương trình đào tạo, thực hành, thực tập và kết nối doanh nghiệp. Việc công khai sớm định hướng học phí cũng giúp phụ huynh và thí sinh chủ động hơn trong kế hoạch tài chính, từ đó yên tâm lựa chọn ngành học phù hợp với năng lực và điều kiện của gia đình.",384,"0.2585, -0.0148, 0.0856, 0.0715, 0.1148 ..."
-81,HUIT (cổng tuyển sinh chính thức),"Trao đổi về vấn đề này, thầy Phạm Thái Sơn, Giám đốc Trung tâm Tuyển sinh và Truyền thông, cho biết việc điều chỉnh học phí của nhà trường được xây dựng trên tinh thần minh bạch, có lộ trình và luôn đặt quyền lợi của người học lên hàng đầu. Theo thầy, mức học phí dự kiến cho khóa 2026–2030 được xác định trong khoảng 140–170 triệu đồng, với mức tăng tối đa khoảng 10% so với năm trước, không phải là sự thay đổi đột ngột mà nằm trong kế hoạch đã được cân nhắc kỹ, nhằm đáp ứng yêu cầu đầu tư cho chất lượng đào tạo, cơ sở vật chất, phòng thí nghiệm, thực hành và các hoạt động hỗ trợ sinh viên trong giai đoạn mới.",384,"0.0766, 0.1324, -0.0726, -0.0627, 0.0627 ..."
-82,HUIT (cổng tuyển sinh chính thức),"“Nhà trường luôn cố gắng công bố sớm thông tin học phí để phụ huynh, thí sinh có thể chủ động tính toán. Điều quan trọng là học phí không đơn thuần là chi phí học tập, mà còn là sự đầu tư cho môi trường đào tạo, cơ hội trải nghiệm thực tiễn và năng lực nghề nghiệp của sinh viên sau tốt nghiệp”, thầy Phạm Thái Sơn chia sẻ. _Thầy Phạm Thái Sơn, Giám đốc Trung tâm Tuyển sinh và Truyền thông chia sẻ._",384,"0.1258, 0.2155, -0.0658, 0.0169, -0.0394 ..."
-83,HUIT (cổng tuyển sinh chính thức),"Đối với từng nhóm ngành, mức học phí có thể có sự khác nhau tùy theo đặc thù đào tạo, thời lượng thực hành, thí nghiệm cũng như thời gian đào tạo giữa hệ cử nhân và hệ kỹ sư. Tuy vậy, định hướng chung của HUIT là xây dựng mức thu hợp lý, có lộ trình rõ ràng, bảo đảm tương xứng với chất lượng đào tạo và tạo điều kiện để người học, phụ huynh chủ động chuẩn bị kế hoạch tài chính ngay từ đầu.",384,"0.0957, 0.1957, -0.0389, 0.0363, 0.0182 ..."
-84,HUIT (cổng tuyển sinh chính thức),"Bên cạnh mức học phí, HUIT còn chú trọng triển khai các chính sách hỗ trợ tài chính để tạo điều kiện cho sinh viên tiếp cận giáo dục đại học. Nhiều chương trình học bổng khuyến khích học tập tiếp tục được duy trì dành cho sinh viên có thành tích tốt, sinh viên vượt khó và những trường hợp có hoàn cảnh đặc biệt. Cùng với đó là chính sách miễn, giảm học phí theo quy định của Nhà nước, các suất học bổng tài trợ từ doanh nghiệp, cùng nhiều hoạt động đồng hành nhằm giảm bớt gánh nặng tài chính cho người học.",384,"0.1121, 0.1496, -0.0254, 0.0574, 0.2857 ..."
-85,HUIT (cổng tuyển sinh chính thức),"Theo thầy Phạm Thái Sơn, quan điểm của nhà trường là không để sinh viên vì khó khăn tài chính mà phải bỏ lỡ cơ hội học tập. “Bên cạnh học phí, nhà trường rất quan tâm đến hệ thống hỗ trợ sinh viên, từ học bổng, chính sách miễn giảm đến việc kết nối các nguồn lực xã hội hóa, doanh nghiệp đồng hành. Chúng tôi mong muốn sinh viên khi vào HUIT thấy được một mức học phí rõ ràng, đồng thời cảm nhận được sự đồng hành thiết thực của nhà trường trong suốt hành trình học tập”, thầy nhấn mạnh.",384,"0.1499, 0.1846, 0.0158, 0.0121, 0.0389 ..."
-86,HUIT (cổng tuyển sinh chính thức),"Trong bối cảnh giáo dục đại học ngày càng chuyển mạnh theo hướng chất lượng, thực học, thực nghiệp, việc điều chỉnh học phí là câu chuyện cần được nhìn nhận toàn diện. Phụ huynh và thí sinh không chỉ quan tâm đến con số phải đóng, mà còn cân nhắc giá trị nhận lại từ môi trường đào tạo, chất lượng đầu ra và cơ hội việc làm sau tốt nghiệp. Với mức học phí dự kiến khoảng từ 140 triệu đến 170 triệu đồng cho toàn khóa, áp dụng cho cả hệ cử nhân và hệ kỹ sư, đồng thời được điều chỉnh theo lộ trình với mức tăng tối đa khoảng 10% so với năm trước, cùng nhiều chính sách hỗ trợ đi kèm, HUIT đang cho thấy nỗ lực cân bằng giữa yêu cầu phát triển chất lượng và trách nhiệm đồng hành với người học.",384,"0.2333, 0.0682, 0.0419, 0.0330, 0.1290 ..."
-87,HUIT (cổng tuyển sinh chính thức),"HUIT gia hạn đăng ký xét sơ tuyển đại học năm 2026 đến hết ngày 27/6 Ngôn ngữ Trung Quốc (ĐH Ngôn ngữ và Văn hóa Bắc Kinh, Trung Quốc) Quản trị kinh doanh (ĐH Shinawatra, Thái Lan)",384,"0.0275, 0.2635, -0.0060, -0.0857, 0.0029 ..."
-88,Bài viết học phí HUIT (FPT Shop),":quality(75)/hoc_phi_dai_hoc_cong_thuong_2025_99c7b523be.jpg) :quality(75)/2024_1_1_638397494608670897_409307496_924411505719855_5538812596272384266_n.jpg) :quality(75)/2024_1_1_638397494608670897_409307496_924411505719855_5538812596272384266_n.jpg) Học phí Đại học Công Thương 2025 và các chính sách học bổng HUIT dành cho sinh viên Học phí Đại học Công Thương 2025 là quan tâm hàng đầu của các sĩ tử và phụ huynh trong năm học tới. Bài viết sẽ cung cấp thông tin chi tiết, mới nhất về mức học phí dự kiến, các khoản phí khác và chính sách học bổng giúp giảm gánh nặng tài chính khi theo học tại ngôi trường này.",384,"-0.2530, 0.0844, -0.1197, 0.0019, -0.1988 ..."
-89,Bài viết học phí HUIT (FPT Shop),"Giới thiệu vài nét về Đại học Công Thương TP. HCM Yếu tố quyết định học phí Đại học Công Thương 2025 Cập nhật mức học phí dự kiến Đại học Công Thương 2025 - 2026 Các khoản phí tân sinh viên có thể cần đóng thêm Chính sách học bổng, hỗ trợ tài chính của HUIT mới nhất",384,"0.0318, 0.3189, 0.1601, -0.0392, 0.2661 ..."
-90,Bài viết học phí HUIT (FPT Shop),"Đại học Công Thương TP. HCM (HUIT) nổi tiếng với chương trình đào tạo đa dạng, chất lượng và môi trường học tập năng động, là điểm đến hấp dẫn của đông đảo sinh viên hiện nay. Việc nắm rõ thông tin về học phí là một bước quan trọng trong quá trình chuẩn bị hành trang cho chặng đường đầy hứa hẹn tại HUIT. Vậy học phí Đại học Công Thương 2025 là bao nhiêu? Nếu bạn đang thắc mắc về câu hỏi này, hãy đọc bài viết để chủ động hơn về kế hoạch học tập. Giới thiệu vài nét về Đại học Công Thương TP. HCM",384,"0.2120, 0.2649, -0.1485, -0.0343, 0.0862 ..."
-91,Bài viết học phí HUIT (FPT Shop),"Tọa lạc tại TP. HCM, Trường Đại học Công Thương (HUIT) trước đây được biết đến với tên gọi là Trường Đại học Công nghiệp Thực phẩm TP. HCM (HUFI) từ khi thành lập vào 9/1982, đã chính thức đổi tên thành HUIT vào 7/2023. Là cơ sở giáo dục đại học công lập trực thuộc Bộ Công Thương, HUIT định hướng phát triển thành một trường đa ngành, đa lĩnh vực, đặc biệt chú trọng vào các ngành công nghiệp và thương mại.",384,"0.0901, 0.4354, 0.0406, 0.0051, 0.0478 ..."
-92,Bài viết học phí HUIT (FPT Shop),"Với tầm nhìn chiến lược đến năm 2045, HUIT đặt mục tiêu trở thành một trong những trường đại học ứng dụng, đổi mới sáng tạo hàng đầu của Việt Nam, có uy tín trong khu vực châu Á và tiên phong trong một số lĩnh vực thuộc ngành công thương. Hiện nay, HUIT đang không ngừng mở rộng và đa dạng hóa các chương trình đào tạo, với 33 ngành bậc đại học, 10 ngành bậc thạc sĩ và 3 ngành bậc tiến sĩ, nhằm đáp ứng nhu cầu ngày càng cao của thị trường và sự phát triển của nền công nghiệp hiện đại.",384,"-0.0476, 0.2709, -0.0747, -0.1148, 0.1578 ..."
-93,Bài viết học phí HUIT (FPT Shop),"Mới đây, HUIT đã bổ sung thêm 3 ngành học đầy tiềm năng là thương mại điện tử, công nghệ tài chính và khoa học dữ liệu, nâng tổng chỉ tiêu tuyển sinh hệ đại học chính quy lên 6.300 sinh viên. Không phải ngẫu nhiên mà vấn đề học phí Đại học Công Thương 2025 lại được quan tâm đến vậy, ngôi trường này đang từng bước khẳng định vị thế của mình trong hệ thống giáo dục đại học của Việt Nam và khu vực. Yếu tố quyết định học phí Đại học Công Thương 2025 Thực tế, học phí Đại học Công Thương 2025 phụ thuộc vào khá nhiều yếu tố như:",384,"0.1977, 0.1751, 0.0419, -0.1343, 0.2873 ..."
-94,Bài viết học phí HUIT (FPT Shop),"Ngành học:** Mức học sẽ có sự phân biệt rõ ràng giữa các ngành đào tạo. Ví dụ, ngành như Kinh tế, Quản trị kinh doanh hay Tài chính - Ngân hàng thường có học phí cao hơn. Điều này xuất phát từ sự khác biệt trong nhu cầu về giảng dạy, nguồn lực cần thiết và triển vọng nghề nghiệp sau ra trường. Chương trình đại trà:** Thường có mức học phí cơ bản, tạo điều kiện tiếp cận giáo dục đại học cho đông đảo sinh viên. Đây là lựa chọn phổ biến với chi phí hợp lý nhưng vẫn đảm bảo chất lượng đào tạo theo tiêu chuẩn của trường.",384,"0.2570, 0.1037, 0.0266, 0.1345, 0.1902 ..."
-95,Bài viết học phí HUIT (FPT Shop),"Chương trình chất lượng cao:** Học phí Đại học Công Thương 2025 với chương trình này sẽ cao hơn bởi sinh viên được hưởng chất lượng giảng dạy tốt, cơ sở vật chất hiện đại nhất và quy mô lớp học nhỏ, mang đến trải nghiệm học tập chuyên sâu. Cập nhật mức học phí dự kiến Đại học Công Thương 2025 - 2026",384,"0.1740, 0.1791, 0.0322, -0.0899, -0.0141 ..."
-96,Bài viết học phí HUIT (FPT Shop),"Thông báo mới nhất từ Đại học Công Thương TP.HCM (HUIT) vào tháng 02/2025 đã hé lộ về mức học phí dự kiến trong năm học tới. Theo đó, học phí của khóa sinh viên 2025 - 2029 sẽ có sự điều chỉnh, với mức tăng tối đa là 10% so với khóa 2024 - 2028. Ước tính tổng học phí cho toàn khóa tiếp theo sẽ **không quá 132 triệu đồng** (tổng phí này có thể thấp hơn tùy thuộc vào từng khoa và số lượng tín chỉ thực hành).",384,"-0.0230, 0.1872, 0.0490, -0.0646, 0.1302 ..."
-97,Bài viết học phí HUIT (FPT Shop),"Mức điều chỉnh tăng khoảng 12 triệu đồng so với khóa trước được nhà trường đánh giá là phù hợp, hướng tới mục tiêu đảm bảo chất lượng đào tạo, đồng thời tạo điều kiện để sinh viên có thể yên tâm học tập mà không chịu áp lực tài chính quá lớn. Lưu ý:** Mức học phí Đại học Công Thương 2025 - 2026 kể trên là thông báo dự kiến, bạn hãy tiếp tục theo dõi từ phía nhà trường để nhận được thông tin chính thức.",384,"-0.0302, 0.1200, 0.0042, 0.0670, 0.1102 ..."
-98,Bài viết học phí HUIT (FPT Shop),"Theo ghi nhận, mức học phí tại Đại học Công Thương TP. HCM đối với sinh viên năm nhất tuyển sinh khoá 2024 là 863.000 VNĐ/tín chỉ lý thuyết. Với những học phần thực hành, chi phí có phần nhỉnh hơn, cụ thể là 1.100.000 VNĐ/tín chỉ. Đây là một cơ sở tham khảo quan trọng để các bạn sinh viên và quý phụ huynh có thể hình dung về mức chi phí trong năm học 2025 - 2026. Các khoản phí tân sinh viên có thể cần đóng thêm Bên cạnh khoản học phí Đại học Công Thương 2025 dự kiến, sinh viên khi nhập học tại trường có thể cần chuẩn bị thêm cho một số khoản tiền khác như:",384,"0.1325, 0.2185, 0.0393, -0.0822, 0.1337 ..."
-99,Bài viết học phí HUIT (FPT Shop),"Phí nhập học:** Đây là khoản phí hành chính thu một lần khi sinh viên làm thủ tục nhập học chính thức, liên quan đến việc xử lý hồ sơ, cấp thẻ và các thủ tục ban đầu khác. Mức phí này thường không cao nhưng là một khoản bắt buộc. Bảo hiểm y tế và bảo hiểm thân thể:** Bảo hiểm y tế được yêu cầu theo quy định của nhà nước, trong khi bảo hiểm thân thể thường được khuyến khích tham gia để phòng ngừa những rủi ro không lường trước.",384,"0.2055, 0.2692, -0.0849, 0.0779, 0.2102 ..."
-100,Bài viết học phí HUIT (FPT Shop),"Phí dịch vụ hỗ trợ sinh viên (không bắt buộc):** Thường bao gồm các khoản đóng góp nhỏ cho hoạt động ngoại khóa, câu lạc bộ, đội nhóm hoặc các dịch vụ tiện ích khác do trường hoặc các tổ chức sinh viên đề ra. Khoản phí này thường không cố định và có thể thay đổi tùy thuộc vào nhu cầu và lựa chọn tham gia của mỗi người. Phí tài liệu học tập (nếu có):** Mặc dù thư viện trường có đầy đủ các đầu sách tham khảo, một số môn học vẫn có thể yêu cầu sinh viên mua giáo trình, sách bài tập hoặc các tài liệu chuyên ngành khác. Chính sách học bổng, hỗ trợ tài chính của HUIT mới nhất",384,"0.0321, -0.0299, 0.1007, 0.0631, 0.1242 ..."
-101,Bài viết học phí HUIT (FPT Shop),"Bạn sợ rằng bản thân không có đủ điều kiện nộp học phí Đại học Công Thương 2025? Đừng lo lắng! Hiện nay, HUIT đã và đang triển khai một loạt các chính sách học bổng và hỗ trợ tài chính vô cùng thiết thực, với **tổng ngân sách lên đến 50 tỷ đồng**. Con số này không chỉ là minh chứng cho sự đầu tư mạnh mẽ vào thế hệ trẻ mà còn thể hiện cam kết sâu sắc của trường trong việc đồng hành cùng sinh viên trên con đường chinh phục tri thức.",384,"0.0819, 0.1292, -0.0863, -0.0541, 0.2642 ..."
-102,Bài viết học phí HUIT (FPT Shop),"Đại học Công Thương luôn nỗ lực đảm bảo không một sinh viên nào phải dang dở ước mơ học tập vì những khó khăn về kinh tế. Các chương trình hỗ trợ đa dạng của HUIT được thiết kế để đáp ứng nhiều đối tượng khác nhau nổi bật như sau: Đối tượng sinh viên** | **Tổng ngân sách chi (VNĐ) Sinh viên năm nhất có đầu vào là Thủ khoa, Á khoa | 100 triệu Sinh viên mới nhập học có hoàn cảnh đặc biệt khó khăn | 200 triệu Học bổng cho sinh viên năm cuối có kết quả học tập cao nhất theo ngành trong năm | 250 triệu Học bổng khuyến khích học tập cho sinh viên trong năm | 23.6 tỷ Cấp bù miễn giảm cho sinh viên thuộc đối tượng Nghị định 81 | 1.4 tỷ",384,"0.1059, 0.1892, -0.0483, -0.0329, 0.2073 ..."
-103,Bài viết học phí HUIT (FPT Shop),"Ngoài ra, trường còn bổ sung rất nhiều khoản hỗ trợ khác như: Hỗ trợ Ban cán sự lớp, tổ chức tết xa quê, phí khám sức khỏe miễn phí, tổ chức các cuộc thi/phong trào,... Lưu ý:** Mức chi phí trên được cập nhật mới nhất theo quyết định của Đại học Công Thương trong năm học 2024 - 2025 mới đây và có thể thay đổi trong những năm tới.",384,"-0.0710, 0.0135, 0.1021, -0.0613, 0.2056 ..."
-104,Bài viết học phí HUIT (FPT Shop),"Việc nắm rõ thông tin về học phí Đại học Công Thương 2025 là một bước quan trọng trong hành trình chinh phục tri thức và xây dựng tương lai tại ngôi trường này. Hy vọng bài viết sẽ phần nào giúp bạn có sự chuẩn bị tốt nhất về mặt tài chính, tự tin theo đuổi đam mê và gặt hái thành công trên con đường học vấn của mình.",384,"0.1700, 0.1815, -0.1737, -0.1289, 0.0248 ..."
-105,Bài viết học phí HUIT (FPT Shop),"Một thiết bị không thể thiếu với bất cứ sinh viên nào chính là laptop, vậy bạn đã có chiếc máy riêng cho mình hay chưa? FPT Shop hiện mang đến đa dạng dòng laptop chính hãng với nhiều ưu đãi hấp dẫn dành riêng cho tân sinh viên. Từ dòng máy mỏng nhẹ, thời trang cho đến hiệu năng cao, đáp ứng mọi nhu cầu học tập và giải trí của bạn. Truy cập ngay dưới đây để khám phá mẫu laptop chất lượng nhất: 8 cách kiếm tiền tự mua laptop cho sinh viên với lịch học bận rộn, để nhanh sở hữu thiết bị ưng ý Học phí UIT: Chi tiết theo từng hệ đào tạo của Trường Đại học Công nghệ Thông tin",384,"-0.0158, 0.1591, -0.0064, -0.1453, -0.0102 ..."
-106,Bài viết học phí HUIT (FPT Shop),"Điểm chuẩn Đại học Công thương TPHCM 2025 có cao không? Thí sinh cần lưu ý gì khi làm thủ tục nhập học? Trang web của chúng tôi sử dụng cookies để nâng cao trải nghiệm mua sắm, phân tích lưu lượng truy cập và hỗ trợ các hoạt động tiếp thị. Bằng cách nhấn **“Chấp nhận”** hoặc tiếp tục sử dụng website, bạn đồng ý với việc FPT Shop sử dụng cookies. Nếu bạn không đồng ý, vui lòng chọn **“Quản lý”** để tùy chỉnh lựa chọn của mình. Tìm hiểu thêm tại Chính sách thu thập và xử lý dữ liệu cá nhân của FPT Shop.",384,"-0.1570, -0.2989, -0.0139, -0.0256, 0.0020 ..."
-107,Bài viết học phí HUIT (FPT Shop),"Khi bạn sử dụng website của FPT Shop, chúng tôi có thể sử dụng cookies và thu thập, xử lý một số dữ liệu nhằm đảm bảo ổn định, cải thiện trải nghiệm và cung cấp các dịch vụ phù hợp với nhu cầu của bạn. Bạn có thể quản lý và điều chỉnh các tùy chọn xử lý dữ liệu tại đây. Việc thay đổi một số lựa chọn có thể ảnh hưởng đến trải nghiệm và khả năng sử dụng một số tính năng dịch vụ của FPT Shop Thông báo sản phẩm, dịch vụ mới, quyền lợi khuyến mãi Nâng cao trải nghiệm người dùng, ghi nhớ bạn cho các lần đăng nhập tiếp theo",384,"-0.2250, -0.3013, -0.1106, -0.1841, -0.2214 ..."
+1,Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Trí tuệ nhân tạo (Mã ngành: 7480107)
+**MÃ NGÀNH:** `7480107` | **KHOA QUẢN LÝ:** Khoa Công nghệ thông tin
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (153 tín chỉ - Cử nhân / Kỹ sư) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (540.000đ - 700.000đ/tín chỉ)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- C01 (Văn, Toán, Lý)
+- D01 (Toán, Văn, Anh)
+- X26 (Toán, Anh, Tin)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `22.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `24.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1305, -0.1231, -0.0303, -0.2030, -0.0865 ..."
+2,Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Đào tạo kiến thức nền tảng và chuyên sâu về Toán học cho AI, Machine Learning, Deep Learning, Xử lý ngôn ngữ tự nhiên (NLP), Thị giác máy tính (Computer Vision), Hệ thống đa tác tử, Big Data, LLM và AI Tạo sinh (Generative AI).
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư phát triển ứng dụng Trí tuệ nhân tạo (AI Engineer)
+- Chuyên viên Phân tích và Xử lý Dữ liệu (Data Analyst / Data Scientist)
+- Kỹ sư Học máy và Deep Learning (Machine Learning Engineer)
+- Chuyên viên Thiết kế và Triển khai Giải pháp AI / Chatbot trong doanh nghiệp
+- Nghiên cứu viên R&D tại các tập đoàn công nghệ và trung tâm dữ liệu
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.",384,"0.0243, -0.1340, 0.0105, -0.0689, -0.0370 ..."
+3,Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.
+- **Phương thức 4**: Xét tuyển thẳng theo quy chế của Bộ GD&ĐT.
+- **Phương thức 5**: Xét điểm ĐGNL chuyên biệt Trường ĐH Sư phạm TP.HCM kết hợp học bạ.
+- **Chính sách học bổng**: HUIT dành hàng tỷ đồng học bổng khuyến khích học tập, học bổng 50% học kỳ 1 cho các ngành ưu tiên, hỗ trợ tân sinh viên vay vốn và khám sức khỏe miễn phí.",384,"0.1163, 0.2036, 0.1102, -0.1221, 0.0149 ..."
+4,Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ thông tin (Mã ngành: 7480201)
+**MÃ NGÀNH:** `7480201` | **KHOA QUẢN LÝ:** Khoa Công nghệ thông tin
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `22.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `24.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1474, 0.0214, -0.0492, -0.2145, -0.0567 ..."
+5,Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Trang bị kiến thức lập trình phần mềm, phát triển web/mobile, quản trị mạng, điện toán đám mây, kiến trúc hệ thống thông tin, cơ sở dữ liệu và an ninh mạng.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Lập trình viên Software / Web / Mobile Developer
+- Kỹ sư Điện toán đám mây & DevOps
+- Chuyên viên Kiểm thử phần mềm (QA/QC Engineer)
+- Quản trị viên Hệ thống và Cơ sở dữ liệu (DBA)
+- Kỹ sư Giải pháp Công nghệ thông tin
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"-0.0387, -0.1157, -0.1572, -0.1264, 0.0332 ..."
+6,Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.
+- **Phương thức 4**: Xét tuyển thẳng theo quy chế của Bộ GD&ĐT.
+- **Phương thức 5**: Xét điểm ĐGNL chuyên biệt Trường ĐH Sư phạm TP.HCM kết hợp học bạ.
+- **Chính sách học bổng**: HUIT dành hàng tỷ đồng học bổng khuyến khích học tập, học bổng 50% học kỳ 1 cho các ngành ưu tiên, hỗ trợ tân sinh viên vay vốn và khám sức khỏe miễn phí.",384,"-0.0512, 0.1451, 0.0625, -0.1150, 0.0675 ..."
+7,Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành An toàn thông tin (Mã ngành: 7480202)
+**MÃ NGÀNH:** `7480202` | **KHOA QUẢN LÝ:** Khoa Công nghệ thông tin
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1298, 0.0505, -0.0960, -0.1472, -0.0687 ..."
+8,Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Đào tạo chuyên sâu về bảo mật mạng, mật mã học, kiểm thử xâm nhập (Penetration Testing), điều tra vết kỹ thuật số (Digital Forensics), bảo vệ hệ thống thông tin doanh nghiệp.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Bảo mật Hệ thống (Cyber Security Specialist)
+- Chuyên viên Kiểm thử Xâm nhập (Pentester / Ethical Hacker)
+- Kỹ sư An toàn Mạng & SOC Analyst
+- Chuyên viên Điều tra Tội phạm Kỹ thuật số (Digital Forensics)
+- Tư vấn An toàn Thông tin Doanh nghiệp
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"0.0009, 0.1655, -0.2256, -0.0826, 0.0630 ..."
+9,Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Khoa học dữ liệu (Mã ngành: 7460108)
+**MÃ NGÀNH:** `7460108` | **KHOA QUẢN LÝ:** Khoa Công nghệ thông tin
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1427, 0.0855, -0.1086, -0.1661, -0.0654 ..."
+10,Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Chuyên về thu thập, làm sạch, khai phá dữ liệu lớn (Big Data Mining), thống kê ứng dụng, xây dựng thuật toán dự báo kinh doanh và trí tuệ kinh doanh (Business Intelligence).
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Dữ liệu (Data Scientist)
+- Kỹ sư Dữ liệu (Data Engineer)
+- Chuyên viên Trí tuệ Kinh doanh (BI Analyst)
+- Chuyên viên Phân tích Thị trường và Hành vi Khách hàng
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0860, 0.1119, -0.0361, -0.0728, 0.0263 ..."
+11,Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"- **Phương thức 4**: Xét tuyển thẳng theo quy chế của Bộ GD&ĐT.
+- **Phương thức 5**: Xét điểm ĐGNL chuyên biệt Trường ĐH Sư phạm TP.HCM kết hợp học bạ.
+- **Chính sách học bổng**: HUIT dành hàng tỷ đồng học bổng khuyến khích học tập, học bổng 50% học kỳ 1 cho các ngành ưu tiên, hỗ trợ tân sinh viên vay vốn và khám sức khỏe miễn phí.",384,"-0.0337, 0.1569, 0.0426, -0.0673, 0.0989 ..."
+12,Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ thực phẩm (Mã ngành: 7540101)
+**MÃ NGÀNH:** `7540101` | **KHOA QUẢN LÝ:** Khoa Công nghệ thực phẩm (Thế mạnh cốt lõi số 1 của HUIT)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `22.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `24.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0927, 0.0119, 0.0884, -0.0960, -0.0668 ..."
+13,Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Ngành đào tạo thế mạnh lâu đời nhất của HUIT. Đào tạo quy trình chế biến, bảo quản thực phẩm, nghiên cứu phát triển sản phẩm mới (R&D), quản lý chất lượng thực phẩm (HACCP, ISO 22000), công nghệ đồ uống, bánh kẹo, thịt cá.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Nghiên cứu và Phát triển Sản phẩm Thực phẩm (R&D)
+- Kỹ sư Quản lý Chất lượng Thực phẩm (QA/QC)
+- Quản lý Phân xưởng/Nhà máy Sản xuất Thực phẩm
+- Chuyên viên Kiểm nghiệm và Giám định Thực phẩm
+- Chuyên gia Tư vấn An toàn Thực phẩm
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.",384,"-0.0827, 0.2209, 0.0714, -0.0125, 0.1018 ..."
+14,Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển sinh chính thức),"# Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106)
+**MÃ NGÀNH:** `7540106` | **KHOA QUẢN LÝ:** Khoa Công nghệ thực phẩm
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `20.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `22.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0129, 0.0647, -0.0133, -0.0599, 0.0089 ..."
+15,Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển sinh chính thức),"Đào tạo các tiêu chuẩn chất lượng ISO, BRC, IFS, GMP, HACCP, vi sinh thực phẩm, độc tố học thực phẩm, luật thực phẩm quốc tế và đánh giá rủi ro an toàn thực phẩm.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Đảm bảo Chất lượng QA/QC Thực phẩm
+- Chuyên viên Đánh giá Tiêu chuẩn An toàn Thực phẩm
+- Thanh tra viên An toàn Thực phẩm tại cơ quan nhà nước
+- Quản lý Hệ thống Chất lượng tại tập đoàn đa quốc gia
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"0.0494, 0.1212, -0.0225, -0.0268, 0.1618 ..."
+16,Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105)
+**MÃ NGÀNH:** `7540105` | **KHOA QUẢN LÝ:** Khoa Thủy sản (Được hưởng Học bổng 50% HP HK1)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `17.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `20.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"0.0005, 0.0897, 0.0657, -0.1517, -0.0302 ..."
+17,Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển sinh chính thức),"Đào tạo kỹ thuật chế biến đông lạnh, đồ hộp thủy hải sản, chiết xuất hợp chất sinh học từ phụ phẩm thủy sản, xuất nhập khẩu thủy sản sang EU, Mỹ, Nhật.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Công nghệ Chế biến Thủy sản
+- Chuyên viên Quản lý Chất lượng Xuất khẩu Thủy sản
+- Quản lý Quá trình Đông lạnh và Đóng hộp Thủy sản
+- Chuyên viên R&D Sản phẩm Thủy hải sản Giá trị gia tăng
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0210, 0.0297, 0.1298, -0.1480, 0.1439 ..."
+18,Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển sinh chính thức),"# Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107)
+**MÃ NGÀNH:** `7540107` | **KHOA QUẢN LÝ:** Khoa Công nghệ thực phẩm (Học bổng 50% HP HK1)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `19.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `21.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"0.0008, 0.0530, 0.1026, -0.0262, -0.0193 ..."
+19,Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển sinh chính thức),"Kết hợp khoa học dinh dưỡng cơ thể người, xây dựng khẩu phần ăn lý tưởng, tư vấn dinh dưỡng lâm sàng, phân tích hóa học thực phẩm và khoa học nghệ thuật ẩm thực.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Tư vấn Dinh dưỡng tại trung tâm y tế / spa / thể thao
+- Kỹ sư Phát triển Thực phẩm Dinh dưỡng và Dược phẩm
+- Chuyên gia Xây dựng Thực đơn Dinh dưỡng Khách sạn / Bệnh viện
+- Chuyên viên Kiểm định Dinh dưỡng Thực phẩm
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"0.0653, 0.0006, 0.1291, 0.1583, 0.0220 ..."
+20,Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển sinh chính thức),"# Ngành Khoa học chế biến món ăn (Mã ngành: 7810203)
+**MÃ NGÀNH:** `7810203` | **KHOA QUẢN LÝ:** Khoa Dịch vụ du lịch & Ẩm thực (Học bổng 50% HP HK1)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `18.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `20.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"0.0207, 0.0571, 0.0522, -0.0422, -0.0929 ..."
+21,Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển sinh chính thức),"Đào tạo nghệ thuật và kỹ thuật chế biến món ăn Á - Âu nâng cao, quản lý bếp chuyên nghiệp, thiết kế thực đơn cao cấp, khoa học kết hợp hương vị và dinh dưỡng.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Bếp trưởng / Quản lý Bếp tại Khách sạn 5 sao & Nhà hàng Quốc tế
+- Chuyên gia Sáng tạo Ẩm thực (Culinary Director)
+- Chuyên viên Nghiên cứu và Phát triển Công thức Món ăn
+- Chủ Doanh nghiệp Dịch vụ Ẩm thực & Catering
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"0.1654, 0.0853, 0.0958, 0.1346, -0.0432 ..."
+22,Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Marketing (Mã ngành: 7340115)
+**MÃ NGÀNH:** `7340115` | **KHOA QUẢN LÝ:** Khoa Quản trị kinh doanh (Ngành có điểm trúng tuyển TOP đầu HUIT)
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `23.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `25.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0581, -0.0838, -0.0993, -0.1746, -0.0699 ..."
+23,Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Đào tạo Digital Marketing, Truyền thông thương hiệu, Content Marketing, Quảng cáo số (Facebook/Google/TikTok Ads), Nghiên cứu thị trường và Quản trị quan hệ khách hàng (CRM).
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Digital Marketing & SEO/SEM
+- Chuyên viên Sáng tạo Nội dung (Content Creator / Copywriter)
+- Quản trị Thương hiệu (Brand Manager)
+- Chuyên viên Nghiên cứu Thị trường & Data Marketing
+- Account Executive tại các Marketing Agency
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"-0.1086, -0.0653, -0.0521, -0.0574, 0.0189 ..."
+24,Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Kinh doanh quốc tế (Mã ngành: 7340120)
+**MÃ NGÀNH:** `7340120` | **KHOA QUẢN LÝ:** Khoa Quản trị kinh doanh
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `22.75 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `24.75 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0785, -0.0683, -0.0325, -0.1543, 0.0053 ..."
+25,Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Chuyên về Thương mại Quốc tế, Xuất nhập khẩu, Thanh toán Quốc tế, Đầu tư Quốc tế, Marketing Toàn cầu và Đàm phán Thương mại Quốc tế.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Xuất Nhập Khẩu (Import-Export Specialist)
+- Chuyên viên Thanh toán Quốc tế tại Ngân hàng
+- Chuyên viên Phát triển Thị trường Toàn cầu
+- Chuyên viên Logistics & Chuỗi Cung ứng Quốc tế
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"0.0293, 0.0100, -0.0184, -0.0169, 0.1117 ..."
+26,Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển sinh chính thức),"# Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605)
+**MÃ NGÀNH:** `7510605` | **KHOA QUẢN LÝ:** Khoa Quản lý công nghiệp & Logistics
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `22.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `24.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1113, -0.0981, 0.0066, -0.0388, 0.0464 ..."
+27,Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển sinh chính thức),"Đào tạo quản lý kho vận, giao nhận vận tải đa phương thức, mua hàng (Procurement), quản trị chuỗi cung ứng toàn cầu, tối ưu hóa chi phí vận chuyển.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Điều phối Logistics & Vận tải
+- Quản trị Kho hàng & Giao nhận (Warehouse Manager)
+- Chuyên viên Mua hàng & Quản lý Cung ứng (Procurement Officer)
+- Chuyên viên Giao nhận Xuất nhập khẩu & Forwarding
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"0.0658, 0.0297, 0.1204, 0.0442, 0.0930 ..."
+28,Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Quản trị kinh doanh (Mã ngành: 7340101)
+**MÃ NGÀNH:** `7340101` | **KHOA QUẢN LÝ:** Khoa Quản trị kinh doanh
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.75 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.75 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0810, 0.0097, -0.0533, -0.0803, -0.0601 ..."
+29,Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Trang bị tư duy quản trị doanh nghiệp tổng thể, chiến lược kinh doanh, quản trị nhân sự, điều hành sản xuất, quản trị tài chính doanh nghiệp và khởi nghiệp.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Khởi nghiệp & Điều hành Doanh nghiệp
+- Chuyên viên Phát triển Dự án Kinh doanh
+- Quản lý Kinh doanh (Sales / Business Development Manager)
+- Trợ lý Giám đốc & Tư vấn Chiến lược
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"0.1165, 0.0856, 0.0813, 0.0416, 0.0608 ..."
+30,Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Thương mại điện tử (Mã ngành: 7340122)
+**MÃ NGÀNH:** `7340122` | **KHOA QUẢN LÝ:** Khoa Quản trị kinh doanh
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `22.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `24.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0922, -0.0142, 0.0045, -0.1524, -0.0802 ..."
+31,Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Khai thác kinh doanh trên sàn Shopee, Lazada, TikTok Shop, Amazon; thiết kế hệ thống gian hàng số, thanh toán điện tử, tiếp thị liên kết (Affiliate Marketing).
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Vận hành Sàn Thương mại Điện tử (E-commerce Operation)
+- Quản lý Gian hàng Số & TikTok Shop / Shopee / Lazada
+- Chuyên viên Tiếp thị Liên kết & Online Marketing
+- Chuyên viên Phát triển Hệ thống E-business
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"-0.0086, -0.0777, 0.0986, 0.0124, -0.1866 ..."
+32,Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Tài chính ngân hàng (Mã ngành: 7340201)
+**MÃ NGÀNH:** `7340201` | **KHOA QUẢN LÝ:** Khoa Tài chính - Kế toán
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0636, -0.0133, -0.2060, -0.0837, -0.0961 ..."
+33,Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Đào tạo quản trị tín dụng, đầu tư tài chính, phân tích chứng khoán, quản trị rủi ro ngân hàng, tài chính doanh nghiệp và giao dịch ngoại hối.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Quan hệ Khách hàng Ngân hàng (RM)
+- Chuyên viên Phân tích Đầu tư Chứng khoán
+- Chuyên viên Thẩm định Tín dụng & Quản trị Rủi ro
+- Chuyên viên Tài chính Doanh nghiệp (Corporate Finance)
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"0.1108, 0.0496, -0.1293, 0.0262, 0.1175 ..."
+34,Ngành Công nghệ Tài Chính (Fintech) (Mã ngành: 7340205) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ Tài Chính (Fintech) (Mã ngành: 7340205)
+**MÃ NGÀNH:** `7340205` | **KHOA QUẢN LÝ:** Khoa Tài chính - Kế toán
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1314, -0.0218, -0.1196, -0.1176, -0.0330 ..."
+35,Ngành Công nghệ Tài Chính (Fintech) (Mã ngành: 7340205) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển sinh chính thức),"Kết hợp công nghệ dữ liệu, Blockchain, AI, Ví điện tử, Cổng thanh toán, Ngân hàng số và Phân tích rủi ro tài chính thuật toán.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Phát triển Sản phẩm Fintech (Product Owner)
+- Chuyên viên Phân tích Dữ liệu Tài chính (Financial Data Analyst)
+- Chuyên viên Vận hành Hệ thống Thanh toán Số & Ví Điện tử
+- Chuyên viên Quản trị Rủi ro Công nghệ Ngân hàng Số
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"-0.0342, -0.0184, -0.0975, -0.0365, 0.0586 ..."
+36,Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Kế toán (Mã ngành: 7340301)
+**MÃ NGÀNH:** `7340301` | **KHOA QUẢN LÝ:** Khoa Tài chính - Kế toán
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.25 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.25 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1213, 0.0812, -0.1741, -0.0322, -0.0954 ..."
+37,Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Thực hành kế toán tài chính, kế toán quản trị, lập báo cáo thuế, kế toán máy (MISA, SAP), kiểm toán nội bộ và phân tích sức khỏe tài chính doanh nghiệp.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kế toán viên Tổng hợp / Kế toán Thuế
+- Chuyên viên Phân tích Tài chính Doanh nghiệp
+- Kế toán Trưởng tại các Công ty và Tập đoàn
+- Trợ lý Kiểm toán viên
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"0.0307, 0.0604, -0.0091, 0.1212, 0.0592 ..."
+38,Ngành Luật kinh tế (Mã ngành: 7380107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Luật kinh tế (Mã ngành: 7380107)
+**MÃ NGÀNH:** `7380107` | **KHOA QUẢN LÝ:** Khoa Luật
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- C00 (Văn, Sử, Địa)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `720 điểm`
+- Điểm trúng tuyển THPT năm 2024: `22.25 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `24.25 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO
+Đào tạo pháp luật doanh nghiệp, tư vấn hợp đồng thương mại, giải quyết tranh chấp kinh doanh, luật đầu tư quốc tế, sở hữu trí tuệ và lao động.",384,"-0.0991, 0.0629, -0.1061, -0.0772, -0.0147 ..."
+39,Ngành Luật kinh tế (Mã ngành: 7380107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Pháp chế Doanh nghiệp (Legal Officer)
+- Chuyên viên Tư vấn Hợp đồng và M&A tại Công ty Luật
+- Luật sư Kinh doanh Commercial Lawyer
+- Chuyên viên Giải quyết Tranh chấp Thương mại & Trọng tài
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.
+- **Phương thức 4**: Xét tuyển thẳng theo quy chế của Bộ GD&ĐT.
+- **Phương thức 5**: Xét điểm ĐGNL chuyên biệt Trường ĐH Sư phạm TP.HCM kết hợp học bạ.",384,"-0.0156, 0.1763, 0.0213, -0.0022, -0.0523 ..."
+40,Ngành Luật kinh tế (Mã ngành: 7380107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"- **Chính sách học bổng**: HUIT dành hàng tỷ đồng học bổng khuyến khích học tập, học bổng 50% học kỳ 1 cho các ngành ưu tiên, hỗ trợ tân sinh viên vay vốn và khám sức khỏe miễn phí.",384,"-0.0016, 0.1634, -0.1067, 0.0121, 0.2407 ..."
+41,Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Luật (Mã ngành: 7380101)
+**MÃ NGÀNH:** `7380101` | **KHOA QUẢN LÝ:** Khoa Luật
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- C00 (Văn, Sử, Địa)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `720 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO
+Kiến thức toàn diện về Luật Hình sự, Dân sự, Hành chính, Tố tụng, Tư pháp quốc tế và kỹ năng tranh tụng trước tòa án.",384,"-0.1058, 0.1889, -0.1281, -0.1224, -0.1000 ..."
+42,Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Tư vấn Pháp lý
+- Trợ lý Luật sư / Công chứng viên / Đấu giá viên
+- Cán bộ Pháp luật tại các Cơ quan Nhà nước, Tòa án, Viện Kiểm sát
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.
+- **Phương thức 4**: Xét tuyển thẳng theo quy chế của Bộ GD&ĐT.
+- **Phương thức 5**: Xét điểm ĐGNL chuyên biệt Trường ĐH Sư phạm TP.HCM kết hợp học bạ.",384,"0.0464, 0.1303, 0.0346, -0.0671, -0.0335 ..."
+43,Ngành Ngôn ngữ Anh (Mã ngành: 7220201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Ngôn ngữ Anh (Mã ngành: 7220201)
+**MÃ NGÀNH:** `7220201` | **KHOA QUẢN LÝ:** Khoa Ngoại ngữ
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D14 (Văn, Sử, Anh)
+- D15 (Văn, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO
+Thành thạo Tiếng Anh Thương mại, Biên - Phiên dịch Anh - Việt chuyên sâu, Giao tiếp Liên văn hóa, Giảng dạy Tiếng Anh (TESOL/CELTA).",384,"-0.1168, -0.0362, 0.0317, -0.2081, -0.2260 ..."
+44,Ngành Ngôn ngữ Anh (Mã ngành: 7220201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Biên - Phiên dịch viên Tiếng Anh Thương mại
+- Chuyên viên Quan hệ Quốc tế & Đối ngoại
+- Giảng viên / Giáo viên Tiếng Anh tại các trung tâm & trường học
+- Chuyên viên Truyền thông & Du lịch Quốc tế
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.
+- **Phương thức 4**: Xét tuyển thẳng theo quy chế của Bộ GD&ĐT.
+- **Phương thức 5**: Xét điểm ĐGNL chuyên biệt Trường ĐH Sư phạm TP.HCM kết hợp học bạ.",384,"0.1246, -0.0677, 0.1594, -0.1935, 0.0539 ..."
+45,Ngành Ngôn ngữ Trung Quốc (Mã ngành: 7220204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Ngôn ngữ Trung Quốc (Mã ngành: 7220204)
+**MÃ NGÀNH:** `7220204` | **KHOA QUẢN LÝ:** Khoa Ngoại ngữ (Ngành tuyển sinh rất HOT tại HUIT)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- D01 (Toán, Văn, Anh)
+- D04 (Toán, Văn, Trung)
+- D15 (Văn, Địa, Anh)
+- D84 (Toán, Giáo dục công dân, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `22.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `24.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1358, -0.0187, 0.0216, -0.0989, -0.2229 ..."
+46,Ngành Ngôn ngữ Trung Quốc (Mã ngành: 7220204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Đào tạo Tiếng Trung Thương mại, Biên - Phiên dịch Hán - Việt, Văn hóa & Kinh tế Trung Quốc, Kỹ năng làm việc tại doanh nghiệp FDI Trung Quốc, Đài Loan.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Biên - Phiên dịch viên Tiếng Trung Quốc
+- Chuyên viên Xuất Nhập Khẩu với Thị trường Trung Quốc / Đài Loan
+- Trợ lý Giám đốc Doanh nghiệp FDI Trung Quốc / Đài Loan
+- Hướng dẫn viên Du lịch & Chuyên viên Đối ngoại
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"0.0574, 0.0642, 0.1178, -0.0699, 0.1747 ..."
+47,Ngành Quản trị khách sạn (Mã ngành: 7810201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Quản trị khách sạn (Mã ngành: 7810201)
+**MÃ NGÀNH:** `7810201` | **KHOA QUẢN LÝ:** Khoa Dịch vụ du lịch & Ẩm thực
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `20.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `22.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"0.0425, 0.0372, -0.1053, 0.0099, 0.0313 ..."
+48,Ngành Quản trị khách sạn (Mã ngành: 7810201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Quản trị vận hành Lễ tân, Buồng phòng, Ẩm thực (F&B), Quản trị Sự kiện & Hội nghị (MICE), Quản trị doanh thu Khách sạn 4-5 sao.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Quản lý / Giám sát Bộ phận Khách sạn 4-5 sao (Front Office / F&B)
+- Chuyên viên Tổ chức Sự kiện & Hội nghị
+- Chuyên viên Quản trị Doanh thu Khách sạn
+- Quản lý Chuỗi Resort & Homestay Nâng cao
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"0.2082, 0.0034, 0.1312, 0.1204, 0.0638 ..."
+49,Ngành Quản trị Nhà hàng và Dịch vụ ăn uống (Mã ngành: 7810202) - Trường Đại học Công Thương TP.HCM - (HUIT Cổng tuyển sinh chính thức),"# Ngành Quản trị Nhà hàng và Dịch vụ ăn uống (Mã ngành: 7810202)
+**MÃ NGÀNH:** `7810202` | **KHOA QUẢN LÝ:** Khoa Dịch vụ du lịch & Ẩm thực
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `20.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `22.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"0.0420, -0.1484, 0.0541, 0.0185, -0.1837 ..."
+50,Ngành Quản trị Nhà hàng và Dịch vụ ăn uống (Mã ngành: 7810202) - Trường Đại học Công Thương TP.HCM - (HUIT Cổng tuyển sinh chính thức),"Quản lý chuỗi nhà hàng ẩm thực, dịch vụ tiệc cưới, Bar/Pha chế chuyên nghiệp, vệ sinh an toàn thực phẩm trong nhà hàng và quản trị chi phí F&B.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Quản lý Chuỗi Nhà hàng / Quản lý F&B Khách sạn
+- Chuyên viên Điều hành Dịch vụ Tiệc & Catering
+- Chuyên gia Pha chế Bar/Café & Sáng tạo Đồ uống
+- Chủ Doanh nghiệp Kinh doanh Ẩm thực F&B
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"0.1736, -0.0358, 0.1730, 0.1224, -0.0293 ..."
+51,Ngành Quản trị dịch vụ du lịch và lữ hành (Mã ngành: 7810101) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển sinh chính thức),"# Ngành Quản trị dịch vụ du lịch và lữ hành (Mã ngành: 7810101)
+**MÃ NGÀNH:** `7810101` | **KHOA QUẢN LÝ:** Khoa Dịch vụ du lịch & Ẩm thực
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `20.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `22.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0459, -0.1358, -0.0322, -0.0767, -0.0007 ..."
+52,Ngành Quản trị dịch vụ du lịch và lữ hành (Mã ngành: 7810101) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển sinh chính thức),"Thiết kế tour du lịch trong và ngoài nước (Inbound/Outbound), hướng dẫn du lịch quốc tế, điều hành doanh nghiệp lữ hành, đại lý vé máy bay.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Điều hành Tour Du lịch Quốc tế và Nội địa
+- Hướng dẫn viên Du lịch Quốc tế
+- Chuyên viên Thiết kế & Bán Sản phẩm Du lịch (Sales Tour)
+- Quản lý Công ty Lữ hành & Truyền thông Du lịch
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"0.2963, -0.0643, 0.1331, -0.0101, 0.1770 ..."
+53,Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Du lịch (Mã ngành: 7810103)
+**MÃ NGÀNH:** `7810103` | **KHOA QUẢN LÝ:** Khoa Dịch vụ du lịch & Ẩm thực
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `19.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `21.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0681, 0.0099, -0.0267, -0.0873, -0.0024 ..."
+54,Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Đào tạo kiến thức địa lý du lịch, văn hóa ẩm thực vùng miền, tư vấn trải nghiệm điểm đến, du lịch sinh thái và phát triển du lịch bền vững.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Phát triển Sản phẩm Du lịch Sinh thái
+- Chuyên viên Quảng bá & Truyền thông Điểm đến Du lịch
+- Quản lý Dự án Du lịch Cộng đồng & Bền vững
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.
+- **Phương thức 4**: Xét tuyển thẳng theo quy chế của Bộ GD&ĐT.",384,"0.2740, 0.0453, 0.1638, 0.0404, 0.0899 ..."
+55,Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"- **Phương thức 5**: Xét điểm ĐGNL chuyên biệt Trường ĐH Sư phạm TP.HCM kết hợp học bạ.
+- **Chính sách học bổng**: HUIT dành hàng tỷ đồng học bổng khuyến khích học tập, học bổng 50% học kỳ 1 cho các ngành ưu tiên, hỗ trợ tân sinh viên vay vốn và khám sức khỏe miễn phí.",384,"-0.0195, 0.1950, -0.0015, -0.0052, 0.1601 ..."
+56,Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303)
+**MÃ NGÀNH:** `7510303` | **KHOA QUẢN LÝ:** Khoa Điện - Điện tử
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.2276, 0.0225, 0.0556, -0.1943, -0.1041 ..."
+57,Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển sinh chính thức),"Lập trình PLC, Robot công nghiệp, Hệ thống SCADA, IoT Công nghiệp (IIoT), biến tần, dây chuyền sản xuất tự động trong nhà máy hiện đại.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Lập trình Tự động hóa & PLC
+- Kỹ sư Vận hành và Bảo trì Robot Công nghiệp
+- Kỹ sư Thiết kế Hệ thống SCADA / DCS trong nhà máy
+- Chuyên viên Tư vấn Giải pháp Tự động hóa Doanh nghiệp
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.2118, -0.1346, 0.1253, -0.1358, -0.1120 ..."
+58,Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301)
+**MÃ NGÀNH:** `7510301` | **KHOA QUẢN LÝ:** Khoa Điện - Điện tử
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `20.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `22.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1730, 0.1406, 0.1029, -0.1474, -0.0572 ..."
+59,Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển sinh chính thức),"Thiết kế mạch điện tử, vi điều khiển, hệ thống nhúng, kỹ thuật năng lượng tái tạo (Điện mặt trời, Điện gió), quản trị mạng điện tòa nhà.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Thiết kế Mạch Điện tử & Hệ thống Nhúng
+- Kỹ sư Điện Tòa nhà & Công nghiệp (M&E Engineer)
+- Kỹ sư Năng lượng Mới & Điện Mặt trời
+- Kỹ sư Kiểm định & Bảo trì Thiết bị Điện tử
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0266, 0.2101, 0.2431, 0.0993, 0.0278 ..."
+60,Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115)
+**MÃ NGÀNH:** `7520115` | **KHOA QUẢN LÝ:** Khoa Cơ khí (Được hưởng Học bổng 50% HP HK1)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `17.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `19.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1092, 0.2324, 0.0143, 0.0097, 0.0117 ..."
+61,Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Chuyên về thiết kế hệ thống điều hòa không khí trung tâm (HVAC), lò hơi công nghiệp, hệ thống làm lạnh thủy hải sản, tiết kiệm năng lượng nhiệt.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Thiết kế & Thi công Hệ thống Điều hòa HVAC
+- Kỹ sư Năng lượng Nhiệt & Lò hơi Nhà máy
+- Kỹ sư Vận hành Hệ thống Lạnh Công nghiệp & Kho Lạnh
+- Chuyên viên Tư vấn Tiết kiệm Năng lượng Công nghiệp
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0402, 0.2033, 0.1287, 0.1018, 0.0926 ..."
+62,Ngành Công nghệ kỹ thuật cơ điện tử (Mã ngành: 7510203) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ kỹ thuật cơ điện tử (Mã ngành: 7510203)
+**MÃ NGÀNH:** `7510203` | **KHOA QUẢN LÝ:** Khoa Cơ khí
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `20.75 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `22.75 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1640, 0.1162, 0.0736, -0.1555, -0.1115 ..."
+63,Ngành Công nghệ kỹ thuật cơ điện tử (Mã ngành: 7510203) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển sinh chính thức),"Giao thoa giữa Cơ khí chính xác, Điện tử điều khiển và Tin học lập trình. Đào tạo thiết kế máy thông minh, xe tự hành AGV, thiết bị y tế cơ điện tử.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Thiết kế Sản phẩm Cơ điện tử & Robot
+- Kỹ sư Vận hành Dây chuyền Máy Sản xuất Thông minh
+- Kỹ sư Lập trình Thiết bị Nhúng & Vi điều khiển
+- Quản lý Kỹ thuật Nhà máy Chế tạo
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0052, 0.0773, 0.1357, -0.0645, -0.0545 ..."
+64,Ngành Công nghệ chế tạo máy (Mã ngành: 7510202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUI (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ chế tạo máy (Mã ngành: 7510202)
+**MÃ NGÀNH:** `7510202` | **KHOA QUẢN LÝ:** Khoa Cơ khí
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `20.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `22.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO
+Lập trình máy gia công CNC (CAD/CAM/CNC), thiết kế khuôn mẫu chính xác, công nghệ in 3D cơ khí, vật liệu cơ khí chế tạo.",384,"-0.1968, 0.0735, 0.0200, -0.1181, -0.1457 ..."
+65,Ngành Công nghệ chế tạo máy (Mã ngành: 7510202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUI (HUIT Cổng tuyển sinh chính thức),"## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Lập trình & Vận hành Máy Gia công CNC
+- Kỹ sư Thiết kế Cơ khí & Khuôn mẫu (CAD/CAM)
+- Chuyên viên Quản lý Bảo trì Thiết bị Cơ khí
+- Chuyên viên Giám định Chất lượng Cơ khí (QA/QC)
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.
+- **Phương thức 4**: Xét tuyển thẳng theo quy chế của Bộ GD&ĐT.
+- **Phương thức 5**: Xét điểm ĐGNL chuyên biệt Trường ĐH Sư phạm TP.HCM kết hợp học bạ.",384,"-0.0747, 0.0731, 0.2083, -0.0314, -0.0456 ..."
+66,"Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)","# Ngành Công nghệ dệt, may (Mã ngành: 7540204)
+**MÃ NGÀNH:** `7540204` | **KHOA QUẢN LÝ:** Khoa May - Thời trang (Học bổng 50% HP HK1)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `18.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `20.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0590, 0.0660, 0.0959, 0.0271, 0.0086 ..."
+67,"Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)","Quản lý dây chuyền sản xuất may công nghiệp, thiết kế rập 2D/3D (Gerber, Lectra), kiểm soát chất lượng trang phục xuất khẩu, vật liệu may mặc.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Quản lý Dây chuyền Sản xuất May xuất khẩu
+- Chuyên viên Thiết kế Rập & Nhảy Size Tự động
+- Chuyên viên Quản lý Chất lượng Garment QA/QC
+- Chuyên viên Quản lý Đơn hàng Thời trang (Merchandiser)
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0607, 0.0073, 0.1060, 0.0756, 0.0073 ..."
+68,Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển sinh chính thức),"# Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123)
+**MÃ NGÀNH:** `7340123` | **KHOA QUẢN LÝ:** Khoa May - Thời trang (Học bổng 50% HP HK1)
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `19.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `21.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0283, 0.0270, 0.0355, 0.1076, 0.0339 ..."
+69,Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển sinh chính thức),"Kinh doanh chuỗi thời trang, Marketing thời trang, quản lý chuỗi cung ứng dệt may toàn cầu, phân tích xu hướng mốt (Fashion Trend Forecasting).
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Quản lý Chuỗi Cung ứng Thời trang
+- Chuyên viên Phát triển Thương hiệu Thời trang
+- Visual Merchandiser & Fashion Buyer
+- Chủ Doanh nghiệp Kinh doanh Thương hiệu Thời trang
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0285, -0.0557, 0.1762, 0.1644, 0.0825 ..."
+70,Ngành Công nghệ kỹ thuật Hóa học (Mã ngành: 7510401) - Trường Đại học Công Thương TP.HCM - Tuyển Sin (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ kỹ thuật Hóa học (Mã ngành: 7510401)
+**MÃ NGÀNH:** `7510401` | **KHOA QUẢN LÝ:** Khoa Công nghệ Hóa học
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `19.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `21.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.2225, 0.1429, 0.0613, -0.1349, -0.1707 ..."
+71,Ngành Công nghệ kỹ thuật Hóa học (Mã ngành: 7510401) - Trường Đại học Công Thương TP.HCM - Tuyển Sin (HUIT Cổng tuyển sinh chính thức),"Công nghệ hóa mỹ phẩm, hóa dược, chế biến hợp chất tự nhiên, công nghệ vật liệu màng, quy trình tổng hợp hóa học công nghiệp.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Nghiên cứu Công thức Hóa Mỹ phẩm (R&D Cosmetics)
+- Kỹ sư Vận hành Nhà máy Sản xuất Hóa chất & Dược phẩm
+- Chuyên viên Kiểm nghiệm Hóa phân tích
+- Chuyên viên Quản lý An toàn Hóa chất & Môi trường
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0734, 0.1698, 0.1816, -0.0119, 0.0063 ..."
+72,Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ sinh học (Mã ngành: 7420201)
+**MÃ NGÀNH:** `7420201` | **KHOA QUẢN LÝ:** Khoa Sinh học & Môi trường
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `19.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `21.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1187, 0.1733, 0.0623, -0.0831, -0.0628 ..."
+73,Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Công nghệ gen, nuôi cấy mô thực vật, vi sinh ứng dụng trong thực phẩm và y dược, chế phẩm sinh học bảo vệ môi trường và nông nghiệp công nghệ cao.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Công nghệ Sinh học Thực phẩm & Dược phẩm
+- Chuyên viên Nuôi cấy Mô & Nông nghiệp Công nghệ cao
+- Nghiên cứu viên tại Phòng Thí nghiệm Sinh học / Y học
+- Chuyên viên Sản xuất Chế phẩm Vi sinh
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0087, 0.1158, 0.0669, -0.0367, 0.1297 ..."
+74,Ngành Công nghệ kỹ thuật môi trường (Mã ngành: 7510406) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ kỹ thuật môi trường (Mã ngành: 7510406)
+**MÃ NGÀNH:** `7510406` | **KHOA QUẢN LÝ:** Khoa Biến đổi khí hậu & TNMT (Học bổng 50% HP HK1)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `17.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `19.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0062, 0.2045, 0.1228, 0.0240, 0.1729 ..."
+75,Ngành Công nghệ kỹ thuật môi trường (Mã ngành: 7510406) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển sinh chính thức),"Thiết kế hệ thống xử lý nước thải, khí thải, rác thải công nghiệp, công nghệ tuần hoàn tài nguyên và quản lý môi trường đô thị.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Thiết kế & Thi công Trạm Xử lý Nước thải / Khí thải
+- Chuyên viên Quản lý Môi trường Doanh nghiệp (EHS Specialist)
+- Chuyên viên Phân tích & Trắc địa Môi trường
+- Tư vấn Báo cáo Đánh giá Tác động Môi trường (ĐTM)
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"0.0005, 0.2066, 0.2112, 0.0175, 0.1122 ..."
+76,Ngành Quản lý tài nguyên và môi trường (Mã ngành: 7850101) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển sinh chính thức),"# Ngành Quản lý tài nguyên và môi trường (Mã ngành: 7850101)
+**MÃ NGÀNH:** `7850101` | **KHOA QUẢN LÝ:** Khoa Biến đổi khí hậu & TNMT (Học bổng 50% HP HK1)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `17.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `19.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"0.0278, 0.1958, 0.1637, 0.1514, 0.1924 ..."
+77,Ngành Quản lý tài nguyên và môi trường (Mã ngành: 7850101) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển sinh chính thức),"Quản lý tài nguyên đất, nước, khoáng sản, ứng dụng GIS & Viễn thám, phát triển kinh tế xanh, giảm thiểu biến đổi khí hậu và chứng chỉ carbon.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Quản lý Tài nguyên Đất & Nước tại Sở TNMT
+- Kỹ sư Ứng dụng Bản đồ Hệ thống Thông tin Địa lý (GIS Specialist)
+- Chuyên viên Tư vấn Biến đổi Khí hậu & Chứng chỉ Carbon (ESG)
+- Chuyên viên Quản lý Dự án Phát triển Bền vững
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).",384,"-0.0773, 0.1705, 0.2198, 0.1268, 0.0483 ..."
+78,Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Công nghệ vật liệu (Mã ngành: 7510402)
+**MÃ NGÀNH:** `7510402` | **KHOA QUẢN LÝ:** Khoa Công nghệ Hóa học (Học bổng 50% HP HK1)
+**THỜI GIAN ĐÀO TẠO:** 3.5 - 4 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D07 (Toán, Hóa, Anh)
+- B00 (Toán, Hóa, Sinh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `17.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `19.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0651, 0.1726, 0.0346, -0.0872, -0.0959 ..."
+79,Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Vật liệu Polymer, Composite cao cấp, Vật liệu Nano, Vật liệu thông minh trong điện tử và vật liệu sinh học tự phân hủy.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Kỹ sư Chế tạo Vật liệu Mới & Polymer Composite
+- Chuyên viên Kiểm định Chất lượng Vật liệu
+- Kỹ sư R&D tại Tập đoàn Chế tạo & Sản xuất Điện tử
+- Chuyên viên Quản lý Vật liệu Sinh học Bảo vệ Môi trường
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0858, 0.1283, 0.2468, 0.0211, 0.0763 ..."
+80,Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"# Ngành Quản lý Công nghiệp (Mã ngành: 7510601)
+**MÃ NGÀNH:** `7510601` | **KHOA QUẢN LÝ:** Khoa Quản lý công nghiệp & Logistics
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D07 (Toán, Hóa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `20.50 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `22.50 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.1033, 0.0374, 0.0389, -0.0723, -0.0210 ..."
+81,Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức),"Quản trị chuỗi sản xuất công nghiệp, cải tiến năng suất (Lean Six Sigma), quản lý dự án công nghiệp, định mức chi phí sản xuất và quản trị chất lượng.
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Chuyên viên Quản lý Sản xuất & Điều độ Nhà máy
+- Chuyên viên Cải tiến Năng suất Lean / Six Sigma
+- Chuyên viên Quản lý Dự án Công nghiệp
+- Chuyên viên Phân tích Hoạt động Vận hành (Operations Analyst)
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.1573, 0.0558, 0.0744, 0.0178, 0.0170 ..."
+82,Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển sinh chính thức),"# Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129)
+**MÃ NGÀNH:** `7340129` | **KHOA QUẢN LÝ:** Khoa Quản trị kinh doanh
+**THỜI GIAN ĐÀO TẠO:** 3.5 năm (150 tín chỉ) | **HỌC PHÍ:** 14 - 16 triệu đồng/học kỳ
+## 1. TỔ HỢP MÔN XÉT TUYỂN
+- A00 (Toán, Lý, Hóa)
+- A01 (Toán, Lý, Anh)
+- D01 (Toán, Văn, Anh)
+- D10 (Toán, Địa, Anh)
+## 2. MỚI NHẤT: ĐIỂM SÀN & ĐIỂM CHUẨN THAM KHẢO
+- **Điểm sàn xét tuyển THPT 2025 (Chính thức)**: `16.00 điểm`
+- **Điểm sàn Đánh giá năng lực ĐHQG-HCM 2025**: `600 điểm`
+- Điểm trúng tuyển THPT năm 2024: `21.00 điểm`
+- Điểm trúng tuyển Học bạ năm 2024: `23.00 điểm`
+## 3. MÔ TẢ NGÀNH & MỤC TIÊU ĐÀO TẠO",384,"-0.0142, 0.0037, 0.0238, -0.0179, -0.0546 ..."
+83,Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển sinh chính thức),"Kinh doanh độc quyền chuỗi nông sản thực phẩm, phân phối FMCG thực phẩm, thương mại hóa nghiên cứu thực phẩm và quản trị chuỗi lạnh (Cold Chain).
+## 4. CƠ HỘI NGHỀ NGHIỆP VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP
+- Quản lý Kinh doanh Ngành hàng Thực phẩm (FMCG Manager)
+- Chuyên viên Phát triển Thị trường Nông sản & Thực phẩm
+- Chuyên viên Quản lý Chuỗi Cung ứng Thực phẩm
+- Chủ Doanh nghiệp Khởi nghiệp Ngành Thực phẩm
+## 5. PHƯƠNG THỨC XÉT TUYỂN VÀ HỌC BỔNG
+- **Phương thức 1**: Xét theo kết quả kỳ thi tốt nghiệp THPT 2025 - 2026.
+- **Phương thức 2**: Xét theo học bạ THPT (Trung bình cộng 3 môn tổ hợp lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12 >= 18.0 - 20.0 điểm).
+- **Phương thức 3**: Xét theo điểm thi Đánh giá Năng lực do ĐHQG-HCM tổ chức.",384,"-0.0497, -0.0475, 0.0392, 0.0936, 0.1354 ..."
+84,Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức),"# Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (Mã trường: DCT)
+Trường Đại học Công Thương TP.HCM (HUIT) chính thức công bố ngưỡng đảm bảo chất lượng đầu vào (Điểm sàn xét tuyển) năm 2025 cho 37 ngành đào tạo đại học chính quy:
+## 1. Phương thức Xét tuyển theo kết quả kỳ thi Tốt nghiệp THPT 2025 (Phương thức 1)
+- **Mức điểm sàn áp dụng**: **16.00 điểm** áp dụng đồng nhất cho **tất cả 37 ngành đào tạo đại học**.
+- **Cơ chế tính điểm**: Điểm xét tuyển = Tổng điểm 3 môn tổ hợp xét tuyển + Điểm ưu tiên khu vực/đối tượng theo quy chế Bộ GD&ĐT.
+## 2. Phương thức Xét tuyển Kỳ thi Đánh giá Năng lực ĐHQG-HCM 2025 (Phương thức 3)
+- **Điểm sàn áp dụng chung**: **600 điểm** (trên thang điểm 1.200).",384,"0.0714, 0.2207, 0.0174, -0.1277, 0.0507 ..."
+85,Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức),"- **Riêng Nhóm ngành Luật (Luật, Luật Kinh tế)**: Ngưỡng điểm sàn tối thiểu bằng **720 điểm**, đồng thời điểm thành phần Tiếng Việt >= 180 điểm và điểm Toán >= 180 điểm.
+## 3. Phương thức Xét tuyển Học bạ THPT (Phương thức 2)
+- Điều kiện xét tuyển: Tổng điểm trung bình 3 môn trong tổ hợp xét tuyển (lớp 10, 11 và HK1 lớp 12 hoặc cả năm lớp 12) đạt từ **18.00 - 20.00 điểm** trở lên.
+## 4. Danh sách các Tổ hợp môn xét tuyển mở rộng 2025
+Năm 2025, HUIT mở rộng tổ hợp môn khối C (C00, C01, C02, C03, C14) và tổ hợp X26 (Toán, Anh, Tin) tạo điều kiện tối đa cho thí sinh.",384,"0.2531, 0.2218, -0.0566, -0.1653, 0.0005 ..."
+86,Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức),"# Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT)
+## I. Mức Học phí Chính thức
+- **Học phí trung bình**: **14.000.000đ – 16.000.000đ / học kỳ** (mỗi năm học gồm 2 học kỳ chính).
+- **Đơn giá tín chỉ**: Từ **540.000đ – 700.000đ / tín chỉ** (tùy thuộc môn lý thuyết hay môn thực hành/thí nghiệm).
+- **Cam kết của Nhà trường**: **GIỮ ỔN ĐỊNH HỌC PHÍ KHÔNG TĂNG TRONG TOÀN BỘ KHÓA HỌC (3.5 - 4 NĂM)** đối với toàn bộ khóa tân sinh viên trúng tuyển.
+## II. Chính sách Học bổng Ưu đãi Đặc biệt
+1. **Học bổng GIẢM 50% HỌC PHÍ HỌC KỲ I** áp dụng cho 9 ngành trọng điểm:
+- Kỹ thuật Nhiệt
+- Công nghệ Vật liệu
+- Khoa học Chế biến Món ăn
+- Công nghệ Dệt, May
+- Kinh doanh Thời trang và Dệt may
+- Quản lý Tài nguyên và Môi trường",384,"0.0066, 0.2334, 0.0728, -0.0316, 0.0285 ..."
+87,Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức),"- Công nghệ Kỹ thuật Môi trường
+- Công nghệ Chế biến Thủy sản
+- Khoa học Dinh dưỡng và Ẩm thực
+2. **Học bổng Thủ khoa, Á khoa Trường và Ngành**: Khen thưởng tiền mặt và miễn học phí toàn khóa.
+3. **Học bổng Vượt khó & Hỗ trợ tài chính**: Tiếp sức đến trường, hỗ trợ vay vốn ngân hàng chính sách 0% lãi suất.
+4. **Giảm học phí người thân**: Giảm 10 - 20% học phí cho anh/chị/em ruột cùng học tại HUIT.
+5. **Đặc quyền Tân sinh viên**: Khám sức khỏe miễn phí, tham gia các khóa kỹ năng mềm chuẩn quốc tế miễn phí.",384,"0.0633, 0.1503, 0.1899, -0.0049, 0.1859 ..."

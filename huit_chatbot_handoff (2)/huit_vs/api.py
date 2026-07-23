@@ -54,6 +54,19 @@ def chat(req: ChatRequest):
         return {"answer": f"Lỗi xử lý: {e}", "sources": []}
 
 
+@app.post("/api/sync-data")
+def sync_data():
+    """Trigger real-time dataset update and rebuild KB on MongoDB Atlas."""
+    try:
+        import build_full_huit_dataset
+        import build_real_kb
+        count = build_full_huit_dataset.build_full_dataset()
+        build_real_kb.run_rebuild()
+        return {"status": "success", "message": "Đã cập nhật dữ liệu 39 ngành & tin tuyển sinh thời gian thực!", "documents_count": count}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+
 @app.get("/")
 def index():
     return FileResponse(os.path.join(HERE, "static", "index.html"))

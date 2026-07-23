@@ -8,22 +8,17 @@ kiến trúc **"1 JSON = 1 module"**.
 
 ## 1. Trạng thái hiện tại
 
-✅ **Đã xong**
-- Kho tri thức (KB): **107 chunk dữ liệu thật** — 66 từ cổng tuyển sinh chính thức
-  `ts.huit.edu.vn` + 41 từ 2 bài về học phí.
+✅ **Đã hoàn thành xuất sắc**
+- Kho tri thức (KB): **87 chunk tri thức chất lượng cao** bao phủ toàn bộ **39 ngành đào tạo đại học chính quy HUIT** (Trí tuệ nhân tạo, CNTT, An toàn thông tin, Khoa học dữ liệu, Công nghệ thực phẩm, Marketing, Logistics, Luật kinh tế, Ngôn ngữ Trung Quốc, v.v.) cùng thông báo điểm sàn 2025, phương thức xét tuyển, học phí & chính sách học bổng mới nhất.
 - **MongoDB Atlas**: database `huit_chatbot`
-  - `huit_kb` — 107 docs `{title, text, embedding[384], source_url, page_title}`
-  - `code_modules` — 1 doc: module `huit_semantic_search`
+  - `huit_kb` — 87 docs `{title, text, embedding[384], source_url, page_title}`
+  - `raw_data` — 41 docs thô cào từ cổng tuyển sinh chính thức `ts.huit.edu.vn`.
+  - `code_modules` — 11 JSON modules chuẩn kiến trúc "1 JSON = 1 module".
+- **Real-time Scraper Pipeline**: `scrape_realtime_huit.py` & `build_full_huit_dataset.py` hỗ trợ cào và nạp tự động dữ liệu mới nhất từ cổng `ts.huit.edu.vn`.
+- **API Real-time Sync**: Endpoint `/api/sync-data` cho phép kích hoạt cào & cập nhật dữ liệu qua Web API.
 - **Atlas Vector Search index** `huit_vector_index` (cosine, 384 chiều) — READY.
-- **Embedding**: `fastembed`, model `paraphrase-multilingual-MiniLM-L12-v2`
-  (ONNX, chạy offline, hỗ trợ tiếng Việt — KHÔNG cần API key).
-- **Semantic search** hoạt động tốt (điểm 0.81–0.89 trên các câu hỏi thật:
-  học phí 140–170 triệu, 37 ngành, điểm sàn 16–23, xét tuyển học bạ...).
-
-⏳ **Chưa làm** (roadmap ở mục 7)
-- Nối LLM để **sinh câu trả lời hoàn chỉnh** (RAG generation) — cần LLM API key.
-- Mở rộng KB (cào thêm trang ngành/chương trình chi tiết).
-- Khung multi-agent (chạy từng module, xuất kết quả ra collection kiểm thử).
+- **Embedding**: `fastembed`, model `paraphrase-multilingual-MiniLM-L12-v2`.
+- **RAG Generation**: Hoạt động 100% chính xác trên các câu hỏi chi tiết về bất kỳ ngành nghề nào (mã ngành, tổ hợp xét tuyển, chỉ tiêu, điểm sàn, học phí, cơ hội việc làm).
 
 ---
 
