@@ -5,9 +5,13 @@ run verification tests and output to `test_search_results`.
 import copy
 import json
 import os
+import sys
 from urllib.parse import quote_plus
 
 from pymongo import MongoClient
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 USER = "nguyenkhaihiep1999_db_user"
 HOST = "cluster0.hyj8rab.mongodb.net"
@@ -82,10 +86,11 @@ from fastembed import TextEmbedding
 model = TextEmbedding("sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
 
 test_questions = [
-    "Hoc phi HUIT khoang bao nhieu?",
-    "Truong co bao nhieu nganh dao tao?",
-    "Diem san xet tuyen 2025 la bao nhieu?",
-    "Chinh sach hoc bong cua Vien Quoc te HUIT?"
+    "Mã ngành và tổ hợp xét tuyển ngành Trí tuệ nhân tạo HUIT?",
+    "Học phí HUIT là bao nhiêu và có bị tăng hàng năm không?",
+    "Điểm sàn xét tuyển năm 2025 HUIT bao nhiêu điểm?",
+    "Ngành Công nghệ thực phẩm xét tuyển các tổ hợp môn nào?",
+    "Danh sách các ngành được giảm 50% học phí học kỳ 1?"
 ]
 
 mod_doc = code_coll.find_one({"_id": "huit_semantic_search"})
