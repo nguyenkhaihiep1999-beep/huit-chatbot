@@ -1,135 +1,113 @@
 #!/usr/bin/env python3
-"""
-evaluate_rag_quality.py
-Bộ script đánh giá định lượng chất lượng hệ thống RAG HUIT Chatbot:
-- Retrieval Hit Rate@K & Reciprocal Rank
-- Đánh giá chất lượng sinh câu trả lời RAG trên 10 câu hỏi kiểm thử đa dạng
-"""
+"""Deterministic RAG benchmark for retrieval and answer grounding."""
+import argparse
+import json
 import os
 import sys
 import time
+from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE)
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
 
 import rag_core
 
-TEST_BENCHMARK = [
-    {
-        "id": 1,
-        "category": "Ngành đào tạo",
-        "query": "Mã ngành và tổ hợp xét tuyển ngành Trí tuệ nhân tạo HUIT?",
-        "expected_keywords": ["7480107", "A00", "Trí tuệ nhân tạo"]
-    },
-    {
-        "id": 2,
-        "category": "Ngành đào tạo",
-        "query": "Ngành Công nghệ thông tin có xét tuyển tổ hợp môn nào?",
-        "expected_keywords": ["7480201", "A00", "A01", "D01", "D07"]
-    },
-    {
-        "id": 3,
-        "category": "Điểm sàn 2025",
-        "query": "Điểm sàn nhận hồ sơ xét tuyển đại học 2025 HUIT bao nhiêu?",
-        "expected_keywords": ["16", "600", "điểm sàn"]
-    },
-    {
-        "id": 4,
-        "category": "Học phí",
-        "query": "Học phí một học kỳ tại HUIT khoảng bao nhiêu tiền?",
-        "expected_keywords": ["14", "16", "triệu", "tín chỉ"]
-    },
-    {
-        "id": 5,
-        "category": "Học bổng",
-        "query": "Chính sách học bổng giảm 50% học phí HK1 dành cho những ngành nào?",
-        "expected_keywords": ["50%", "học bổng", "học kỳ 1"]
-    },
-    {
-        "id": 6,
-        "category": "Ngành đào tạo",
-        "query": "Ngành An toàn thông tin ra trường làm những công việc gì?",
-        "expected_keywords": ["An toàn thông tin", "bảo mật", "Pentester"]
-    },
-    {
-        "id": 7,
-        "category": "Ngành đào tạo",
-        "query": "Ngành Khoa học dữ liệu mã ngành là gì?",
-        "expected_keywords": ["7460108", "Khoa học dữ liệu"]
-    },
-    {
-        "id": 8,
-        "category": "Ngành đào tạo",
-        "query": "Ngành Công nghệ thực phẩm HUIT học mấy năm?",
-        "expected_keywords": ["Công nghệ thực phẩm", "năm", "tín chỉ"]
-    },
-    {
-        "id": 9,
-        "category": "Ngành mới 2025",
-        "query": "Năm 2025 HUIT mở thêm các ngành đào tạo mới nào?",
-        "expected_keywords": ["Trí tuệ nhân tạo", "ngành"]
-    },
-    {
-        "id": 10,
-        "category": "Tổng quan",
-        "query": "Địa chỉ cơ sở chính của Trường Đại học Công Thương TP.HCM ở đâu?",
-        "expected_keywords": ["Công Thương", "HUIT", "TP.HCM"]
+
+def load_cases():
+    return json.loads((HERE / "rag_benchmark.json").read_text(encoding="utf-8"))
+
+
+def contains_all(text, values):
+    normalized = rag_core._normalize(text)
+    return all(rag_core._normalize(value) in normalized for value in values)
+
+
+def evaluate_case(case, retrieval_only=False):
+    started = time.perf_counter()
+    docs = rag_core.retrieve(case["query"], top_k=5)
+    retrieval_text = " ".join(
+        f"{doc.get('title', '')} {doc.get('text', '')}" for doc in docs
+    )
+    retrieval_hit = contains_all(retrieval_text, case["retrieval_must_include"])
+    top1_text = (
+        f"{docs[0].get('title', '')} {docs[0].get('text', '')}"
+        if docs else ""
+    )
+    top1_hit = contains_all(top1_text, case.get("top1_should_include", []))
+
+    result = {
+        "id": case["id"],
+        "category": case["category"],
+        "query": case["query"],
+        "retrieval_hit": retrieval_hit,
+        "top1_hit": top1_hit,
+        "source_count": len(docs),
     }
-]
+    if not retrieval_only:
+        response = rag_core.answer(case["query"])
+        answer = response.get("answer", "")
+        result.update({
+            "answer_hit": contains_all(answer, case["answer_must_include"]),
+            "answer_forbidden": any(
+                rag_core._normalize(value) in rag_core._normalize(answer)
+                for value in case.get("answer_must_not_include", [])
+            ),
+            "fallback": bool(response.get("meta", {}).get("fallback")),
+            "answer_length": len(answer),
+        })
+    result["elapsed_seconds"] = round(time.perf_counter() - started, 2)
+    return result
 
-print("=========================================================")
-print("      HUIT AI CHATBOT - AUTOMATED EVALUATION BENCHMARK    ")
-print("=========================================================")
 
-total_tests = len(TEST_BENCHMARK)
-retrieval_hits = 0
-llm_success_count = 0
-response_times = []
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--retrieval-only", action="store_true")
+    parser.add_argument("--output", default="rag_evaluation_results.json")
+    args = parser.parse_args()
 
-for item in TEST_BENCHMARK:
-    q_id = item["id"]
-    category = item["category"]
-    query = item["query"]
-    keywords = item["expected_keywords"]
+    results = [
+        evaluate_case(case, retrieval_only=args.retrieval_only)
+        for case in load_cases()
+    ]
+    total = len(results)
+    summary = {
+        "total": total,
+        "retrieval_hit_rate": round(
+            sum(item["retrieval_hit"] for item in results) / total, 3
+        ),
+        "top1_hit_rate": round(
+            sum(item["top1_hit"] for item in results) / total, 3
+        ),
+        "average_seconds": round(
+            sum(item["elapsed_seconds"] for item in results) / total, 2
+        ),
+    }
+    if not args.retrieval_only:
+        summary.update({
+            "answer_hit_rate": round(
+                sum(item["answer_hit"] for item in results) / total, 3
+            ),
+            "forbidden_answer_rate": round(
+                sum(item["answer_forbidden"] for item in results) / total, 3
+            ),
+            "fallback_rate": round(
+                sum(item["fallback"] for item in results) / total, 3
+            ),
+        })
 
-    print(f"\n[Test #{q_id}] Category: '{category}'")
-    print(f"  Query: \"{query}\"")
+    payload = {"summary": summary, "results": results}
+    output = HERE / args.output
+    output.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
+    print(f"Saved: {output}")
+    return 0 if summary["retrieval_hit_rate"] >= 0.8 else 1
 
-    start_t = time.time()
-    res = rag_core.answer(query)
-    elapsed = round(time.time() - start_t, 2)
-    response_times.append(elapsed)
 
-    sources = res.get("sources", [])
-    answer = res.get("answer", "")
-
-    # Check retrieval quality
-    matched_kw = [kw for kw in keywords if any(kw.lower() in (s.get("title","") + " " + s.get("text","")).lower() for s in sources)]
-    hit = len(matched_kw) > 0
-    if hit:
-        retrieval_hits += 1
-    
-    # Check LLM response quality
-    llm_ok = len(answer) > 40 and "Lỗi" not in answer
-    if llm_ok:
-        llm_success_count += 1
-
-    status_icon = "✅ PASSED" if (hit and llm_ok) else "⚠️ WARN"
-    print(f"  Result: {status_icon} (Time: {elapsed}s | Sources: {len(sources)} | Answer len: {len(answer)} chars)")
-    print(f"  Matched Keywords in Retrieval: {matched_kw} / {keywords}")
-
-avg_time = round(sum(response_times) / len(response_times), 2) if response_times else 0
-hit_rate = round((retrieval_hits / total_tests) * 100, 1)
-llm_rate = round((llm_success_count / total_tests) * 100, 1)
-
-print("\n=========================================================")
-print("                  BENCHMARK SUMMARY RESULTS              ")
-print("=========================================================")
-print(f"  - Total Test Queries Evaluated : {total_tests}")
-print(f"  - Retrieval Hit Rate@3         : {hit_rate}% ({retrieval_hits}/{total_tests})")
-print(f"  - LLM Answer Success Rate      : {llm_rate}% ({llm_success_count}/{total_tests})")
-print(f"  - Average Response Time        : {avg_time} seconds / query")
-print("=========================================================")
+if __name__ == "__main__":
+    raise SystemExit(main())

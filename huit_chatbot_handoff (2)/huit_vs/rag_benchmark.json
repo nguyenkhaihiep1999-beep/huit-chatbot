@@ -1,0 +1,110 @@
+[
+  {
+    "id": "major-ai",
+    "category": "major",
+    "query": "Mã ngành và tổ hợp xét tuyển ngành Trí tuệ nhân tạo HUIT?",
+    "retrieval_must_include": ["7480107", "A00"],
+    "top1_should_include": ["7480107"],
+    "answer_must_include": ["7480107", "A00"],
+    "answer_must_not_include": ["không tìm thấy"]
+  },
+  {
+    "id": "major-it",
+    "category": "major",
+    "query": "Ngành Công nghệ thông tin có mã ngành và tổ hợp nào?",
+    "retrieval_must_include": ["7480201"],
+    "top1_should_include": ["7480201"],
+    "answer_must_include": ["7480201"],
+    "answer_must_not_include": ["7480107"]
+  },
+  {
+    "id": "major-security",
+    "category": "major",
+    "query": "Mã ngành An toàn thông tin HUIT là gì?",
+    "retrieval_must_include": ["7480202"],
+    "top1_should_include": ["7480202"],
+    "answer_must_include": ["7480202"],
+    "answer_must_not_include": ["7480107"]
+  },
+  {
+    "id": "major-data",
+    "category": "major",
+    "query": "Ngành Khoa học dữ liệu HUIT có mã ngành gì?",
+    "retrieval_must_include": ["7460108"],
+    "top1_should_include": ["7460108"],
+    "answer_must_include": ["7460108"],
+    "answer_must_not_include": ["7480201"]
+  },
+  {
+    "id": "tuition",
+    "category": "tuition",
+    "query": "Học phí HUIT khoảng bao nhiêu một học kỳ?",
+    "retrieval_must_include": ["14", "16 triệu"],
+    "top1_should_include": ["học phí"],
+    "answer_must_include": ["14", "16 triệu"],
+    "answer_must_not_include": ["học phí năm 2026 là"]
+  },
+  {
+    "id": "tuition-future-year",
+    "category": "tuition",
+    "query": "Học phí HUIT năm 2026 chính xác là bao nhiêu?",
+    "retrieval_must_include": ["học phí"],
+    "top1_should_include": ["học phí"],
+    "answer_must_include": ["2026"],
+    "answer_must_not_include": ["chắc chắn", "đã công bố chính thức"]
+  },
+  {
+    "id": "cutoff-2025",
+    "category": "cutoff",
+    "query": "Điểm sàn xét tuyển HUIT năm 2025 là bao nhiêu?",
+    "retrieval_must_include": ["16.00"],
+    "top1_should_include": ["điểm sàn"],
+    "answer_must_include": ["16"],
+    "answer_must_not_include": ["60 điểm"]
+  },
+  {
+    "id": "scholarship",
+    "category": "scholarship",
+    "query": "HUIT có chính sách học bổng giảm 50% học phí học kỳ 1 không?",
+    "retrieval_must_include": ["50%", "học bổng"],
+    "top1_should_include": ["50%"],
+    "answer_must_include": ["50%"],
+    "answer_must_not_include": ["không có học bổng"]
+  },
+  {
+    "id": "admission-methods",
+    "category": "admission",
+    "query": "HUIT có những phương thức xét tuyển nào?",
+    "retrieval_must_include": ["xét tuyển"],
+    "top1_should_include": ["xét tuyển"],
+    "answer_must_include": ["xét tuyển"],
+    "answer_must_not_include": ["không tìm thấy"]
+  },
+  {
+    "id": "food-tech",
+    "category": "major",
+    "query": "Ngành Công nghệ thực phẩm HUIT học bao lâu?",
+    "retrieval_must_include": ["7540101"],
+    "top1_should_include": ["Công nghệ thực phẩm"],
+    "answer_must_include": ["Công nghệ thực phẩm"],
+    "answer_must_not_include": ["Trí tuệ nhân tạo"]
+  },
+  {
+    "id": "marketing",
+    "category": "major",
+    "query": "Ngành Marketing HUIT có mã ngành gì?",
+    "retrieval_must_include": ["Marketing"],
+    "top1_should_include": ["Marketing"],
+    "answer_must_include": ["Marketing"],
+    "answer_must_not_include": ["Khoa học dữ liệu"]
+  },
+  {
+    "id": "logistics",
+    "category": "major",
+    "query": "Thông tin tuyển sinh ngành Logistics HUIT?",
+    "retrieval_must_include": ["Logistics"],
+    "top1_should_include": ["Logistics"],
+    "answer_must_include": ["Logistics"],
+    "answer_must_not_include": ["An toàn thông tin"]
+  }
+]

@@ -14,6 +14,8 @@ import json
 import os
 import re
 import sys
+import time
+from datetime import datetime, timezone
 from urllib.parse import quote_plus
 from pymongo import MongoClient
 from pymongo.operations import SearchIndexModel
@@ -38,6 +40,32 @@ def clean_markdown(text):
     text = text.replace("\\", "")
     text = re.sub(r'[ \t]{2,}', ' ', text)
     return text.strip()
+
+
+def infer_record_metadata(page_title, text):
+    combined = f"{page_title} {text}".lower()
+    if "học phí" in page_title.lower():
+        category = "tuition"
+    elif "điểm sàn" in page_title.lower() or "điểm chuẩn" in page_title.lower():
+        category = "cutoff"
+    elif "học bổng" in page_title.lower():
+        category = "scholarship"
+    elif "phương thức" in page_title.lower() or "xét tuyển" in page_title.lower():
+        category = "admission"
+    elif "ngành" in page_title.lower() or re.search(r"\b7\d{6}\b", combined):
+        category = "major"
+    elif "địa chỉ" in combined or "liên hệ" in combined:
+        category = "contact"
+    else:
+        category = "general"
+    years = [int(value) for value in re.findall(r"\b20\d{2}\b", combined)]
+    major_match = re.search(r"\b7\d{6}\b", combined)
+    return {
+        "category": category,
+        "year": max(years) if years else None,
+        "major_code": major_match.group(0) if major_match else None,
+        "updated_at": datetime.now(timezone.utc),
+    }
 
 
 def chunk_document(doc, max_chunk_size=750):
@@ -84,13 +112,15 @@ def chunk_document(doc, max_chunk_size=750):
     for c in chunks:
         # Contextual Text combining header + chunk
         contextual_text = f"{context_prefix}\n{c}"
-        records.append({
+        record = {
             "title": f"{page_title[:100]} (HUIT Cổng tuyển sinh chính thức)",
             "text": contextual_text,
             "raw_text": c,
             "source_url": url,
             "page_title": page_title[:120]
-        })
+        }
+        record.update(infer_record_metadata(page_title, c))
+        records.append(record)
     return records
 
 
@@ -136,12 +166,11 @@ def run_rebuild():
     uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
     client = MongoClient(uri, serverSelectionTimeoutMS=15000)
     db = client[DB]
-    coll = db[COLL]
-
-    coll.drop()
-    coll.insert_many(all_records)
-    count = coll.count_documents({})
-    print(f"[SUCCESS] Uploaded {count} chunks to collection '{DB}.{COLL}'")
+    staging_name = f"{COLL}_build_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
+    staging = db[staging_name]
+    staging.insert_many(all_records)
+    count = staging.count_documents({})
+    print(f"[SUCCESS] Uploaded {count} chunks to staging collection '{DB}.{staging_name}'")
 
     # Recreate Vector Search Index
     print("Recreating Atlas Vector Search Index 'huit_vector_index' (1024D)...")
@@ -160,10 +189,31 @@ def run_rebuild():
         type="vectorSearch"
     )
     try:
-        coll.create_search_index(model=index_model)
-        print("[SUCCESS] Vector index 'huit_vector_index' (1024D) creation requested on Atlas.")
+        staging.create_search_index(model=index_model)
+        print("[SUCCESS] Vector index creation requested on staging collection.")
+        deadline = time.time() + 180
+        while time.time() < deadline:
+            indexes = list(staging.list_search_indexes())
+            if any(
+                item.get("name") == "huit_vector_index" and item.get("queryable")
+                for item in indexes
+            ):
+                break
+            time.sleep(5)
+        else:
+            raise RuntimeError(
+                "Vector index staging chưa sẵn sàng sau 180 giây; "
+                "collection live được giữ nguyên."
+            )
+
+        staging.rename(COLL, dropTarget=True)
+        print(
+            f"[SUCCESS] Atomically promoted '{staging_name}' to '{DB}.{COLL}'."
+        )
     except Exception as e:
-        print(f"[WARN] Index creation note: {e}")
+        print(f"[ERROR] KB promotion aborted; live collection remains unchanged: {e}")
+        client.close()
+        raise
 
     client.close()
     print("=========================================================")

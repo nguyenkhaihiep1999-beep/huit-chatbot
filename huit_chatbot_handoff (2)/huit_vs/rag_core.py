@@ -6,9 +6,13 @@ fallback OPENROUTER_API_KEY/DASHSCOPE_API_KEY/OPENAI_API_KEY/GEMINI_API_KEY),
 OPENROUTER_MODEL (mặc định openai/gpt-oss-20b:free).
 """
 import copy
+import hashlib
 import json
 import os
 import re
+import time
+import unicodedata
+from datetime import datetime, timedelta, timezone
 from urllib.parse import quote_plus
 
 from pymongo import MongoClient
@@ -19,6 +23,10 @@ DB = "huit_chatbot"
 COLL = "huit_kb"
 MODEL = "intfloat/multilingual-e5-large"
 DIMS = 1024
+LLM_MODEL = "~google/gemini-flash-latest"
+KB_VERSION = os.environ.get("KB_VERSION", "huit-kb-2026-07-v2")
+RAG_VERSION = "rag-v4-production"
+CACHE_TTL_HOURS = int(os.environ.get("CACHE_TTL_HOURS", "24"))
 HERE = os.path.dirname(os.path.abspath(__file__))
 RETRIEVAL_MODULE = os.path.join(HERE, "huit_semantic_search.module.json")
 RAG_MODULE = os.path.join(HERE, "huit_rag_answer.module.json")
@@ -61,6 +69,13 @@ def _init():
             )
         uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
         _mongo = MongoClient(uri, serverSelectionTimeoutMS=15000)
+        try:
+            cache = _mongo[DB]["query_cache"]
+            cache.create_index("cache_key")
+            cache.create_index("expires_at", expireAfterSeconds=0)
+            _mongo[DB]["rag_events"].create_index("created_at")
+        except Exception as e:
+            print("Mongo index initialization warning:", e)
     if _retrieval_pipeline is None:
         mod = json.load(open(RETRIEVAL_MODULE, encoding="utf-8"))
         _retrieval_pipeline = mod["private"]["node_function"]["edge"][0]["pipeline"]
@@ -84,8 +99,82 @@ def _clean_doc_title(title):
     return title.strip()
 
 
+def _normalize(text):
+    text = unicodedata.normalize("NFD", str(text or "").lower())
+    text = "".join(ch for ch in text if unicodedata.category(ch) != "Mn")
+    return re.sub(r"\s+", " ", text).strip()
+
+
+INTENT_TERMS = {
+    "tuition": ("hoc phi", "tin chi", "tien hoc", "muc phi"),
+    "cutoff": ("diem san", "diem chuan", "diem trung tuyen"),
+    "scholarship": ("hoc bong", "giam hoc phi", "mien hoc phi"),
+    "admission": ("phuong thuc xet tuyen", "xet hoc ba", "danh gia nang luc"),
+    "major": ("ma nganh", "to hop", "nganh hoc", "co hoi viec lam", "nganh"),
+    "contact": ("dia chi", "co so", "hotline", "lien he"),
+}
+TITLE_STOP_WORDS = {
+    "thong", "tin", "tuyen", "sinh", "nganh", "huit", "truong",
+    "dai", "hoc", "cong", "thuong", "thanh", "pho",
+}
+
+
+def classify_intent(question):
+    normalized = _normalize(question)
+    for intent in ("scholarship", "cutoff", "tuition", "admission", "contact"):
+        if any(term in normalized for term in INTENT_TERMS[intent]):
+            return intent
+    scores = {
+        intent: sum(1 for term in terms if term in normalized)
+        for intent, terms in INTENT_TERMS.items()
+    }
+    intent, score = max(scores.items(), key=lambda item: item[1])
+    return intent if score else "general"
+
+
+def infer_metadata(doc):
+    title = str(doc.get("title", ""))
+    text = str(doc.get("text", ""))
+    combined = f"{title} {text}"
+    normalized = _normalize(combined)
+    category = doc.get("category")
+    if not category:
+        normalized_title = _normalize(title)
+        if "hoc bong" in normalized_title:
+            category = "scholarship"
+        elif "hoc phi" in normalized_title:
+            category = "tuition"
+        elif "diem san" in normalized_title or "diem chuan" in normalized_title:
+            category = "cutoff"
+        elif "nganh" in normalized_title or re.search(r"\b7\d{6}\b", title):
+            category = "major"
+    if not category:
+        category_scores = {
+            intent: sum(1 for term in terms if term in normalized)
+            for intent, terms in INTENT_TERMS.items()
+        }
+        category, score = max(category_scores.items(), key=lambda item: item[1])
+        category = category if score else "general"
+    years = [int(value) for value in re.findall(r"\b20(?:2[4-9]|3\d)\b", combined)]
+    major_match = re.search(r"\b7\d{6}\b", combined)
+    return {
+        "category": category,
+        "year": doc.get("year") or (max(years) if years else None),
+        "major_code": doc.get("major_code") or (major_match.group(0) if major_match else None),
+    }
+
+
+def _candidate_id(doc, rank, prefix):
+    if doc.get("_id") is not None:
+        return str(doc["_id"])
+    fingerprint = f"{doc.get('title', '')}|{doc.get('text', '')[:180]}"
+    return f"{prefix}:{hashlib.sha1(fingerprint.encode('utf-8')).hexdigest()}:{rank}"
+
+
 def retrieve(question, top_k=3):
     _init()
+    intent = classify_intent(question)
+    requested_years = {int(value) for value in re.findall(r"\b20\d{2}\b", question)}
     candidate_map = {}
     vector_ranks = {}
     keyword_ranks = {}
@@ -104,7 +193,7 @@ def retrieve(question, top_k=3):
                     vs["numCandidates"] = 200
             vector_docs = list(_mongo[DB][COLL].aggregate(pipeline))
             for rank, doc in enumerate(vector_docs, 1):
-                doc_id = str(doc.get("_id", rank))
+                doc_id = _candidate_id(doc, rank, "v")
                 candidate_map[doc_id] = doc
                 vector_ranks[doc_id] = rank
         except Exception as e:
@@ -128,7 +217,7 @@ def retrieve(question, top_k=3):
                 raw_kw = list(_mongo[DB][COLL].find(query).limit(15))
                 keyword_docs = [d for d in raw_kw if "Di động Máy tính bảng" not in d.get("text", "") and "Pick the Right" not in d.get("text", "")]
                 for rank, doc in enumerate(keyword_docs, 1):
-                    doc_id = str(doc.get("_id", rank))
+                    doc_id = _candidate_id(doc, rank, "k")
                     if doc_id not in candidate_map:
                         candidate_map[doc_id] = doc
                     keyword_ranks[doc_id] = rank
@@ -138,7 +227,7 @@ def retrieve(question, top_k=3):
     if not candidate_map and _mongo is not None:
         raw_docs = list(_mongo[DB][COLL].find().limit(top_k))
         for rank, doc in enumerate(raw_docs, 1):
-            doc_id = str(doc.get("_id", rank))
+            doc_id = _candidate_id(doc, rank, "r")
             candidate_map[doc_id] = doc
             vector_ranks[doc_id] = rank
 
@@ -149,6 +238,8 @@ def retrieve(question, top_k=3):
     code_matches = re.findall(r'\b7\d{6}\b', question)
 
     for doc_id, doc in candidate_map.items():
+        metadata = infer_metadata(doc)
+        doc.update({key: doc.get(key) or value for key, value in metadata.items()})
         v_rank = vector_ranks.get(doc_id, 999)
         k_rank = keyword_ranks.get(doc_id, 999)
         rrf_score = (1.0 / (rrf_k + v_rank)) + (1.0 / (rrf_k + k_rank))
@@ -156,6 +247,13 @@ def retrieve(question, top_k=3):
         # Re-ranker scoring features
         text_content = (str(doc.get("title", "")) + " " + str(doc.get("text", ""))).lower()
         overlap_count = sum(1 for w in q_words if len(w) > 2 and w in text_content)
+        normalized_title = _normalize(doc.get("title", ""))
+        title_overlap = sum(
+            1 for word in {_normalize(w) for w in q_words}
+            if len(word) >= 5
+            and word not in TITLE_STOP_WORDS
+            and word in normalized_title
+        )
 
         # Exact course code boost
         code_boost = 0.0
@@ -163,22 +261,36 @@ def retrieve(question, top_k=3):
             if code in text_content:
                 code_boost += 0.5
 
-        final_score = (rrf_score * 10) + (overlap_count * 0.05) + code_boost
+        intent_boost = 0.35 if intent != "general" and metadata["category"] == intent else 0.0
+        year_boost = 0.2 if requested_years and metadata["year"] in requested_years else 0.0
+        year_penalty = -0.12 if requested_years and metadata["year"] and metadata["year"] not in requested_years else 0.0
+        final_score = (
+            (rrf_score * 10)
+            + (overlap_count * 0.05)
+            + (title_overlap * 0.15)
+            + code_boost
+            + intent_boost
+            + year_boost
+            + year_penalty
+        )
         doc["score"] = round(doc.get("score") or final_score, 4)
         doc["rrf_score"] = round(final_score, 4)
         scored_candidates.append((final_score, doc))
 
     scored_candidates.sort(key=lambda x: x[0], reverse=True)
-    docs = [item[1] for item in scored_candidates[:top_k]]
+    docs = [item[1] for item in scored_candidates if item[0] >= 0.18][:top_k]
 
     # 4. General tuition heuristic fallback
     q_lower = question.lower()
-    if any(k in q_lower for k in ["học phí", "hoc phi", "tiền học", "tín chỉ", "mức phí"]):
+    if intent == "tuition":
         general_tuition_doc = {
             "_id": "huit_general_tuition_override",
             "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
             "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí]\nMức học phí trung bình tại Trường Đại học Công Thương TP.HCM (HUIT) khoảng 14 - 16 triệu đồng/học kỳ (mỗi năm có 2 học kỳ chính, tùy số lượng tín chỉ sinh viên đăng ký). Đơn giá tín chỉ khoảng 540.000đ - 700.000đ/tín chỉ tùy môn lý thuyết hoặc thực hành. Nhà trường cam kết giữ ổn định học phí trong toàn bộ khóa học.",
             "url": "https://ts.huit.edu.vn",
+            "source_url": "https://ts.huit.edu.vn",
+            "category": "tuition",
+            "year": None,
             "score": 0.99
         }
         if not any(d.get("_id") == general_tuition_doc["_id"] for d in docs):
@@ -193,72 +305,25 @@ def _call_llm(system_prompt, user_prompt):
     
     # 1. Ưu tiên OpenRouter API Key nếu được cấu hình
     or_key = os.environ.get("HUIT_OPENROUTER_KEY") or os.environ.get("OPENROUTER_API_KEY")
-    if or_key:
-        from openai import OpenAI
-        client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
-        # Một OpenRouter key + một model ổn định. Không dùng Free Router ngẫu nhiên.
-        model_name = "~google/gemini-flash-latest"
-        try:
-            r = client.chat.completions.create(
-                model=model_name,
-                messages=msgs,
-                temperature=0.2,
-                max_tokens=1400,
-                timeout=45,
-                extra_body={"reasoning": {"effort": "minimal"}},
-            )
-            if r and r.choices and r.choices[0].message.content:
-                return r.choices[0].message.content
-        except Exception as e:
-            print(f"OpenRouter model '{model_name}' warning:", e)
-
-    # 2. Qwen chính thức qua Alibaba DashScope API
-    if os.environ.get("DASHSCOPE_API_KEY"):
-        try:
-            from openai import OpenAI
-            client = OpenAI(api_key=os.environ["DASHSCOPE_API_KEY"],
-                            base_url=os.environ.get("DASHSCOPE_BASE_URL",
-                                                    "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"))
-            r = client.chat.completions.create(model=os.environ.get("QWEN_MODEL", "qwen-plus"),
-                                               messages=msgs, temperature=0.2)
+    if not or_key:
+        raise RuntimeError("HUIT_OPENROUTER_KEY chưa được cấu hình.")
+    from openai import OpenAI
+    client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
+    try:
+        r = client.chat.completions.create(
+            model=LLM_MODEL,
+            messages=msgs,
+            temperature=0.2,
+            max_tokens=700,
+            timeout=45,
+            extra_body={"reasoning": {"effort": "minimal"}},
+        )
+        if r and r.choices and r.choices[0].message.content:
             return r.choices[0].message.content
-        except Exception as e:
-            print("DashScope call warning:", e)
-
-    # 3. Google Gemini API
-    if os.environ.get("GEMINI_API_KEY"):
-        try:
-            from google import genai
-            client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-            r = client.models.generate_content(model=os.environ.get("GEMINI_MODEL", "gemini-2.0-flash"),
-                                                contents=f"{system_prompt}\n\n{user_prompt}")
-            return r.text
-        except Exception as e:
-            print("Gemini call warning:", e)
-
-    # 4. OpenAI API
-    if os.environ.get("OPENAI_API_KEY"):
-        try:
-            from openai import OpenAI
-            client = OpenAI()
-            r = client.chat.completions.create(model=os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
-                                               messages=msgs, temperature=0.2)
-            return r.choices[0].message.content
-        except Exception as e:
-            print("OpenAI call warning:", e)
-
-    # 5. Qwen local qua Ollama (Offline)
-    if os.environ.get("OLLAMA_MODEL"):
-        try:
-            from openai import OpenAI
-            base_url = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434/v1")
-            client = OpenAI(api_key="ollama", base_url=base_url)
-            r = client.chat.completions.create(model=os.environ["OLLAMA_MODEL"], messages=msgs, temperature=0.2)
-            return r.choices[0].message.content
-        except Exception as e:
-            print("Ollama call warning:", e)
-
-    raise RuntimeError("Chưa cấu hình API Key LLM hợp lệ.")
+    except Exception as e:
+        print(f"OpenRouter model '{LLM_MODEL}' warning:", e)
+        raise RuntimeError("OpenRouter tạm thời không khả dụng.") from e
+    raise RuntimeError("OpenRouter trả về nội dung rỗng.")
 
 
 def check_intent_guardrail(question):
@@ -285,38 +350,98 @@ def check_intent_guardrail(question):
     return {"is_handled": False}
 
 
-def get_cached_response(question):
+def _cache_key(question, chat_history=None):
+    relevant_history = []
+    if isinstance(chat_history, list):
+        for turn in chat_history[-4:]:
+            if isinstance(turn, dict):
+                relevant_history.append({
+                    "role": turn.get("role"),
+                    "content": str(turn.get("content", ""))[:500],
+                })
+    payload = json.dumps(
+        {
+            "question": _normalize(question),
+            "history": relevant_history,
+            "kb_version": KB_VERSION,
+            "rag_version": RAG_VERSION,
+            "model": LLM_MODEL,
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+    )
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def get_cached_response(question, chat_history=None):
     _init()
     if _mongo is not None:
         try:
-            q_clean = question.strip().lower()
-            cached = _mongo[DB]["query_cache"].find_one({"question_clean": q_clean})
+            now = datetime.now(timezone.utc)
+            cached = _mongo[DB]["query_cache"].find_one({
+                "cache_key": _cache_key(question, chat_history),
+                "expires_at": {"$gt": now},
+            })
             if cached:
-                print(f"[CACHE HIT] Returning cached answer for query: '{question}'")
-                return {"answer": cached["answer"], "sources": cached.get("sources", []), "cached": True}
+                return {
+                    "answer": cached["answer"],
+                    "sources": cached.get("sources", []),
+                    "cached": True,
+                    "meta": cached.get("meta", {}),
+                }
         except Exception as e:
             print("Cache lookup warning:", e)
     return None
 
 
-def save_response_to_cache(question, response_data):
+def save_response_to_cache(question, response_data, chat_history=None):
     _init()
     if _mongo is not None and response_data and response_data.get("answer"):
         try:
-            q_clean = question.strip().lower()
+            now = datetime.now(timezone.utc)
             _mongo[DB]["query_cache"].update_one(
-                {"question_clean": q_clean},
+                {"cache_key": _cache_key(question, chat_history)},
                 {"$set": {
-                    "question_clean": q_clean,
+                    "cache_key": _cache_key(question, chat_history),
+                    "question_clean": _normalize(question),
                     "original_question": question,
                     "answer": response_data["answer"],
                     "sources": response_data.get("sources", []),
-                    "updated_at": os.environ.get("CURRENT_TIME", "2026-07-24")
+                    "meta": response_data.get("meta", {}),
+                    "kb_version": KB_VERSION,
+                    "rag_version": RAG_VERSION,
+                    "model": LLM_MODEL,
+                    "updated_at": now,
+                    "expires_at": now + timedelta(hours=CACHE_TTL_HOURS),
                 }},
                 upsert=True
             )
         except Exception as e:
             print("Save cache warning:", e)
+
+
+def log_event(question, response_data, elapsed_ms, intent, cached=False, error=None):
+    if _mongo is None:
+        return
+    try:
+        _mongo[DB]["rag_events"].insert_one({
+            "created_at": datetime.now(timezone.utc),
+            "question": str(question)[:800],
+            "question_hash": hashlib.sha256(_normalize(question).encode("utf-8")).hexdigest(),
+            "intent": intent,
+            "cached": cached,
+            "fallback": bool(response_data.get("meta", {}).get("fallback")),
+            "source_count": len(response_data.get("sources", [])),
+            "source_titles": [s.get("title", "")[:160] for s in response_data.get("sources", [])],
+            "answer_length": len(response_data.get("answer", "")),
+            "elapsed_ms": elapsed_ms,
+            "model": LLM_MODEL,
+            "kb_version": KB_VERSION,
+            "rag_version": RAG_VERSION,
+            "error": str(error)[:500] if error else None,
+        })
+    except Exception as exc:
+        print("Event logging warning:", exc)
 
 
 def _fallback_answer(question, docs):
@@ -341,7 +466,12 @@ def _fallback_answer(question, docs):
                     flags=re.IGNORECASE,
                 )
             )
-        unique_values = list(dict.fromkeys(v.replace(",", ".") for v in values))
+        unique_values = list(dict.fromkeys(
+            normalized
+            for value in values
+            for normalized in [value.replace(",", ".")]
+            if float(normalized) <= 30
+        ))
         if unique_values:
             return (
                 "Theo dữ liệu tuyển sinh đang có, mức điểm sàn HUIT năm 2025 "
@@ -363,7 +493,9 @@ def _fallback_answer(question, docs):
 
 
 def answer(question, chat_history=None):
+    started = time.perf_counter()
     _init()
+    intent = classify_intent(question)
 
     # 1. Intent Guardrail Check
     guard_res = check_intent_guardrail(question)
@@ -371,8 +503,15 @@ def answer(question, chat_history=None):
         return guard_res
 
     # 2. Semantic Cache Check
-    cached_res = get_cached_response(question)
+    cached_res = get_cached_response(question, chat_history)
     if cached_res:
+        log_event(
+            question,
+            cached_res,
+            int((time.perf_counter() - started) * 1000),
+            intent,
+            cached=True,
+        )
         return cached_res
 
     retrieval_query = question
@@ -406,14 +545,32 @@ def answer(question, chat_history=None):
         if formatted_turns:
             history_str = "\n\n[LỊCH SỬ HỘI THOẠI TRƯỚC ĐÓ]:\n" + "\n".join(formatted_turns) + "\n"
     
+    used_fallback = False
     try:
         user_prompt = f"{history_str}{_rag_cfg['answer_template'].format(context=context, question=question)}"
         text = _call_llm(_rag_cfg["system_prompt"], user_prompt)
     except Exception:
+        used_fallback = True
         text = _fallback_answer(question, docs)
     
-    res = {"answer": text, "sources": sources}
-    save_response_to_cache(question, res)
+    res = {
+        "answer": text,
+        "sources": sources,
+        "meta": {
+            "intent": intent,
+            "fallback": used_fallback,
+            "model": LLM_MODEL,
+            "kb_version": KB_VERSION,
+            "rag_version": RAG_VERSION,
+        },
+    }
+    save_response_to_cache(question, res, chat_history)
+    log_event(
+        question,
+        res,
+        int((time.perf_counter() - started) * 1000),
+        intent,
+    )
     return res
 
 
