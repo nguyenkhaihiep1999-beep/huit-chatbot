@@ -106,7 +106,23 @@ def _clean_doc_title(title):
 
 
 def _normalize(text):
-    text = unicodedata.normalize("NFD", str(text or "").lower())
+    text = str(text or "").lower()
+    telex_map = [
+        (r"\bhocj\b", "hoc"),
+        (r"\bphij\b", "phi"),
+        (r"\bnganhj\b", "nganh"),
+        (r"\bxetj\b", "xet"),
+        (r"\bdiemj\b", "diem"),
+        (r"\bdiems\b", "diem"),
+        (r"\bdiemd\b", "diem"),
+        (r"\bchuanj\b", "chuan"),
+        (r"\bsanj\b", "san"),
+        (r"\bhocjba\b", "hoc ba"),
+        (r"\bhocj ba\b", "hoc ba"),
+    ]
+    for pattern, repl in telex_map:
+        text = re.sub(pattern, repl, text)
+    text = unicodedata.normalize("NFD", text)
     text = "".join(ch for ch in text if unicodedata.category(ch) != "Mn")
     text = text.replace("đ", "d")
     return re.sub(r"\s+", " ", text).strip()
@@ -439,10 +455,8 @@ def _call_llm(system_prompt, user_prompt):
     models_to_try = [
         LLM_MODEL,
         "qwen/qwen-2.5-72b-instruct",
-        "qwen/qwen-2.5-coder-32b-instruct",
-        "qwen/qwen-2.5-7b-instruct",
-        "google/gemma-4-31b-it:free",
-        "inclusionai/ling-3.0-flash:free",
+        "google/gemma-2-9b-it:free",
+        "meta-llama/llama-3.2-11b-vision-instruct:free",
         "openrouter/free",
     ]
     unique_models = []
@@ -752,9 +766,19 @@ def _fallback_answer(question, docs):
     q_normalized = _normalize(question)
     intent = classify_intent(question)
 
-    if any(k in q_lower for k in ["học phí", "hoc phi", "tiền học", "tín chỉ", "mức phí"]):
+    major_title = ""
+    for d in docs:
+        if d.get("category") == "major" or d.get("major_code"):
+            t = str(d.get("page_title") or d.get("title") or "").strip()
+            t = re.sub(r"\s*\(HUIT.*$", "", t).strip()
+            t = re.sub(r"^Ngành\s+", "", t, flags=re.IGNORECASE).strip()
+            if t:
+                major_title = f" dành cho **Ngành {t}**"
+                break
+
+    if intent == "tuition" or any(k in q_normalized for k in ["hoc phi", "tin chi", "tien hoc", "muc phi", "chi phi"]):
         return (
-            "Theo công bố cho khóa K26 năm 2026, học phí HUIT là "
+            f"Theo công bố cho khóa K26 năm 2026, học phí HUIT{major_title} là "
             "**1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ "
             "thực hành**. Các ngành cử nhân phổ biến khoảng **143–148 triệu "
             "đồng/toàn khóa**, còn chương trình kỹ sư khoảng **177–188 triệu "
