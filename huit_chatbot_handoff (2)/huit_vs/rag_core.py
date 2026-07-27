@@ -9,6 +9,7 @@ import copy
 import json
 import os
 import re
+import time
 from urllib.parse import quote_plus
 
 from pymongo import MongoClient
@@ -181,8 +182,7 @@ def retrieve(question, top_k=3):
             "url": "https://ts.huit.edu.vn",
             "score": 0.99
         }
-        has_numbers = any("14" in d.get("text", "") or "tín chỉ" in d.get("text", "") for d in docs)
-        if not has_numbers:
+        if not any(d.get("_id") == general_tuition_doc["_id"] for d in docs):
             docs.insert(0, general_tuition_doc)
 
     return docs[:top_k]
@@ -208,12 +208,25 @@ def _call_llm(system_prompt, user_prompt):
                 "qwen/qwen3-32b",
             ]
         for model_name in models_to_try:
-            try:
-                r = client.chat.completions.create(model=model_name, messages=msgs, temperature=0.2)
-                if r and r.choices and r.choices[0].message.content:
-                    return r.choices[0].message.content
-            except Exception as e:
-                print(f"OpenRouter model '{model_name}' fallback warning:", e)
+            attempts = 3 if model_name == "openrouter/free" else 1
+            for attempt in range(attempts):
+                try:
+                    r = client.chat.completions.create(
+                        model=model_name,
+                        messages=msgs,
+                        temperature=0.2,
+                        max_tokens=700,
+                        timeout=45,
+                    )
+                    if r and r.choices and r.choices[0].message.content:
+                        return r.choices[0].message.content
+                except Exception as e:
+                    print(
+                        f"OpenRouter model '{model_name}' attempt "
+                        f"{attempt + 1}/{attempts} warning: {e}"
+                    )
+                    if attempt + 1 < attempts:
+                        time.sleep(0.5)
 
     # 2. Qwen chính thức qua Alibaba DashScope API
     if os.environ.get("DASHSCOPE_API_KEY"):
@@ -322,6 +335,49 @@ def save_response_to_cache(question, response_data):
             print("Save cache warning:", e)
 
 
+def _fallback_answer(question, docs):
+    """Create a concise grounded answer when every configured LLM is unavailable."""
+    q_lower = question.lower()
+
+    if any(k in q_lower for k in ["học phí", "hoc phi", "tiền học", "tín chỉ", "mức phí"]):
+        return (
+            "**Học phí HUIT tham khảo:** khoảng **14–16 triệu đồng/học kỳ**, "
+            "tương đương khoảng **540.000–700.000 đồng/tín chỉ**, tùy học phần "
+            "và số tín chỉ đăng ký. Mức thực tế của năm 2026 cần đối chiếu "
+            "thông báo học phí chính thức mới nhất của HUIT. [1]"
+        )
+
+    if "điểm sàn" in q_lower or "diem san" in q_lower:
+        values = []
+        for doc in docs:
+            values.extend(
+                re.findall(
+                    r"điểm sàn[^:\n]{0,80}[:\s`*]*(\d{1,2}(?:[.,]\d{1,2})?)",
+                    str(doc.get("text", "")),
+                    flags=re.IGNORECASE,
+                )
+            )
+        unique_values = list(dict.fromkeys(v.replace(",", ".") for v in values))
+        if unique_values:
+            return (
+                "Theo dữ liệu tuyển sinh đang có, mức điểm sàn HUIT năm 2025 "
+                f"được ghi nhận là **{', '.join(unique_values[:5])} điểm**. "
+                "Điểm có thể khác theo phương thức hoặc ngành; bạn nên kiểm tra "
+                "thông báo chính thức của HUIT trước khi đăng ký. [1]"
+            )
+
+    best_doc = docs[0]
+    excerpt = str(best_doc.get("text", "")).strip()
+    if len(excerpt) > 900:
+        excerpt = excerpt[:900].rsplit(" ", 1)[0] + "…"
+    return (
+        "**Thông tin liên quan được tìm thấy trong dữ liệu tuyển sinh HUIT:**\n\n"
+        f"{excerpt}\n\n"
+        "Hệ thống sinh câu trả lời đang tạm thời không khả dụng; vui lòng "
+        "đối chiếu nguồn chính thức bên dưới."
+    )
+
+
 def answer(question, chat_history=None):
     _init()
 
@@ -345,7 +401,7 @@ def answer(question, chat_history=None):
     sources = [{
         "i": i,
         "title": _clean_doc_title(d.get("title")),
-        "url": d.get("url") or d.get("link") or "https://ts.huit.edu.vn",
+        "url": d.get("source_url") or d.get("url") or d.get("link") or "https://ts.huit.edu.vn",
         "score": round(d.get("score", 0), 3),
         "text": d.get("text", "")[:300]
     } for i, d in enumerate(docs, 1)]
@@ -369,13 +425,8 @@ def answer(question, chat_history=None):
     try:
         user_prompt = f"{history_str}{_rag_cfg['answer_template'].format(context=context, question=question)}"
         text = _call_llm(_rag_cfg["system_prompt"], user_prompt)
-    except Exception as e:
-        best_doc = docs[0]
-        text = (
-            f"**Thông tin tuyển sinh HUIT được tìm thấy:**\n\n"
-            f"> {best_doc.get('text')}\n\n"
-            f"*(Nguồn trích dẫn: {_clean_doc_title(best_doc.get('title'))})*"
-        )
+    except Exception:
+        text = _fallback_answer(question, docs)
     
     res = {"answer": text, "sources": sources}
     save_response_to_cache(question, res)
@@ -395,4 +446,3 @@ def stream_answer(question, chat_history=None):
     words = re.findall(r'\S+|\s+', answer_text)
     for word in words:
         yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
-
