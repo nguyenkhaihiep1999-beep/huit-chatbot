@@ -28,7 +28,7 @@ LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "350"))
 # Version is coupled to the embeddings currently promoted in Atlas. Keeping it
 # code-owned prevents a stale Vercel environment value from reusing old caches.
 KB_VERSION = "huit-kb-2026-07-v4-semantic"
-RAG_VERSION = "rag-v9-natural-score-intent"
+RAG_VERSION = "rag-v10-grounded-score-source"
 CACHE_TTL_HOURS = int(os.environ.get("CACHE_TTL_HOURS", "24"))
 HERE = os.path.dirname(os.path.abspath(__file__))
 RETRIEVAL_MODULE = os.path.join(HERE, "huit_semantic_search.module.json")
@@ -373,6 +373,39 @@ def retrieve(question, top_k=3):
         }
         if not any(d.get("_id") == general_tuition_doc["_id"] for d in docs):
             docs.insert(0, general_tuition_doc)
+
+    if intent == "cutoff":
+        cutoff_doc = {
+            "_id": "huit_2026_cutoff_override",
+            "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+            "text": (
+                "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức "
+                "ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\n"
+                "Điểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; "
+                "các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. "
+                "Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành "
+                "còn lại 600 điểm. Đây là điểm sàn, chưa phải điểm trúng tuyển."
+            ),
+            "url": (
+                "https://ts.huit.edu.vn/thong-bao/"
+                "diem-san-xet-tuyen-dai-hoc-nam-2026-"
+                "truong-dai-hoc-cong-thuong-tp-hcm"
+            ),
+            "source_url": (
+                "https://ts.huit.edu.vn/thong-bao/"
+                "diem-san-xet-tuyen-dai-hoc-nam-2026-"
+                "truong-dai-hoc-cong-thuong-tp-hcm"
+            ),
+            "category": "cutoff",
+            "year": 2026,
+            "score": 0.99,
+        }
+        docs = [
+            doc for doc in docs
+            if doc.get("_id") != cutoff_doc["_id"]
+            and doc.get("category") != "cutoff"
+        ]
+        docs.insert(0, cutoff_doc)
 
     unique_docs = []
     seen_sources = set()
