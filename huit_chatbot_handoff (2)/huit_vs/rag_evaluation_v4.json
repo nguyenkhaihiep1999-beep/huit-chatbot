@@ -1,28 +1,28 @@
 {
   "summary": {
     "total": 12,
-    "retrieval_hit_rate": 1.0,
-    "top1_hit_rate": 0.917,
-    "average_seconds": 0.8
+    "retrieval_hit_rate": 0.667,
+    "top1_hit_rate": 0.75,
+    "average_seconds": 0.64
   },
   "results": [
     {
       "id": "major-ai",
       "category": "major",
-      "query": "Mã ngành Trí tuệ nhân tạo HUIT là gì?",
-      "retrieval_hit": true,
-      "top1_hit": true,
-      "source_count": 5,
-      "elapsed_seconds": 6.07
+      "query": "Mã ngành và tổ hợp xét tuyển ngành Trí tuệ nhân tạo HUIT?",
+      "retrieval_hit": false,
+      "top1_hit": false,
+      "source_count": 4,
+      "elapsed_seconds": 5.9
     },
     {
       "id": "major-it",
       "category": "major",
-      "query": "Ngành Công nghệ thông tin có mã ngành gì?",
-      "retrieval_hit": true,
-      "top1_hit": true,
-      "source_count": 5,
-      "elapsed_seconds": 0.31
+      "query": "Ngành Công nghệ thông tin có mã ngành và tổ hợp nào?",
+      "retrieval_hit": false,
+      "top1_hit": false,
+      "source_count": 3,
+      "elapsed_seconds": 0.17
     },
     {
       "id": "major-security",
@@ -30,8 +30,8 @@
       "query": "Mã ngành An toàn thông tin HUIT là gì?",
       "retrieval_hit": true,
       "top1_hit": true,
-      "source_count": 5,
-      "elapsed_seconds": 0.27
+      "source_count": 4,
+      "elapsed_seconds": 0.18
     },
     {
       "id": "major-data",
@@ -39,17 +39,17 @@
       "query": "Ngành Khoa học dữ liệu HUIT có mã ngành gì?",
       "retrieval_hit": true,
       "top1_hit": true,
-      "source_count": 5,
-      "elapsed_seconds": 0.28
+      "source_count": 4,
+      "elapsed_seconds": 0.15
     },
     {
       "id": "tuition",
       "category": "tuition",
-      "query": "Học phí tín chỉ HUIT năm 2026 là bao nhiêu?",
-      "retrieval_hit": true,
+      "query": "Học phí HUIT khoảng bao nhiêu một học kỳ?",
+      "retrieval_hit": false,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.3
+      "elapsed_seconds": 0.17
     },
     {
       "id": "tuition-future-year",
@@ -58,25 +58,25 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.34
+      "elapsed_seconds": 0.15
     },
     {
       "id": "cutoff-2025",
       "category": "cutoff",
-      "query": "Điểm sàn xét tuyển HUIT năm 2026 là bao nhiêu?",
-      "retrieval_hit": true,
+      "query": "Điểm sàn xét tuyển HUIT năm 2025 là bao nhiêu?",
+      "retrieval_hit": false,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.3
+      "elapsed_seconds": 0.16
     },
     {
       "id": "scholarship",
       "category": "scholarship",
-      "query": "HUIT có giảm 50% học phí học kỳ đầu cho mọi ngành không?",
+      "query": "HUIT có chính sách học bổng giảm 50% học phí học kỳ 1 không?",
       "retrieval_hit": true,
-      "top1_hit": false,
+      "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.31
+      "elapsed_seconds": 0.17
     },
     {
       "id": "admission-methods",
@@ -84,8 +84,8 @@
       "query": "HUIT có những phương thức xét tuyển nào?",
       "retrieval_hit": true,
       "top1_hit": true,
-      "source_count": 5,
-      "elapsed_seconds": 0.29
+      "source_count": 4,
+      "elapsed_seconds": 0.15
     },
     {
       "id": "food-tech",
@@ -93,8 +93,8 @@
       "query": "Ngành Công nghệ thực phẩm HUIT học bao lâu?",
       "retrieval_hit": true,
       "top1_hit": true,
-      "source_count": 5,
-      "elapsed_seconds": 0.36
+      "source_count": 4,
+      "elapsed_seconds": 0.15
     },
     {
       "id": "marketing",
@@ -102,17 +102,17 @@
       "query": "Ngành Marketing HUIT có mã ngành gì?",
       "retrieval_hit": true,
       "top1_hit": true,
-      "source_count": 5,
-      "elapsed_seconds": 0.31
+      "source_count": 4,
+      "elapsed_seconds": 0.15
     },
     {
       "id": "logistics",
       "category": "major",
       "query": "Thông tin tuyển sinh ngành Logistics HUIT?",
       "retrieval_hit": true,
-      "top1_hit": true,
+      "top1_hit": false,
       "source_count": 5,
-      "elapsed_seconds": 0.43
+      "elapsed_seconds": 0.16
     }
   ]
 }

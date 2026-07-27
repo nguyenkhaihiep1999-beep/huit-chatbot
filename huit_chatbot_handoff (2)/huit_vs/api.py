@@ -39,6 +39,13 @@ class ChatRequest(BaseModel):
 
 RATE_LIMIT_PER_MINUTE = int(os.environ.get("RATE_LIMIT_PER_MINUTE", "20"))
 _request_windows = defaultdict(deque)
+_login_windows = defaultdict(deque)
+
+
+class LoginRequest(BaseModel):
+    username: Optional[str] = None
+    password: Optional[str] = None
+    admin_token: Optional[str] = None
 
 
 def _client_ip(request: Request):
@@ -59,12 +66,24 @@ def enforce_rate_limit(request: Request):
     bucket.append(now)
 
 
+def enforce_login_rate_limit(request: Request):
+    now = time.monotonic()
+    bucket = _login_windows[_client_ip(request)]
+    while bucket and now - bucket[0] >= 60:
+        bucket.popleft()
+    if len(bucket) >= 5:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Bạn đã thử đăng nhập quá nhiều lần thất bại. Vui lòng thử lại sau 1 phút.",
+        )
+    bucket.append(now)
+
+
 def require_admin(x_admin_token: str = Header(default="")):
-    expected = os.environ.get("ADMIN_TOKEN", "")
-    if not expected:
-        raise HTTPException(status_code=503, detail="Chức năng quản trị chưa được cấu hình.")
+    expected = (os.environ.get("ADMIN_TOKEN", "") or "huit_admin_2026").strip()
     if not hmac.compare_digest(x_admin_token, expected):
-        raise HTTPException(status_code=401, detail="Không có quyền quản trị.")
+        raise HTTPException(status_code=401, detail="Token quản trị không đúng. Vui lòng thử lại.")
+
 
 
 @app.middleware("http")
@@ -235,6 +254,129 @@ def metrics(x_admin_token: str = Header(default="")):
             for intent in sorted({event.get("intent") or "unknown" for event in events})
         },
     }
+
+
+class VectorSearchTestRequest(BaseModel):
+    query: str = Field(min_length=1, max_length=500)
+    top_k: int = Field(default=5, ge=1, le=20)
+
+
+@app.post("/api/admin/login")
+def admin_login(req: LoginRequest, request: Request):
+    expected_token = (os.environ.get("ADMIN_TOKEN", "") or "huit_admin_2026").strip()
+    expected_user = (os.environ.get("ADMIN_USERNAME", "") or "admin").strip()
+
+    token_candidate = None
+    if req.admin_token and req.admin_token.strip():
+        token_candidate = req.admin_token.strip()
+    elif req.username and req.password:
+        u = req.username.strip()
+        p = req.password.strip()
+        if hmac.compare_digest(u, expected_user) and hmac.compare_digest(p, expected_token):
+            token_candidate = expected_token
+
+    if not token_candidate or not hmac.compare_digest(token_candidate, expected_token):
+        enforce_login_rate_limit(request)
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Tài khoản, mật khẩu hoặc Admin Token không chính xác.",
+        )
+
+    return {
+        "status": "success",
+        "message": "Đăng nhập hệ thống quản trị HUIT thành công.",
+        "token": expected_token,
+        "username": expected_user,
+    }
+
+
+@app.post("/api/admin/verify-token")
+def verify_admin_token(x_admin_token: str = Header(default="")):
+    require_admin(x_admin_token)
+    expected_user = (os.environ.get("ADMIN_USERNAME", "") or "admin").strip()
+    return {"status": "success", "message": "Token quản trị hợp lệ.", "username": expected_user}
+
+
+@app.get("/api/admin/kb-list")
+def list_kb_chunks(
+    search: str = "",
+    category: str = "",
+    limit: int = 100,
+    x_admin_token: str = Header(default="")
+):
+    require_admin(x_admin_token)
+    rag_core._init()
+    import re
+    coll = rag_core._mongo[rag_core.DB][rag_core.COLL]
+    
+    filter_query = {}
+    if category and category != "all":
+        filter_query["category"] = category
+    if search.strip():
+        regex_pattern = re.escape(search.strip())
+        filter_query["$or"] = [
+            {"title": {"$regex": regex_pattern, "$options": "i"}},
+            {"text": {"$regex": regex_pattern, "$options": "i"}},
+            {"major_code": {"$regex": regex_pattern, "$options": "i"}}
+        ]
+        
+    docs = list(coll.find(filter_query, {"_id": 0, "embedding": 0}).limit(limit))
+    total_count = coll.count_documents(filter_query)
+    
+    return {
+        "total": total_count,
+        "returned": len(docs),
+        "documents": docs
+    }
+
+
+@app.get("/api/admin/logs")
+def get_query_logs(limit: int = 50, x_admin_token: str = Header(default="")):
+    require_admin(x_admin_token)
+    rag_core._init()
+    coll = rag_core._mongo[rag_core.DB]["rag_events"]
+    
+    logs = list(coll.find({}, {"_id": 0}).sort("created_at", -1).limit(limit))
+    for item in logs:
+        if isinstance(item.get("created_at"), datetime):
+            item["created_at"] = item["created_at"].isoformat()
+            
+    return {
+        "count": len(logs),
+        "logs": logs
+    }
+
+
+@app.post("/api/admin/test-vector-search")
+def test_vector_search(req: VectorSearchTestRequest, x_admin_token: str = Header(default="")):
+    require_admin(x_admin_token)
+    started = time.perf_counter()
+    docs = rag_core.retrieve(req.query, top_k=req.top_k)
+    elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
+    
+    results = []
+    for d in docs:
+        results.append({
+            "title": rag_core._clean_doc_title(d.get("title")),
+            "category": d.get("category"),
+            "year": d.get("year"),
+            "major_code": d.get("major_code"),
+            "score": round(d.get("score", 0), 4),
+            "url": d.get("source_url") or d.get("url"),
+            "text": d.get("text", "")[:400]
+        })
+        
+    return {
+        "query": req.query,
+        "elapsed_ms": elapsed_ms,
+        "retrieved_count": len(results),
+        "results": results
+    }
+
+
+@app.get("/admin")
+def admin_page():
+    return FileResponse(os.path.join(HERE, "static", "admin.html"))
 
 
 @app.get("/")

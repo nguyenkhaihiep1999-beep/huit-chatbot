@@ -3,7 +3,10 @@
     "total": 12,
     "retrieval_hit_rate": 1.0,
     "top1_hit_rate": 0.917,
-    "average_seconds": 0.8
+    "average_seconds": 3.34,
+    "answer_hit_rate": 1.0,
+    "forbidden_answer_rate": 0.0,
+    "fallback_rate": 0.167
   },
   "results": [
     {
@@ -13,7 +16,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 6.07
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 456,
+      "elapsed_seconds": 9.62
     },
     {
       "id": "major-it",
@@ -22,7 +29,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.31
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 447,
+      "elapsed_seconds": 2.09
     },
     {
       "id": "major-security",
@@ -31,7 +42,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.27
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 419,
+      "elapsed_seconds": 2.06
     },
     {
       "id": "major-data",
@@ -40,7 +55,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.28
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 403,
+      "elapsed_seconds": 2.17
     },
     {
       "id": "tuition",
@@ -49,7 +68,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.3
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 575,
+      "elapsed_seconds": 2.34
     },
     {
       "id": "tuition-future-year",
@@ -58,7 +81,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.34
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 442,
+      "elapsed_seconds": 4.72
     },
     {
       "id": "cutoff-2025",
@@ -67,7 +94,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.3
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": true,
+      "answer_length": 169,
+      "elapsed_seconds": 3.07
     },
     {
       "id": "scholarship",
@@ -76,7 +107,11 @@
       "retrieval_hit": true,
       "top1_hit": false,
       "source_count": 5,
-      "elapsed_seconds": 0.31
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 277,
+      "elapsed_seconds": 2.67
     },
     {
       "id": "admission-methods",
@@ -85,7 +120,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.29
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 612,
+      "elapsed_seconds": 2.92
     },
     {
       "id": "food-tech",
@@ -94,7 +133,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.36
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 132,
+      "elapsed_seconds": 3.01
     },
     {
       "id": "marketing",
@@ -103,7 +146,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.31
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": false,
+      "answer_length": 471,
+      "elapsed_seconds": 3.07
     },
     {
       "id": "logistics",
@@ -112,7 +159,11 @@
       "retrieval_hit": true,
       "top1_hit": true,
       "source_count": 5,
-      "elapsed_seconds": 0.43
+      "answer_hit": true,
+      "answer_forbidden": false,
+      "fallback": true,
+      "answer_length": 204,
+      "elapsed_seconds": 2.33
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "summary": {
     "total": 12,
-    "expected_hit_rate": 1.0,
+    "expected_hit_rate": 0.9166666666666666,
     "natural_rate": 1.0,
     "official_source_rate": 1.0,
     "outside_without_sources": true
@@ -10,12 +10,12 @@
     {
       "id": "tuition",
       "question": "Học phí HUIT năm 2026 bao nhiêu?",
-      "answer": "Học phí HUIT khóa K26 năm 2026 là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành [1]. Với chương trình cử nhân phổ biến, tổng học phí toàn khóa dao động khoảng 143–148 triệu đồng [1]. Nếu bạn theo học chương trình kỹ sư, mức học phí toàn khóa sẽ cao hơn, vào khoảng 177–188 triệu đồng tùy ngành và cơ cấu tín chỉ [1]. Hiện tại mình chỉ có thông tin về hệ chính quy, còn chương trình liên kết quốc tế thì chưa có dữ liệu cụ thể trong ngữ cảnh này. Bạn muốn mình tìm hiểu thêm về ngành nào hoặc hệ liên kết quốc tế không?",
+      "answer": "Theo công bố cho khóa K26 năm 2026, học phí HUIT là **1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ thực hành**. Các ngành cử nhân phổ biến khoảng **143–148 triệu đồng/toàn khóa**, còn chương trình kỹ sư khoảng **177–188 triệu đồng/toàn khóa**, tùy chương trình và cơ cấu tín chỉ. [1]",
       "expected_hit": true,
       "natural": true,
       "official_sources_only": true,
       "source_count": 1,
-      "fallback": false
+      "fallback": true
     },
     {
       "id": "tuition-natural",
@@ -50,52 +50,52 @@
     {
       "id": "admission",
       "question": "Năm nay HUIT xét tuyển bằng những cách nào?",
-      "answer": "Năm 2026, HUIT tuyển sinh chính quy trong cả nước với 5 phương thức [1]. Trường xét tuyển theo kết quả thi tốt nghiệp THPT, theo kết quả học tập lớp 10–11–12, và theo điểm thi Đánh giá năng lực do Đại học Quốc gia TP.HCM tổ chức [1]. Ngoài ra, HUIT còn có phương thức xét tuyển thẳng theo quy định của Bộ Giáo dục và Đào tạo, cùng phương thức xét kết quả thi Đánh giá năng lực chuyên biệt của Trường Đại học Sư phạm TP.HCM kết hợp với kết quả học tập THPT [1]. Như vậy, thí sinh có nhiề",
+      "answer": "Năm 2026, HUIT có 5 phương thức: điểm thi tốt nghiệp THPT, học bạ lớp 10–12, Đánh giá năng lực ĐHQG-HCM, tuyển thẳng theo quy định của Bộ GD&ĐT, và bài thi năng lực chuyên biệt của ĐH Sư phạm TP.HCM kết hợp học bạ. [1] Bạn muốn mình giải thích phương thức nào?",
       "expected_hit": true,
       "natural": true,
       "official_sources_only": true,
       "source_count": 1,
-      "fallback": false
+      "fallback": true
     },
     {
       "id": "scholarship",
       "question": "Có phải ngành nào cũng được giảm 50% học phí không?",
-      "answer": "Dựa trên dữ liệu được cung cấp, không có thông tin nào đề cập đến việc giảm 50% học phí cho bất kỳ ngành nào [1]. Mức học phí K26 năm 2026 được công bố là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành, áp dụng cho chương trình chính quy [1]. Học phí toàn khóa dao động khoảng 143–148 triệu",
-      "expected_hit": true,
+      "answer": "Theo công bố cho khóa K26 năm 2026, học phí HUIT là **1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ thực hành**. Các ngành cử nhân phổ biến khoảng **143–148 triệu đồng/toàn khóa**, còn chương trình kỹ sư khoảng **177–188 triệu đồng/toàn khóa**, tùy chương trình và cơ cấu tín chỉ. [1]",
+      "expected_hit": false,
       "natural": true,
       "official_sources_only": true,
       "source_count": 1,
-      "fallback": false
+      "fallback": true
     },
     {
       "id": "ai-code",
       "question": "Mã ngành AI ở HUIT?",
-      "answer": "Mã ngành Trí tuệ nhân tạo tại HUIT là **7480107** [1]. Đây là ngành đào tạo bậc đại học chính quy, nằm trong danh mục 39 ngành được HUIT công bố cho mùa tuyển sinh 2026 [1]. Chương trình học và tổ hợp môn cụ thể bạn nên kiểm tra trực tiếp trên trang ngành để có thông tin mới nhất [1]. Bạn muốn tìm hiểu thêm về điều kiện xét tuyển hay chương trình học của ngành này không?",
+      "answer": "HUIT có đào tạo **Ngành Trí tuệ nhân tạo**, mã ngành **7480107**, thuộc hệ đại học chính quy trong danh mục tuyển sinh 2026. [1] Bạn muốn xem thêm tổ hợp xét tuyển hay chương trình học?",
       "expected_hit": true,
       "natural": true,
       "official_sources_only": true,
       "source_count": 1,
-      "fallback": false
+      "fallback": true
     },
     {
       "id": "it-code",
       "question": "Cho mình mã ngành CNTT.",
-      "answer": "Mã ngành Công nghệ thông tin tại HUIT là 7480201, thuộc hệ đào tạo Đại học chính quy [1]. Đây là một trong 39 ngành đào tạo đại học chính quy được HUIT công bố cho mùa tuyển sinh 2026 [1]. Bạn muốn tìm hiểu thêm về tổ hợp môn xét tuyển hay chương trình học cụ thể của ngành này không?",
+      "answer": "HUIT có đào tạo **Ngành Công nghệ thông tin**, mã ngành **7480201**, thuộc hệ đại học chính quy trong danh mục tuyển sinh 2026. [1] Bạn muốn xem thêm tổ hợp xét tuyển hay chương trình học?",
       "expected_hit": true,
       "natural": true,
       "official_sources_only": true,
       "source_count": 1,
-      "fallback": false
+      "fallback": true
     },
     {
       "id": "contact",
       "question": "Cho mình xin hotline tuyển sinh HUIT.",
-      "answer": "Hotline tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT) là 096 205 1080 [1]. Ngoài ra, bạn cũng có thể liên hệ qua số điện thoại 028 6270 6275 hoặc gửi email đến tuyensinh@huit.edu.vn để được hỗ trợ [1]. Bạn muốn tìm hiểu thêm về các chương trình đào tạo hay quy trình xét tuyển năm nay không?",
+      "answer": "Mình tìm thấy thông tin này trên nguồn tuyển sinh chính thức của HUIT:  Liên hệ tuyển sinh HUIT\n- Địa chỉ: 140 Lê Trọng Tấn, Phường Tây Thạnh, TP.HCM.\n- Điện thoại: 028 6270 6275.\n- Hotline: 096 205 1080.\n- Email: tuyensinh@huit.edu.vn.\n- Cổng thông tin tuyển sinh: [1]\n\nNếu bạn nói rõ ngành hoặc năm tuyển sinh, mình sẽ tra cứu chính xác hơn.",
       "expected_hit": true,
       "natural": true,
       "official_sources_only": true,
       "source_count": 1,
-      "fallback": false
+      "fallback": true
     },
     {
       "id": "outside-weather",

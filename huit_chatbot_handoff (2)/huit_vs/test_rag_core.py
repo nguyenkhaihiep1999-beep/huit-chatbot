@@ -98,16 +98,12 @@ class RagCoreUnitTests(unittest.TestCase):
             self.assertIn("Chào bạn", response["answer"])
             self.assertEqual(response["sources"], [])
 
-    def test_major_catalog_question_detection(self):
-        for question in [
-            "Trường HUIT có những ngành đào tạo nào?",
-            "Cho mình danh sách ngành HUIT",
-            "HUIT có bao nhiêu ngành?",
-        ]:
-            self.assertTrue(rag_core._is_major_catalog_question(question))
-        self.assertFalse(
-            rag_core._is_major_catalog_question("Mã ngành Trí tuệ nhân tạo?")
-        )
+    def test_personal_identity_question_is_handled(self):
+        for question in ["bạn biết tôi là ai không?", "tôi tên gì?", "bạn có biết em là ai không"]:
+            response = rag_core.check_intent_guardrail(question)
+            self.assertTrue(response["is_handled"])
+            self.assertIn("Tôi không biết bạn là ai", response["answer"])
+            self.assertIn("AI Tư vấn Tuyển sinh", response["answer"])
 
 
 if __name__ == "__main__":

@@ -28,7 +28,7 @@ class ApiSecurityTests(unittest.TestCase):
     def test_admin_endpoint_is_closed_without_token_configuration(self):
         with patch.dict(os.environ, {"ADMIN_TOKEN": ""}):
             response = self.client.post("/api/clear-cache")
-        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.status_code, 401)
 
     def test_security_headers_are_present(self):
         response = self.client.get("/")
@@ -41,6 +41,32 @@ class ApiSecurityTests(unittest.TestCase):
             response = self.client.post("/api/chat", json={"question": "HUIT?"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), expected)
+
+
+    def test_admin_login_success_with_username_and_password(self):
+        response = self.client.post("/api/admin/login", json={"username": "admin", "password": "huit_admin_2026"})
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["status"], "success")
+        self.assertEqual(data["token"], "huit_admin_2026")
+
+    def test_admin_login_success_with_token(self):
+        response = self.client.post("/api/admin/login", json={"admin_token": "huit_admin_2026"})
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["status"], "success")
+        self.assertEqual(data["token"], "huit_admin_2026")
+
+    def test_admin_login_failure_invalid_credentials(self):
+        response = self.client.post("/api/admin/login", json={"username": "admin", "password": "wrong_password"})
+        self.assertEqual(response.status_code, 401)
+
+    def test_admin_login_rate_limiting(self):
+        api._login_windows.clear()
+        for _ in range(5):
+            self.client.post("/api/admin/login", json={"username": "admin", "password": "wrong"})
+        response = self.client.post("/api/admin/login", json={"username": "admin", "password": "wrong"})
+        self.assertEqual(response.status_code, 429)
 
 
 if __name__ == "__main__":

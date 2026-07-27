@@ -23,7 +23,7 @@ DB = "huit_chatbot"
 COLL = "huit_kb"
 MODEL = "intfloat/multilingual-e5-large"
 DIMS = 1024
-LLM_MODEL = os.environ.get("OPENROUTER_MODEL", "inclusionai/ling-3.0-flash:free")
+LLM_MODEL = os.environ.get("OPENROUTER_MODEL", "qwen/qwen-2.5-72b-instruct")
 LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "350"))
 # Version is coupled to the embeddings currently promoted in Atlas. Keeping it
 # code-owned prevents a stale Vercel environment value from reusing old caches.
@@ -42,7 +42,10 @@ if os.path.exists(_env_path):
             _line = _line.strip()
             if _line and not _line.startswith("#") and "=" in _line:
                 _k, _v = _line.split("=", 1)
-                os.environ.setdefault(_k.strip(), _v.strip().strip('"\''))
+                _k = _k.strip()
+                _v = _v.strip().strip('"\'')
+                if _v or _k not in os.environ:
+                    os.environ[_k] = _v
 
 
 import tempfile
@@ -431,52 +434,100 @@ def _call_llm(system_prompt, user_prompt):
         raise RuntimeError("HUIT_OPENROUTER_KEY chưa được cấu hình.")
     from openai import OpenAI
     client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
-    try:
-        r = client.chat.completions.create(
-            model=LLM_MODEL,
-            messages=msgs,
-            temperature=0.2,
-            max_tokens=LLM_MAX_TOKENS,
-            timeout=45,
-            extra_body={"reasoning": {"effort": "minimal"}},
-        )
-        if r and r.choices and r.choices[0].message.content:
-            content = r.choices[0].message.content.strip()
-            leaked_reasoning = (
-                content.lower().startswith(("we need to answer", "we need answer"))
-                or "must end with a short question" in content.lower()
-                or "provide answer in vietnamese" in content.lower()
+    
+    # Chuỗi ưu tiên các mô hình Qwen 2.5 và fallback linh hoạt
+    models_to_try = [
+        LLM_MODEL,
+        "qwen/qwen-2.5-72b-instruct",
+        "qwen/qwen-2.5-coder-32b-instruct",
+        "qwen/qwen-2.5-7b-instruct",
+        "google/gemma-4-31b-it:free",
+        "inclusionai/ling-3.0-flash:free",
+        "openrouter/free",
+    ]
+    unique_models = []
+    for m in models_to_try:
+        if m and m not in unique_models:
+            unique_models.append(m)
+
+    last_error = None
+    for model_name in unique_models:
+        try:
+            r = client.chat.completions.create(
+                model=model_name,
+                messages=msgs,
+                temperature=0.3,
+                max_tokens=LLM_MAX_TOKENS,
+                timeout=45,
             )
-            if leaked_reasoning:
-                raise RuntimeError("Model exposed internal reasoning.")
-            return content
-    except Exception as e:
-        print(f"OpenRouter model '{LLM_MODEL}' warning:", e)
-        raise RuntimeError("OpenRouter tạm thời không khả dụng.") from e
-    raise RuntimeError("OpenRouter trả về nội dung rỗng.")
+            if r and r.choices and r.choices[0].message.content:
+                content = r.choices[0].message.content.strip()
+                leaked_reasoning = (
+                    content.lower().startswith(("we need to answer", "we need answer"))
+                    or "must end with a short question" in content.lower()
+                    or "provide answer in vietnamese" in content.lower()
+                )
+                if leaked_reasoning:
+                    continue
+                return content
+        except Exception as e:
+            print(f"OpenRouter model '{model_name}' warning:", e)
+            last_error = e
+            continue
+
+    raise RuntimeError(f"Tất cả mô hình OpenRouter đều tạm thời gián đoạn. Lỗi gần nhất: {last_error}")
 
 
 def check_intent_guardrail(question, chat_history=None):
     q_norm = _normalize(question)
+    words = [w for w in re.split(r'\s+', q_norm) if w]
+    num_words = len(words)
+
+    # 0. Personal Identity Questions (Nhận diện câu hỏi cá nhân / định danh)
+    is_personal_identity = (
+        ("la ai" in q_norm or "ten gi" in q_norm)
+        and any(p in q_norm for p in ["toi", "em", "minh", "tui", "tao", "who", "i am", "my name"])
+        and not any(k in q_norm for k in ["huit", "nganh", "truong", "khoa", "hieu truong", "bo truong", "giao su", "tien si"])
+    ) or any(term in q_norm for term in ["ban biet toi", "ban biet em", "ban biet minh", "co biet toi", "co biet em", "co biet minh", "know who i am", "who am i"])
     
-    # 1. Greetings / Small talk
-    # q_norm đã được bỏ dấu, vì vậy các mẫu so khớp cũng phải ở dạng bỏ dấu.
-    greetings = [
-        "chao", "xin chao", "hello", "hi", "ban la ai", "ban ten gi",
-        "tu van giup", "tu van cho minh", "chao ban", "chai b",
-    ]
-    if any(q_norm == g or q_norm.startswith(g) for g in greetings) and len(q_norm.split()) <= 4:
+    if is_personal_identity:
         return {
             "is_handled": True,
             "answer": (
-                "Chào bạn! Mình là trợ lý tư vấn tuyển sinh HUIT. "
-                "Mình có thể giúp bạn tìm hiểu ngành học, phương thức xét tuyển, "
-                "điểm sàn, học phí và học bổng. Bạn đang quan tâm nội dung nào?"
+                "Tôi không biết thông tin cá nhân của bạn do hệ thống không lưu giữ dữ liệu riêng tư. "
+                "Mình là AI Tư vấn Tuyển sinh chính thức của Trường Đại học Công Thương TP.HCM (HUIT). "
+                "Mình có thể hỗ trợ bạn chọn ngành học, tra cứu phương thức xét tuyển, điểm sàn, học phí và học bổng. "
+                "Bạn cần mình hỗ trợ thông tin gì hôm nay?"
+            ),
+            "sources": []
+        }
+    
+    # 1. Greetings / Small talk (Xử lý các câu chào hỏi: alo, alo bạn, banj, chào, hi, hello, v.v.)
+    greeting_tokens = {
+        "chao", "xin chao", "hello", "hi", "hey", "helo", "heloo", "alo", "aloo", "aloooo", "alof",
+        "banj", "ban", "ban oi", "banj oi", "ad oi", "bot oi", "chao ban", "chao b", "chai b",
+        "chao ad", "hi ad", "hello ad", "hi ban", "hello ban", "da", "da chao", "tu van giup",
+        "tu van cho minh", "cho em hoi", "cho minh hoi", "cho hoi", "ban la ai", "ban ten gi"
+    }
+    
+    is_greeting = (
+        q_norm in greeting_tokens
+        or (num_words <= 5 and any(w in {"alo", "aloo", "aloooo", "chao", "hi", "hello", "banj", "ban", "ad"} for w in words))
+        or (num_words <= 4 and any(g in q_norm for g in greeting_tokens if len(g) >= 3))
+    )
+    
+    if is_greeting and not any(kw in q_norm for kw in ["huit", "nganh", "hoc phi", "diem san", "xet tuyen", "diem chuan", "hoc bong"]):
+        return {
+            "is_handled": True,
+            "answer": (
+                "Chào bạn! Mình là Trợ lý AI Tư vấn Tuyển sinh chính thức của Trường Đại học Công Thương TP.HCM (HUIT).\n\n"
+                "Mình có thể giúp bạn tìm hiểu 39 ngành học đại học chính quy, phương thức xét tuyển 2026, điểm sàn, học phí và chính sách học bổng.\n\n"
+                "Bạn đang quan tâm đến ngành học nào hoặc cần mình hỗ trợ thông tin gì?"
             ),
             "sources": []
         }
 
-    # 2. Out of scope filter
+    # 2. Out of scope filter (chỉ chặn những chủ đề hoàn toàn không liên quan)
     out_of_scope = [
         "thoi tiet", "viet code", "javascript", "python", "giai bai",
         "phuong trinh", "bong da", "choi game", "lien minh", "bitcoin",
@@ -493,19 +544,32 @@ def check_intent_guardrail(question, chat_history=None):
         "chon nganh", "hoc gi", "phu hop", "huong nghiep", "nghe nghiep",
         "viec lam", "lap trinh", "du lieu", "robot", "tu dong hoa",
         "moi truong", "o nhiem", "nuoc thai", "khach san", "marketing",
-        "logistics",
+        "logistics", "ai", "cntt", "luat", "thuc pham", "kinh te",
+        "con gai", "nam sinh", "so thich", "thich", "dam me",
     ]
     clearly_outside = any(term in q_norm for term in out_of_scope)
     has_huit_context = any(term in q_norm for term in in_scope)
     has_history = bool(chat_history)
-    if clearly_outside or (not has_huit_context and not has_history):
+    
+    if clearly_outside:
         return {
             "is_handled": True,
             "answer": (
-                "Câu này nằm ngoài phần thông tin tuyển sinh HUIT mà mình có thể "
-                "kiểm chứng, nên mình không muốn trả lời đoán. Nếu bạn cần, mình "
-                "có thể hỗ trợ chọn ngành, xem phương thức xét tuyển, điểm sàn "
-                "hoặc học phí HUIT nhé."
+                "Câu này nằm ngoài phần thông tin tuyển sinh HUIT mà mình có thể kiểm chứng. "
+                "Nếu bạn cần, mình có thể hỗ trợ tư vấn chọn ngành, xem phương thức xét tuyển, điểm sàn hoặc học phí HUIT nhé!"
+            ),
+            "sources": []
+        }
+
+    # 3. Short ambiguous phrase handling (Ví dụ từ gõ quá ngắn 1-2 từ không có ngữ cảnh)
+    if num_words <= 2 and not has_huit_context and not has_history:
+        return {
+            "is_handled": True,
+            "answer": (
+                "Chào bạn! Mình là Trợ lý AI Tư vấn Tuyển sinh HUIT.\n\n"
+                "Mình chưa hiểu rõ câu hỏi của bạn. Bạn có thể nhập câu hỏi chi tiết hơn "
+                "(ví dụ: *'Mã ngành CNTT'*, *'Điểm sàn năm 2026'*, *'Học phí HUIT bao nhiêu?'*) "
+                "để mình tư vấn chính xác nhất nhé!"
             ),
             "sources": []
         }
