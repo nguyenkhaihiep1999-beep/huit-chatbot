@@ -25,7 +25,9 @@ MODEL = "intfloat/multilingual-e5-large"
 DIMS = 1024
 LLM_MODEL = os.environ.get("OPENROUTER_MODEL", "inclusionai/ling-3.0-flash:free")
 LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "350"))
-KB_VERSION = os.environ.get("KB_VERSION", "huit-kb-2026-07-v4-semantic")
+# Version is coupled to the embeddings currently promoted in Atlas. Keeping it
+# code-owned prevents a stale Vercel environment value from reusing old caches.
+KB_VERSION = "huit-kb-2026-07-v4-semantic"
 RAG_VERSION = "rag-v7-rich-semantic"
 CACHE_TTL_HOURS = int(os.environ.get("CACHE_TTL_HOURS", "24"))
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -432,6 +434,10 @@ def check_intent_guardrail(question, chat_history=None):
         "hoc phi", "tin chi", "hoc bong", "mien giam", "ky tuc xa",
         "dia chi truong", "co so", "hotline", "nhap hoc", "ho so",
         "thoi gian dao tao", "chuong trinh dao tao",
+        "chon nganh", "hoc gi", "phu hop", "huong nghiep", "nghe nghiep",
+        "viec lam", "lap trinh", "du lieu", "robot", "tu dong hoa",
+        "moi truong", "o nhiem", "nuoc thai", "khach san", "marketing",
+        "logistics",
     ]
     clearly_outside = any(term in q_norm for term in out_of_scope)
     has_huit_context = any(term in q_norm for term in in_scope)
