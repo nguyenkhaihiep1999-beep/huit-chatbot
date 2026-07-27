@@ -28,7 +28,7 @@ LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "350"))
 # Version is coupled to the embeddings currently promoted in Atlas. Keeping it
 # code-owned prevents a stale Vercel environment value from reusing old caches.
 KB_VERSION = "huit-kb-2026-07-v4-semantic"
-RAG_VERSION = "rag-v8-serverless-robust"
+RAG_VERSION = "rag-v9-natural-score-intent"
 CACHE_TTL_HOURS = int(os.environ.get("CACHE_TTL_HOURS", "24"))
 HERE = os.path.dirname(os.path.abspath(__file__))
 RETRIEVAL_MODULE = os.path.join(HERE, "huit_semantic_search.module.json")
@@ -143,7 +143,10 @@ INTENT_TERMS = {
         "hoc phi", "tin chi", "tien hoc", "muc phi", "chi phi hoc",
         "tien de hoc", "bao nhieu tien de hoc",
     ),
-    "cutoff": ("diem san", "diem chuan", "diem trung tuyen"),
+    "cutoff": (
+        "diem san", "diem chuan", "diem trung tuyen", "diem nganh",
+        "diem cntt", "diem it",
+    ),
     "scholarship": ("hoc bong", "giam hoc phi", "mien hoc phi"),
     "admission": (
         "phuong thuc xet tuyen", "xet tuyen", "xet hoc ba",

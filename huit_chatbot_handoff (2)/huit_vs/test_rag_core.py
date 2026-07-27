@@ -23,6 +23,10 @@ class RagCoreUnitTests(unittest.TestCase):
             "cutoff",
         )
         self.assertEqual(
+            rag_core.classify_intent("điểm ngành cntt"),
+            "cutoff",
+        )
+        self.assertEqual(
             rag_core.classify_intent("Thông tin ngành Logistics"),
             "major",
         )
