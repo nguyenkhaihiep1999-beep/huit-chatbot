@@ -102,6 +102,7 @@ def _clean_doc_title(title):
 def _normalize(text):
     text = unicodedata.normalize("NFD", str(text or "").lower())
     text = "".join(ch for ch in text if unicodedata.category(ch) != "Mn")
+    text = text.replace("đ", "d")
     return re.sub(r"\s+", " ", text).strip()
 
 

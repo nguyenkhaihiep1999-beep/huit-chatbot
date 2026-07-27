@@ -19,6 +19,10 @@ class RagCoreUnitTests(unittest.TestCase):
             "tuition",
         )
         self.assertEqual(
+            rag_core.classify_intent("Điểm sàn xét tuyển năm 2025"),
+            "cutoff",
+        )
+        self.assertEqual(
             rag_core.classify_intent("Thông tin ngành Logistics"),
             "major",
         )
