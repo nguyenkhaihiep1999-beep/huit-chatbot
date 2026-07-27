@@ -203,8 +203,9 @@ def _call_llm(system_prompt, user_prompt):
                 model=model_name,
                 messages=msgs,
                 temperature=0.2,
-                max_tokens=700,
+                max_tokens=1400,
                 timeout=45,
+                extra_body={"reasoning": {"effort": "minimal"}},
             )
             if r and r.choices and r.choices[0].message.content:
                 return r.choices[0].message.content
