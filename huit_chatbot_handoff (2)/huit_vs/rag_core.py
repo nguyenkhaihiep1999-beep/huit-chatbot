@@ -24,8 +24,9 @@ COLL = "huit_kb"
 MODEL = "intfloat/multilingual-e5-large"
 DIMS = 1024
 LLM_MODEL = "~google/gemini-flash-latest"
+LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "60"))
 KB_VERSION = os.environ.get("KB_VERSION", "huit-kb-2026-07-v2")
-RAG_VERSION = "rag-v4-production"
+RAG_VERSION = "rag-v5-guardrail-aliases"
 CACHE_TTL_HOURS = int(os.environ.get("CACHE_TTL_HOURS", "24"))
 HERE = os.path.dirname(os.path.abspath(__file__))
 RETRIEVAL_MODULE = os.path.join(HERE, "huit_semantic_search.module.json")
@@ -106,6 +107,28 @@ def _normalize(text):
     return re.sub(r"\s+", " ", text).strip()
 
 
+QUERY_ALIASES = {
+    "attt": "an toàn thông tin",
+    "cntt": "công nghệ thông tin",
+    "data science": "khoa học dữ liệu",
+    "data": "khoa học dữ liệu",
+    "tiếp thị": "marketing",
+    "chuỗi cung ứng": "logistics quản lý chuỗi cung ứng",
+    "hỗ trợ học phí": "học bổng hỗ trợ học phí",
+}
+
+
+def expand_query(question):
+    """Add canonical admissions terms without removing the user's wording."""
+    normalized = _normalize(question)
+    expansions = [
+        canonical
+        for alias, canonical in QUERY_ALIASES.items()
+        if re.search(rf"\b{re.escape(_normalize(alias))}\b", normalized)
+    ]
+    return f"{question} {' '.join(expansions)}".strip()
+
+
 INTENT_TERMS = {
     "tuition": ("hoc phi", "tin chi", "tien hoc", "muc phi"),
     "cutoff": ("diem san", "diem chuan", "diem trung tuyen"),
@@ -174,6 +197,7 @@ def _candidate_id(doc, rank, prefix):
 
 def retrieve(question, top_k=3):
     _init()
+    question = expand_query(question)
     intent = classify_intent(question)
     requested_years = {int(value) for value in re.findall(r"\b20\d{2}\b", question)}
     candidate_map = {}
@@ -315,7 +339,7 @@ def _call_llm(system_prompt, user_prompt):
             model=LLM_MODEL,
             messages=msgs,
             temperature=0.2,
-            max_tokens=700,
+            max_tokens=LLM_MAX_TOKENS,
             timeout=45,
             extra_body={"reasoning": {"effort": "minimal"}},
         )
@@ -327,8 +351,8 @@ def _call_llm(system_prompt, user_prompt):
     raise RuntimeError("OpenRouter trả về nội dung rỗng.")
 
 
-def check_intent_guardrail(question):
-    q_norm = question.strip().lower()
+def check_intent_guardrail(question, chat_history=None):
+    q_norm = _normalize(question)
     
     # 1. Greetings / Small talk
     greetings = ["chào", "xin chào", "hello", "hi", "bạn là ai", "bạn tên gì", "tư vấn giúp", "tư vấn cho mình"]
@@ -340,8 +364,24 @@ def check_intent_guardrail(question):
         }
 
     # 2. Out of scope filter
-    out_of_scope = ["thời tiết", "viết code", "giải bài tập toán", "tin bóng đá", "chơi game"]
-    if any(k in q_norm for k in out_of_scope):
+    out_of_scope = [
+        "thoi tiet", "viet code", "javascript", "python", "giai bai",
+        "phuong trinh", "bong da", "choi game", "lien minh", "bitcoin",
+        "chung khoan", "tong thong", "bong den", "nau pho", "thuc don",
+        "giam can", "tho tinh", "chuyen kinh di", "dich cau",
+        "laptop gaming",
+    ]
+    in_scope = [
+        "huit", "cong thuong", "tuyen sinh", "xet tuyen", "hoc ba",
+        "diem san", "diem chuan", "nganh", "ma nganh", "to hop",
+        "hoc phi", "tin chi", "hoc bong", "mien giam", "ky tuc xa",
+        "dia chi truong", "co so", "hotline", "nhap hoc", "ho so",
+        "thoi gian dao tao", "chuong trinh dao tao",
+    ]
+    clearly_outside = any(term in q_norm for term in out_of_scope)
+    has_huit_context = any(term in q_norm for term in in_scope)
+    has_history = bool(chat_history)
+    if clearly_outside or (not has_huit_context and not has_history):
         return {
             "is_handled": True,
             "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
@@ -493,18 +533,18 @@ def _fallback_answer(question, docs):
     )
 
 
-def answer(question, chat_history=None):
+def answer(question, chat_history=None, use_cache=True):
     started = time.perf_counter()
     _init()
     intent = classify_intent(question)
 
     # 1. Intent Guardrail Check
-    guard_res = check_intent_guardrail(question)
+    guard_res = check_intent_guardrail(question, chat_history=chat_history)
     if guard_res["is_handled"]:
         return guard_res
 
     # 2. Semantic Cache Check
-    cached_res = get_cached_response(question, chat_history)
+    cached_res = get_cached_response(question, chat_history) if use_cache else None
     if cached_res:
         log_event(
             question,
@@ -534,8 +574,12 @@ def answer(question, chat_history=None):
         res = {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
         return res
 
-    context = "\n\n".join(f"[{i}] {_clean_doc_title(d.get('title'))} — {d.get('text','')}"
-                          for i, d in enumerate(docs, 1))
+    # Free OpenRouter routes have a tight prompt budget. The highest-ranked
+    # excerpt keeps the request stable while retrieval still returns all sources.
+    context = "\n\n".join(
+        f"[{i}] {_clean_doc_title(d.get('title'))} — {str(d.get('text', ''))[:700]}"
+        for i, d in enumerate(docs[:1], 1)
+    )
 
     history_str = ""
     if chat_history and isinstance(chat_history, list):
@@ -565,7 +609,8 @@ def answer(question, chat_history=None):
             "rag_version": RAG_VERSION,
         },
     }
-    save_response_to_cache(question, res, chat_history)
+    if use_cache:
+        save_response_to_cache(question, res, chat_history)
     log_event(
         question,
         res,

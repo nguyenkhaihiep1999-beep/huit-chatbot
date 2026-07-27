@@ -62,6 +62,30 @@ class RagCoreUnitTests(unittest.TestCase):
         self.assertIn("14–16", answer)
         self.assertLess(len(answer), 400)
 
+    def test_query_alias_expansion(self):
+        self.assertIn(
+            "an toàn thông tin",
+            rag_core.expand_query("Tra cứu ngành ATTT của HUIT"),
+        )
+        self.assertIn(
+            "marketing",
+            rag_core.expand_query("Ngành tiếp thị của HUIT"),
+        )
+
+    def test_out_of_scope_guardrail_is_broad(self):
+        for question in [
+            "Ai là tổng thống Hoa Kỳ?",
+            "Giá Bitcoin hôm nay?",
+            "Viết JavaScript tạo máy tính",
+            "Cách nấu phở bò?",
+        ]:
+            self.assertTrue(rag_core.check_intent_guardrail(question)["is_handled"])
+        self.assertFalse(
+            rag_core.check_intent_guardrail(
+                "Mã ngành Công nghệ thông tin HUIT?"
+            )["is_handled"]
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

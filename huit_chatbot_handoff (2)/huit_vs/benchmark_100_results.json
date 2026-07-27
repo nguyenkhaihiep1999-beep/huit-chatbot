@@ -1,0 +1,2317 @@
+{
+  "summary": {
+    "total": 100,
+    "huit_questions": 80,
+    "outside_questions": 20,
+    "vector_hit_rate": 1.0,
+    "hybrid_hit_rate": 1.0,
+    "answer_hit_rate": null,
+    "out_of_scope_guardrail_rate": 1.0,
+    "out_of_scope_no_fake_source_rate": 1.0,
+    "fallback_rate": null,
+    "error_count": 0,
+    "average_seconds": 1.19
+  },
+  "results": [
+    {
+      "id": "ai-1",
+      "scope": "huit",
+      "category": "major",
+      "query": "Mã ngành Trí tuệ nhân tạo HUIT là gì?",
+      "expected": [
+        "7480107"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 10.5
+    },
+    {
+      "id": "ai-2",
+      "scope": "huit",
+      "category": "major",
+      "query": "Cho mình xin mã ngành AI của HUIT.",
+      "expected": [
+        "7480107"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Công nghệ chế tạo máy (Mã ngành: 7510202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUI (HUIT Cổng tuyển si",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh "
+      ],
+      "elapsed_seconds": 1.01
+    },
+    {
+      "id": "ai-3",
+      "scope": "huit",
+      "category": "major",
+      "query": "Trí tuệ nhân tạo ở HUIT mang mã ngành bao nhiêu?",
+      "expected": [
+        "7480107"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.01
+    },
+    {
+      "id": "ai-4",
+      "scope": "huit",
+      "category": "major",
+      "query": "Tra cứu ngành AI HUIT giúp mình.",
+      "expected": [
+        "7480107"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Luật kinh tế (Mã ngành: 7380107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "elapsed_seconds": 1.43
+    },
+    {
+      "id": "ai-5",
+      "scope": "huit",
+      "category": "major",
+      "query": "Ngành trí tuệ nhân tạo xét tuyển thế nào?",
+      "expected": [
+        "7480107"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Công nghệ kỹ thuật cơ điện tử (Mã ngành: 7510203) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.68
+    },
+    {
+      "id": "ai-6",
+      "scope": "huit",
+      "category": "major",
+      "query": "HUIT có đào tạo AI không, mã ngành gì?",
+      "expected": [
+        "7480107"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ chế tạo máy (Mã ngành: 7510202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUI (HUIT Cổng tuyển si",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.11
+    },
+    {
+      "id": "ai-7",
+      "scope": "huit",
+      "category": "major",
+      "query": "Mình muốn học AI tại HUIT, cho thông tin tuyển sinh.",
+      "expected": [
+        "7480107"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "elapsed_seconds": 1.6
+    },
+    {
+      "id": "ai-8",
+      "scope": "huit",
+      "category": "major",
+      "query": "7480107 là ngành nào của HUIT?",
+      "expected": [
+        "7480107"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.04
+    },
+    {
+      "id": "it-1",
+      "scope": "huit",
+      "category": "major",
+      "query": "Mã ngành Công nghệ thông tin HUIT?",
+      "expected": [
+        "7480201"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.21
+    },
+    {
+      "id": "it-2",
+      "scope": "huit",
+      "category": "major",
+      "query": "CNTT tại HUIT có mã bao nhiêu?",
+      "expected": [
+        "7480201"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 0.78
+    },
+    {
+      "id": "it-3",
+      "scope": "huit",
+      "category": "major",
+      "query": "Cho em thông tin tuyển sinh ngành Công nghệ thông tin.",
+      "expected": [
+        "7480201"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ kỹ thuật cơ điện tử (Mã ngành: 7510203) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.2
+    },
+    {
+      "id": "it-4",
+      "scope": "huit",
+      "category": "major",
+      "query": "Ngành IT HUIT xét tuyển như thế nào?",
+      "expected": [
+        "7480201"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "elapsed_seconds": 0.72
+    },
+    {
+      "id": "it-5",
+      "scope": "huit",
+      "category": "major",
+      "query": "HUIT có ngành CNTT không?",
+      "expected": [
+        "7480201"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.01
+    },
+    {
+      "id": "it-6",
+      "scope": "huit",
+      "category": "major",
+      "query": "Tra cứu mã ngành IT của trường.",
+      "expected": [
+        "7480201"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.02
+    },
+    {
+      "id": "it-7",
+      "scope": "huit",
+      "category": "major",
+      "query": "7480201 là ngành gì?",
+      "expected": [
+        "7480201"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.24
+    },
+    {
+      "id": "it-8",
+      "scope": "huit",
+      "category": "major",
+      "query": "Em muốn đăng ký Công nghệ thông tin HUIT.",
+      "expected": [
+        "7480201"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.82
+    },
+    {
+      "id": "security-1",
+      "scope": "huit",
+      "category": "major",
+      "query": "Mã ngành An toàn thông tin HUIT?",
+      "expected": [
+        "7480202"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.11
+    },
+    {
+      "id": "security-2",
+      "scope": "huit",
+      "category": "major",
+      "query": "An toàn thông tin tại HUIT có mã bao nhiêu?",
+      "expected": [
+        "7480202"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 3.98
+    },
+    {
+      "id": "security-3",
+      "scope": "huit",
+      "category": "major",
+      "query": "Cho thông tin tuyển sinh ngành an ninh mạng HUIT.",
+      "expected": [
+        "7480202"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "elapsed_seconds": 3.77
+    },
+    {
+      "id": "security-4",
+      "scope": "huit",
+      "category": "major",
+      "query": "HUIT có đào tạo An toàn thông tin không?",
+      "expected": [
+        "7480202"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 3.01
+    },
+    {
+      "id": "security-5",
+      "scope": "huit",
+      "category": "major",
+      "query": "Tra cứu ngành ATTT của HUIT.",
+      "expected": [
+        "7480202"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 2.04
+    },
+    {
+      "id": "security-6",
+      "scope": "huit",
+      "category": "major",
+      "query": "7480202 là ngành nào?",
+      "expected": [
+        "7480202"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 0.7
+    },
+    {
+      "id": "security-7",
+      "scope": "huit",
+      "category": "major",
+      "query": "Em muốn học bảo mật tại HUIT.",
+      "expected": [
+        "7480202"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.19
+    },
+    {
+      "id": "security-8",
+      "scope": "huit",
+      "category": "major",
+      "query": "Ngành An toàn thông tin xét tuyển ra sao?",
+      "expected": [
+        "7480202"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 0.95
+    },
+    {
+      "id": "data-1",
+      "scope": "huit",
+      "category": "major",
+      "query": "Mã ngành Khoa học dữ liệu HUIT?",
+      "expected": [
+        "7460108"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.0
+    },
+    {
+      "id": "data-2",
+      "scope": "huit",
+      "category": "major",
+      "query": "Data Science HUIT mang mã ngành gì?",
+      "expected": [
+        "7460108"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "hybrid_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 2.53
+    },
+    {
+      "id": "data-3",
+      "scope": "huit",
+      "category": "major",
+      "query": "Cho thông tin ngành Khoa học dữ liệu.",
+      "expected": [
+        "7460108"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh "
+      ],
+      "hybrid_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 0.9
+    },
+    {
+      "id": "data-4",
+      "scope": "huit",
+      "category": "major",
+      "query": "HUIT có đào tạo khoa học dữ liệu không?",
+      "expected": [
+        "7460108"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức"
+      ],
+      "hybrid_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.62
+    },
+    {
+      "id": "data-5",
+      "scope": "huit",
+      "category": "major",
+      "query": "Tra cứu ngành data của HUIT.",
+      "expected": [
+        "7460108"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí"
+      ],
+      "hybrid_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh "
+      ],
+      "elapsed_seconds": 1.14
+    },
+    {
+      "id": "data-6",
+      "scope": "huit",
+      "category": "major",
+      "query": "7460108 là ngành nào?",
+      "expected": [
+        "7460108"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 0.94
+    },
+    {
+      "id": "data-7",
+      "scope": "huit",
+      "category": "major",
+      "query": "Em muốn học Data Science tại HUIT.",
+      "expected": [
+        "7460108"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.06
+    },
+    {
+      "id": "data-8",
+      "scope": "huit",
+      "category": "major",
+      "query": "Ngành Khoa học dữ liệu xét tuyển thế nào?",
+      "expected": [
+        "7460108"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "hybrid_sources": [
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh "
+      ],
+      "elapsed_seconds": 0.66
+    },
+    {
+      "id": "food-1",
+      "scope": "huit",
+      "category": "major",
+      "query": "Mã ngành Công nghệ thực phẩm HUIT?",
+      "expected": [
+        "7540101"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "elapsed_seconds": 0.93
+    },
+    {
+      "id": "food-2",
+      "scope": "huit",
+      "category": "major",
+      "query": "Công nghệ thực phẩm ở HUIT học bao lâu?",
+      "expected": [
+        "7540101"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "elapsed_seconds": 1.57
+    },
+    {
+      "id": "food-3",
+      "scope": "huit",
+      "category": "major",
+      "query": "Cho thông tin tuyển sinh ngành Công nghệ thực phẩm.",
+      "expected": [
+        "7540101"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.03
+    },
+    {
+      "id": "food-4",
+      "scope": "huit",
+      "category": "major",
+      "query": "HUIT có ngành thực phẩm không?",
+      "expected": [
+        "7540101"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 0.93
+    },
+    {
+      "id": "food-5",
+      "scope": "huit",
+      "category": "major",
+      "query": "Tra cứu ngành CNTP của HUIT.",
+      "expected": [
+        "7540101"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "hybrid_sources": [
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Luật kinh tế (Mã ngành: 7380107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 0.66
+    },
+    {
+      "id": "food-6",
+      "scope": "huit",
+      "category": "major",
+      "query": "7540101 là ngành gì?",
+      "expected": [
+        "7540101"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "elapsed_seconds": 1.5
+    },
+    {
+      "id": "food-7",
+      "scope": "huit",
+      "category": "major",
+      "query": "Em muốn học Công nghệ thực phẩm.",
+      "expected": [
+        "7540101"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.22
+    },
+    {
+      "id": "food-8",
+      "scope": "huit",
+      "category": "major",
+      "query": "Ngành Công nghệ thực phẩm xét tuyển ra sao?",
+      "expected": [
+        "7540101"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 0.92
+    },
+    {
+      "id": "marketing-1",
+      "scope": "huit",
+      "category": "major",
+      "query": "Ngành Marketing HUIT có mã gì?",
+      "expected": [
+        "marketing"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức"
+      ],
+      "hybrid_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "elapsed_seconds": 1.05
+    },
+    {
+      "id": "marketing-2",
+      "scope": "huit",
+      "category": "major",
+      "query": "Cho thông tin tuyển sinh Marketing.",
+      "expected": [
+        "marketing"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.11
+    },
+    {
+      "id": "marketing-3",
+      "scope": "huit",
+      "category": "major",
+      "query": "HUIT có đào tạo marketing không?",
+      "expected": [
+        "marketing"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Quản trị khách sạn (Mã ngành: 7810201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức"
+      ],
+      "hybrid_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 0.82
+    },
+    {
+      "id": "marketing-4",
+      "scope": "huit",
+      "category": "major",
+      "query": "Marketing ở HUIT xét tuyển thế nào?",
+      "expected": [
+        "marketing"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Quản trị khách sạn (Mã ngành: 7810201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "elapsed_seconds": 1.67
+    },
+    {
+      "id": "marketing-5",
+      "scope": "huit",
+      "category": "major",
+      "query": "Tra cứu ngành tiếp thị của HUIT.",
+      "expected": [
+        "marketing"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Ngôn ngữ Anh (Mã ngành: 7220201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Luật kinh tế (Mã ngành: 7380107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+      ],
+      "elapsed_seconds": 1.48
+    },
+    {
+      "id": "marketing-6",
+      "scope": "huit",
+      "category": "major",
+      "query": "Em muốn đăng ký Marketing HUIT.",
+      "expected": [
+        "marketing"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "elapsed_seconds": 2.32
+    },
+    {
+      "id": "marketing-7",
+      "scope": "huit",
+      "category": "major",
+      "query": "Ngành marketing học tại khoa nào?",
+      "expected": [
+        "marketing"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "elapsed_seconds": 1.53
+    },
+    {
+      "id": "marketing-8",
+      "scope": "huit",
+      "category": "major",
+      "query": "Thông tin ngành Marketing trường Công Thương.",
+      "expected": [
+        "marketing"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Quản trị dịch vụ du lịch và lữ hành (Mã ngành: 7810101) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.2
+    },
+    {
+      "id": "logistics-1",
+      "scope": "huit",
+      "category": "major",
+      "query": "Thông tin ngành Logistics HUIT?",
+      "expected": [
+        "logistics"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức"
+      ],
+      "hybrid_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "elapsed_seconds": 1.13
+    },
+    {
+      "id": "logistics-2",
+      "scope": "huit",
+      "category": "major",
+      "query": "HUIT có đào tạo logistics không?",
+      "expected": [
+        "logistics"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "elapsed_seconds": 1.07
+    },
+    {
+      "id": "logistics-3",
+      "scope": "huit",
+      "category": "major",
+      "query": "Cho mã ngành Logistics và quản lý chuỗi cung ứng.",
+      "expected": [
+        "logistics"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Quản trị Nhà hàng và Dịch vụ ăn uống (Mã ngành: 7810202) - Trường Đại học Công Thương TP.HCM - (HUIT Cổng tuyển si",
+        "Ngành Quản trị dịch vụ du lịch và lữ hành (Mã ngành: 7810101) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "elapsed_seconds": 0.94
+    },
+    {
+      "id": "logistics-4",
+      "scope": "huit",
+      "category": "major",
+      "query": "Logistics HUIT xét tuyển như thế nào?",
+      "expected": [
+        "logistics"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức"
+      ],
+      "hybrid_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh "
+      ],
+      "elapsed_seconds": 0.91
+    },
+    {
+      "id": "logistics-5",
+      "scope": "huit",
+      "category": "major",
+      "query": "Em muốn học logistics tại trường Công Thương.",
+      "expected": [
+        "logistics"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.13
+    },
+    {
+      "id": "logistics-6",
+      "scope": "huit",
+      "category": "major",
+      "query": "Tra cứu ngành chuỗi cung ứng HUIT.",
+      "expected": [
+        "logistics"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "hybrid_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "elapsed_seconds": 0.81
+    },
+    {
+      "id": "logistics-7",
+      "scope": "huit",
+      "category": "major",
+      "query": "Ngành Logistics có những tổ hợp nào?",
+      "expected": [
+        "logistics"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "elapsed_seconds": 1.02
+    },
+    {
+      "id": "logistics-8",
+      "scope": "huit",
+      "category": "major",
+      "query": "Tư vấn tuyển sinh Logistics giúp mình.",
+      "expected": [
+        "logistics"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.1
+    },
+    {
+      "id": "tuition-1",
+      "scope": "huit",
+      "category": "tuition",
+      "query": "Học phí HUIT khoảng bao nhiêu?",
+      "expected": [
+        "học phí"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức"
+      ],
+      "hybrid_sources": [
+        "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "elapsed_seconds": 0.88
+    },
+    {
+      "id": "tuition-2",
+      "scope": "huit",
+      "category": "tuition",
+      "query": "Một học kỳ ở HUIT đóng bao nhiêu tiền?",
+      "expected": [
+        "học phí"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Ngôn ngữ Trung Quốc (Mã ngành: 7220204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "elapsed_seconds": 0.9
+    },
+    {
+      "id": "tuition-3",
+      "scope": "huit",
+      "category": "tuition",
+      "query": "Đơn giá tín chỉ HUIT là bao nhiêu?",
+      "expected": [
+        "học phí"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 0.99
+    },
+    {
+      "id": "tuition-4",
+      "scope": "huit",
+      "category": "tuition",
+      "query": "Cho em hỏi tiền học trường Công Thương.",
+      "expected": [
+        "học phí"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si",
+        "Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.01
+    },
+    {
+      "id": "tuition-5",
+      "scope": "huit",
+      "category": "tuition",
+      "query": "Học phí HUIT có ổn định toàn khóa không?",
+      "expected": [
+        "học phí"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh "
+      ],
+      "hybrid_sources": [
+        "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.84
+    },
+    {
+      "id": "tuition-6",
+      "scope": "huit",
+      "category": "tuition",
+      "query": "Một năm học HUIT tốn khoảng bao nhiêu?",
+      "expected": [
+        "học phí"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Ngôn ngữ Trung Quốc (Mã ngành: 7220204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Ngôn ngữ Anh (Mã ngành: 7220201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)"
+      ],
+      "elapsed_seconds": 3.02
+    },
+    {
+      "id": "tuition-7",
+      "scope": "huit",
+      "category": "tuition",
+      "query": "Học phí năm 2026 đã có chính thức chưa?",
+      "expected": [
+        "học phí"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ Tài Chính (Fintech) (Mã ngành: 7340205) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si",
+        "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 7.88
+    },
+    {
+      "id": "tuition-8",
+      "scope": "huit",
+      "category": "tuition",
+      "query": "Chi phí học ngành CNTT tại HUIT?",
+      "expected": [
+        "học phí"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tu (HUIT Cổng tuyển si",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.98
+    },
+    {
+      "id": "cutoff-1",
+      "scope": "huit",
+      "category": "cutoff",
+      "query": "Điểm sàn HUIT năm 2025 bao nhiêu?",
+      "expected": [
+        "16"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+      ],
+      "hybrid_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th"
+      ],
+      "elapsed_seconds": 0.72
+    },
+    {
+      "id": "cutoff-2",
+      "scope": "huit",
+      "category": "cutoff",
+      "query": "Mức điểm nhận hồ sơ HUIT 2025?",
+      "expected": [
+        "16"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.44
+    },
+    {
+      "id": "cutoff-3",
+      "scope": "huit",
+      "category": "cutoff",
+      "query": "Bao nhiêu điểm thì được xét tuyển HUIT?",
+      "expected": [
+        "16"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Ngôn ngữ Trung Quốc (Mã ngành: 7220204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh "
+      ],
+      "elapsed_seconds": 1.13
+    },
+    {
+      "id": "cutoff-4",
+      "scope": "huit",
+      "category": "cutoff",
+      "query": "Cho em hỏi điểm sàn trường Công Thương.",
+      "expected": [
+        "16"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Công nghệ kỹ thuật Hóa học (Mã ngành: 7510401) - Trường Đại học Công Thương TP.HCM - Tuyển Sin (HUIT Cổng tuyển si",
+        "Ngành Công nghệ kỹ thuật cơ điện tử (Mã ngành: 7510203) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.48
+    },
+    {
+      "id": "cutoff-5",
+      "scope": "huit",
+      "category": "cutoff",
+      "query": "Điểm xét tuyển HUIT năm 2025 là mấy?",
+      "expected": [
+        "16"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c"
+      ],
+      "elapsed_seconds": 0.95
+    },
+    {
+      "id": "cutoff-6",
+      "scope": "huit",
+      "category": "cutoff",
+      "query": "HUIT nhận hồ sơ từ bao nhiêu điểm?",
+      "expected": [
+        "16"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.23
+    },
+    {
+      "id": "cutoff-7",
+      "scope": "huit",
+      "category": "cutoff",
+      "query": "16 điểm có nộp HUIT được không?",
+      "expected": [
+        "16"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "hybrid_sources": [
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "elapsed_seconds": 1.08
+    },
+    {
+      "id": "cutoff-8",
+      "scope": "huit",
+      "category": "cutoff",
+      "query": "Tra cứu điểm sàn tuyển sinh HUIT.",
+      "expected": [
+        "16"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính th",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh c",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh "
+      ],
+      "elapsed_seconds": 0.8
+    },
+    {
+      "id": "scholarship-1",
+      "scope": "huit",
+      "category": "scholarship",
+      "query": "HUIT có học bổng 50% học phí không?",
+      "expected": [
+        "50%"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "elapsed_seconds": 0.99
+    },
+    {
+      "id": "scholarship-2",
+      "scope": "huit",
+      "category": "scholarship",
+      "query": "Chính sách học bổng HUIT thế nào?",
+      "expected": [
+        "50%"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c"
+      ],
+      "elapsed_seconds": 0.98
+    },
+    {
+      "id": "scholarship-3",
+      "scope": "huit",
+      "category": "scholarship",
+      "query": "Tân sinh viên có được giảm học phí không?",
+      "expected": [
+        "50%"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.02
+    },
+    {
+      "id": "scholarship-4",
+      "scope": "huit",
+      "category": "scholarship",
+      "query": "Cho thông tin học bổng học kỳ đầu.",
+      "expected": [
+        "50%"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh ",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.03
+    },
+    {
+      "id": "scholarship-5",
+      "scope": "huit",
+      "category": "scholarship",
+      "query": "HUIT hỗ trợ học phí cho sinh viên thế nào?",
+      "expected": [
+        "50%"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 0.82
+    },
+    {
+      "id": "scholarship-6",
+      "scope": "huit",
+      "category": "scholarship",
+      "query": "Học bổng tuyển sinh của trường Công Thương?",
+      "expected": [
+        "50%"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Công nghệ kỹ thuật môi trường (Mã ngành: 7510406) - Trường Đại học Công Thương TP.HCM - Tuyển  (HUIT Cổng tuyển si",
+        "Ngành Luật kinh tế (Mã ngành: 7380107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "elapsed_seconds": 0.88
+    },
+    {
+      "id": "scholarship-7",
+      "scope": "huit",
+      "category": "scholarship",
+      "query": "Có chương trình miễn giảm 50 phần trăm không?",
+      "expected": [
+        "50%"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Quản lý tài nguyên và môi trường (Mã ngành: 7850101) - Trường Đại học Công Thương TP.HCM - Tuy (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si"
+      ],
+      "hybrid_sources": [
+        "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Si (HUIT Cổng tuyển si",
+        "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh  (HUIT Cổng tuyển si",
+        "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển (HUIT Cổng tuyển si",
+        "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HC (HUIT Cổng tuyển si",
+        "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM -  (HUIT Cổng tuyển si"
+      ],
+      "elapsed_seconds": 1.56
+    },
+    {
+      "id": "scholarship-8",
+      "scope": "huit",
+      "category": "scholarship",
+      "query": "Điều kiện nhận học bổng HUIT?",
+      "expected": [
+        "50%"
+      ],
+      "vector_hit": true,
+      "hybrid_hit": true,
+      "vector_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chí",
+        "Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh"
+      ],
+      "hybrid_sources": [
+        "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT) (HUIT Cổng tuyển sinh chính thức)",
+        "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin",
+        "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh c",
+        "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh",
+        "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT (HUIT Cổng tuyển sin"
+      ],
+      "elapsed_seconds": 1.53
+    },
+    {
+      "id": "oos-1",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Thời tiết TP.HCM hôm nay thế nào?",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-2",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Viết code Python sắp xếp một danh sách.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-3",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Giải bài tập toán 2x + 3 = 9.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-4",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Tin bóng đá mới nhất hôm nay?",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-5",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Chơi game đoán số với tôi.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-6",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Ai là tổng thống Hoa Kỳ?",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-7",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Giá Bitcoin hôm nay bao nhiêu?",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-8",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Viết cho tôi một bài thơ tình.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-9",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Cách nấu phở bò ngon?",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-10",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Dịch câu hello world sang tiếng Pháp.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-11",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Tư vấn mua laptop gaming.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-12",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Kể một câu chuyện kinh dị.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-13",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Dự báo thời tiết Hà Nội ngày mai.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-14",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Viết JavaScript tạo máy tính.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-15",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Giải phương trình bậc hai.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-16",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Kết quả trận bóng đá tối qua?",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-17",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Hướng dẫn chơi Liên Minh Huyền Thoại.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-18",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Chứng khoán nào nên mua?",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-19",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Cho thực đơn giảm cân 7 ngày.",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "id": "oos-20",
+      "scope": "outside",
+      "category": "outside",
+      "query": "Ai phát minh ra bóng đèn?",
+      "expected": [],
+      "guardrail_hit": true,
+      "no_fake_sources": true,
+      "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+      "elapsed_seconds": 0.0
+    }
+  ]
+}
