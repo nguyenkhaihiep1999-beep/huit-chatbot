@@ -87,6 +87,24 @@ class RagCoreUnitTests(unittest.TestCase):
             )["is_handled"]
         )
 
+    def test_vietnamese_greeting_is_not_sent_to_retrieval(self):
+        for question in ["chào bạn", "xin chào", "chài b"]:
+            response = rag_core.check_intent_guardrail(question)
+            self.assertTrue(response["is_handled"])
+            self.assertIn("Chào bạn", response["answer"])
+            self.assertEqual(response["sources"], [])
+
+    def test_major_catalog_question_detection(self):
+        for question in [
+            "Trường HUIT có những ngành đào tạo nào?",
+            "Cho mình danh sách ngành HUIT",
+            "HUIT có bao nhiêu ngành?",
+        ]:
+            self.assertTrue(rag_core._is_major_catalog_question(question))
+        self.assertFalse(
+            rag_core._is_major_catalog_question("Mã ngành Trí tuệ nhân tạo?")
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

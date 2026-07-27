@@ -380,7 +380,11 @@ def check_intent_guardrail(question, chat_history=None):
     q_norm = _normalize(question)
     
     # 1. Greetings / Small talk
-    greetings = ["chào", "xin chào", "hello", "hi", "bạn là ai", "bạn tên gì", "tư vấn giúp", "tư vấn cho mình"]
+    # q_norm đã được bỏ dấu, vì vậy các mẫu so khớp cũng phải ở dạng bỏ dấu.
+    greetings = [
+        "chao", "xin chao", "hello", "hi", "ban la ai", "ban ten gi",
+        "tu van giup", "tu van cho minh", "chao ban", "chai b",
+    ]
     if any(q_norm == g or q_norm.startswith(g) for g in greetings) and len(q_norm.split()) <= 4:
         return {
             "is_handled": True,
@@ -423,6 +427,78 @@ def check_intent_guardrail(question, chat_history=None):
         }
 
     return {"is_handled": False}
+
+
+def _is_major_catalog_question(question):
+    q_norm = _normalize(question)
+    catalog_phrases = [
+        "danh sach nganh",
+        "nhung nganh",
+        "cac nganh",
+        "co nganh nao",
+        "bao nhieu nganh",
+        "nganh dao tao nao",
+    ]
+    return any(phrase in q_norm for phrase in catalog_phrases)
+
+
+def _major_catalog_response():
+    """Return the complete official catalog instead of asking vector search for one hit."""
+    docs = list(
+        _mongo[DB][COLL].find(
+            {
+                "category": "major",
+                "major_code": {"$exists": True, "$ne": None},
+            },
+            {
+                "_id": 0,
+                "page_title": 1,
+                "title": 1,
+                "major_code": 1,
+                "source_url": 1,
+                "url": 1,
+            },
+        )
+    )
+    majors = {}
+    for doc in docs:
+        code = str(doc.get("major_code") or "").strip()
+        title = str(doc.get("page_title") or doc.get("title") or "").strip()
+        title = re.sub(r"^Ngành\s+", "", title, flags=re.IGNORECASE)
+        title = re.sub(r"\s*\(HUIT.*$", "", title).strip()
+        if code and title:
+            majors[code] = title
+
+    if not majors:
+        return None
+
+    ordered = sorted(majors.items(), key=lambda item: _normalize(item[1]))
+    lines = "\n".join(
+        f"{index}. **{title}** ({code})"
+        for index, (code, title) in enumerate(ordered, 1)
+    )
+    return {
+        "answer": (
+            f"HUIT hiện công bố **{len(ordered)} ngành đào tạo đại học chính quy** "
+            f"trong danh mục tuyển sinh 2026:\n\n{lines}\n\n"
+            "Bạn muốn mình tư vấn sâu hơn về ngành nào?"
+        ),
+        "sources": [{
+            "i": 1,
+            "title": "Danh mục ngành đào tạo đại học chính quy HUIT",
+            "url": "https://ts.huit.edu.vn/nganh-dao-tao/dai-hoc",
+            "score": 1.0,
+            "text": f"Danh mục {len(ordered)} ngành đào tạo đại học chính quy HUIT.",
+        }],
+        "meta": {
+            "intent": "major",
+            "fallback": False,
+            "deterministic": True,
+            "model": LLM_MODEL,
+            "kb_version": KB_VERSION,
+            "rag_version": RAG_VERSION,
+        },
+    }
 
 
 def _cache_key(question, chat_history=None):
@@ -601,6 +677,19 @@ def answer(question, chat_history=None, use_cache=True):
     guard_res = check_intent_guardrail(question, chat_history=chat_history)
     if guard_res["is_handled"]:
         return guard_res
+
+    # Câu hỏi liệt kê cần toàn bộ danh mục; vector search chỉ phù hợp tìm vài
+    # tài liệu gần nhất và từng khiến câu trả lời chỉ có một ngành.
+    if _is_major_catalog_question(question):
+        catalog_res = _major_catalog_response()
+        if catalog_res:
+            log_event(
+                question,
+                catalog_res,
+                int((time.perf_counter() - started) * 1000),
+                intent,
+            )
+            return catalog_res
 
     # 2. Semantic Cache Check
     cached_res = get_cached_response(question, chat_history) if use_cache else None

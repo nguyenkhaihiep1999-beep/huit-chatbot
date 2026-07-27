@@ -131,7 +131,7 @@ def get_suggested_questions():
         "questions": [
             "Mã ngành & tổ hợp xét tuyển ngành Trí tuệ nhân tạo HUIT?",
             "Học phí trung bình một học kỳ tại HUIT là bao nhiêu?",
-            "Điểm sàn xét tuyển đại học chính quy 2025 HUIT bao nhiêu?",
+            "Điểm sàn xét tuyển đại học chính quy 2026 HUIT bao nhiêu?",
             "Chính sách học bổng giảm 50% học phí HK1 dành cho các ngành nào?",
             "Ngành Công nghệ thông tin xét các tổ hợp môn nào?"
         ]
