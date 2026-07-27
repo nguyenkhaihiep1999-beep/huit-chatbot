@@ -9,7 +9,6 @@ import copy
 import json
 import os
 import re
-import time
 from urllib.parse import quote_plus
 
 from pymongo import MongoClient
@@ -197,36 +196,20 @@ def _call_llm(system_prompt, user_prompt):
     if or_key:
         from openai import OpenAI
         client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
-        primary_model = os.environ.get("OPENROUTER_MODEL", "openrouter/free")
-        if primary_model == "openrouter/free" or primary_model.endswith(":free"):
-            # Chế độ miễn phí nghiêm ngặt: không tự chuyển sang model trả phí.
-            models_to_try = [primary_model]
-        else:
-            models_to_try = [
-                primary_model,
-                "~google/gemini-flash-latest",
-                "qwen/qwen3-32b",
-            ]
-        for model_name in models_to_try:
-            attempts = 3 if model_name == "openrouter/free" else 1
-            for attempt in range(attempts):
-                try:
-                    r = client.chat.completions.create(
-                        model=model_name,
-                        messages=msgs,
-                        temperature=0.2,
-                        max_tokens=700,
-                        timeout=45,
-                    )
-                    if r and r.choices and r.choices[0].message.content:
-                        return r.choices[0].message.content
-                except Exception as e:
-                    print(
-                        f"OpenRouter model '{model_name}' attempt "
-                        f"{attempt + 1}/{attempts} warning: {e}"
-                    )
-                    if attempt + 1 < attempts:
-                        time.sleep(0.5)
+        # Một OpenRouter key + một model ổn định. Không dùng Free Router ngẫu nhiên.
+        model_name = "~google/gemini-flash-latest"
+        try:
+            r = client.chat.completions.create(
+                model=model_name,
+                messages=msgs,
+                temperature=0.2,
+                max_tokens=700,
+                timeout=45,
+            )
+            if r and r.choices and r.choices[0].message.content:
+                return r.choices[0].message.content
+        except Exception as e:
+            print(f"OpenRouter model '{model_name}' warning:", e)
 
     # 2. Qwen chính thức qua Alibaba DashScope API
     if os.environ.get("DASHSCOPE_API_KEY"):
