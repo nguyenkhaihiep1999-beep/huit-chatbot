@@ -745,6 +745,9 @@ def log_event(question, response_data, elapsed_ms, intent, cached=False, error=N
 
 def _fallback_answer(question, docs):
     """Create a concise grounded answer when every configured LLM is unavailable."""
+    if not docs:
+        return "Hiện chưa tìm thấy thông tin chi tiết phù hợp trong kho tri thức tuyển sinh HUIT. Bạn vui lòng đặt câu hỏi cụ thể hơn hoặc liên hệ hotline Cổng tuyển sinh HUIT nhé!"
+
     q_lower = question.lower()
     q_normalized = _normalize(question)
     intent = classify_intent(question)
@@ -852,19 +855,23 @@ def answer(question, chat_history=None, use_cache=True):
         return cached_res
 
     retrieval_query = question
-    if chat_history and isinstance(chat_history, list) and len(question.split()) <= 7:
-        last_user_msgs = [m.get("content", "") for m in chat_history if isinstance(m, dict) and m.get("role") == "user"]
-        if last_user_msgs:
-            retrieval_query = f"{last_user_msgs[-1]} {question}"
+    if chat_history and isinstance(chat_history, list) and len(question.split()) <= 8:
+        user_msgs = [
+            m.get("content", "") for m in chat_history
+            if isinstance(m, dict) and m.get("role") in ("user", "human") and m.get("content")
+        ]
+        if user_msgs:
+            last_user_msg = user_msgs[-1]
+            retrieval_query = f"{last_user_msg} {question}"
 
     docs = retrieve(retrieval_query, _rag_cfg.get("top_k", 3))
-    grounded_docs = (
-        [doc for doc in docs if doc.get("category") == intent]
-        if intent != "general"
-        else docs
-    )
-    grounded_docs = grounded_docs or docs
-    source_limit = 1 if intent == "major" else 3
+    grounded_docs = docs
+    
+    if not docs:
+        res = {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
+        return res
+
+    source_limit = min(3, len(grounded_docs))
     sources = [{
         "i": i,
         "title": _clean_doc_title(d.get("title")),
@@ -872,10 +879,6 @@ def answer(question, chat_history=None, use_cache=True):
         "score": round(d.get("score", 0), 3),
         "text": d.get("text", "")[:300]
     } for i, d in enumerate(grounded_docs[:source_limit], 1)]
-    
-    if not docs:
-        res = {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
-        return res
 
     # Use a few focused excerpts so the response can compare facts naturally.
     context = "\n\n".join(
