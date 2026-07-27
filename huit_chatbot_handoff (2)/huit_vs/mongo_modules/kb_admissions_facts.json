@@ -1,0 +1,73 @@
+{
+  "_id": "kb_admissions_facts",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Trích tài liệu tuyển sinh",
+  "source_collection": "huit_kb",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Trích tài liệu tuyển sinh",
+          "pipeline": [
+            {
+              "$match": {
+                "$or": [
+                  {
+                    "title": {
+                      "$regex": "tuyển sinh|phương thức|tổ hợp",
+                      "$options": "i"
+                    }
+                  },
+                  {
+                    "text": {
+                      "$regex": "tuyển sinh|phương thức|tổ hợp",
+                      "$options": "i"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "title": 1,
+                "text": 1,
+                "source_url": 1,
+                "category": 1,
+                "year": 1,
+                "major_code": 1
+              }
+            },
+            {
+              "$limit": 100
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

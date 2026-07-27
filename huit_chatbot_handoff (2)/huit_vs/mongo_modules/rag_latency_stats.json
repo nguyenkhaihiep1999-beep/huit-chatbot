@@ -1,0 +1,70 @@
+{
+  "_id": "rag_latency_stats",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Độ trễ RAG tổng hợp",
+  "source_collection": "rag_events",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Độ trễ RAG tổng hợp",
+          "pipeline": [
+            {
+              "$match": {
+                "elapsed_ms": {
+                  "$type": "number"
+                }
+              }
+            },
+            {
+              "$group": {
+                "_id": null,
+                "requests": {
+                  "$sum": 1
+                },
+                "avg_ms": {
+                  "$avg": "$elapsed_ms"
+                },
+                "min_ms": {
+                  "$min": "$elapsed_ms"
+                },
+                "max_ms": {
+                  "$max": "$elapsed_ms"
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

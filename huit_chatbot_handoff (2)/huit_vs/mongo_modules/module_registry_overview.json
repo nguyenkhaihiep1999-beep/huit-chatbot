@@ -1,0 +1,58 @@
+{
+  "_id": "module_registry_overview",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Tổng quan kho module",
+  "source_collection": "code_modules",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Tổng quan kho module",
+          "pipeline": [
+            {
+              "$group": {
+                "_id": {
+                  "kind": "$kind",
+                  "risk": "$risk_level",
+                  "enabled": "$enabled"
+                },
+                "count": {
+                  "$sum": 1
+                }
+              }
+            },
+            {
+              "$sort": {
+                "count": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

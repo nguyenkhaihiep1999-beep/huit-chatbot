@@ -1,0 +1,64 @@
+{
+  "_id": "raw_valid_pages",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Trang thô có URL và nội dung",
+  "source_collection": "raw_data",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Trang thô có URL và nội dung",
+          "pipeline": [
+            {
+              "$match": {
+                "url": {
+                  "$type": "string",
+                  "$ne": ""
+                },
+                "markdown": {
+                  "$type": "string",
+                  "$ne": ""
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "url": 1,
+                "title": 1,
+                "markdown": 1
+              }
+            },
+            {
+              "$limit": 200
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

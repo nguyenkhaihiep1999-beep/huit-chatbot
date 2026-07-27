@@ -1,0 +1,60 @@
+{
+  "_id": "cache_overview",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Tổng quan bộ nhớ đệm câu trả lời",
+  "source_collection": "query_cache",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Tổng quan bộ nhớ đệm câu trả lời",
+          "pipeline": [
+            {
+              "$group": {
+                "_id": null,
+                "entries": {
+                  "$sum": 1
+                },
+                "oldest": {
+                  "$min": "$updated_at"
+                },
+                "newest": {
+                  "$max": "$updated_at"
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

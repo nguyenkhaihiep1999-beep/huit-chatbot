@@ -1,0 +1,63 @@
+{
+  "_id": "cache_expired_entries",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Liệt kê cache hết hạn",
+  "source_collection": "query_cache",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Liệt kê cache hết hạn",
+          "pipeline": [
+            {
+              "$match": {
+                "expires_at": {
+                  "$lt": "$$NOW"
+                }
+              }
+            },
+            {
+              "$project": {
+                "cache_key": 1,
+                "question_clean": 1,
+                "expires_at": 1
+              }
+            },
+            {
+              "$sort": {
+                "expires_at": 1
+              }
+            },
+            {
+              "$limit": 200
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

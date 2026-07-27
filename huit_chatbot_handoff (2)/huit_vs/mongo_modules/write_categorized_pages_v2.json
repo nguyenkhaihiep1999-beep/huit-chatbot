@@ -1,0 +1,87 @@
+{
+  "_id": "write_categorized_pages_v2",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Tạo collection phân loại phiên bản 2",
+  "source_collection": "test_clean_data",
+  "risk_level": "write",
+  "allowed_targets": [
+    "test_categorized_data_v2"
+  ],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Tạo collection phân loại phiên bản 2",
+          "pipeline": [
+            {
+              "$addFields": {
+                "category": {
+                  "$switch": {
+                    "branches": [
+                      {
+                        "case": {
+                          "$regexMatch": {
+                            "input": "$clean_text",
+                            "regex": "học phí|tín chỉ",
+                            "options": "i"
+                          }
+                        },
+                        "then": "tuition"
+                      },
+                      {
+                        "case": {
+                          "$regexMatch": {
+                            "input": "$clean_text",
+                            "regex": "điểm chuẩn|điểm sàn",
+                            "options": "i"
+                          }
+                        },
+                        "then": "cutoff"
+                      },
+                      {
+                        "case": {
+                          "$regexMatch": {
+                            "input": "$clean_text",
+                            "regex": "học bổng",
+                            "options": "i"
+                          }
+                        },
+                        "then": "scholarship"
+                      }
+                    ],
+                    "default": "general"
+                  }
+                }
+              }
+            },
+            {
+              "$out": "test_categorized_data_v2"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

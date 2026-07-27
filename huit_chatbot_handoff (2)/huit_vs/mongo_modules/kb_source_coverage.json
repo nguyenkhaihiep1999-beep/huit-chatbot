@@ -1,0 +1,73 @@
+{
+  "_id": "kb_source_coverage",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Mức phủ theo URL nguồn",
+  "source_collection": "huit_kb",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Mức phủ theo URL nguồn",
+          "pipeline": [
+            {
+              "$match": {
+                "source_url": {
+                  "$type": "string",
+                  "$ne": ""
+                }
+              }
+            },
+            {
+              "$group": {
+                "_id": "$source_url",
+                "documents": {
+                  "$sum": 1
+                },
+                "categories": {
+                  "$addToSet": "$category"
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "source_url": "$_id",
+                "documents": 1,
+                "categories": 1
+              }
+            },
+            {
+              "$sort": {
+                "documents": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -7,7 +7,7 @@ Tương thích với Claude Desktop, Cursor, Antigravity IDE & các MCP Client.
 Công cụ (Tools) cung cấp:
 1. ask_huit_admission: Hỏi đáp tự động bằng RAG MongoDB Atlas & LLM.
 2. search_huit_kb: Tra cứu Vector Search trực tiếp trong kho tri thức HUIT.
-3. run_mongo_aggregation: Thực thi 1 trong 10 MongoDB Aggregation Pipelines lưu trong `code_modules`.
+3. run_mongo_aggregation: Kiểm tra hoặc chạy an toàn module lưu trong `code_modules`.
 4. get_huit_kb_analytics: Lấy báo cáo thống kê danh mục tri thức HUIT real-time.
 5. sync_huit_kaggle_dataset: Đào dữ liệu thô & đồng bộ sang Kaggle CSV dataset.
 """
@@ -21,6 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import rag_core
 import kaggle_huit_miner
+from mongo_safe_runner import run_saved_module
 
 # Database Credentials
 USER = "nguyenkhaihiep1999_db_user"
@@ -106,13 +107,34 @@ def handle_request(req):
                     },
                     {
                         "name": "run_mongo_aggregation",
-                        "description": "Thực thi MongoDB Aggregation Pipeline từ collection code_modules (VD: huit_data_cleaning, huit_agg_categorization, huit_agg_stats, huit_agg_deduplicate, huit_agg_quality_scoring).",
+                        "description": "Kiểm tra (mặc định) hoặc thực thi có giới hạn một Aggregation Pipeline đã được kiểm duyệt trong code_modules.",
                         "inputSchema": {
                             "type": "object",
                             "properties": {
                                 "module_id": {
                                     "type": "string",
                                     "description": "Tên ID module trong code_modules"
+                                },
+                                "parameters": {
+                                    "type": "object",
+                                    "description": "Tham số đúng theo schema của module",
+                                    "default": {}
+                                },
+                                "dry_run": {
+                                    "type": "boolean",
+                                    "description": "Chỉ kiểm tra, không chạy pipeline",
+                                    "default": True
+                                },
+                                "allow_writes": {
+                                    "type": "boolean",
+                                    "description": "Phải bật rõ ràng nếu module có $out/$merge",
+                                    "default": False
+                                },
+                                "result_limit": {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 500,
+                                    "default": 100
                                 }
                             },
                             "required": ["module_id"]
@@ -177,15 +199,15 @@ def handle_request(req):
             module_id = args.get("module_id", "")
             try:
                 db = get_mongo_db()
-                code_doc = db["code_modules"].find_one({"_id": module_id})
-                if not code_doc:
-                    res_txt = f"Lỗi: Không tìm thấy module ID '{module_id}' trong code_modules."
-                else:
-                    pipeline = code_doc["private"]["node_function"]["edge"][0]["pipeline"]
-                    # Default target source collection
-                    source_coll = "test_clean_data" if "clean" not in module_id else "raw_data"
-                    db[source_coll].aggregate(pipeline)
-                    res_txt = f"Đã thực thi thành công Aggregation Pipeline '{module_id}' trên collection '{source_coll}'!"
+                result = run_saved_module(
+                    db,
+                    module_id,
+                    params=args.get("parameters", {}),
+                    dry_run=args.get("dry_run", True),
+                    allow_writes=args.get("allow_writes", False),
+                    result_limit=args.get("result_limit", 100),
+                )
+                res_txt = json.dumps(result, ensure_ascii=False, default=str, indent=2)
                 
                 send_response({"jsonrpc": "2.0", "id": req_id, "result": {"content": [{"type": "text", "text": res_txt}]}})
             except Exception as e:

@@ -1,0 +1,76 @@
+{
+  "_id": "cache_source_count",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Phân bố số nguồn trong cache",
+  "source_collection": "query_cache",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Phân bố số nguồn trong cache",
+          "pipeline": [
+            {
+              "$project": {
+                "source_count": {
+                  "$cond": [
+                    {
+                      "$isArray": "$sources"
+                    },
+                    {
+                      "$size": "$sources"
+                    },
+                    0
+                  ]
+                }
+              }
+            },
+            {
+              "$group": {
+                "_id": "$source_count",
+                "count": {
+                  "$sum": 1
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "source_count": "$_id",
+                "count": 1
+              }
+            },
+            {
+              "$sort": {
+                "count": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

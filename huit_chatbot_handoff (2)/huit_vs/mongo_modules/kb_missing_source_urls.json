@@ -1,0 +1,70 @@
+{
+  "_id": "kb_missing_source_urls",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Tài liệu thiếu URL nguồn",
+  "source_collection": "huit_kb",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Tài liệu thiếu URL nguồn",
+          "pipeline": [
+            {
+              "$match": {
+                "$or": [
+                  {
+                    "source_url": {
+                      "$exists": false
+                    }
+                  },
+                  {
+                    "source_url": {
+                      "$in": [
+                        null,
+                        ""
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "$project": {
+                "title": 1,
+                "category": 1,
+                "year": 1
+              }
+            },
+            {
+              "$limit": 200
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

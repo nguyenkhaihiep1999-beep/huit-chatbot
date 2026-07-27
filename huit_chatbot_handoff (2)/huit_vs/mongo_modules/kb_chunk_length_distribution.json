@@ -1,0 +1,112 @@
+{
+  "_id": "kb_chunk_length_distribution",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Phân bố độ dài đoạn tri thức",
+  "source_collection": "huit_kb",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Phân bố độ dài đoạn tri thức",
+          "pipeline": [
+            {
+              "$match": {
+                "text": {
+                  "$type": "string"
+                }
+              }
+            },
+            {
+              "$project": {
+                "bucket": {
+                  "$switch": {
+                    "branches": [
+                      {
+                        "case": {
+                          "$lt": [
+                            {
+                              "$strLenCP": "$text"
+                            },
+                            300
+                          ]
+                        },
+                        "then": "short"
+                      },
+                      {
+                        "case": {
+                          "$lt": [
+                            {
+                              "$strLenCP": "$text"
+                            },
+                            1200
+                          ]
+                        },
+                        "then": "medium"
+                      },
+                      {
+                        "case": {
+                          "$lt": [
+                            {
+                              "$strLenCP": "$text"
+                            },
+                            3000
+                          ]
+                        },
+                        "then": "long"
+                      }
+                    ],
+                    "default": "very_long"
+                  }
+                }
+              }
+            },
+            {
+              "$group": {
+                "_id": "$bucket",
+                "count": {
+                  "$sum": 1
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "length_bucket": "$_id",
+                "count": 1
+              }
+            },
+            {
+              "$sort": {
+                "count": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

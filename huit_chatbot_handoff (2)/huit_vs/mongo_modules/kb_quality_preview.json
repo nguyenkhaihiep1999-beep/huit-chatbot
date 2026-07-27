@@ -1,0 +1,127 @@
+{
+  "_id": "kb_quality_preview",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Chấm điểm chất lượng tài liệu (chỉ đọc)",
+  "source_collection": "huit_kb",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Chấm điểm chất lượng tài liệu (chỉ đọc)",
+          "pipeline": [
+            {
+              "$addFields": {
+                "quality_score": {
+                  "$add": [
+                    {
+                      "$cond": [
+                        {
+                          "$gt": [
+                            {
+                              "$strLenCP": {
+                                "$ifNull": [
+                                  "$text",
+                                  ""
+                                ]
+                              }
+                            },
+                            300
+                          ]
+                        },
+                        35,
+                        0
+                      ]
+                    },
+                    {
+                      "$cond": [
+                        {
+                          "$ne": [
+                            {
+                              "$ifNull": [
+                                "$source_url",
+                                ""
+                              ]
+                            },
+                            ""
+                          ]
+                        },
+                        25,
+                        0
+                      ]
+                    },
+                    {
+                      "$cond": [
+                        {
+                          "$ne": [
+                            {
+                              "$ifNull": [
+                                "$title",
+                                ""
+                              ]
+                            },
+                            ""
+                          ]
+                        },
+                        20,
+                        0
+                      ]
+                    },
+                    {
+                      "$cond": [
+                        {
+                          "$isArray": "$embedding"
+                        },
+                        20,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "$project": {
+                "title": 1,
+                "source_url": 1,
+                "category": 1,
+                "quality_score": 1
+              }
+            },
+            {
+              "$sort": {
+                "quality_score": 1
+              }
+            },
+            {
+              "$limit": 200
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
