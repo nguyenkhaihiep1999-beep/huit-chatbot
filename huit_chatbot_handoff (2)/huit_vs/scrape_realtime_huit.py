@@ -12,8 +12,10 @@ import os
 import re
 import sys
 import urllib.request
+from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from bs4 import BeautifulSoup
+from urllib.parse import quote, urljoin, urlparse, urlsplit, urlunsplit
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -28,13 +30,39 @@ HEADERS = {
     "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
 }
 
+CURATED_OFFICIAL_URLS = [
+    "https://ts.huit.edu.vn/nganh-dao-tao/dai-hoc",
+    "https://ts.huit.edu.vn/thong-bao/danh-muc-nganh-dao-tao-trinh-do-dai-hoc",
+    "https://ts.huit.edu.vn/tuyen-sinh/chuong-trinh-dao-tao-dai-hoc-chinh-quy-khoa-17-nam-2026",
+    "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+    "https://ts.huit.edu.vn/thong-bao/huit-du-kien-hoc-phi-khoa-2026-2030-khoang-tu-140-trieu-170-trieu-dong-tang-theo-lo-trinh-va-di-kem-nhieu-chinh-sach-ho-tro-iem",
+    "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+    "https://ts.huit.edu.vn/khoa-hoc-cong-nghe/thong-tin-tuyen-sinh-dai-hoc-nam-2025",
+]
+
+
+def is_official_url(url):
+    parsed = urlparse(url)
+    return parsed.scheme == "https" and parsed.hostname == "ts.huit.edu.vn"
+
 
 def fetch_url(url, timeout=12):
     """Fetch URL and return BeautifulSoup object."""
     try:
-        req = urllib.request.Request(url, headers=HEADERS)
+        parts = urlsplit(url)
+        safe_url = urlunsplit((
+            parts.scheme,
+            parts.netloc,
+            quote(parts.path, safe="/%"),
+            quote(parts.query, safe="=&%"),
+            "",
+        ))
+        req = urllib.request.Request(safe_url, headers=HEADERS)
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             html = resp.read().decode("utf-8", errors="ignore")
+            if len(html) < 1000:
+                print(f"[WARN] Empty/throttled response from {url}")
+                return None
             return BeautifulSoup(html, "html.parser")
     except Exception as e:
         print(f"[WARN] Error fetching {url}: {e}")
@@ -42,17 +70,23 @@ def fetch_url(url, timeout=12):
 
 
 def get_all_major_urls():
-    """Discover all 39 major URLs from paginated /nganh-dh."""
+    """Discover current major pages from the official undergraduate index."""
     major_urls = set()
-    for page in range(1, 7):
-        url = f"{BASE_URL}/nganh-dh?page={page}"
+    for url in [
+        f"{BASE_URL}/nganh-dao-tao/dai-hoc",
+        f"{BASE_URL}/thong-bao/danh-muc-nganh-dao-tao-trinh-do-dai-hoc",
+    ]:
         soup = fetch_url(url)
         if not soup:
             continue
         for a in soup.find_all("a", href=True):
             href = a["href"].strip()
-            if "/nganh-dh/" in href:
-                full_url = href if href.startswith("http") else BASE_URL + href
+            if "/dai-hoc/" in href and "chuong-trinh-dao-tao" not in href:
+                full_url = urljoin(BASE_URL, href)
+                if is_official_url(full_url):
+                    major_urls.add(full_url.split("#", 1)[0])
+            elif "/nganh-dh/" in href:
+                full_url = urljoin(BASE_URL, href)
                 major_urls.add(full_url)
     return sorted(list(major_urls))
 
@@ -65,7 +99,7 @@ def get_admission_notices_urls():
         f"{BASE_URL}/de-an",
         f"{BASE_URL}/tin-huong-nghiep",
     ]
-    notice_urls = set()
+    notice_urls = set(CURATED_OFFICIAL_URLS)
     for cat_url in categories:
         soup = fetch_url(cat_url)
         if not soup:
@@ -74,8 +108,16 @@ def get_admission_notices_urls():
             href = a["href"].strip()
             if any(path in href for path in ["/tin-tuyen-sinh/", "/thong-bao/", "/de-an/", "/tin-huong-nghiep/"]):
                 if not href.endswith(("/tin-tuyen-sinh", "/thong-bao", "/de-an", "/tin-huong-nghiep")):
-                    full_url = href if href.startswith("http") else BASE_URL + href
-                    notice_urls.add(full_url)
+                    full_url = urljoin(BASE_URL, href)
+                    anchor = a.get_text(" ", strip=True).lower()
+                    relevant = any(term in anchor for term in [
+                        "tuyển sinh", "xét tuyển", "điểm", "học phí",
+                        "học bổng", "ngành đào tạo", "chương trình đào tạo",
+                        "nhập học", "hồ sơ",
+                    ])
+                    current = "2026" in anchor or "2025" in anchor
+                    if is_official_url(full_url) and relevant and current:
+                        notice_urls.add(full_url.split("#", 1)[0])
     return sorted(list(notice_urls))
 
 
@@ -83,8 +125,11 @@ def html_to_clean_markdown(soup, url):
     """Convert HTML content to clean Markdown text, removing navigation & headers/footers."""
     # Find main article content container
     content_div = (
-        soup.find("div", class_=re.compile(r"content|detail|post|article|main", re.I))
+        soup.select_one(".post-body")
+        or soup.select_one(".post-content")
+        or soup.select_one(".contain-content")
         or soup.find("article")
+        or soup.find("main")
         or soup.find("body")
     )
     if not content_div:
@@ -145,7 +190,10 @@ def scrape_page(url):
     return {
         "url": url,
         "title": f"{title} - Tuyển Sinh HUIT",
-        "markdown": markdown
+        "markdown": markdown,
+        "official": True,
+        "retrieved_at": datetime.now(timezone.utc).isoformat(),
+        "source_domain": "ts.huit.edu.vn",
     }
 
 
@@ -166,7 +214,7 @@ def run_realtime_scrape():
     print(f"\n[3/4] Scraping {len(all_urls)} target pages in parallel...")
 
     scraped_docs = []
-    with ThreadPoolExecutor(max_workers=10) as executor:
+    with ThreadPoolExecutor(max_workers=4) as executor:
         futures = {executor.submit(scrape_page, url): url for url in all_urls}
         for future in as_completed(futures):
             res = future.result()
@@ -174,7 +222,29 @@ def run_realtime_scrape():
                 scraped_docs.append(res)
                 print(f"  [+] Scraped: {res['title'][:60]}... ({len(res['markdown'])} chars)")
 
-    print(f"\n[4/4] Saving {len(scraped_docs)} documents to disk...")
+    # Remove duplicate aliases of the same article and unrelated high-school
+    # notices that happen to contain admissions keywords.
+    filtered = []
+    seen_titles = set()
+    for doc in sorted(scraped_docs, key=lambda item: item["url"]):
+        normalized_title = re.sub(
+            r"\s*-\s*Tuyển Sinh HUIT\s*$", "", doc["title"], flags=re.I
+        ).strip().lower()
+        if "tuyển sinh lớp 10" in normalized_title:
+            continue
+        if len(doc["markdown"]) < 300 or normalized_title in seen_titles:
+            continue
+        seen_titles.add(normalized_title)
+        filtered.append(doc)
+    scraped_docs = filtered
+
+    if len(scraped_docs) < 35:
+        raise RuntimeError(
+            f"Chỉ lấy được {len(scraped_docs)} trang; từ chối ghi đè dataset "
+            "vì nguồn HUIT có thể đang rate-limit."
+        )
+
+    print(f"\n[4/4] Saving {len(scraped_docs)} verified documents to disk...")
     # Write scraped_pages.json
     with open(SCRAPED_JSON, "w", encoding="utf-8") as f:
         json.dump(scraped_docs, f, ensure_ascii=False, indent=2)

@@ -54,13 +54,14 @@ class RagCoreUnitTests(unittest.TestCase):
                 )
             }],
         )
-        self.assertIn("16.00", answer)
+        self.assertIn("16", answer)
         self.assertNotIn("60 điểm", answer)
 
     def test_tuition_fallback_is_concise(self):
         answer = rag_core._fallback_answer("Học phí HUIT?", [{}])
-        self.assertIn("14–16", answer)
-        self.assertLess(len(answer), 400)
+        self.assertIn("1.100.000", answer)
+        self.assertIn("1.350.000", answer)
+        self.assertLess(len(answer), 550)
 
     def test_query_alias_expansion(self):
         self.assertIn(

@@ -17,6 +17,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from urllib.parse import quote_plus
+from urllib.parse import urlparse
 from pymongo import MongoClient
 from pymongo.operations import SearchIndexModel
 
@@ -30,6 +31,18 @@ COLL = "huit_kb"
 MODEL = "intfloat/multilingual-e5-large"
 DIMS = 1024
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+
+def load_mongodb_password():
+    password = os.environ.get("MONGODB_PASSWORD", "").strip()
+    env_file = os.path.join(HERE, ".env")
+    if not password and os.path.exists(env_file):
+        with open(env_file, encoding="utf-8") as handle:
+            for line in handle:
+                if line.startswith("MONGODB_PASSWORD="):
+                    password = line.split("=", 1)[1].strip().strip("\"'")
+                    break
+    return password
 
 
 def clean_markdown(text):
@@ -50,7 +63,9 @@ def infer_record_metadata(page_title, text):
         category = "cutoff"
     elif "học bổng" in page_title.lower():
         category = "scholarship"
-    elif "phương thức" in page_title.lower() or "xét tuyển" in page_title.lower():
+    elif any(term in page_title.lower() for term in [
+        "phương thức", "xét tuyển", "thông tin tuyển sinh"
+    ]):
         category = "admission"
     elif "ngành" in page_title.lower() or re.search(r"\b7\d{6}\b", combined):
         category = "major"
@@ -74,8 +89,9 @@ def chunk_document(doc, max_chunk_size=750):
     page_title = doc.get("title", "Tuyển sinh HUIT").strip()
     raw_md = doc.get("markdown", "") or ""
 
-    # Skip external non-official retail ads
-    if any(k in url.lower() for k in ["fptshop", "cellphones"]):
+    # Only official HUIT admissions pages are allowed into the verified KB.
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or parsed.hostname != "ts.huit.edu.vn":
         return []
 
     cleaned = clean_markdown(raw_md)
@@ -109,6 +125,7 @@ def chunk_document(doc, max_chunk_size=750):
     # Attach document metadata with Anthropic Contextual Retrieval Header
     records = []
     context_prefix = f"[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: {page_title[:100]}]"
+    document_metadata = infer_record_metadata(page_title, cleaned)
     for c in chunks:
         # Contextual Text combining header + chunk
         contextual_text = f"{context_prefix}\n{c}"
@@ -117,9 +134,13 @@ def chunk_document(doc, max_chunk_size=750):
             "text": contextual_text,
             "raw_text": c,
             "source_url": url,
-            "page_title": page_title[:120]
+            "page_title": page_title[:120],
+            "source_domain": "ts.huit.edu.vn",
+            "official": True,
+            "retrieved_at": doc.get("retrieved_at"),
+            "verification_status": "official_source",
         }
-        record.update(infer_record_metadata(page_title, c))
+        record.update(document_metadata)
         records.append(record)
     return records
 
@@ -160,7 +181,7 @@ def run_rebuild():
         r["embedding"] = v
 
     print(f"[4/4] Uploading {len(all_records)} embedded chunks to MongoDB Atlas...")
-    pwd = os.environ.get("MONGODB_PASSWORD")
+    pwd = load_mongodb_password()
     if not pwd:
         raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
     uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"

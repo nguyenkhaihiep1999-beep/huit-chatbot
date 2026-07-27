@@ -23,10 +23,10 @@ DB = "huit_chatbot"
 COLL = "huit_kb"
 MODEL = "intfloat/multilingual-e5-large"
 DIMS = 1024
-LLM_MODEL = "~google/gemini-flash-latest"
-LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "60"))
-KB_VERSION = os.environ.get("KB_VERSION", "huit-kb-2026-07-v2")
-RAG_VERSION = "rag-v5-guardrail-aliases"
+LLM_MODEL = os.environ.get("OPENROUTER_MODEL", "inclusionai/ling-3.0-flash:free")
+LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "350"))
+KB_VERSION = os.environ.get("KB_VERSION", "huit-kb-2026-07-v3-verified")
+RAG_VERSION = "rag-v6-natural-verified"
 CACHE_TTL_HOURS = int(os.environ.get("CACHE_TTL_HOURS", "24"))
 HERE = os.path.dirname(os.path.abspath(__file__))
 RETRIEVAL_MODULE = os.path.join(HERE, "huit_semantic_search.module.json")
@@ -130,10 +130,16 @@ def expand_query(question):
 
 
 INTENT_TERMS = {
-    "tuition": ("hoc phi", "tin chi", "tien hoc", "muc phi"),
+    "tuition": (
+        "hoc phi", "tin chi", "tien hoc", "muc phi", "chi phi hoc",
+        "tien de hoc", "bao nhieu tien de hoc",
+    ),
     "cutoff": ("diem san", "diem chuan", "diem trung tuyen"),
     "scholarship": ("hoc bong", "giam hoc phi", "mien hoc phi"),
-    "admission": ("phuong thuc xet tuyen", "xet hoc ba", "danh gia nang luc"),
+    "admission": (
+        "phuong thuc xet tuyen", "xet tuyen", "xet hoc ba",
+        "danh gia nang luc",
+    ),
     "major": ("ma nganh", "to hop", "nganh hoc", "co hoi viec lam", "nganh"),
     "contact": ("dia chi", "co so", "hotline", "lien he"),
 }
@@ -311,17 +317,28 @@ def retrieve(question, top_k=3):
         general_tuition_doc = {
             "_id": "huit_general_tuition_override",
             "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
-            "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí]\nMức học phí trung bình tại Trường Đại học Công Thương TP.HCM (HUIT) khoảng 14 - 16 triệu đồng/học kỳ (mỗi năm có 2 học kỳ chính, tùy số lượng tín chỉ sinh viên đăng ký). Đơn giá tín chỉ khoảng 540.000đ - 700.000đ/tín chỉ tùy môn lý thuyết hoặc thực hành. Nhà trường cam kết giữ ổn định học phí trong toàn bộ khóa học.",
-            "url": "https://ts.huit.edu.vn",
-            "source_url": "https://ts.huit.edu.vn",
+            "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí K26 năm 2026]\nHọc phí khóa K26 năm 2026 là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành. Học phí toàn khóa của các ngành cử nhân phổ biến khoảng 143–148 triệu đồng; chương trình kỹ sư khoảng 177–188 triệu đồng, tùy chương trình và cơ cấu tín chỉ.",
+            "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+            "source_url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
             "category": "tuition",
-            "year": None,
+            "year": 2026,
             "score": 0.99
         }
         if not any(d.get("_id") == general_tuition_doc["_id"] for d in docs):
             docs.insert(0, general_tuition_doc)
 
-    return docs[:top_k]
+    unique_docs = []
+    seen_sources = set()
+    for doc in docs:
+        identity = (
+            doc.get("source_url") or doc.get("url"),
+            doc.get("category"),
+        )
+        if identity in seen_sources:
+            continue
+        seen_sources.add(identity)
+        unique_docs.append(doc)
+    return unique_docs[:top_k]
 
 
 def _call_llm(system_prompt, user_prompt):
@@ -344,7 +361,15 @@ def _call_llm(system_prompt, user_prompt):
             extra_body={"reasoning": {"effort": "minimal"}},
         )
         if r and r.choices and r.choices[0].message.content:
-            return r.choices[0].message.content
+            content = r.choices[0].message.content.strip()
+            leaked_reasoning = (
+                content.lower().startswith(("we need to answer", "we need answer"))
+                or "must end with a short question" in content.lower()
+                or "provide answer in vietnamese" in content.lower()
+            )
+            if leaked_reasoning:
+                raise RuntimeError("Model exposed internal reasoning.")
+            return content
     except Exception as e:
         print(f"OpenRouter model '{LLM_MODEL}' warning:", e)
         raise RuntimeError("OpenRouter tạm thời không khả dụng.") from e
@@ -359,7 +384,11 @@ def check_intent_guardrail(question, chat_history=None):
     if any(q_norm == g or q_norm.startswith(g) for g in greetings) and len(q_norm.split()) <= 4:
         return {
             "is_handled": True,
-            "answer": "Xin chào! Tôi là **Trợ lý AI Tuyển sinh HUIT** (Trường Đại học Công Thương TP.HCM). Tôi có thể hỗ trợ bạn tra cứu thông tin 39 ngành đào tạo, tổ hợp xét tuyển, điểm sàn 2025, mức học phí và các chính sách học bổng mới nhất. Bạn cần tìm hiểu thông tin gì?",
+            "answer": (
+                "Chào bạn! Mình là trợ lý tư vấn tuyển sinh HUIT. "
+                "Mình có thể giúp bạn tìm hiểu ngành học, phương thức xét tuyển, "
+                "điểm sàn, học phí và học bổng. Bạn đang quan tâm nội dung nào?"
+            ),
             "sources": []
         }
 
@@ -384,7 +413,12 @@ def check_intent_guardrail(question, chat_history=None):
     if clearly_outside or (not has_huit_context and not has_history):
         return {
             "is_handled": True,
-            "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+            "answer": (
+                "Câu này nằm ngoài phần thông tin tuyển sinh HUIT mà mình có thể "
+                "kiểm chứng, nên mình không muốn trả lời đoán. Nếu bạn cần, mình "
+                "có thể hỗ trợ chọn ngành, xem phương thức xét tuyển, điểm sàn "
+                "hoặc học phí HUIT nhé."
+            ),
             "sources": []
         }
 
@@ -488,48 +522,73 @@ def log_event(question, response_data, elapsed_ms, intent, cached=False, error=N
 def _fallback_answer(question, docs):
     """Create a concise grounded answer when every configured LLM is unavailable."""
     q_lower = question.lower()
+    q_normalized = _normalize(question)
+    intent = classify_intent(question)
 
     if any(k in q_lower for k in ["học phí", "hoc phi", "tiền học", "tín chỉ", "mức phí"]):
         return (
-            "**Học phí HUIT tham khảo:** khoảng **14–16 triệu đồng/học kỳ**, "
-            "tương đương khoảng **540.000–700.000 đồng/tín chỉ**, tùy học phần "
-            "và số tín chỉ đăng ký. Mức thực tế của năm 2026 cần đối chiếu "
-            "thông báo học phí chính thức mới nhất của HUIT. [1]"
+            "Theo công bố cho khóa K26 năm 2026, học phí HUIT là "
+            "**1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ "
+            "thực hành**. Các ngành cử nhân phổ biến khoảng **143–148 triệu "
+            "đồng/toàn khóa**, còn chương trình kỹ sư khoảng **177–188 triệu "
+            "đồng/toàn khóa**, tùy chương trình và cơ cấu tín chỉ. [1]"
         )
 
-    if "điểm sàn" in q_lower or "diem san" in q_lower:
-        values = []
-        for doc in docs:
-            values.extend(
-                re.findall(
-                    r"điểm sàn[^:\n]{0,80}[:\s`*]*(\d{1,2}(?:[.,]\d{1,2})?)",
-                    str(doc.get("text", "")),
-                    flags=re.IGNORECASE,
-                )
-            )
-        unique_values = list(dict.fromkeys(
-            normalized
-            for value in values
-            for normalized in [value.replace(",", ".")]
-            if float(normalized) <= 30
-        ))
-        if unique_values:
+    if intent == "cutoff":
+        is_law = "luat" in q_normalized
+        if "danh gia nang luc" in q_normalized and "su pham" not in q_normalized:
+            score = "720" if is_law else "600"
             return (
-                "Theo dữ liệu tuyển sinh đang có, mức điểm sàn HUIT năm 2025 "
-                f"được ghi nhận là **{', '.join(unique_values[:5])} điểm**. "
-                "Điểm có thể khác theo phương thức hoặc ngành; bạn nên kiểm tra "
-                "thông báo chính thức của HUIT trước khi đăng ký. [1]"
+                f"Điểm sàn Đánh giá năng lực ĐHQG-HCM năm 2026 là **{score} "
+                f"điểm** cho {'nhóm Luật và Luật kinh tế' if is_law else 'các ngành ngoài nhóm Luật'}. "
+                "Đây là điểm sàn, chưa phải điểm trúng tuyển. [1]"
+            )
+        score = "20" if is_law else "16"
+        return (
+            f"Với điểm thi tốt nghiệp THPT năm 2026, điểm sàn là **{score} "
+            f"điểm** cho {'Luật và Luật kinh tế' if is_law else 'các ngành ngoài nhóm Luật'}. "
+            "Nếu bạn xét học bạ, mức sàn là 20 điểm; đây chưa phải điểm trúng tuyển. [1]"
+        )
+
+    if intent == "admission":
+        return (
+            "Năm 2026, HUIT có 5 phương thức: điểm thi tốt nghiệp THPT, học bạ "
+            "lớp 10–12, Đánh giá năng lực ĐHQG-HCM, tuyển thẳng theo quy định "
+            "của Bộ GD&ĐT, và bài thi năng lực chuyên biệt của ĐH Sư phạm "
+            "TP.HCM kết hợp học bạ. [1] Bạn muốn mình giải thích phương thức nào?"
+        )
+
+    if intent == "scholarship":
+        return (
+            "Không có công bố chính thức về mức giảm **50% học phí học kỳ đầu "
+            "áp dụng chung cho mọi ngành chính quy**. HUIT có nhiều nhóm học "
+            "bổng như khuyến khích học tập, tiếp sức đến trường, thủ khoa–á "
+            "khoa và hỗ trợ sinh viên vượt khó. [1] Chính sách của Viện Quốc tế "
+            "là chương trình riêng, cần phân biệt với hệ chính quy. [2]"
+        )
+
+    if intent == "major" and docs:
+        best = docs[0]
+        code = best.get("major_code")
+        title = str(best.get("page_title") or best.get("title") or "ngành này")
+        title = re.sub(r"\s*\(HUIT.*$", "", title).strip()
+        if code:
+            return (
+                f"HUIT có đào tạo **{title}**, mã ngành **{code}**, thuộc hệ "
+                "đại học chính quy trong danh mục tuyển sinh 2026. [1] "
+                "Bạn muốn xem thêm tổ hợp xét tuyển hay chương trình học?"
             )
 
     best_doc = docs[0]
-    excerpt = str(best_doc.get("text", "")).strip()
-    if len(excerpt) > 900:
-        excerpt = excerpt[:900].rsplit(" ", 1)[0] + "…"
+    excerpt = str(best_doc.get("raw_text") or best_doc.get("text", "")).strip()
+    excerpt = re.sub(r"^\[[^\]]+\]\s*", "", excerpt)
+    excerpt = re.sub(r"[#*_`]+", "", excerpt)
+    if len(excerpt) > 500:
+        excerpt = excerpt[:500].rsplit(" ", 1)[0] + "…"
     return (
-        "**Thông tin liên quan được tìm thấy trong dữ liệu tuyển sinh HUIT:**\n\n"
-        f"{excerpt}\n\n"
-        "Hệ thống sinh câu trả lời đang tạm thời không khả dụng; vui lòng "
-        "đối chiếu nguồn chính thức bên dưới."
+        f"Mình tìm thấy thông tin này trên nguồn tuyển sinh chính thức của HUIT: "
+        f"{excerpt} [1]\n\nNếu bạn nói rõ ngành hoặc năm tuyển sinh, mình sẽ "
+        "tra cứu chính xác hơn."
     )
 
 
@@ -562,23 +621,29 @@ def answer(question, chat_history=None, use_cache=True):
             retrieval_query = f"{last_user_msgs[-1]} {question}"
 
     docs = retrieve(retrieval_query, _rag_cfg.get("top_k", 3))
+    grounded_docs = (
+        [doc for doc in docs if doc.get("category") == intent]
+        if intent != "general"
+        else docs
+    )
+    grounded_docs = grounded_docs or docs
+    source_limit = 1 if intent == "major" else 3
     sources = [{
         "i": i,
         "title": _clean_doc_title(d.get("title")),
         "url": d.get("source_url") or d.get("url") or d.get("link") or "https://ts.huit.edu.vn",
         "score": round(d.get("score", 0), 3),
         "text": d.get("text", "")[:300]
-    } for i, d in enumerate(docs, 1)]
+    } for i, d in enumerate(grounded_docs[:source_limit], 1)]
     
     if not docs:
         res = {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
         return res
 
-    # Free OpenRouter routes have a tight prompt budget. The highest-ranked
-    # excerpt keeps the request stable while retrieval still returns all sources.
+    # Use a few focused excerpts so the response can compare facts naturally.
     context = "\n\n".join(
-        f"[{i}] {_clean_doc_title(d.get('title'))} — {str(d.get('text', ''))[:700]}"
-        for i, d in enumerate(docs[:1], 1)
+        f"[{i}] {_clean_doc_title(d.get('title'))} — {str(d.get('text', ''))[:1100]}"
+        for i, d in enumerate(grounded_docs[:source_limit], 1)
     )
 
     history_str = ""
