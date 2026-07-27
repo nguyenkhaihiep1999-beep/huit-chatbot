@@ -25,7 +25,7 @@ if not pwd:
                     pwd = line.split("=", 1)[1].strip().strip('"\'')
 
 if not pwd:
-    pwd = "qwertyuio12A"
+    raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
 
 uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
 client = MongoClient(uri, serverSelectionTimeoutMS=12000)

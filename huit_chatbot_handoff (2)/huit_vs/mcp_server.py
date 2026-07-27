@@ -36,7 +36,7 @@ if not pwd:
                 if line.startswith("MONGODB_PASSWORD="):
                     pwd = line.split("=", 1)[1].strip().strip('"\'')
 if not pwd:
-    pwd = "qwertyuio12A"
+    raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
 
 def get_mongo_db():
     uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"

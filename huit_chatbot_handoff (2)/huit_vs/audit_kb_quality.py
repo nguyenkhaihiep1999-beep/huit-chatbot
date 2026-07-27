@@ -15,7 +15,9 @@ USER = "nguyenkhaihiep1999_db_user"
 HOST = "cluster0.hyj8rab.mongodb.net"
 DB = "huit_chatbot"
 
-pwd = os.environ.get("MONGODB_PASSWORD", "qwertyuio12A")
+pwd = os.environ.get("MONGODB_PASSWORD")
+if not pwd:
+    raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
 uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
 client = MongoClient(uri, serverSelectionTimeoutMS=15000)
 db = client[DB]

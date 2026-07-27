@@ -7,15 +7,16 @@ import time
 from urllib.parse import quote_plus
 
 from pymongo import MongoClient
-from pymongo.operations import SearchIndexModel
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 USER = "nguyenkhaihiep1999_db_user"
 HOST = "cluster0.hyj8rab.mongodb.net"
 DB = "huit_chatbot"
 COLL = "huit_kb"
 INDEX = "huit_vector_index"
-MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-DIMS = 384
+MODEL = "intfloat/multilingual-e5-large"
+DIMS = 1024
 
 QUERIES = [
     "Có những phương thức xét tuyển nào vào trường?",
@@ -28,6 +29,8 @@ QUERIES = [
 
 def main():
     pwd = os.environ.get("MONGODB_PASSWORD")
+    if not pwd:
+        raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
     uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
     client = MongoClient(uri, serverSelectionTimeoutMS=12000)
     coll = client[DB][COLL]

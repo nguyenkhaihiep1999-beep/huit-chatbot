@@ -20,7 +20,7 @@
             "items": {
               "type": "number"
             },
-            "description": "Vector embedding 384 chiều (multilingual MiniLM)"
+            "description": "Vector embedding 1024 chiều (multilingual E5-Large SOTA)"
           }
         },
         "required": [
@@ -40,7 +40,7 @@
               "$vectorSearch": {
                 "index": "huit_vector_index",
                 "path": "embedding",
-                "queryVector": "<<QUERY_VECTOR_384>>",
+                "queryVector": "<<QUERY_VECTOR_1024>>",
                 "numCandidates": 100,
                 "limit": 3
               }
@@ -56,7 +56,7 @@
               }
             }
           ],
-          "purpose": "Tìm kiếm ngữ nghĩa trên kho tri thức HUIT bằng Atlas Vector Search. Nhận query vector 384 chiều, trả về top tài liệu liên quan nhất kèm điểm cosine. Đây là module lõi cho phần retrieval của chatbot (RAG)."
+          "purpose": "Tìm kiếm ngữ nghĩa trên kho tri thức HUIT bằng Atlas Vector Search. Nhận query vector 1024 chiều (e5-large), trả về top tài liệu liên quan nhất kèm điểm cosine."
         }
       ]
     }

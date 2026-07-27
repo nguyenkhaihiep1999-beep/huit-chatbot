@@ -373,7 +373,7 @@ html_content = """<!DOCTYPE html>
       "command": "python",
       "args": ["d:/chatbot2/huit_chatbot_handoff (2)/huit_vs/mcp_server.py"],
       "env": {
-        "MONGODB_PASSWORD": "qwertyuio12A",
+        "MONGODB_PASSWORD": "&lt;set-in-environment&gt;",
         "OPENROUTER_API_KEY": "your_openrouter_api_key_here"
       }
     }

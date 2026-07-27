@@ -1333,6 +1333,8 @@
     viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
   }
 
+  const conversationHistory = [];
+
   async function performSend() {
     const text = userInput.value.trim();
     if (!text) return;
@@ -1349,7 +1351,7 @@
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: text }),
+        body: JSON.stringify({ question: text, history: conversationHistory }),
         signal: currentAbortController.signal
       });
       const data = await res.json();
@@ -1358,9 +1360,12 @@
 
       if (data.answer) {
         appendMsgRow('bot', data.answer, data.sources || []);
+        conversationHistory.push({ role: 'user', content: text });
+        conversationHistory.push({ role: 'assistant', content: data.answer });
       } else {
         appendMsgRow('bot', '⚠️ Rất tiếc, máy chủ không thể xử lý câu hỏi này vào lúc này.');
       }
+
     } catch (e) {
       if (e.name === 'AbortError') {
         console.log('User stopped generation');

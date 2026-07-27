@@ -21,7 +21,7 @@ Nếu tài khoản Render của bạn đã hết hạn lượt dùng (free tier 
      ```
    - **Instance Type**: Chọn **Free Nano**.
 6. Thêm biến môi trường (**Environment Variables**):
-   - Key: `MONGODB_PASSWORD` | Value: `qwertyuio12A`
+   - Key: `MONGODB_PASSWORD` | Value: `<mật khẩu MongoDB mới của bạn>`
    - Key: `OPENROUTER_API_KEY` | Value: `your_openrouter_api_key_here`
 7. Bấm **Deploy**. Sau 1-2 phút bạn sẽ nhận được đường link cố định chạy 24/7 vĩnh viễn:  
    👉 **`https://huit-chatbot-yourname.koyeb.app`**

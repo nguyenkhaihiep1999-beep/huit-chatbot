@@ -26,8 +26,11 @@ import rag_core
 app = FastAPI(title="HUIT Chatbot API", version="1.0")
 
 
+from typing import List, Dict, Optional, Any
+
 class ChatRequest(BaseModel):
     question: str
+    history: Optional[List[Dict[str, Any]]] = None
 
 
 @app.on_event("startup")
@@ -43,15 +46,54 @@ def health():
     return {"status": "ok"}
 
 
+@app.get("/api/suggested-questions")
+def get_suggested_questions():
+    return {
+        "questions": [
+            "Mã ngành & tổ hợp xét tuyển ngành Trí tuệ nhân tạo HUIT?",
+            "Học phí trung bình một học kỳ tại HUIT là bao nhiêu?",
+            "Điểm sàn xét tuyển đại học chính quy 2025 HUIT bao nhiêu?",
+            "Chính sách học bổng giảm 50% học phí HK1 dành cho các ngành nào?",
+            "Ngành Công nghệ thông tin xét các tổ hợp môn nào?"
+        ]
+    }
+
+
+from fastapi.responses import FileResponse, StreamingResponse
+
 @app.post("/api/chat")
 def chat(req: ChatRequest):
     q = (req.question or "").strip()
     if not q:
         return {"answer": "Vui lòng nhập câu hỏi.", "sources": []}
     try:
-        return rag_core.answer(q)
+        return rag_core.answer(q, chat_history=req.history)
     except Exception as e:  # noqa: BLE001
         return {"answer": f"Lỗi xử lý: {e}", "sources": []}
+
+
+@app.get("/api/chat-stream")
+def chat_stream(question: str):
+    q = (question or "").strip()
+    if not q:
+        def empty_gen():
+            yield '{"type": "token", "token": "Vui lòng nhập câu hỏi."}\n'
+        return StreamingResponse(empty_gen(), media_type="application/x-ndjson")
+    
+    return StreamingResponse(rag_core.stream_answer(q), media_type="application/x-ndjson")
+
+
+@app.post("/api/clear-cache")
+def clear_cache():
+    try:
+        if rag_core._mongo is not None:
+            rag_core._mongo[rag_core.DB]["query_cache"].delete_many({})
+            return {"status": "success", "message": "Đã xóa toàn bộ bộ nhớ đệm Semantic Cache thành công."}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+    return {"status": "success", "message": "Cache empty."}
+
+
 
 
 @app.post("/api/sync-data")

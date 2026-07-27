@@ -14,7 +14,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-pwd = os.environ.get("MONGODB_PASSWORD", "qwertyuio12A")
+pwd = os.environ.get("MONGODB_PASSWORD")
+if not pwd:
+    raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
 uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
 client = MongoClient(uri, serverSelectionTimeoutMS=12000)
 

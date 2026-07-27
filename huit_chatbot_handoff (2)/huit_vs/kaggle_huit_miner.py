@@ -33,7 +33,7 @@ if not pwd:
                     pwd = line.split("=", 1)[1].strip().strip('"\'')
 
 if not pwd:
-    pwd = "qwertyuio12A"
+    raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
 
 # Load Kaggle credentials from .env
 kaggle_user = os.environ.get("KAGGLE_USERNAME")

@@ -18,7 +18,9 @@ HOST = "cluster0.hyj8rab.mongodb.net"
 DB = "huit_chatbot"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-pwd = os.environ.get("MONGODB_PASSWORD", "qwertyuio12A")
+pwd = os.environ.get("MONGODB_PASSWORD")
+if not pwd:
+    raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
 
 uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
 client = MongoClient(uri, serverSelectionTimeoutMS=15000)

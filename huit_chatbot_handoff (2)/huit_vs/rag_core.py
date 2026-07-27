@@ -8,6 +8,7 @@ OPENROUTER_MODEL (mặc định openai/gpt-oss-20b:free).
 import copy
 import json
 import os
+import re
 from urllib.parse import quote_plus
 
 from pymongo import MongoClient
@@ -16,7 +17,8 @@ USER = "nguyenkhaihiep1999_db_user"
 HOST = "cluster0.hyj8rab.mongodb.net"
 DB = "huit_chatbot"
 COLL = "huit_kb"
-MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+MODEL = "intfloat/multilingual-e5-large"
+DIMS = 1024
 HERE = os.path.dirname(os.path.abspath(__file__))
 RETRIEVAL_MODULE = os.path.join(HERE, "huit_semantic_search.module.json")
 RAG_MODULE = os.path.join(HERE, "huit_rag_answer.module.json")
@@ -51,7 +53,12 @@ _rag_cfg = None
 def _init():
     global _embedder, _mongo, _retrieval_pipeline, _rag_cfg
     if _mongo is None:
-        pwd = os.environ.get("MONGODB_PASSWORD", "qwertyuio12A")
+        pwd = os.environ.get("MONGODB_PASSWORD")
+        if not pwd:
+            raise RuntimeError(
+                "MONGODB_PASSWORD chưa được cấu hình. "
+                "Hãy điền biến này trong file .env cục bộ."
+            )
         uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
         _mongo = MongoClient(uri, serverSelectionTimeoutMS=15000)
     if _retrieval_pipeline is None:
@@ -77,63 +84,108 @@ def _clean_doc_title(title):
     return title.strip()
 
 
-def retrieve(question, top_k):
+def retrieve(question, top_k=3):
     _init()
-    docs = []
-    # 1. Thử Vector Search nếu FastEmbed hoạt động thành công
-    if _embedder and _retrieval_pipeline:
+    candidate_map = {}
+    vector_ranks = {}
+    keyword_ranks = {}
+
+    # 1. Dense Vector Search (E5-Large 1024D)
+    vector_docs = []
+    if _embedder and _retrieval_pipeline and _mongo is not None:
         try:
             pipeline = copy.deepcopy(_retrieval_pipeline)
             qv = list(_embedder.embed([question]))[0].tolist()
             for stage in pipeline:
                 vs = stage.get("$vectorSearch")
-                if vs and vs.get("queryVector") == "<<QUERY_VECTOR_384>>":
+                if vs and isinstance(vs.get("queryVector"), str) and vs["queryVector"].startswith("<<QUERY_VECTOR"):
                     vs["queryVector"] = qv
-                    vs["limit"] = top_k
-                    vs["numCandidates"] = max(100, top_k * 20)
-            docs = list(_mongo[DB][COLL].aggregate(pipeline))
+                    vs["limit"] = 15
+                    vs["numCandidates"] = 200
+            vector_docs = list(_mongo[DB][COLL].aggregate(pipeline))
+            for rank, doc in enumerate(vector_docs, 1):
+                doc_id = str(doc.get("_id", rank))
+                candidate_map[doc_id] = doc
+                vector_ranks[doc_id] = rank
         except Exception as e:
-            print("Vector search fallback warning:", e)
-            docs = []
+            print("Vector search retrieve warning:", e)
 
-    # 2. Dự phòng tìm kiếm từ khóa Regex trên MongoDB Atlas nếu Vector Search không trả về kết quả
-    if not docs and _mongo is not None:
+    # 2. Sparse Keyword Search (Mongo Regex)
+    keyword_docs = []
+    if _mongo is not None:
         try:
-            keywords = [w for w in question.split() if len(w) > 2 and w.lower() not in ["cho", "các", "của", "với", "như", "nào"]]
+            words = [w.strip() for w in re.split(r'[\s,\?\.\-\(\)]+', question) if len(w.strip()) >= 2]
+            stop_words = {"cho", "các", "của", "với", "như", "nào", "bao", "nhiêu", "trường", "huit", "ngành", "được", "không"}
+            keywords = [w for w in words if w.lower() not in stop_words or w.isdigit()]
             if keywords:
-                regex_pattern = "|".join(keywords)
+                regex_pattern = "|".join([re.escape(k) for k in keywords])
                 query = {
                     "$or": [
                         {"title": {"$regex": regex_pattern, "$options": "i"}},
                         {"text": {"$regex": regex_pattern, "$options": "i"}}
                     ]
                 }
-                raw_docs = list(_mongo[DB][COLL].find(query).limit(top_k * 2))
-                # Lọc bỏ các tài liệu quảng cáo cửa hàng thiết bị
-                filtered = [d for d in raw_docs if "Di động Máy tính bảng" not in d.get("text", "") and "Pick the Right" not in d.get("text", "")]
-                docs = filtered[:top_k] if filtered else raw_docs[:top_k]
-            if not docs:
-                docs = list(_mongo[DB][COLL].find().limit(top_k))
+                raw_kw = list(_mongo[DB][COLL].find(query).limit(15))
+                keyword_docs = [d for d in raw_kw if "Di động Máy tính bảng" not in d.get("text", "") and "Pick the Right" not in d.get("text", "")]
+                for rank, doc in enumerate(keyword_docs, 1):
+                    doc_id = str(doc.get("_id", rank))
+                    if doc_id not in candidate_map:
+                        candidate_map[doc_id] = doc
+                    keyword_ranks[doc_id] = rank
         except Exception as e:
-            print("MongoDB regex search warning:", e)
-            docs = []
+            print("Keyword search retrieve warning:", e)
 
-    # 3. Nếu câu hỏi về Học phí, bổ sung tài liệu Học phí chung chính thức HUIT
+    if not candidate_map and _mongo is not None:
+        raw_docs = list(_mongo[DB][COLL].find().limit(top_k))
+        for rank, doc in enumerate(raw_docs, 1):
+            doc_id = str(doc.get("_id", rank))
+            candidate_map[doc_id] = doc
+            vector_ranks[doc_id] = rank
+
+    # 3. Reciprocal Rank Fusion (RRF) & Re-ranking Stage
+    rrf_k = 60
+    scored_candidates = []
+    q_words = set(re.findall(r'\w+', question.lower()))
+    code_matches = re.findall(r'\b7\d{6}\b', question)
+
+    for doc_id, doc in candidate_map.items():
+        v_rank = vector_ranks.get(doc_id, 999)
+        k_rank = keyword_ranks.get(doc_id, 999)
+        rrf_score = (1.0 / (rrf_k + v_rank)) + (1.0 / (rrf_k + k_rank))
+
+        # Re-ranker scoring features
+        text_content = (str(doc.get("title", "")) + " " + str(doc.get("text", ""))).lower()
+        overlap_count = sum(1 for w in q_words if len(w) > 2 and w in text_content)
+
+        # Exact course code boost
+        code_boost = 0.0
+        for code in code_matches:
+            if code in text_content:
+                code_boost += 0.5
+
+        final_score = (rrf_score * 10) + (overlap_count * 0.05) + code_boost
+        doc["score"] = round(doc.get("score") or final_score, 4)
+        doc["rrf_score"] = round(final_score, 4)
+        scored_candidates.append((final_score, doc))
+
+    scored_candidates.sort(key=lambda x: x[0], reverse=True)
+    docs = [item[1] for item in scored_candidates[:top_k]]
+
+    # 4. General tuition heuristic fallback
     q_lower = question.lower()
     if any(k in q_lower for k in ["học phí", "hoc phi", "tiền học", "tín chỉ", "mức phí"]):
         general_tuition_doc = {
             "_id": "huit_general_tuition_override",
             "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
-            "text": "Mức học phí trung bình tại Trường Đại học Công Thương TP.HCM (HUIT) khoảng 14 - 16 triệu đồng/học kỳ (mỗi năm có 2 học kỳ chính, tùy số lượng tín chỉ sinh viên đăng ký). Đơn giá tín chỉ khoảng 540.000đ - 700.000đ/tín chỉ tùy môn lý thuyết hoặc thực hành. Nhà trường cam kết giữ ổn định học phí trong toàn bộ khóa học.",
+            "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí]\nMức học phí trung bình tại Trường Đại học Công Thương TP.HCM (HUIT) khoảng 14 - 16 triệu đồng/học kỳ (mỗi năm có 2 học kỳ chính, tùy số lượng tín chỉ sinh viên đăng ký). Đơn giá tín chỉ khoảng 540.000đ - 700.000đ/tín chỉ tùy môn lý thuyết hoặc thực hành. Nhà trường cam kết giữ ổn định học phí trong toàn bộ khóa học.",
             "url": "https://ts.huit.edu.vn",
             "score": 0.99
         }
-        # Đưa document học phí chung lên đầu nếu chưa có doc học phí số liệu
         has_numbers = any("14" in d.get("text", "") or "tín chỉ" in d.get("text", "") for d in docs)
         if not has_numbers:
             docs.insert(0, general_tuition_doc)
 
-    return docs
+    return docs[:top_k]
 
 
 def _call_llm(system_prompt, user_prompt):
@@ -145,13 +197,16 @@ def _call_llm(system_prompt, user_prompt):
     if or_key:
         from openai import OpenAI
         client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
-        models_to_try = [
-            os.environ.get("OPENROUTER_MODEL", "qwen/qwen-2.5-72b-instruct"),
-            "meta-llama/llama-3.3-70b-instruct",
-            "deepseek/deepseek-chat",
-            "google/gemini-flash-1.5",
-            "openai/gpt-3.5-turbo"
-        ]
+        primary_model = os.environ.get("OPENROUTER_MODEL", "openrouter/free")
+        if primary_model == "openrouter/free" or primary_model.endswith(":free"):
+            # Chế độ miễn phí nghiêm ngặt: không tự chuyển sang model trả phí.
+            models_to_try = [primary_model]
+        else:
+            models_to_try = [
+                primary_model,
+                "~google/gemini-flash-latest",
+                "qwen/qwen3-32b",
+            ]
         for model_name in models_to_try:
             try:
                 r = client.chat.completions.create(model=model_name, messages=msgs, temperature=0.2)
@@ -209,28 +264,135 @@ def _call_llm(system_prompt, user_prompt):
     raise RuntimeError("Chưa cấu hình API Key LLM hợp lệ.")
 
 
-def answer(question):
+def check_intent_guardrail(question):
+    q_norm = question.strip().lower()
+    
+    # 1. Greetings / Small talk
+    greetings = ["chào", "xin chào", "hello", "hi", "bạn là ai", "bạn tên gì", "tư vấn giúp", "tư vấn cho mình"]
+    if any(q_norm == g or q_norm.startswith(g) for g in greetings) and len(q_norm.split()) <= 4:
+        return {
+            "is_handled": True,
+            "answer": "Xin chào! Tôi là **Trợ lý AI Tuyển sinh HUIT** (Trường Đại học Công Thương TP.HCM). Tôi có thể hỗ trợ bạn tra cứu thông tin 39 ngành đào tạo, tổ hợp xét tuyển, điểm sàn 2025, mức học phí và các chính sách học bổng mới nhất. Bạn cần tìm hiểu thông tin gì?",
+            "sources": []
+        }
+
+    # 2. Out of scope filter
+    out_of_scope = ["thời tiết", "viết code", "giải bài tập toán", "tin bóng đá", "chơi game"]
+    if any(k in q_norm for k in out_of_scope):
+        return {
+            "is_handled": True,
+            "answer": "Rất tiếc, tôi là **Trợ lý AI chuyên trách Tuyển sinh HUIT**. Tôi chỉ có thể tư vấn các thông tin liên quan đến **Tuyển sinh, Ngành học, Học phí & Học bổng của Trường Đại học Công Thương TP.HCM (HUIT)**. Vui lòng đặt câu hỏi liên quan đến HUIT nhé!",
+            "sources": []
+        }
+
+    return {"is_handled": False}
+
+
+def get_cached_response(question):
     _init()
-    docs = retrieve(question, _rag_cfg["top_k"])
-    sources = [{"i": i, "title": _clean_doc_title(d.get("title")), "url": d.get("url") or d.get("link") or "https://ts.huit.edu.vn", "score": round(d.get("score", 0), 3),
-                "text": d.get("text", "")[:300]} for i, d in enumerate(docs, 1)]
+    if _mongo is not None:
+        try:
+            q_clean = question.strip().lower()
+            cached = _mongo[DB]["query_cache"].find_one({"question_clean": q_clean})
+            if cached:
+                print(f"[CACHE HIT] Returning cached answer for query: '{question}'")
+                return {"answer": cached["answer"], "sources": cached.get("sources", []), "cached": True}
+        except Exception as e:
+            print("Cache lookup warning:", e)
+    return None
+
+
+def save_response_to_cache(question, response_data):
+    _init()
+    if _mongo is not None and response_data and response_data.get("answer"):
+        try:
+            q_clean = question.strip().lower()
+            _mongo[DB]["query_cache"].update_one(
+                {"question_clean": q_clean},
+                {"$set": {
+                    "question_clean": q_clean,
+                    "original_question": question,
+                    "answer": response_data["answer"],
+                    "sources": response_data.get("sources", []),
+                    "updated_at": os.environ.get("CURRENT_TIME", "2026-07-24")
+                }},
+                upsert=True
+            )
+        except Exception as e:
+            print("Save cache warning:", e)
+
+
+def answer(question, chat_history=None):
+    _init()
+
+    # 1. Intent Guardrail Check
+    guard_res = check_intent_guardrail(question)
+    if guard_res["is_handled"]:
+        return guard_res
+
+    # 2. Semantic Cache Check
+    cached_res = get_cached_response(question)
+    if cached_res:
+        return cached_res
+
+    retrieval_query = question
+    if chat_history and isinstance(chat_history, list) and len(question.split()) <= 7:
+        last_user_msgs = [m.get("content", "") for m in chat_history if isinstance(m, dict) and m.get("role") == "user"]
+        if last_user_msgs:
+            retrieval_query = f"{last_user_msgs[-1]} {question}"
+
+    docs = retrieve(retrieval_query, _rag_cfg.get("top_k", 3))
+    sources = [{
+        "i": i,
+        "title": _clean_doc_title(d.get("title")),
+        "url": d.get("url") or d.get("link") or "https://ts.huit.edu.vn",
+        "score": round(d.get("score", 0), 3),
+        "text": d.get("text", "")[:300]
+    } for i, d in enumerate(docs, 1)]
     
     if not docs:
-        return {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
+        res = {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
+        return res
 
     context = "\n\n".join(f"[{i}] {_clean_doc_title(d.get('title'))} — {d.get('text','')}"
                           for i, d in enumerate(docs, 1))
+
+    history_str = ""
+    if chat_history and isinstance(chat_history, list):
+        formatted_turns = []
+        for turn in chat_history[-6:]:
+            role = "Người dùng" if turn.get("role") == "user" else "Trợ lý AI"
+            formatted_turns.append(f"{role}: {turn.get('content', '')}")
+        if formatted_turns:
+            history_str = "\n\n[LỊCH SỬ HỘI THOẠI TRƯỚC ĐÓ]:\n" + "\n".join(formatted_turns) + "\n"
     
     try:
-        user_prompt = _rag_cfg["answer_template"].format(context=context, question=question)
+        user_prompt = f"{history_str}{_rag_cfg['answer_template'].format(context=context, question=question)}"
         text = _call_llm(_rag_cfg["system_prompt"], user_prompt)
     except Exception as e:
-        # Trong trường hợp không gọi được LLM, hiển thị kết quả trích xuất trực tiếp sạch sẽ
         best_doc = docs[0]
         text = (
             f"**Thông tin tuyển sinh HUIT được tìm thấy:**\n\n"
             f"> {best_doc.get('text')}\n\n"
             f"*(Nguồn trích dẫn: {_clean_doc_title(best_doc.get('title'))})*"
         )
-    return {"answer": text, "sources": sources}
+    
+    res = {"answer": text, "sources": sources}
+    save_response_to_cache(question, res)
+    return res
+
+
+def stream_answer(question, chat_history=None):
+    """Generator function yielding chunks for SSE streaming."""
+    res = answer(question, chat_history=chat_history)
+    answer_text = res.get("answer", "")
+    sources = res.get("sources", [])
+
+    # First yield sources metadata
+    yield json.dumps({"type": "sources", "sources": sources}, ensure_ascii=False) + "\n"
+
+    # Stream answer words with smooth micro-delay
+    words = re.findall(r'\S+|\s+', answer_text)
+    for word in words:
+        yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
 

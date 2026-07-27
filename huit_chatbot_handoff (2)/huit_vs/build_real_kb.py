@@ -25,7 +25,8 @@ USER = "nguyenkhaihiep1999_db_user"
 HOST = "cluster0.hyj8rab.mongodb.net"
 DB = "huit_chatbot"
 COLL = "huit_kb"
-MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+MODEL = "intfloat/multilingual-e5-large"
+DIMS = 1024
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -40,9 +41,9 @@ def clean_markdown(text):
 
 
 def chunk_document(doc, max_chunk_size=750):
-    """Chunk document cleanly by markdown sections and paragraphs."""
+    """Chunk document cleanly by markdown sections with Contextual Metadata Header."""
     url = doc.get("url", "")
-    page_title = doc.get("title", "Tuyển sinh HUIT")
+    page_title = doc.get("title", "Tuyển sinh HUIT").strip()
     raw_md = doc.get("markdown", "") or ""
 
     # Skip external non-official retail ads
@@ -77,12 +78,16 @@ def chunk_document(doc, max_chunk_size=750):
         if len(chunk_text) >= 80:
             chunks.append(chunk_text)
 
-    # Attach document metadata
+    # Attach document metadata with Anthropic Contextual Retrieval Header
     records = []
+    context_prefix = f"[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: {page_title[:100]}]"
     for c in chunks:
+        # Contextual Text combining header + chunk
+        contextual_text = f"{context_prefix}\n{c}"
         records.append({
             "title": f"{page_title[:100]} (HUIT Cổng tuyển sinh chính thức)",
-            "text": c,
+            "text": contextual_text,
+            "raw_text": c,
             "source_url": url,
             "page_title": page_title[:120]
         })
@@ -92,6 +97,7 @@ def chunk_document(doc, max_chunk_size=750):
 def run_rebuild():
     print("=========================================================")
     print("   REBUILDING HUIT KB VECTOR DATABASE ON MONGODB ATLAS")
+    print("   CONTEXTUAL CHUNKING + E5-LARGE 1024D EMBEDDINGS")
     print("=========================================================")
 
     scraped_file = os.path.join(HERE, "scraped_pages.json")
@@ -108,14 +114,14 @@ def run_rebuild():
     for d in docs:
         doc_chunks = chunk_document(d)
         for r in doc_chunks:
-            k = r["text"][:100]
+            k = r["text"][:120]
             if k not in seen:
                 seen.add(k)
                 all_records.append(r)
 
-    print(f"[2/4] Generated {len(all_records)} unique clean knowledge chunks.")
+    print(f"[2/4] Generated {len(all_records)} unique Contextual Knowledge Chunks.")
 
-    print(f"[3/4] Embedding {len(all_records)} chunks with FastEmbed model '{MODEL}'...")
+    print(f"[3/4] Embedding {len(all_records)} chunks with FastEmbed SOTA Model '{MODEL}' (1024D)...")
     from fastembed import TextEmbedding
     embedder = TextEmbedding(MODEL)
     vectors = [v.tolist() for v in embedder.embed([r["text"] for r in all_records])]
@@ -124,7 +130,9 @@ def run_rebuild():
         r["embedding"] = v
 
     print(f"[4/4] Uploading {len(all_records)} embedded chunks to MongoDB Atlas...")
-    pwd = os.environ.get("MONGODB_PASSWORD", "qwertyuio12A")
+    pwd = os.environ.get("MONGODB_PASSWORD")
+    if not pwd:
+        raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
     uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
     client = MongoClient(uri, serverSelectionTimeoutMS=15000)
     db = client[DB]
@@ -136,14 +144,14 @@ def run_rebuild():
     print(f"[SUCCESS] Uploaded {count} chunks to collection '{DB}.{COLL}'")
 
     # Recreate Vector Search Index
-    print("Recreating Atlas Vector Search Index 'huit_vector_index'...")
+    print("Recreating Atlas Vector Search Index 'huit_vector_index' (1024D)...")
     index_model = SearchIndexModel(
         definition={
             "fields": [
                 {
                     "type": "vector",
                     "path": "embedding",
-                    "numDimensions": 384,
+                    "numDimensions": DIMS,
                     "similarity": "cosine"
                 }
             ]
@@ -153,7 +161,7 @@ def run_rebuild():
     )
     try:
         coll.create_search_index(model=index_model)
-        print("[SUCCESS] Vector index 'huit_vector_index' creation requested on Atlas.")
+        print("[SUCCESS] Vector index 'huit_vector_index' (1024D) creation requested on Atlas.")
     except Exception as e:
         print(f"[WARN] Index creation note: {e}")
 
