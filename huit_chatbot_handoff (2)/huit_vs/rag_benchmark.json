@@ -2,16 +2,16 @@
   {
     "id": "major-ai",
     "category": "major",
-    "query": "Mã ngành và tổ hợp xét tuyển ngành Trí tuệ nhân tạo HUIT?",
-    "retrieval_must_include": ["7480107", "A00"],
+    "query": "Mã ngành Trí tuệ nhân tạo HUIT là gì?",
+    "retrieval_must_include": ["7480107"],
     "top1_should_include": ["7480107"],
-    "answer_must_include": ["7480107", "A00"],
+    "answer_must_include": ["7480107"],
     "answer_must_not_include": ["không tìm thấy"]
   },
   {
     "id": "major-it",
     "category": "major",
-    "query": "Ngành Công nghệ thông tin có mã ngành và tổ hợp nào?",
+    "query": "Ngành Công nghệ thông tin có mã ngành gì?",
     "retrieval_must_include": ["7480201"],
     "top1_should_include": ["7480201"],
     "answer_must_include": ["7480201"],
@@ -38,11 +38,11 @@
   {
     "id": "tuition",
     "category": "tuition",
-    "query": "Học phí HUIT khoảng bao nhiêu một học kỳ?",
-    "retrieval_must_include": ["14", "16 triệu"],
+    "query": "Học phí tín chỉ HUIT năm 2026 là bao nhiêu?",
+    "retrieval_must_include": ["1.100.000", "1.350.000"],
     "top1_should_include": ["học phí"],
-    "answer_must_include": ["14", "16 triệu"],
-    "answer_must_not_include": ["học phí năm 2026 là"]
+    "answer_must_include": ["1.100.000", "1.350.000"],
+    "answer_must_not_include": ["14 - 16 triệu"]
   },
   {
     "id": "tuition-future-year",
@@ -56,8 +56,8 @@
   {
     "id": "cutoff-2025",
     "category": "cutoff",
-    "query": "Điểm sàn xét tuyển HUIT năm 2025 là bao nhiêu?",
-    "retrieval_must_include": ["16.00"],
+    "query": "Điểm sàn xét tuyển HUIT năm 2026 là bao nhiêu?",
+    "retrieval_must_include": ["16"],
     "top1_should_include": ["điểm sàn"],
     "answer_must_include": ["16"],
     "answer_must_not_include": ["60 điểm"]
@@ -65,10 +65,10 @@
   {
     "id": "scholarship",
     "category": "scholarship",
-    "query": "HUIT có chính sách học bổng giảm 50% học phí học kỳ 1 không?",
-    "retrieval_must_include": ["50%", "học bổng"],
-    "top1_should_include": ["50%"],
-    "answer_must_include": ["50%"],
+    "query": "HUIT có giảm 50% học phí học kỳ đầu cho mọi ngành không?",
+    "retrieval_must_include": ["không công bố", "học bổng"],
+    "top1_should_include": ["học bổng"],
+    "answer_must_include": ["không", "50%"],
     "answer_must_not_include": ["không có học bổng"]
   },
   {

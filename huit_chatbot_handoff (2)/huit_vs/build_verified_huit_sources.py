@@ -32,6 +32,9 @@ def major_pages() -> list[dict]:
         name = major["name"]
         code = major["code"]
         url = f"https://ts.huit.edu.vn/nganh-dh/{major['slug']}"
+        careers = "\n".join(
+            f"- {career}" for career in major.get("careers", [])[:5]
+        )
         docs.append(page(
             url,
             f"Ngành {name}",
@@ -41,6 +44,13 @@ def major_pages() -> list[dict]:
                 "- Hệ đào tạo: Đại học chính quy HUIT.\n"
                 f"- Ngành {name} nằm trong danh mục 39 ngành đào tạo đại học "
                 "chính quy được HUIT công bố cho mùa tuyển sinh 2026.\n\n"
+                "## Ngành học về gì?\n\n"
+                f"{major.get('description', '').strip()}\n\n"
+                "## Hướng nghề nghiệp tham khảo\n\n"
+                f"{careers}\n\n"
+                "Phần mô tả và hướng nghề nghiệp được dùng để hỗ trợ tìm kiếm "
+                "ngữ nghĩa và tư vấn định hướng. Đây không phải cam kết việc "
+                "làm, mức lương hoặc điều kiện tuyển sinh.\n\n"
                 "Các thông tin về tổ hợp, chương trình học và thời gian đào tạo "
                 "cần được đối chiếu trực tiếp tại trang ngành theo đường dẫn nguồn."
             ),

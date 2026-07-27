@@ -83,7 +83,7 @@ def infer_record_metadata(page_title, text):
     }
 
 
-def chunk_document(doc, max_chunk_size=750):
+def chunk_document(doc, max_chunk_size=1800):
     """Chunk document cleanly by markdown sections with Contextual Metadata Header."""
     url = doc.get("url", "")
     page_title = doc.get("title", "Tuyển sinh HUIT").strip()
@@ -124,8 +124,18 @@ def chunk_document(doc, max_chunk_size=750):
 
     # Attach document metadata with Anthropic Contextual Retrieval Header
     records = []
-    context_prefix = f"[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: {page_title[:100]}]"
     document_metadata = infer_record_metadata(page_title, cleaned)
+    metadata_bits = [
+        "Trường Đại học Công Thương TP.HCM (HUIT)",
+        "Nguồn chính thức ts.huit.edu.vn",
+        f"Chủ đề: {page_title[:100]}",
+        f"Loại dữ liệu: {document_metadata['category']}",
+    ]
+    if document_metadata.get("major_code"):
+        metadata_bits.append(f"Mã ngành: {document_metadata['major_code']}")
+    if document_metadata.get("year"):
+        metadata_bits.append(f"Năm: {document_metadata['year']}")
+    context_prefix = f"[{' | '.join(metadata_bits)}]"
     for c in chunks:
         # Contextual Text combining header + chunk
         contextual_text = f"{context_prefix}\n{c}"
@@ -175,7 +185,9 @@ def run_rebuild():
     print(f"[3/4] Embedding {len(all_records)} chunks with FastEmbed SOTA Model '{MODEL}' (1024D)...")
     from fastembed import TextEmbedding
     embedder = TextEmbedding(MODEL)
-    vectors = [v.tolist() for v in embedder.embed([r["text"] for r in all_records])]
+    # E5 models are trained with asymmetric query/passage prefixes.
+    passage_inputs = [f"passage: {r['text']}" for r in all_records]
+    vectors = [v.tolist() for v in embedder.embed(passage_inputs)]
 
     for r, v in zip(all_records, vectors):
         r["embedding"] = v

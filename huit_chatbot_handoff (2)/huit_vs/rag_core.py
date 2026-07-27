@@ -25,8 +25,8 @@ MODEL = "intfloat/multilingual-e5-large"
 DIMS = 1024
 LLM_MODEL = os.environ.get("OPENROUTER_MODEL", "inclusionai/ling-3.0-flash:free")
 LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "350"))
-KB_VERSION = os.environ.get("KB_VERSION", "huit-kb-2026-07-v3-verified")
-RAG_VERSION = "rag-v6-natural-verified"
+KB_VERSION = os.environ.get("KB_VERSION", "huit-kb-2026-07-v4-semantic")
+RAG_VERSION = "rag-v7-rich-semantic"
 CACHE_TTL_HOURS = int(os.environ.get("CACHE_TTL_HOURS", "24"))
 HERE = os.path.dirname(os.path.abspath(__file__))
 RETRIEVAL_MODULE = os.path.join(HERE, "huit_semantic_search.module.json")
@@ -115,6 +115,13 @@ QUERY_ALIASES = {
     "tiếp thị": "marketing",
     "chuỗi cung ứng": "logistics quản lý chuỗi cung ứng",
     "hỗ trợ học phí": "học bổng hỗ trợ học phí",
+    # Natural career-orientation language -> official program vocabulary.
+    "xử lý nước thải": "công nghệ kỹ thuật môi trường xử lý nước thải kiểm soát ô nhiễm",
+    "kiểm soát ô nhiễm": "công nghệ kỹ thuật môi trường kiểm soát ô nhiễm",
+    "máy tự động": "công nghệ kỹ thuật điều khiển và tự động hóa robot công nghiệp",
+    "dây chuyền tự động": "công nghệ kỹ thuật điều khiển và tự động hóa",
+    "phân tích dữ liệu": "khoa học dữ liệu phân tích khai phá dữ liệu thống kê",
+    "dữ liệu lớn": "khoa học dữ liệu big data khai phá dữ liệu",
 }
 
 
@@ -215,7 +222,9 @@ def retrieve(question, top_k=3):
     if _embedder and _retrieval_pipeline and _mongo is not None:
         try:
             pipeline = copy.deepcopy(_retrieval_pipeline)
-            qv = list(_embedder.embed([question]))[0].tolist()
+            # multilingual-e5-large expects the asymmetric "query:" prefix;
+            # KB records are embedded with "passage:" during ingestion.
+            qv = list(_embedder.embed([f"query: {question}"]))[0].tolist()
             for stage in pipeline:
                 vs = stage.get("$vectorSearch")
                 if vs and isinstance(vs.get("queryVector"), str) and vs["queryVector"].startswith("<<QUERY_VECTOR"):
@@ -266,6 +275,7 @@ def retrieve(question, top_k=3):
     rrf_k = 60
     scored_candidates = []
     q_words = set(re.findall(r'\w+', question.lower()))
+    q_normalized = _normalize(question)
     code_matches = re.findall(r'\b7\d{6}\b', question)
 
     for doc_id, doc in candidate_map.items():
@@ -293,6 +303,17 @@ def retrieve(question, top_k=3):
                 code_boost += 0.5
 
         intent_boost = 0.35 if intent != "general" and metadata["category"] == intent else 0.0
+        # A full major name in the query is stronger evidence than generic
+        # overlaps such as "thông tin" (which also appears in An toàn thông tin).
+        major_title = re.sub(r"^nganh\s+", "", normalized_title)
+        major_title = re.sub(r"\s+huit cong tuyen sinh chinh thuc.*$", "", major_title)
+        exact_major_boost = (
+            0.8
+            if metadata["category"] == "major"
+            and len(major_title) >= 4
+            and major_title in q_normalized
+            else 0.0
+        )
         year_boost = 0.2 if requested_years and metadata["year"] in requested_years else 0.0
         year_penalty = -0.12 if requested_years and metadata["year"] and metadata["year"] not in requested_years else 0.0
         final_score = (
@@ -301,6 +322,7 @@ def retrieve(question, top_k=3):
             + (title_overlap * 0.15)
             + code_boost
             + intent_boost
+            + exact_major_boost
             + year_boost
             + year_penalty
         )
