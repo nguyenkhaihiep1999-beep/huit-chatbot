@@ -256,7 +256,27 @@ def retrieve(question, top_k=3):
                         {"text": {"$regex": regex_pattern, "$options": "i"}}
                     ]
                 }
-                raw_kw = list(_mongo[DB][COLL].find(query).limit(15))
+                # The verified KB is intentionally small. Fetch all matching
+                # records and rank them locally; Mongo's natural-order limit
+                # previously excluded the correct environmental/automation
+                # record before the reranker could see it on Vercel.
+                raw_kw = list(_mongo[DB][COLL].find(query).limit(100))
+                normalized_terms = {
+                    _normalize(word)
+                    for word in keywords
+                    if len(_normalize(word)) >= 3
+                }
+                raw_kw.sort(
+                    key=lambda item: sum(
+                        1
+                        for term in normalized_terms
+                        if term in _normalize(
+                            f"{item.get('title', '')} {item.get('text', '')}"
+                        )
+                    ),
+                    reverse=True,
+                )
+                raw_kw = raw_kw[:30]
                 keyword_docs = [d for d in raw_kw if "Di động Máy tính bảng" not in d.get("text", "") and "Pick the Right" not in d.get("text", "")]
                 for rank, doc in enumerate(keyword_docs, 1):
                     doc_id = _candidate_id(doc, rank, "k")
