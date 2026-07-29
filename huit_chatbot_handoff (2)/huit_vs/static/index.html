@@ -1684,23 +1684,6 @@
     } 
   });
 
-<!-- MODAL OVERLAY HIỂN THỊ SƠ ĐỒ LUỒNG RAG NEXUS TRỰC TIẾP TRONG CHAT -->
-<div id="workflow-modal" class="workflow-modal-overlay" style="display:none;">
-  <div class="workflow-modal-container">
-    <div class="workflow-modal-header">
-      <div class="workflow-modal-title">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        <span>Kiến Trúc & Sơ Đồ Luồng Xử Lý RAG Nexus HUIT</span>
-      </div>
-      <button class="workflow-modal-close" id="close-workflow-modal" onclick="closeWorkflowModal()" title="Đóng modal">&times;</button>
-    </div>
-    <div class="workflow-modal-body">
-      <iframe src="/static/workflow.html" class="workflow-iframe" title="Sơ đồ luồng RAG Nexus"></iframe>
-    </div>
-  </div>
-</div>
-
-<script>
   function openWorkflowModal() {
     const modal = document.getElementById('workflow-modal');
     if (modal) {
@@ -1726,5 +1709,21 @@
     }
   });
 </script>
+
+<!-- MODAL OVERLAY HIỂN THỊ SƠ ĐỒ LUỒNG RAG NEXUS TRỰC TIẾP TRONG CHAT -->
+<div id="workflow-modal" class="workflow-modal-overlay" style="display:none;">
+  <div class="workflow-modal-container">
+    <div class="workflow-modal-header">
+      <div class="workflow-modal-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <span>Kiến Trúc & Sơ Đồ Luồng Xử Lý RAG Nexus HUIT</span>
+      </div>
+      <button class="workflow-modal-close" id="close-workflow-modal" onclick="closeWorkflowModal()" title="Đóng modal">&times;</button>
+    </div>
+    <div class="workflow-modal-body">
+      <iframe src="/static/workflow.html" class="workflow-iframe" title="Sơ đồ luồng RAG Nexus"></iframe>
+    </div>
+  </div>
+</div>
 </body>
 </html>
