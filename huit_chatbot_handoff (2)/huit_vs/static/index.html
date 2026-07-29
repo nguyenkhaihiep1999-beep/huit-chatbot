@@ -899,11 +899,19 @@
     background: rgba(3, 8, 20, 0.75);
     backdrop-filter: blur(8px);
     z-index: 9999;
-    display: flex;
+    display: none;
+    pointer-events: none;
+    opacity: 0;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    animation: msgFadeIn 0.25s ease-out;
+    transition: opacity 0.25s ease-out;
+  }
+
+  .workflow-modal-overlay.active {
+    display: flex !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
   }
 
   .workflow-modal-container {
@@ -1677,7 +1685,7 @@
   });
 
 <!-- MODAL OVERLAY HIỂN THỊ SƠ ĐỒ LUỒNG RAG NEXUS TRỰC TIẾP TRONG CHAT -->
-<div id="workflow-modal" class="workflow-modal-overlay" style="display:none;">
+<div id="workflow-modal" class="workflow-modal-overlay">
   <div class="workflow-modal-container">
     <div class="workflow-modal-header">
       <div class="workflow-modal-title">
@@ -1695,12 +1703,12 @@
 <script>
   function openWorkflowModal() {
     const modal = document.getElementById('workflow-modal');
-    if (modal) modal.style.display = 'flex';
+    if (modal) modal.classList.add('active');
   }
 
   function closeWorkflowModal() {
     const modal = document.getElementById('workflow-modal');
-    if (modal) modal.style.display = 'none';
+    if (modal) modal.classList.remove('active');
   }
 
   document.addEventListener('DOMContentLoaded', () => {
