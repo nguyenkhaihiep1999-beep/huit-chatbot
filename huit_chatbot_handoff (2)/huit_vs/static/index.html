@@ -871,10 +871,91 @@
   }
   @keyframes msgFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+  /* MOBILE HAMBURGER MENU BUTTON & BACKDROP OVERLAY */
+  .mobile-menu-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--brand-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+  }
+
+  .mobile-menu-btn:hover {
+    background: var(--brand-light);
+    color: var(--brand-dark);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(3, 8, 20, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 9996;
+    display: none;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.28s ease;
+  }
+
+  .sidebar-overlay.mobile-open {
+    display: block !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+  }
+
   @media (max-width: 900px) {
-    .app-container { grid-template-columns: 1fr; height: 100vh; border-radius: 0; border: none; }
+    .app-container {
+      grid-template-columns: 1fr;
+      height: 100vh;
+      border-radius: 0;
+      border: none;
+    }
     body { padding: 0; }
-    .sidebar { display: none; }
+
+    .mobile-menu-btn {
+      display: flex !important;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 290px;
+      height: 100vh;
+      z-index: 9997;
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+      display: flex !important;
+    }
+
+    .sidebar.mobile-open {
+      transform: translateX(0) !important;
+    }
+
+    .header-quick-widgets {
+      gap: 4px;
+    }
+    .widget-btn {
+      padding: 6px 9px;
+      font-size: 11.5px;
+    }
+    .header-title-group h2 {
+      font-size: 15px;
+    }
+    .header-title-group p {
+      font-size: 11px;
+    }
   }
 
   /* WORKFLOW MODAL OVERLAY & LIVE TRACE ACCORDION STYLES */
@@ -1158,7 +1239,7 @@
     </div>
 
     <div class="sidebar-controls">
-      <button class="ctrl-btn" id="sidebar-workflow-btn" onclick="openWorkflowModal()" title="Mở sơ đồ luồng hệ thống RAG">
+      <button class="ctrl-btn" id="sidebar-workflow-btn" onclick="closeMobileSidebar(); openWorkflowModal();" title="Mở sơ đồ luồng hệ thống RAG">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         Sơ đồ luồng RAG
       </button>
@@ -1175,6 +1256,9 @@
   <main class="chat-canvas">
     <header class="chat-header">
       <div class="header-left">
+        <button id="mobile-menu-btn" class="mobile-menu-btn" onclick="toggleMobileSidebar()" title="Mở danh mục lịch sử & tiện ích">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
         <div class="bot-status-ring">
           <img src="/static/robot_huit.png" alt="HUIT Mascot Robot" class="mini-robot-img" onerror="this.src='https://ts.huit.edu.vn/images/logo.png'">
           <div class="online-badge"></div>
@@ -1466,7 +1550,10 @@
     const label = document.createElement('span');
     label.textContent = questionText;
     item.append(icon, label);
-    item.onclick = () => sendQuickPrompt(questionText);
+    item.onclick = () => {
+      closeMobileSidebar();
+      sendQuickPrompt(questionText);
+    };
     historyList.prepend(item);
   }
 
@@ -1684,6 +1771,31 @@
     } 
   });
 
+  // MOBILE DRAWER SIDEBAR HANDLERS
+  function toggleMobileSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar && overlay) {
+      const isOpen = sidebar.classList.contains('mobile-open');
+      if (isOpen) {
+        sidebar.classList.remove('mobile-open');
+        overlay.classList.remove('mobile-open');
+      } else {
+        sidebar.classList.add('mobile-open');
+        overlay.classList.add('mobile-open');
+      }
+    }
+  }
+
+  function closeMobileSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar && overlay) {
+      sidebar.classList.remove('mobile-open');
+      overlay.classList.remove('mobile-open');
+    }
+  }
+
   function openWorkflowModal() {
     const modal = document.getElementById('workflow-modal');
     if (modal) {
@@ -1709,6 +1821,9 @@
     }
   });
 </script>
+
+<!-- BACKDROP OVERLAY CHO MOBILE SIDEBAR DRAWER -->
+<div id="sidebar-overlay" class="sidebar-overlay" onclick="closeMobileSidebar()"></div>
 
 <!-- MODAL OVERLAY HIỂN THỊ SƠ ĐỒ LUỒNG RAG NEXUS TRỰC TIẾP TRONG CHAT -->
 <div id="workflow-modal" class="workflow-modal-overlay" style="display:none;">
