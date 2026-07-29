@@ -94,7 +94,7 @@ async def security_headers(request: Request, call_next):
     response.headers["X-Frame-Options"] = "SAMEORIGIN"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["Permissions-Policy"] = "camera=(), geolocation=()"
-    if request.url.path in ("/", "/index.html", "/workflow", "/admin"):
+    if request.url.path.endswith(".html") or request.url.path in ("/", "/workflow", "/admin", "/docs"):
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         response.headers["Pragma"] = "no-cache"
         response.headers["Expires"] = "0"
