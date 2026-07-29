@@ -1,0 +1,104 @@
+{
+  "_id": "write_quality_ranked_v2",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Tạo collection xếp hạng chất lượng phiên bản 2",
+  "source_collection": "huit_kb",
+  "risk_level": "write",
+  "allowed_targets": [
+    "test_quality_ranked_v2"
+  ],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Tạo collection xếp hạng chất lượng phiên bản 2",
+          "pipeline": [
+            {
+              "$addFields": {
+                "quality_score": {
+                  "$add": [
+                    {
+                      "$cond": [
+                        {
+                          "$gt": [
+                            {
+                              "$strLenCP": {
+                                "$ifNull": [
+                                  "$text",
+                                  ""
+                                ]
+                              }
+                            },
+                            300
+                          ]
+                        },
+                        40,
+                        0
+                      ]
+                    },
+                    {
+                      "$cond": [
+                        {
+                          "$ne": [
+                            {
+                              "$ifNull": [
+                                "$source_url",
+                                ""
+                              ]
+                            },
+                            ""
+                          ]
+                        },
+                        30,
+                        0
+                      ]
+                    },
+                    {
+                      "$cond": [
+                        {
+                          "$isArray": "$embedding"
+                        },
+                        30,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "$sort": {
+                "quality_score": -1
+              }
+            },
+            {
+              "$out": "test_quality_ranked_v2"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

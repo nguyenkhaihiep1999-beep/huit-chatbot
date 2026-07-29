@@ -1,0 +1,70 @@
+{
+  "_id": "kb_missing_embeddings",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Tài liệu thiếu embedding",
+  "source_collection": "huit_kb",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Tài liệu thiếu embedding",
+          "pipeline": [
+            {
+              "$match": {
+                "$or": [
+                  {
+                    "embedding": {
+                      "$exists": false
+                    }
+                  },
+                  {
+                    "embedding": null
+                  },
+                  {
+                    "embedding": {
+                      "$size": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "$project": {
+                "title": 1,
+                "source_url": 1,
+                "category": 1
+              }
+            },
+            {
+              "$limit": 200
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

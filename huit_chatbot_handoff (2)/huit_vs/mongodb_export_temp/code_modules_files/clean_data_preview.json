@@ -1,0 +1,65 @@
+{
+  "_id": "clean_data_preview",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Xem trước dữ liệu đã làm sạch",
+  "source_collection": "test_clean_data",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Xem trước dữ liệu đã làm sạch",
+          "pipeline": [
+            {
+              "$match": {
+                "clean_text": {
+                  "$type": "string",
+                  "$ne": ""
+                }
+              }
+            },
+            {
+              "$project": {
+                "clean_text": 1,
+                "source_url": 1,
+                "page_title": 1,
+                "char_count": 1
+              }
+            },
+            {
+              "$sort": {
+                "char_count": -1
+              }
+            },
+            {
+              "$limit": 200
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

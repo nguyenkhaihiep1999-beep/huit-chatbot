@@ -1,0 +1,3652 @@
+[
+  {
+    "_id": "huit_semantic_search",
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Vector Search Entry",
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "embedding": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "Vector embedding 384 chiều"
+            }
+          },
+          "required": [
+            "title",
+            "text",
+            "embedding"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$vectorSearch": {
+                  "index": "huit_vector_index",
+                  "path": "embedding",
+                  "queryVector": "<<QUERY_VECTOR_384>>",
+                  "numCandidates": 100,
+                  "limit": 3
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "title": 1,
+                  "text": 1,
+                  "score": {
+                    "$meta": "vectorSearchScore"
+                  }
+                }
+              }
+            ],
+            "purpose": "Tìm kiếm ngữ nghĩa trên kho tri thức HUIT bằng Atlas Vector Search."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "huit_rag_answer",
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT RAG Answer Config",
+          "type": "object",
+          "properties": {
+            "retrieval_module": {
+              "type": "string",
+              "description": "Tên module vector search dùng để lấy ngữ cảnh (retrieval)"
+            },
+            "top_k": {
+              "type": "integer",
+              "description": "Số đoạn ngữ cảnh đưa vào LLM"
+            },
+            "system_prompt": {
+              "type": "string",
+              "description": "Chỉ dẫn hệ thống cho LLM"
+            },
+            "answer_template": {
+              "type": "string",
+              "description": "Khuôn prompt ghép câu hỏi + ngữ cảnh"
+            }
+          },
+          "required": [
+            "retrieval_module",
+            "top_k",
+            "system_prompt",
+            "answer_template"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "config": {
+              "retrieval_module": "huit_semantic_search",
+              "top_k": 5,
+              "system_prompt": "Bạn là trợ lý tư vấn tuyển sinh thân thiện của Trường Đại học Công Thương TP.HCM (HUIT). Trả lời tự nhiên như một tư vấn viên đang trò chuyện, nhưng chỉ dùng dữ kiện trong NGỮ CẢNH. Không tự suy đoán, không biến dữ liệu năm cũ thành năm mới và phải phân biệt hệ chính quy với liên kết quốc tế. Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích vừa đủ. Dùng câu ngắn, tránh văn phong hành chính, tránh chép nguyên đoạn nguồn và tránh liệt kê dài khi người dùng chỉ hỏi một ý. Mỗi con số hoặc điều kiện quan trọng phải có trích dẫn [n]. Nếu chưa đủ dữ liệu, nói thật điều còn thiếu và gợi ý một câu hỏi tiếp theo hữu ích.",
+              "answer_template": "NGỮ CẢNH ĐÃ XẾP HẠNG:\n{context}\n\nCÂU HỎI: {question}\n\nHãy trả lời bằng tiếng Việt tự nhiên trong khoảng 3-6 câu. Nêu đúng năm và đúng loại chương trình. Trích dẫn [n] ngay sau dữ kiện. Không cần tạo mục “Nguồn” vì giao diện đã hiển thị nguồn riêng. Nếu phù hợp, kết thúc bằng một câu hỏi ngắn để tiếp tục tư vấn."
+            },
+            "purpose": "Sinh câu trả lời RAG: lấy top-k đoạn từ module retrieval (vector search), ghép vào prompt và gọi LLM (OpenAI hoặc Gemini) để viết câu trả lời tiếng Việt kèm trích nguồn. Đây là module tầng sinh (generation) của chatbot HUIT."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "huit_raw_miner",
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$match": {
+                  "markdown": {
+                    "$ne": null
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 1,
+                  "url": 1,
+                  "title": 1,
+                  "text_length": {
+                    "$strLenCP": "$markdown"
+                  }
+                }
+              }
+            ],
+            "purpose": "Thu thập và lưu trữ toàn bộ dữ liệu web tuyển sinh HUIT thô vào collection raw_data."
+          }
+        ]
+      }
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Raw Web Page Schema",
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "URL trang web chính thức HUIT"
+            },
+            "title": {
+              "type": "string",
+              "description": "Tiêu đề trang"
+            },
+            "markdown": {
+              "type": "string",
+              "description": "Nội dung định dạng Markdown thô"
+            }
+          },
+          "required": [
+            "url",
+            "title",
+            "markdown"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "_id": "huit_data_cleaning",
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$match": {
+                  "markdown": {
+                    "$exists": true,
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "source_url": "$url",
+                  "page_title": {
+                    "$trim": {
+                      "input": "$title"
+                    }
+                  },
+                  "clean_text": {
+                    "$trim": {
+                      "input": "$markdown"
+                    }
+                  },
+                  "char_count": {
+                    "$strLenCP": "$markdown"
+                  }
+                }
+              },
+              {
+                "$out": "test_clean_data"
+              }
+            ],
+            "purpose": "Làm sạch văn bản thô, trim khoảng trắng và xuất ra test_clean_data."
+          }
+        ]
+      }
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Module huit_data_cleaning",
+          "type": "object"
+        }
+      }
+    }
+  },
+  {
+    "_id": "huit_agg_categorization",
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$addFields": {
+                  "category": {
+                    "$switch": {
+                      "branches": [
+                        {
+                          "case": {
+                            "$regexMatch": {
+                              "input": "$clean_text",
+                              "regex": "học phí|tiền học|lệ phí|mức thu",
+                              "options": "i"
+                            }
+                          },
+                          "then": "Học phí & Lệ phí"
+                        },
+                        {
+                          "case": {
+                            "$regexMatch": {
+                              "input": "$clean_text",
+                              "regex": "điểm chuẩn|điểm sàn|điểm xét|trúng tuyển",
+                              "options": "i"
+                            }
+                          },
+                          "then": "Điểm chuẩn & Xét tuyển"
+                        },
+                        {
+                          "case": {
+                            "$regexMatch": {
+                              "input": "$clean_text",
+                              "regex": "học bổng|ưu đãi|khuyến học|trợ cấp",
+                              "options": "i"
+                            }
+                          },
+                          "then": "Học bổng & Hỗ trợ"
+                        },
+                        {
+                          "case": {
+                            "$regexMatch": {
+                              "input": "$clean_text",
+                              "regex": "ngành|mã ngành|chương trình đào tạo|kỹ thuật|công nghệ",
+                              "options": "i"
+                            }
+                          },
+                          "then": "Ngành đào tạo"
+                        }
+                      ],
+                      "default": "Thông tin chung HUIT"
+                    }
+                  }
+                }
+              },
+              {
+                "$out": "test_categorized_data"
+              }
+            ],
+            "purpose": "Phân loại bài viết theo chủ đề: Học phí, Điểm chuẩn, Học bổng, Ngành đào tạo."
+          }
+        ]
+      }
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Module huit_agg_categorization",
+          "type": "object"
+        }
+      }
+    }
+  },
+  {
+    "_id": "huit_agg_stats",
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$category",
+                  "total_chunks": {
+                    "$sum": 1
+                  },
+                  "avg_text_length": {
+                    "$avg": {
+                      "$strLenCP": "$clean_text"
+                    }
+                  }
+                }
+              },
+              {
+                "$sort": {
+                  "total_chunks": -1
+                }
+              },
+              {
+                "$out": "test_kb_stats"
+              }
+            ],
+            "purpose": "Thống kê tổng số lượng chunk và độ dài trung bình theo danh mục."
+          }
+        ]
+      }
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Module huit_agg_stats",
+          "type": "object"
+        }
+      }
+    }
+  },
+  {
+    "_id": "huit_agg_deduplicate",
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$source_url",
+                  "doc": {
+                    "$first": "$$ROOT"
+                  }
+                }
+              },
+              {
+                "$replaceRoot": {
+                  "newRoot": "$doc"
+                }
+              },
+              {
+                "$out": "test_dedup_data"
+              }
+            ],
+            "purpose": "Khử trùng bài viết trùng lặp URL, giữ lại bản ghi mới nhất."
+          }
+        ]
+      }
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Module huit_agg_deduplicate",
+          "type": "object"
+        }
+      }
+    }
+  },
+  {
+    "_id": "huit_agg_faceted_search",
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$facet": {
+                  "by_category": [
+                    {
+                      "$group": {
+                        "_id": "$category",
+                        "count": {
+                          "$sum": 1
+                        }
+                      }
+                    }
+                  ],
+                  "top_longest_articles": [
+                    {
+                      "$sort": {
+                        "char_count": -1
+                      }
+                    },
+                    {
+                      "$limit": 5
+                    },
+                    {
+                      "$project": {
+                        "page_title": 1,
+                        "source_url": 1,
+                        "char_count": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "purpose": "Truy vấn thống kê phân nhóm đa chiều (Multi-facet Search)."
+          }
+        ]
+      }
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Module huit_agg_faceted_search",
+          "type": "object"
+        }
+      }
+    }
+  },
+  {
+    "_id": "huit_agg_keyword_mining",
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$project": {
+                  "matched_terms": {
+                    "$regexFindAll": {
+                      "input": "$clean_text",
+                      "regex": "Công nghệ thông tin|Thực phẩm|Kế toán|Quản trị|Ngôn ngữ Anh|Học bạ|Đánh giá năng lực",
+                      "options": "i"
+                    }
+                  }
+                }
+              },
+              {
+                "$unwind": "$matched_terms"
+              },
+              {
+                "$sortByCount": "$matched_terms.match"
+              }
+            ],
+            "purpose": "Trích xuất và tính tần suất xuất hiện các thuật ngữ tuyển sinh nóng."
+          }
+        ]
+      }
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Module huit_agg_keyword_mining",
+          "type": "object"
+        }
+      }
+    }
+  },
+  {
+    "_id": "huit_agg_quality_scoring",
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$addFields": {
+                  "quality_score": {
+                    "$add": [
+                      {
+                        "$cond": [
+                          {
+                            "$gt": [
+                              "$char_count",
+                              500
+                            ]
+                          },
+                          40,
+                          10
+                        ]
+                      },
+                      {
+                        "$cond": [
+                          {
+                            "$ne": [
+                              "$category",
+                              "Thông tin chung HUIT"
+                            ]
+                          },
+                          30,
+                          0
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "$sort": {
+                  "quality_score": -1
+                }
+              },
+              {
+                "$out": "test_quality_ranked"
+              }
+            ],
+            "purpose": "Xếp hạng bài viết theo điểm chất lượng và ưu tiên thông tin chuyên sâu."
+          }
+        ]
+      }
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Module huit_agg_quality_scoring",
+          "type": "object"
+        }
+      }
+    }
+  },
+  {
+    "_id": "huit_agg_text_chunker",
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "pipeline": [
+              {
+                "$project": {
+                  "source_url": 1,
+                  "page_title": 1,
+                  "paragraphs": {
+                    "$split": [
+                      "$clean_text",
+                      "\n\n"
+                    ]
+                  }
+                }
+              },
+              {
+                "$unwind": "$paragraphs"
+              },
+              {
+                "$match": {
+                  "paragraphs": {
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "source_url": 1,
+                  "page_title": 1,
+                  "chunk_text": {
+                    "$trim": {
+                      "input": "$paragraphs"
+                    }
+                  },
+                  "chunk_len": {
+                    "$strLenCP": "$paragraphs"
+                  }
+                }
+              },
+              {
+                "$out": "test_rag_chunks"
+              }
+            ],
+            "purpose": "Tự động tách văn bản thành từng đoạn paragraph nhỏ phục vụ RAG Embedding."
+          }
+        ]
+      }
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "HUIT Module huit_agg_text_chunker",
+          "type": "object"
+        }
+      }
+    }
+  },
+  {
+    "_id": "raw_valid_pages",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Trang thô có URL và nội dung",
+    "source_collection": "raw_data",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Trang thô có URL và nội dung",
+            "pipeline": [
+              {
+                "$match": {
+                  "url": {
+                    "$type": "string",
+                    "$ne": ""
+                  },
+                  "markdown": {
+                    "$type": "string",
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "url": 1,
+                  "title": 1,
+                  "markdown": 1
+                }
+              },
+              {
+                "$limit": 200
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "raw_domain_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Thống kê nguồn tên miền",
+    "source_collection": "raw_data",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Thống kê nguồn tên miền",
+            "pipeline": [
+              {
+                "$project": {
+                  "domain": {
+                    "$arrayElemAt": [
+                      {
+                        "$split": [
+                          "$url",
+                          "/"
+                        ]
+                      },
+                      2
+                    ]
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$domain",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "domain": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "raw_missing_fields",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Phát hiện trang thô thiếu trường",
+    "source_collection": "raw_data",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Phát hiện trang thô thiếu trường",
+            "pipeline": [
+              {
+                "$match": {
+                  "$or": [
+                    {
+                      "url": {
+                        "$in": [
+                          null,
+                          ""
+                        ]
+                      }
+                    },
+                    {
+                      "markdown": {
+                        "$in": [
+                          null,
+                          ""
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "$project": {
+                  "url": 1,
+                  "title": 1,
+                  "has_text": {
+                    "$ne": [
+                      "$markdown",
+                      ""
+                    ]
+                  }
+                }
+              },
+              {
+                "$limit": 200
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "raw_duplicate_urls",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Phát hiện URL trùng",
+    "source_collection": "raw_data",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Phát hiện URL trùng",
+            "pipeline": [
+              {
+                "$match": {
+                  "url": {
+                    "$type": "string",
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$url",
+                  "count": {
+                    "$sum": 1
+                  },
+                  "ids": {
+                    "$push": "$_id"
+                  }
+                }
+              },
+              {
+                "$match": {
+                  "count": {
+                    "$gt": 1
+                  }
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "raw_content_length_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Thống kê độ dài dữ liệu thô",
+    "source_collection": "raw_data",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Thống kê độ dài dữ liệu thô",
+            "pipeline": [
+              {
+                "$match": {
+                  "markdown": {
+                    "$type": "string"
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "chars": {
+                    "$strLenCP": "$markdown"
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": null,
+                  "documents": {
+                    "$sum": 1
+                  },
+                  "avg_chars": {
+                    "$avg": "$chars"
+                  },
+                  "min_chars": {
+                    "$min": "$chars"
+                  },
+                  "max_chars": {
+                    "$max": "$chars"
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_overview",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tổng quan kho tri thức",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tổng quan kho tri thức",
+            "pipeline": [
+              {
+                "$facet": {
+                  "totals": [
+                    {
+                      "$count": "documents"
+                    }
+                  ],
+                  "categories": [
+                    {
+                      "$group": {
+                        "_id": "$category",
+                        "count": {
+                          "$sum": 1
+                        }
+                      }
+                    },
+                    {
+                      "$project": {
+                        "_id": 0,
+                        "category": "$_id",
+                        "count": 1
+                      }
+                    },
+                    {
+                      "$sort": {
+                        "count": -1
+                      }
+                    },
+                    {
+                      "$limit": 30
+                    }
+                  ],
+                  "years": [
+                    {
+                      "$group": {
+                        "_id": "$year",
+                        "count": {
+                          "$sum": 1
+                        }
+                      }
+                    },
+                    {
+                      "$project": {
+                        "_id": 0,
+                        "year": "$_id",
+                        "count": 1
+                      }
+                    },
+                    {
+                      "$sort": {
+                        "count": -1
+                      }
+                    },
+                    {
+                      "$limit": 20
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_category_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Số tài liệu theo danh mục",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Số tài liệu theo danh mục",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$category",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "category": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_year_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Số tài liệu theo năm",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Số tài liệu theo năm",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$year",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "year": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_major_catalog",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Danh mục mã ngành",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Danh mục mã ngành",
+            "pipeline": [
+              {
+                "$match": {
+                  "major_code": {
+                    "$type": "string",
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$major_code",
+                  "titles": {
+                    "$addToSet": "$title"
+                  },
+                  "documents": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "major_code": "$_id",
+                  "titles": 1,
+                  "documents": 1
+                }
+              },
+              {
+                "$sort": {
+                  "major_code": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_duplicate_major_codes",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Mã ngành có nhiều tên khác nhau",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Mã ngành có nhiều tên khác nhau",
+            "pipeline": [
+              {
+                "$match": {
+                  "major_code": {
+                    "$type": "string",
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$major_code",
+                  "titles": {
+                    "$addToSet": "$title"
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "major_code": "$_id",
+                  "titles": 1,
+                  "title_count": {
+                    "$size": "$titles"
+                  }
+                }
+              },
+              {
+                "$match": {
+                  "title_count": {
+                    "$gt": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_missing_source_urls",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tài liệu thiếu URL nguồn",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tài liệu thiếu URL nguồn",
+            "pipeline": [
+              {
+                "$match": {
+                  "$or": [
+                    {
+                      "source_url": {
+                        "$exists": false
+                      }
+                    },
+                    {
+                      "source_url": {
+                        "$in": [
+                          null,
+                          ""
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "$project": {
+                  "title": 1,
+                  "category": 1,
+                  "year": 1
+                }
+              },
+              {
+                "$limit": 200
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_embedding_health",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Thống kê kích thước embedding",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Thống kê kích thước embedding",
+            "pipeline": [
+              {
+                "$project": {
+                  "dimension": {
+                    "$cond": [
+                      {
+                        "$isArray": "$embedding"
+                      },
+                      {
+                        "$size": "$embedding"
+                      },
+                      0
+                    ]
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$dimension",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "dimension": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_missing_embeddings",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tài liệu thiếu embedding",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tài liệu thiếu embedding",
+            "pipeline": [
+              {
+                "$match": {
+                  "$or": [
+                    {
+                      "embedding": {
+                        "$exists": false
+                      }
+                    },
+                    {
+                      "embedding": null
+                    },
+                    {
+                      "embedding": {
+                        "$size": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "$project": {
+                  "title": 1,
+                  "source_url": 1,
+                  "category": 1
+                }
+              },
+              {
+                "$limit": 200
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_chunk_length_distribution",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Phân bố độ dài đoạn tri thức",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Phân bố độ dài đoạn tri thức",
+            "pipeline": [
+              {
+                "$match": {
+                  "text": {
+                    "$type": "string"
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "bucket": {
+                    "$switch": {
+                      "branches": [
+                        {
+                          "case": {
+                            "$lt": [
+                              {
+                                "$strLenCP": "$text"
+                              },
+                              300
+                            ]
+                          },
+                          "then": "short"
+                        },
+                        {
+                          "case": {
+                            "$lt": [
+                              {
+                                "$strLenCP": "$text"
+                              },
+                              1200
+                            ]
+                          },
+                          "then": "medium"
+                        },
+                        {
+                          "case": {
+                            "$lt": [
+                              {
+                                "$strLenCP": "$text"
+                              },
+                              3000
+                            ]
+                          },
+                          "then": "long"
+                        }
+                      ],
+                      "default": "very_long"
+                    }
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$bucket",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "length_bucket": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_duplicate_text",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Phát hiện nội dung tri thức trùng",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Phát hiện nội dung tri thức trùng",
+            "pipeline": [
+              {
+                "$match": {
+                  "text": {
+                    "$type": "string",
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$text",
+                  "count": {
+                    "$sum": 1
+                  },
+                  "sources": {
+                    "$addToSet": "$source_url"
+                  }
+                }
+              },
+              {
+                "$match": {
+                  "count": {
+                    "$gt": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "text_preview": {
+                    "$substrCP": [
+                      "$_id",
+                      0,
+                      180
+                    ]
+                  },
+                  "count": 1,
+                  "sources": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_duplicate_titles",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Phát hiện tiêu đề trùng",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Phát hiện tiêu đề trùng",
+            "pipeline": [
+              {
+                "$match": {
+                  "title": {
+                    "$type": "string",
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$title",
+                  "count": {
+                    "$sum": 1
+                  },
+                  "sources": {
+                    "$addToSet": "$source_url"
+                  }
+                }
+              },
+              {
+                "$match": {
+                  "count": {
+                    "$gt": 1
+                  }
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_tuition_facts",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Trích tài liệu học phí",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Trích tài liệu học phí",
+            "pipeline": [
+              {
+                "$match": {
+                  "$or": [
+                    {
+                      "title": {
+                        "$regex": "học phí|tín chỉ",
+                        "$options": "i"
+                      }
+                    },
+                    {
+                      "text": {
+                        "$regex": "học phí|tín chỉ",
+                        "$options": "i"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "title": 1,
+                  "text": 1,
+                  "source_url": 1,
+                  "category": 1,
+                  "year": 1,
+                  "major_code": 1
+                }
+              },
+              {
+                "$limit": 100
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_cutoff_facts",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Trích tài liệu điểm chuẩn và điểm sàn",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Trích tài liệu điểm chuẩn và điểm sàn",
+            "pipeline": [
+              {
+                "$match": {
+                  "$or": [
+                    {
+                      "title": {
+                        "$regex": "điểm chuẩn|điểm sàn|xét tuyển",
+                        "$options": "i"
+                      }
+                    },
+                    {
+                      "text": {
+                        "$regex": "điểm chuẩn|điểm sàn|xét tuyển",
+                        "$options": "i"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "title": 1,
+                  "text": 1,
+                  "source_url": 1,
+                  "category": 1,
+                  "year": 1,
+                  "major_code": 1
+                }
+              },
+              {
+                "$limit": 100
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_scholarship_facts",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Trích tài liệu học bổng",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Trích tài liệu học bổng",
+            "pipeline": [
+              {
+                "$match": {
+                  "$or": [
+                    {
+                      "title": {
+                        "$regex": "học bổng|miễn giảm",
+                        "$options": "i"
+                      }
+                    },
+                    {
+                      "text": {
+                        "$regex": "học bổng|miễn giảm",
+                        "$options": "i"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "title": 1,
+                  "text": 1,
+                  "source_url": 1,
+                  "category": 1,
+                  "year": 1,
+                  "major_code": 1
+                }
+              },
+              {
+                "$limit": 100
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_admissions_facts",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Trích tài liệu tuyển sinh",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Trích tài liệu tuyển sinh",
+            "pipeline": [
+              {
+                "$match": {
+                  "$or": [
+                    {
+                      "title": {
+                        "$regex": "tuyển sinh|phương thức|tổ hợp",
+                        "$options": "i"
+                      }
+                    },
+                    {
+                      "text": {
+                        "$regex": "tuyển sinh|phương thức|tổ hợp",
+                        "$options": "i"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "title": 1,
+                  "text": 1,
+                  "source_url": 1,
+                  "category": 1,
+                  "year": 1,
+                  "major_code": 1
+                }
+              },
+              {
+                "$limit": 100
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_source_coverage",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Mức phủ theo URL nguồn",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Mức phủ theo URL nguồn",
+            "pipeline": [
+              {
+                "$match": {
+                  "source_url": {
+                    "$type": "string",
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$source_url",
+                  "documents": {
+                    "$sum": 1
+                  },
+                  "categories": {
+                    "$addToSet": "$category"
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "source_url": "$_id",
+                  "documents": 1,
+                  "categories": 1
+                }
+              },
+              {
+                "$sort": {
+                  "documents": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_unknown_year",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tài liệu thiếu hoặc không rõ năm",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tài liệu thiếu hoặc không rõ năm",
+            "pipeline": [
+              {
+                "$match": {
+                  "$or": [
+                    {
+                      "year": {
+                        "$exists": false
+                      }
+                    },
+                    {
+                      "year": {
+                        "$in": [
+                          null,
+                          "",
+                          "unknown"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "$project": {
+                  "title": 1,
+                  "source_url": 1,
+                  "category": 1
+                }
+              },
+              {
+                "$limit": 200
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_quality_preview",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Chấm điểm chất lượng tài liệu (chỉ đọc)",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Chấm điểm chất lượng tài liệu (chỉ đọc)",
+            "pipeline": [
+              {
+                "$addFields": {
+                  "quality_score": {
+                    "$add": [
+                      {
+                        "$cond": [
+                          {
+                            "$gt": [
+                              {
+                                "$strLenCP": {
+                                  "$ifNull": [
+                                    "$text",
+                                    ""
+                                  ]
+                                }
+                              },
+                              300
+                            ]
+                          },
+                          35,
+                          0
+                        ]
+                      },
+                      {
+                        "$cond": [
+                          {
+                            "$ne": [
+                              {
+                                "$ifNull": [
+                                  "$source_url",
+                                  ""
+                                ]
+                              },
+                              ""
+                            ]
+                          },
+                          25,
+                          0
+                        ]
+                      },
+                      {
+                        "$cond": [
+                          {
+                            "$ne": [
+                              {
+                                "$ifNull": [
+                                  "$title",
+                                  ""
+                                ]
+                              },
+                              ""
+                            ]
+                          },
+                          20,
+                          0
+                        ]
+                      },
+                      {
+                        "$cond": [
+                          {
+                            "$isArray": "$embedding"
+                          },
+                          20,
+                          0
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "title": 1,
+                  "source_url": 1,
+                  "category": 1,
+                  "quality_score": 1
+                }
+              },
+              {
+                "$sort": {
+                  "quality_score": 1
+                }
+              },
+              {
+                "$limit": 200
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "kb_faceted_audit",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Kiểm toán nhiều chiều kho tri thức",
+    "source_collection": "huit_kb",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Kiểm toán nhiều chiều kho tri thức",
+            "pipeline": [
+              {
+                "$facet": {
+                  "missing_title": [
+                    {
+                      "$match": {
+                        "title": {
+                          "$in": [
+                            null,
+                            ""
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "$count": "count"
+                    }
+                  ],
+                  "missing_text": [
+                    {
+                      "$match": {
+                        "text": {
+                          "$in": [
+                            null,
+                            ""
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "$count": "count"
+                    }
+                  ],
+                  "missing_source": [
+                    {
+                      "$match": {
+                        "source_url": {
+                          "$in": [
+                            null,
+                            ""
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "$count": "count"
+                    }
+                  ],
+                  "missing_embedding": [
+                    {
+                      "$match": {
+                        "embedding": {
+                          "$exists": false
+                        }
+                      }
+                    },
+                    {
+                      "$count": "count"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "cache_overview",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tổng quan bộ nhớ đệm câu trả lời",
+    "source_collection": "query_cache",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tổng quan bộ nhớ đệm câu trả lời",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": null,
+                  "entries": {
+                    "$sum": 1
+                  },
+                  "oldest": {
+                    "$min": "$updated_at"
+                  },
+                  "newest": {
+                    "$max": "$updated_at"
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "cache_expired_entries",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Liệt kê cache hết hạn",
+    "source_collection": "query_cache",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Liệt kê cache hết hạn",
+            "pipeline": [
+              {
+                "$match": {
+                  "expires_at": {
+                    "$lt": "$$NOW"
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "cache_key": 1,
+                  "question_clean": 1,
+                  "expires_at": 1
+                }
+              },
+              {
+                "$sort": {
+                  "expires_at": 1
+                }
+              },
+              {
+                "$limit": 200
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "cache_source_count",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Phân bố số nguồn trong cache",
+    "source_collection": "query_cache",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Phân bố số nguồn trong cache",
+            "pipeline": [
+              {
+                "$project": {
+                  "source_count": {
+                    "$cond": [
+                      {
+                        "$isArray": "$sources"
+                      },
+                      {
+                        "$size": "$sources"
+                      },
+                      0
+                    ]
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": "$source_count",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "source_count": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "rag_intent_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Số truy vấn theo ý định",
+    "source_collection": "rag_events",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Số truy vấn theo ý định",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$intent",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "intent": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "rag_latency_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Độ trễ RAG tổng hợp",
+    "source_collection": "rag_events",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Độ trễ RAG tổng hợp",
+            "pipeline": [
+              {
+                "$match": {
+                  "elapsed_ms": {
+                    "$type": "number"
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": null,
+                  "requests": {
+                    "$sum": 1
+                  },
+                  "avg_ms": {
+                    "$avg": "$elapsed_ms"
+                  },
+                  "min_ms": {
+                    "$min": "$elapsed_ms"
+                  },
+                  "max_ms": {
+                    "$max": "$elapsed_ms"
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "rag_fallback_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tỉ lệ trả lời fallback",
+    "source_collection": "rag_events",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tỉ lệ trả lời fallback",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$fallback",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "fallback": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "rag_cache_hit_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tỉ lệ cache hit",
+    "source_collection": "rag_events",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tỉ lệ cache hit",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$cached",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "cached": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "rag_model_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Số truy vấn theo model",
+    "source_collection": "rag_events",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Số truy vấn theo model",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$model",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "model": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "rag_kb_version_stats",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Số truy vấn theo phiên bản KB",
+    "source_collection": "rag_events",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Số truy vấn theo phiên bản KB",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$kb_version",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "kb_version": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "rag_source_distribution",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Phân bố số nguồn mỗi câu trả lời",
+    "source_collection": "rag_events",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Phân bố số nguồn mỗi câu trả lời",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": "$source_count",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "source_count": "$_id",
+                  "count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "rag_daily_volume",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Lưu lượng RAG theo ngày",
+    "source_collection": "rag_events",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Lưu lượng RAG theo ngày",
+            "pipeline": [
+              {
+                "$match": {
+                  "created_at": {
+                    "$type": "date"
+                  }
+                }
+              },
+              {
+                "$group": {
+                  "_id": {
+                    "$dateToString": {
+                      "format": "%Y-%m-%d",
+                      "date": "$created_at"
+                    }
+                  },
+                  "requests": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "day": "$_id",
+                  "requests": 1
+                }
+              },
+              {
+                "$sort": {
+                  "day": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "module_registry_overview",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tổng quan kho module",
+    "source_collection": "code_modules",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tổng quan kho module",
+            "pipeline": [
+              {
+                "$group": {
+                  "_id": {
+                    "kind": "$kind",
+                    "risk": "$risk_level",
+                    "enabled": "$enabled"
+                  },
+                  "count": {
+                    "$sum": 1
+                  }
+                }
+              },
+              {
+                "$sort": {
+                  "count": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "module_write_audit",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Liệt kê module có quyền ghi",
+    "source_collection": "code_modules",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Liệt kê module có quyền ghi",
+            "pipeline": [
+              {
+                "$match": {
+                  "risk_level": "write"
+                }
+              },
+              {
+                "$project": {
+                  "_id": 1,
+                  "module_version": 1,
+                  "enabled": 1,
+                  "allowed_targets": 1
+                }
+              },
+              {
+                "$sort": {
+                  "_id": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "clean_data_preview",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Xem trước dữ liệu đã làm sạch",
+    "source_collection": "test_clean_data",
+    "risk_level": "read",
+    "allowed_targets": [],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Xem trước dữ liệu đã làm sạch",
+            "pipeline": [
+              {
+                "$match": {
+                  "clean_text": {
+                    "$type": "string",
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "clean_text": 1,
+                  "source_url": 1,
+                  "page_title": 1,
+                  "char_count": 1
+                }
+              },
+              {
+                "$sort": {
+                  "char_count": -1
+                }
+              },
+              {
+                "$limit": 200
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "write_clean_pages_v2",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tạo collection trang sạch phiên bản 2",
+    "source_collection": "raw_data",
+    "risk_level": "write",
+    "allowed_targets": [
+      "test_clean_data_v2"
+    ],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tạo collection trang sạch phiên bản 2",
+            "pipeline": [
+              {
+                "$match": {
+                  "url": {
+                    "$type": "string",
+                    "$ne": ""
+                  },
+                  "markdown": {
+                    "$type": "string",
+                    "$ne": ""
+                  }
+                }
+              },
+              {
+                "$project": {
+                  "_id": 0,
+                  "source_url": "$url",
+                  "page_title": "$title",
+                  "clean_text": {
+                    "$trim": {
+                      "input": "$markdown"
+                    }
+                  },
+                  "char_count": {
+                    "$strLenCP": "$markdown"
+                  }
+                }
+              },
+              {
+                "$out": "test_clean_data_v2"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "write_categorized_pages_v2",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tạo collection phân loại phiên bản 2",
+    "source_collection": "test_clean_data",
+    "risk_level": "write",
+    "allowed_targets": [
+      "test_categorized_data_v2"
+    ],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tạo collection phân loại phiên bản 2",
+            "pipeline": [
+              {
+                "$addFields": {
+                  "category": {
+                    "$switch": {
+                      "branches": [
+                        {
+                          "case": {
+                            "$regexMatch": {
+                              "input": "$clean_text",
+                              "regex": "học phí|tín chỉ",
+                              "options": "i"
+                            }
+                          },
+                          "then": "tuition"
+                        },
+                        {
+                          "case": {
+                            "$regexMatch": {
+                              "input": "$clean_text",
+                              "regex": "điểm chuẩn|điểm sàn",
+                              "options": "i"
+                            }
+                          },
+                          "then": "cutoff"
+                        },
+                        {
+                          "case": {
+                            "$regexMatch": {
+                              "input": "$clean_text",
+                              "regex": "học bổng",
+                              "options": "i"
+                            }
+                          },
+                          "then": "scholarship"
+                        }
+                      ],
+                      "default": "general"
+                    }
+                  }
+                }
+              },
+              {
+                "$out": "test_categorized_data_v2"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": "write_quality_ranked_v2",
+    "module_version": "1.0.0",
+    "kind": "mongodb_aggregation",
+    "enabled": true,
+    "description": "Tạo collection xếp hạng chất lượng phiên bản 2",
+    "source_collection": "huit_kb",
+    "risk_level": "write",
+    "allowed_targets": [
+      "test_quality_ranked_v2"
+    ],
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "public": {
+      "node_data": {
+        "jsonSchema": {
+          "type": "object",
+          "required": [
+            "_id",
+            "module_version",
+            "kind",
+            "enabled",
+            "source_collection",
+            "risk_level"
+          ]
+        }
+      }
+    },
+    "private": {
+      "node_function": {
+        "edge": [
+          {
+            "purpose": "Tạo collection xếp hạng chất lượng phiên bản 2",
+            "pipeline": [
+              {
+                "$addFields": {
+                  "quality_score": {
+                    "$add": [
+                      {
+                        "$cond": [
+                          {
+                            "$gt": [
+                              {
+                                "$strLenCP": {
+                                  "$ifNull": [
+                                    "$text",
+                                    ""
+                                  ]
+                                }
+                              },
+                              300
+                            ]
+                          },
+                          40,
+                          0
+                        ]
+                      },
+                      {
+                        "$cond": [
+                          {
+                            "$ne": [
+                              {
+                                "$ifNull": [
+                                  "$source_url",
+                                  ""
+                                ]
+                              },
+                              ""
+                            ]
+                          },
+                          30,
+                          0
+                        ]
+                      },
+                      {
+                        "$cond": [
+                          {
+                            "$isArray": "$embedding"
+                          },
+                          30,
+                          0
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "$sort": {
+                  "quality_score": -1
+                }
+              },
+              {
+                "$out": "test_quality_ranked_v2"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+]

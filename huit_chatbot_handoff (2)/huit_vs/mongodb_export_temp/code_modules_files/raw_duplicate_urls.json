@@ -1,0 +1,72 @@
+{
+  "_id": "raw_duplicate_urls",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Phát hiện URL trùng",
+  "source_collection": "raw_data",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Phát hiện URL trùng",
+          "pipeline": [
+            {
+              "$match": {
+                "url": {
+                  "$type": "string",
+                  "$ne": ""
+                }
+              }
+            },
+            {
+              "$group": {
+                "_id": "$url",
+                "count": {
+                  "$sum": 1
+                },
+                "ids": {
+                  "$push": "$_id"
+                }
+              }
+            },
+            {
+              "$match": {
+                "count": {
+                  "$gt": 1
+                }
+              }
+            },
+            {
+              "$sort": {
+                "count": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "_id": "rag_source_distribution",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Phân bố số nguồn mỗi câu trả lời",
+  "source_collection": "rag_events",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Phân bố số nguồn mỗi câu trả lời",
+          "pipeline": [
+            {
+              "$group": {
+                "_id": "$source_count",
+                "count": {
+                  "$sum": 1
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "source_count": "$_id",
+                "count": 1
+              }
+            },
+            {
+              "$sort": {
+                "count": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

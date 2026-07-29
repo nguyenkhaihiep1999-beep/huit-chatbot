@@ -1,0 +1,77 @@
+{
+  "_id": "raw_content_length_stats",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Thống kê độ dài dữ liệu thô",
+  "source_collection": "raw_data",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Thống kê độ dài dữ liệu thô",
+          "pipeline": [
+            {
+              "$match": {
+                "markdown": {
+                  "$type": "string"
+                }
+              }
+            },
+            {
+              "$project": {
+                "chars": {
+                  "$strLenCP": "$markdown"
+                }
+              }
+            },
+            {
+              "$group": {
+                "_id": null,
+                "documents": {
+                  "$sum": 1
+                },
+                "avg_chars": {
+                  "$avg": "$chars"
+                },
+                "min_chars": {
+                  "$min": "$chars"
+                },
+                "max_chars": {
+                  "$max": "$chars"
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

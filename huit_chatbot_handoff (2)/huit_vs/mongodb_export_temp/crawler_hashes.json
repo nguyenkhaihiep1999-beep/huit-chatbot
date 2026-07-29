@@ -1,0 +1,289 @@
+[
+  {
+    "_id": "6a62d68be19898b5eb505d4e",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-tri-tue-nhan-tao",
+    "hash": "c3bf2edfa3ed48b8f355d75c9f3ba3af",
+    "title": "Ngành Trí tuệ nhân tạo (Mã ngành: 7480107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862347.8474994
+  },
+  {
+    "_id": "6a62d68be19898b5eb505d4f",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thong-tin",
+    "hash": "bc5f0c0398be409826112a2045757d66",
+    "title": "Ngành Công nghệ thông tin (Mã ngành: 7480201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862347.9480414
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d50",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-an-toan-thong-tin",
+    "hash": "0abfeca62321f50ccb44441919de0f86",
+    "title": "Ngành An toàn thông tin (Mã ngành: 7480202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.0365603
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d51",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-du-lieu",
+    "hash": "267af5fd7dc28eb27afc744b3523d18c",
+    "title": "Ngành Khoa học dữ liệu (Mã ngành: 7460108) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.1160123
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d52",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thuc-pham",
+    "hash": "41c70e3677e2dcb9744548c607a5c590",
+    "title": "Ngành Công nghệ thực phẩm (Mã ngành: 7540101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.1978724
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d53",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-dam-bao-chat-luong-va-an-toan-thuc-pham",
+    "hash": "fd3b436e5d7bc7dbb2c3cbcd255241f6",
+    "title": "Ngành Đảm bảo chất lượng và an toàn thực phẩm (Mã ngành: 7540106) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.2785366
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d54",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-che-bien-thuy-san",
+    "hash": "95adbacc98f2421f012f93eb29e8eb0e",
+    "title": "Ngành Công nghệ chế biến thủy sản (Mã ngành: 7540105) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.3534708
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d55",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-dinh-duong-va-am-thuc",
+    "hash": "c6d4f71c94e086e519cc9f6bc0dae1bd",
+    "title": "Ngành Khoa học dinh dưỡng và ẩm thực (Mã ngành: 7540107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.4307604
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d56",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-che-bien-mon-an",
+    "hash": "065b9c697eaed6c99db1f05c2d44681f",
+    "title": "Ngành Khoa học chế biến món ăn (Mã ngành: 7810203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.5201616
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d57",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-marketing",
+    "hash": "d5241407bbbf6e5f0caae896dae9deb0",
+    "title": "Ngành Marketing (Mã ngành: 7340115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.5973964
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d58",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-kinh-doanh-quoc-te",
+    "hash": "09679af2248bc6f81557428a9faac68e",
+    "title": "Ngành Kinh doanh quốc tế (Mã ngành: 7340120) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.6828833
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d59",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-logistic-va-quan-ly-chuoi-cung-ung",
+    "hash": "e1c715563409058633a832101dd727c3",
+    "title": "Ngành Logistics và quản lý chuỗi cung ứng (Mã ngành: 7510605) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.7644129
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d5a",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-kinh-doanh",
+    "hash": "bcffc4b2c958d56cd571187551b3e607",
+    "title": "Ngành Quản trị kinh doanh (Mã ngành: 7340101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.854493
+  },
+  {
+    "_id": "6a62d68ce19898b5eb505d5b",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-thuong-mai-dien-tu",
+    "hash": "ecf2a56bfae2810b5ff0d28512e5dced",
+    "title": "Ngành Thương mại điện tử (Mã ngành: 7340122) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862348.9374142
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d5c",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-tai-chinh-ngan-hang",
+    "hash": "1d033bc957fcc202fe9701543c140eba",
+    "title": "Ngành Tài chính ngân hàng (Mã ngành: 7340201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.0124412
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d5d",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-tai-chinh-fintech",
+    "hash": "4bd3df52aa38ca347c2c321a18d370f7",
+    "title": "Ngành Công nghệ Tài Chính (Fintech) (Mã ngành: 7340205) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.0978355
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d5e",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-ke-toan",
+    "hash": "b9a06aab6aebf59202f72724a8753b1f",
+    "title": "Ngành Kế toán (Mã ngành: 7340301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.18086
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d5f",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-luat-kinh-te",
+    "hash": "45392449f190ec9e1ce253c9f58d3d52",
+    "title": "Ngành Luật kinh tế (Mã ngành: 7380107) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.2574568
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d60",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-luat",
+    "hash": "a7d2d7e4fda9e9a3b15b4e33e092512c",
+    "title": "Ngành Luật (Mã ngành: 7380101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.3339324
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d61",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-anh-dh",
+    "hash": "83940041d21c33b066787689965dca11",
+    "title": "Ngành Ngôn ngữ Anh (Mã ngành: 7220201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.4318519
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d62",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-trung-quoc",
+    "hash": "48c7d203eaa602bc519a9512404714d5",
+    "title": "Ngành Ngôn ngữ Trung Quốc (Mã ngành: 7220204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.5085237
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d63",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-khach-san",
+    "hash": "a473fdd1e9ac0abc0d2fc83d9691370a",
+    "title": "Ngành Quản trị khách sạn (Mã ngành: 7810201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.593065
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d64",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-nha-hang-va-dich-vu-an-uong",
+    "hash": "330dee4ad51c6c02adea16a990463e12",
+    "title": "Ngành Quản trị Nhà hàng và Dịch vụ ăn uống (Mã ngành: 7810202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.666772
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d65",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-dich-vu-du-lich-va-lu-hanh",
+    "hash": "094b2f89bd0f56dceb32ea141c658057",
+    "title": "Ngành Quản trị dịch vụ du lịch và lữ hành (Mã ngành: 7810101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.750731
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d66",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
+    "hash": "7cbdc311056752a6b1972ddd24566a5c",
+    "title": "Ngành Du lịch (Mã ngành: 7810103) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.8263912
+  },
+  {
+    "_id": "6a62d68de19898b5eb505d67",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-dieu-khien-va-tu-dong-hoa",
+    "hash": "214d29e8dab108a07f466fa185bafeb1",
+    "title": "Ngành Công nghệ kỹ thuật điều khiển và tự động hóa (Mã ngành: 7510303) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.9167364
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d68",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-dien-%E2%80%93-dien-tu",
+    "hash": "1bca53e612250ea8edeaace6e9facbed",
+    "title": "Ngành Công nghệ kỹ thuật điện – điện tử (Mã ngành: 7510301) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862349.9929464
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d69",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-ky-thuat-nhiet",
+    "hash": "8c0ed8f03d33b403794c5b6a1f18e751",
+    "title": "Ngành Kỹ thuật Nhiệt (Mã ngành: 7520115) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.0692117
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d6a",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-co-dien-tu",
+    "hash": "49df9a74e9bdae6152247b0ff63ce537",
+    "title": "Ngành Công nghệ kỹ thuật cơ điện tử (Mã ngành: 7510203) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.1549828
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d6b",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-che-tao-may",
+    "hash": "9483a5afeaa90c4b3f8076cb6808940d",
+    "title": "Ngành Công nghệ chế tạo máy (Mã ngành: 7510202) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.2341862
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d6c",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-det-may",
+    "hash": "3754da00a5b205186b3745be4a782d0a",
+    "title": "Ngành Công nghệ dệt, may (Mã ngành: 7540204) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.3200288
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d6d",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-kinh-doanh-thoi-trang-va-det-may",
+    "hash": "c94a1009abe1b2773e63e218a7b6fabc",
+    "title": "Ngành Kinh doanh thời trang và dệt may (Mã ngành: 7340123) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.4033604
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d6e",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-hoa-hoc",
+    "hash": "57a1c6a6c32c9964bb2341e7b0f9e876",
+    "title": "Ngành Công nghệ kỹ thuật Hóa học (Mã ngành: 7510401) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.472337
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d6f",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-sinh-hoc",
+    "hash": "443ccbb64e3486c2f828406c8fc3b939",
+    "title": "Ngành Công nghệ sinh học (Mã ngành: 7420201) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.5555944
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d70",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-moi-truong",
+    "hash": "fef4c9833cc22aec6b9412d0c650cb26",
+    "title": "Ngành Công nghệ kỹ thuật môi trường (Mã ngành: 7510406) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.6464531
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d71",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-ly-tai-nguyen-va-moi-truong",
+    "hash": "3609fb50fb690635d6bc795cb70345b6",
+    "title": "Ngành Quản lý tài nguyên và môi trường (Mã ngành: 7850101) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.7222524
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d72",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-vat-lieu",
+    "hash": "a25751d86e033aacf953136211b5f0a4",
+    "title": "Ngành Công nghệ vật liệu (Mã ngành: 7510402) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.8123891
+  },
+  {
+    "_id": "6a62d68ee19898b5eb505d73",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-ly-cong-nghiep",
+    "hash": "04856af337e8472b263f3090ae7108a9",
+    "title": "Ngành Quản lý Công nghiệp (Mã ngành: 7510601) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.8932292
+  },
+  {
+    "_id": "6a62d68fe19898b5eb505d74",
+    "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-kinh-doanh-thuc-pham",
+    "hash": "0c1136170c73dff815af78f6b42dc915",
+    "title": "Ngành Quản trị kinh doanh Thực phẩm (Mã ngành: 7340129) - Trường Đại học Công Thương TP.HCM - Tuyển Sinh HUIT",
+    "updated_at": 1784862350.9736779
+  },
+  {
+    "_id": "6a62d68fe19898b5eb505d75",
+    "url": "https://ts.huit.edu.vn/tin-tuyen-sinh/diem-san-xet-tuyen-dai-hoc-nam-2025-truong-dai-hoc-cong-thuong-tp-hcm",
+    "hash": "06273eb41d3bbf8896aede2b6f43ba17",
+    "title": "Thông báo Điểm sàn Xét tuyển Đại học chính quy năm 2025 Trường Đại học Công Thương TP.HCM (HUIT)",
+    "updated_at": 1784862351.0554957
+  },
+  {
+    "_id": "6a62d68fe19898b5eb505d76",
+    "url": "https://ts.huit.edu.vn/thong-bao/chinh-sach-hoc-phi-va-hoc-bong-tuyen-sinh-huit-nam-2025-2026",
+    "hash": "7f6bae44c9520ada217fe8f27fddfd03",
+    "title": "Chính sách Học phí & Học bổng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT)",
+    "updated_at": 1784862351.1286674
+  }
+]

@@ -1,0 +1,73 @@
+{
+  "_id": "write_clean_pages_v2",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Tạo collection trang sạch phiên bản 2",
+  "source_collection": "raw_data",
+  "risk_level": "write",
+  "allowed_targets": [
+    "test_clean_data_v2"
+  ],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Tạo collection trang sạch phiên bản 2",
+          "pipeline": [
+            {
+              "$match": {
+                "url": {
+                  "$type": "string",
+                  "$ne": ""
+                },
+                "markdown": {
+                  "$type": "string",
+                  "$ne": ""
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "source_url": "$url",
+                "page_title": "$title",
+                "clean_text": {
+                  "$trim": {
+                    "input": "$markdown"
+                  }
+                },
+                "char_count": {
+                  "$strLenCP": "$markdown"
+                }
+              }
+            },
+            {
+              "$out": "test_clean_data_v2"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

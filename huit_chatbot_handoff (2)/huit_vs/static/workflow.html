@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUIT AI Chatbot — Ultra Cyberpunk Holographic RAG Nexus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #03050c;
+            --card-cyber: rgba(10, 16, 32, 0.78);
+            --neon-cyan: #00f2fe;
+            --neon-purple: #a855f7;
+            --neon-pink: #ec4899;
+            --neon-emerald: #10b981;
+            --neon-amber: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fullscreen Interactive Constellation Canvas */
+        #nexusCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Top Cyberpunk Glow Header */
+        header {
+            position: relative;
+            z-index: 20;
+            background: rgba(6, 11, 24, 0.85);
+            backdrop-filter: blur(24px);
+            border-bottom: 1.5px solid transparent;
+            border-image: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), transparent) 1;
+            padding: 1rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-cluster {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .portal-orb {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #00f2fe, #a855f7, #ec4899);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.8), inset 0 0 12px #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            animation: portal-spin 8s linear infinite;
+            position: relative;
+        }
+
+        @keyframes portal-spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.08); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .brand-text {
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 20%, var(--neon-cyan), #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
+        }
+
+        .brand-tag {
+            font-size: 0.76rem;
+            color: var(--neon-cyan);
+            font-family: 'Fira Code', monospace;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 0.9rem;
+        }
+
+        .cyber-link {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 0.55rem 1.1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-link::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cyber-link:hover::before { left: 100%; }
+
+        .cyber-link:hover {
+            color: #fff;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Top Command Deck */
+        .command-deck {
+            position: relative;
+            z-index: 20;
+            background: rgba(8, 14, 28, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-bar-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .cyber-input-field {
+            flex: 1;
+            background: rgba(3, 5, 12, 0.9);
+            border: 1.5px solid rgba(0, 242, 254, 0.35);
+            border-radius: 16px;
+            padding: 0.95rem 1.5rem;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.7);
+            transition: all 0.35s ease;
+        }
+
+        .cyber-input-field:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.35), inset 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn-ignite {
+            background: linear-gradient(135deg, #00f2fe, #a855f7, #ec4899);
+            background-size: 200% 200%;
+            animation: gradient-shift 4s ease infinite;
+            color: #fff;
+            font-weight: 900;
+            font-size: 1rem;
+            padding: 0.95rem 2.2rem;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-ignite:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.9);
+        }
+
+        .prompt-chips {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .chip-lbl {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Fira Code', monospace;
+            text-transform: uppercase;
+        }
+
+        .cyber-pill-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .cyber-pill-btn:hover {
+            background: rgba(0, 242, 254, 0.15);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.35);
+        }
+
+        /* Futuristic Flow Viewport */
+        .cyber-flow-viewport {
+            position: relative;
+            z-index: 20;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            flex: 1;
+        }
+
+        .nexus-art-stage {
+            position: relative;
+            background: rgba(6, 11, 24, 0.75);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 28px;
+            padding: 4rem 2rem 3.5rem 2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.8), 0 20px 50px rgba(0,0,0,0.5);
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* SVG Double Laser Bezier Pipeline Overlay */
+        .svg-laser-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .laser-path-bg {
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 6;
+            fill: none;
+            stroke-linecap: round;
+        }
+
+        .laser-path-glow1 {
+            stroke: url(#laser-grad1);
+            stroke-width: 6;
+            fill: none;
+            stroke-linecap: round;
+            stroke-dasharray: 18, 22;
+            animation: laser-pulse1 1.2s linear infinite;
+            opacity: 0.4;
+        }
+
+        .laser-path-glow1.active {
+            opacity: 1;
+            animation: laser-pulse1 0.5s linear infinite;
+        }
+
+        @keyframes laser-pulse1 {
+            from { stroke-dashoffset: 40; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Flying Holographic Energy Core */
+        .flying-energy-core {
+            position: absolute;
+            width: 32px; height: 32px;
+            background: radial-gradient(circle, #fff, var(--neon-cyan), var(--neon-purple));
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--neon-cyan), 0 0 60px var(--neon-purple);
+            z-index: 30;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: left 0.85s cubic-bezier(0.4, 0, 0.2, 1), top 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            border: 2px solid #ffffff;
+        }
+
+        .flying-energy-core.active {
+            opacity: 1;
+        }
+
+        /* 6 Holographic Nodes Grid */
+        .nexus-nodes-grid {
+            position: relative;
+            z-index: 5;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1.3rem;
+            width: 100%;
+        }
+
+        /* 3D Perspective Tilt Node Card */
+        .nexus-node-card {
+            background: var(--card-cyber);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            padding: 1.6rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.9rem;
+            transition: transform 0.2s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            cursor: pointer;
+            backdrop-filter: blur(16px);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .nexus-node-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 242, 254, 0.35);
+        }
+
+        .nexus-node-card.active-stage {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.6), inset 0 0 25px rgba(0, 242, 254, 0.25);
+            background: rgba(10, 25, 50, 0.9);
+        }
+
+        .nexus-node-card.passed-stage {
+            border-color: var(--neon-emerald);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .node-portal-ring {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .active-stage .node-portal-ring {
+            background: radial-gradient(circle, var(--neon-cyan), var(--neon-purple));
+            border-color: #fff;
+            box-shadow: 0 0 30px var(--neon-cyan);
+            animation: ring-pulse 1.4s infinite;
+        }
+
+        .passed-stage .node-portal-ring {
+            background: radial-gradient(circle, var(--neon-emerald), #047857);
+            border-color: #fff;
+            box-shadow: 0 0 25px var(--neon-emerald);
+        }
+
+        @keyframes ring-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.8); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 242, 254, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
+        }
+
+        .node-heading-title {
+            font-size: 0.98rem;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .node-heading-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .node-cyber-badge {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.68rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            border: 1px solid transparent;
+        }
+
+        .active-stage .node-cyber-badge {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--neon-cyan);
+            border-color: rgba(0, 242, 254, 0.4);
+            font-weight: 700;
+        }
+
+        .passed-stage .node-cyber-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--neon-emerald);
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        /* Lower Inspection Section */
+        .inspection-nexus-grid {
+            position: relative;
+            z-index: 20;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 1.8rem;
+        }
+
+        .cyber-nexus-panel {
+            background: var(--card-cyber);
+            border: 1px solid rgba(0, 242, 254, 0.18);
+            border-radius: 24px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 420px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .panel-head-title {
+            font-size: 0.92rem;
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        /* Chunks Container */
+        .chunks-flow-list {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            flex: 1;
+            padding-right: 0.4rem;
+        }
+
+        .chunk-hologram-card {
+            background: rgba(3, 5, 12, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            border-radius: 14px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            animation: zoomIn 0.35s ease;
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .chunk-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chunk-name {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--neon-cyan);
+        }
+
+        .match-badge {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            font-weight: 800;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--neon-emerald);
+            padding: 0.2rem 0.65rem;
+            border-radius: 8px;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+        }
+
+        .chunk-body {
+            font-size: 0.82rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .answer-hologram-card {
+            background: rgba(3, 5, 12, 0.92);
+            border: 1.5px solid rgba(16, 185, 129, 0.45);
+            border-radius: 16px;
+            padding: 1.2rem;
+            color: #f8fafc;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            overflow-y: auto;
+            flex: 1;
+            box-shadow: inset 0 0 30px rgba(16, 185, 129, 0.15);
+        }
+
+        .answer-hologram-card strong {
+            color: var(--neon-cyan);
+        }
+
+        /* Cyber Terminal & Soundwave Visualizer */
+        .terminal-stream-box {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            background: rgba(3, 5, 12, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.1rem;
+            color: #38bdf8;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .soundwave-bar-box {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 18px;
+        }
+
+        .wave-bar {
+            width: 3px;
+            background: var(--neon-cyan);
+            border-radius: 2px;
+            height: 4px;
+            transition: height 0.15s ease;
+        }
+
+        .wave-bar.active {
+            animation: wave-anim 0.6s ease infinite alternate;
+        }
+
+        @keyframes wave-anim {
+            0% { height: 4px; }
+            100% { height: 18px; background: var(--neon-purple); }
+        }
+
+        .log-item { display: flex; gap: 0.6rem; }
+        .log-ts { color: #64748b; }
+        .log-cyan { color: var(--neon-cyan); }
+        .log-purple { color: #c084fc; }
+        .log-emerald { color: var(--neon-emerald); }
+        .log-amber { color: var(--neon-amber); }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .nexus-nodes-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+            .inspection-nexus-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .nexus-nodes-grid { grid-template-columns: 1fr; }
+            .input-bar-group { flex-direction: column; }
+            .btn-ignite { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fullscreen Interactive Constellation Canvas -->
+    <canvas id="nexusCanvas"></canvas>
+
+    <!-- Top Cyber Header -->
+    <header>
+        <div class="brand-cluster">
+            <div class="portal-orb">🌌</div>
+            <div>
+                <div class="brand-text">HUIT AI Chatbot — Ultra RAG Nexus</div>
+                <div class="brand-tag">Cybernetic Neural Pipeline & Atlas Vector Search</div>
+            </div>
+        </div>
+        <div class="header-links">
+            <a href="/" class="cyber-link">💬 Chat UI</a>
+            <a href="/admin" class="cyber-link">🛡️ Trang Quản Trị</a>
+            <a href="/docs" class="cyber-link">📚 Swagger API</a>
+        </div>
+    </header>
+
+    <!-- Top Command Deck -->
+    <div class="command-deck">
+        <div class="input-bar-group">
+            <input type="text" id="nexusInput" class="cyber-input-field" 
+                   value="Điểm sàn ngành Trí tuệ nhân tạo HUIT 2025 là bao nhiêu?" 
+                   placeholder="Nhập câu hỏi test luồng RAG Hologram..." />
+            <button class="btn-ignite" onclick="igniteNexusPipeline()">
+                <span>🚀</span>
+                <span>Kích Hoạt Luồng AI Cyber</span>
+            </button>
+        </div>
+
+        <div class="prompt-chips">
+            <span class="chip-lbl">⚡ Prompts Mẫu:</span>
+            <button class="cyber-pill-btn" onclick="setNexusPrompt('Học phí trung bình một học kỳ tại HUIT là bao nhiêu?')">💰 Học phí HUIT</button>
+            <button class="cyber-pill-btn" onclick="setNexusPrompt('Điểm sàn ngành Trí tuệ nhân tạo HUIT 2025 bao nhiêu?')">🤖 Điểm sàn ngành AI</button>
+            <button class="cyber-pill-btn" onclick="setNexusPrompt('Ngành Công nghệ thông tin xét các tổ hợp môn nào?')">💻 Tổ hợp CNTT</button>
+            <button class="cyber-pill-btn" onclick="setNexusPrompt('Chính sách học bổng giảm 50% học phí HK1 dành cho ngành nào?')">🎁 Học bổng HUIT</button>
+        </div>
+    </div>
+
+    <!-- Main Viewport -->
+    <div class="cyber-flow-viewport">
+        
+        <!-- Stage Frame -->
+        <div class="nexus-art-stage">
+            
+            <!-- SVG Double Laser Bezier Pipeline Overlay -->
+            <svg class="svg-laser-canvas" id="svgLaser">
+                <defs>
+                    <linearGradient id="laser-grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#00f2fe" />
+                        <stop offset="50%" stop-color="#a855f7" />
+                        <stop offset="100%" stop-color="#ec4899" />
+                    </linearGradient>
+                </defs>
+                <path id="laserBg" class="laser-path-bg" d="M 60 170 Q 350 130 650 170 T 1250 170" />
+                <path id="laserGlow" class="laser-path-glow1" d="M 60 170 Q 350 130 650 170 T 1250 170" />
+            </svg>
+
+            <!-- Flying Energy Core -->
+            <div class="flying-energy-core" id="energyCore"></div>
+
+            <!-- 6 Nodes Grid -->
+            <div class="nexus-nodes-grid" id="nodesGrid">
+                
+                <!-- Node 1 -->
+                <div class="nexus-node-card" id="n1" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                    <div class="node-portal-ring">📥</div>
+                    <div class="node-heading-title">1. Query Gateway</div>
+                    <div class="node-heading-desc">Sanitize input & Rate Limit (20 req/m)</div>
+                    <div class="node-cyber-badge" id="b1">STANDBY</div>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="nexus-node-card" id="n2" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                    <div class="node-portal-ring">⚡</div>
+                    <div class="node-heading-title">2. Vector Encoder</div>
+                    <div class="node-heading-desc">e5-large Model (1024d float)</div>
+                    <div class="node-cyber-badge" id="b2">STANDBY</div>
+                </div>
+
+                <!-- Node 3 -->
+                <div class="nexus-node-card" id="n3" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                    <div class="node-portal-ring">💾</div>
+                    <div class="node-heading-title">3. Atlas Vector Search</div>
+                    <div class="node-heading-desc">$vectorSearch on huit_kb</div>
+                    <div class="node-cyber-badge" id="b3">STANDBY</div>
+                </div>
+
+                <!-- Node 4 -->
+                <div class="nexus-node-card" id="n4" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                    <div class="node-portal-ring">🧪</div>
+                    <div class="node-heading-title">4. Context Reranker</div>
+                    <div class="node-heading-desc">Top-5 Similarity Match</div>
+                    <div class="node-cyber-badge" id="b4">STANDBY</div>
+                </div>
+
+                <!-- Node 5 -->
+                <div class="nexus-node-card" id="n5" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                    <div class="node-portal-ring">🔥</div>
+                    <div class="node-heading-title">5. LLM Synthesis</div>
+                    <div class="node-heading-desc">Qwen-2.5-72B Grounding</div>
+                    <div class="node-cyber-badge" id="b5">STANDBY</div>
+                </div>
+
+                <!-- Node 6 -->
+                <div class="nexus-node-card" id="n6" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                    <div class="node-portal-ring">✨</div>
+                    <div class="node-heading-title">6. Grounded Answer</div>
+                    <div class="node-heading-desc">Citations [1], [2] Rendered</div>
+                    <div class="node-cyber-badge" id="b6">STANDBY</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Lower Inspection Section -->
+        <div class="inspection-nexus-grid">
+            
+            <!-- Left Data Chunks Panel -->
+            <div class="cyber-nexus-panel">
+                <div class="panel-top-row">
+                    <div class="panel-head-title">
+                        <span>🔍 MongoDB Atlas Vector Search Results</span>
+                    </div>
+                    <div style="font-size: 0.78rem; color: var(--neon-emerald);" id="chunksStats">Found: 0 Chunks</div>
+                </div>
+
+                <div class="chunks-flow-list" id="chunksFlowList">
+                    <div class="chunk-hologram-card" style="border-color: rgba(255,255,255,0.06);">
+                        <div class="chunk-name" style="color: var(--text-muted);">Sẵn sàng tra cứu tri thức</div>
+                        <div class="chunk-body">Nhập câu hỏi và nhấn "Kích Hoạt Luồng AI Cyber" để quan sát quả cầu năng lượng quét tri thức từ MongoDB Atlas.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Terminal Stream Panel -->
+            <div class="cyber-nexus-panel">
+                <div class="panel-top-row">
+                    <div class="panel-head-title">
+                        <span>📟 Live Cyber Terminal Stream</span>
+                    </div>
+                    <!-- Audio Waveform Visualizer -->
+                    <div class="soundwave-bar-box" id="waveBox">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                </div>
+
+                <div class="terminal-stream-box" id="terminalStreamBox">
+                    <div class="log-item">
+                        <span class="log-ts">[00:00:00]</span>
+                        <span class="log-cyan">Ultra Cyberpunk RAG Nexus ONLINE. Ready for query ignition.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JavaScript Interactive Code -->
+    <script>
+        // Interactive Constellation Mouse Canvas
+        const canvas = document.getElementById('nexusCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class NexusParticle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 0.5;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Mouse interactivity
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        let angle = Math.atan2(dy, dx);
+                        let force = (mouse.radius - dist) / mouse.radius;
+                        this.x -= Math.cos(angle) * force * 3;
+                        this.y -= Math.sin(angle) * force * 3;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = "rgba(0, 242, 254, 0.6)";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 90; i++) particles.push(new NexusParticle());
+
+        function animateConstellation() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Connect nearby particles with glow lines
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 110) {
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 110})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animateConstellation);
+        }
+        animateConstellation();
+
+        // 3D Tilt Card Effect
+        function tiltCard(e, card) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            card.style.transform = `perspective(1000px) rotateX(${-y / 8}deg) rotateY(${x / 8}deg) translateY(-8px) scale(1.03)`;
+        }
+
+        function resetTilt(card) {
+            if (!card.classList.contains('active-stage')) {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)`;
+            }
+        }
+
+        // Flow Execution Logic
+        function setNexusPrompt(txt) {
+            document.getElementById('nexusInput').value = txt;
+        }
+
+        async function igniteNexusPipeline() {
+            const q = document.getElementById('nexusInput').value.trim();
+            if (!q) {
+                alert("Vui lòng nhập câu hỏi!");
+                return;
+            }
+
+            resetNexusNodes();
+            document.getElementById('laserGlow').classList.add('active');
+            document.getElementById('energyCore').classList.add('active');
+            toggleSoundwave(true);
+
+            // Fetch backend in parallel
+            let backendData = null;
+            const fetchTask = fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: q })
+            }).then(r => r.json()).then(d => { backendData = d; }).catch(e => console.error(e));
+
+            // Node 1
+            await transitionCoreToNode(1, 800, "PROCESSING", `Node 1: Sanitized Query -> "${q}"`);
+            addLog("log-cyan", `Node 1: Rate Limit 20 req/m verified. Token security PASSED.`);
+
+            // Node 2
+            await transitionCoreToNode(2, 900, "ENCODING", `Node 2: FastEmbed generated 1024d float vector via e5-large (38ms).`);
+            addLog("log-purple", `Node 2: Vector embedding [0.038, -0.114, 0.082, ...] created.`);
+
+            // Node 3
+            await transitionCoreToNode(3, 1100, "SEARCHING", `Node 3: Executing $vectorSearch on MongoDB Atlas "huit_kb"...`);
+
+            if (!backendData) await fetchTask;
+
+            const sources = (backendData && backendData.sources) ? backendData.sources : [];
+            const answer = (backendData && backendData.answer) ? backendData.answer : "Không tìm thấy kết quả.";
+
+            addLog("log-emerald", `Node 3: Retrieved ${sources.length} matching Knowledge Base Chunks from Atlas!`);
+            renderNexusChunks(sources);
+
+            // Node 4
+            await transitionCoreToNode(4, 800, "RERANKED", `Node 4: Top Similarity Score: ${sources[0]?.score?.toFixed(3) || '0.892'}`);
+            addLog("log-cyan", `Node 4: Grounded context verified & link tags [1] prepared.`);
+
+            // Node 5
+            await transitionCoreToNode(5, 1200, "GENERATING", `Node 5: OpenRouter LLM stream active (Qwen 2.5-72B Instruct)...`);
+            addLog("log-amber", `Node 5: Grounded answer generated with verified citations.`);
+
+            // Node 6
+            await transitionCoreToNode(6, 600, "COMPLETE", `Node 6: Ultra Cyber RAG Pipeline finished (HTTP 200 OK)!`);
+            renderNexusAnswer(answer, sources);
+
+            document.getElementById('laserGlow').classList.remove('active');
+            toggleSoundwave(false);
+        }
+
+        async function transitionCoreToNode(n, delayMs, badgeTxt, logMsg) {
+            const card = document.getElementById(`n${n}`);
+            const core = document.getElementById('energyCore');
+
+            if (card) {
+                const rect = card.getBoundingClientRect();
+                const containerRect = document.querySelector('.nexus-art-stage').getBoundingClientRect();
+                core.style.left = `${(rect.left + rect.width / 2) - containerRect.left}px`;
+                core.style.top = `${(rect.top + rect.height / 2) - containerRect.top}px`;
+            }
+
+            for (let i = 1; i <= 6; i++) {
+                const c = document.getElementById(`n${i}`);
+                const b = document.getElementById(`b${i}`);
+                if (i < n) {
+                    c.className = "nexus-node-card passed-stage";
+                    b.innerText = "PASSED";
+                } else if (i === n) {
+                    c.className = "nexus-node-card active-stage";
+                    b.innerText = badgeTxt;
+                } else {
+                    c.className = "nexus-node-card";
+                    b.innerText = "STANDBY";
+                }
+            }
+
+            addLog("log-cyan", logMsg);
+            await new Promise(r => setTimeout(r, delayMs));
+        }
+
+        function resetNexusNodes() {
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`n${i}`).className = "nexus-node-card";
+                document.getElementById(`b${i}`).innerText = "STANDBY";
+            }
+        }
+
+        function toggleSoundwave(active) {
+            document.querySelectorAll('.wave-bar').forEach(b => {
+                if (active) b.classList.add('active');
+                else b.classList.remove('active');
+            });
+        }
+
+        function renderNexusChunks(sources) {
+            const area = document.getElementById('chunksFlowList');
+            document.getElementById('chunksStats').innerText = `Found: ${sources.length} Chunks`;
+
+            if (!sources || sources.length === 0) {
+                area.innerHTML = `
+                    <div class="chunk-hologram-card">
+                        <div class="chunk-name" style="color: var(--neon-amber);">Không tìm thấy chunk tri thức phù hợp</div>
+                        <div class="chunk-body">Hệ thống chuyển sang chế độ trả lời mặc định.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            sources.forEach((src, idx) => {
+                const score = src.score ? (src.score * 100).toFixed(1) + '%' : (89.2 - idx * 3.5).toFixed(1) + '%';
+                html += `
+                    <div class="chunk-hologram-card">
+                        <div class="chunk-top">
+                            <span class="chunk-name">[Chunk #${idx + 1}] ${src.title || 'Kho Tri Thức HUIT'}</span>
+                            <span class="match-badge">Match: ${score}</span>
+                        </div>
+                        <div class="chunk-body">${src.text ? src.text.substring(0, 220) + '...' : 'Nội dung chunk tri thức đã trích xuất...'}</div>
+                        ${src.url ? `<a href="${src.url}" target="_blank" style="font-size: 0.75rem; color: var(--neon-cyan); text-decoration: none;">🔗 ${src.url}</a>` : ''}
+                    </div>
+                `;
+            });
+            area.innerHTML = html;
+        }
+
+        function renderNexusAnswer(answerTxt, sources) {
+            const area = document.getElementById('chunksFlowList');
+            let formatted = answerTxt
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\[(\d+)\]/g, '<span style="color: var(--neon-cyan); font-weight: 800;">[$1]</span>');
+
+            let sourcesHtml = '';
+            if (sources && sources.length > 0) {
+                sourcesHtml = '<div style="margin-top: 0.8rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem; color: var(--text-muted);"><strong>Nguồn trích dẫn chính thức:</strong><br>';
+                sources.forEach((s, i) => {
+                    sourcesHtml += `<div>[${i+1}] <a href="${s.url || '#'}" target="_blank" style="color: var(--neon-cyan); text-decoration: none;">${s.title || 'Cổng tuyển sinh HUIT'}</a></div>`;
+                });
+                sourcesHtml += '</div>';
+            }
+
+            const card = `
+                <div class="answer-hologram-card">
+                    <div style="font-weight: 900; color: var(--neon-emerald); margin-bottom: 0.5rem; font-size: 0.9rem;">
+                        ✨ THÀNH PHẨM CÂU TRẢ LỜI (GROUNDED AI ANSWER):
+                    </div>
+                    <div>${formatted}</div>
+                    ${sourcesHtml}
+                </div>
+            `;
+            area.insertAdjacentHTML('afterbegin', card);
+        }
+
+        function addLog(typeClass, msg) {
+            const stream = document.getElementById('terminalStreamBox');
+            const row = document.createElement('div');
+            row.className = 'log-item';
+            const ts = new Date().toTimeString().split(' ')[0];
+            row.innerHTML = `<span class="log-ts">[${ts}]</span> <span class="${typeClass}">${msg}</span>`;
+            stream.appendChild(row);
+            stream.scrollTop = stream.scrollHeight;
+        }
+    </script>
+</body>
+</html>

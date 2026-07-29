@@ -1,0 +1,78 @@
+{
+  "_id": "raw_missing_fields",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Phát hiện trang thô thiếu trường",
+  "source_collection": "raw_data",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Phát hiện trang thô thiếu trường",
+          "pipeline": [
+            {
+              "$match": {
+                "$or": [
+                  {
+                    "url": {
+                      "$in": [
+                        null,
+                        ""
+                      ]
+                    }
+                  },
+                  {
+                    "markdown": {
+                      "$in": [
+                        null,
+                        ""
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "$project": {
+                "url": 1,
+                "title": 1,
+                "has_text": {
+                  "$ne": [
+                    "$markdown",
+                    ""
+                  ]
+                }
+              }
+            },
+            {
+              "$limit": 200
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

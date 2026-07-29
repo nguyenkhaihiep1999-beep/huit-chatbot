@@ -8,7 +8,7 @@ from fastapi.responses import FileResponse
 import uvicorn
 
 # Ensure current directory is in sys.path
-HERE = os.path.dirname(os.abspath(__file__)) if '__file__' in globals() else os.getcwd()
+HERE = os.path.dirname(os.path.abspath(__file__)) if '__file__' in globals() else os.getcwd()
 sys.path.insert(0, HERE)
 
 import rag_core
@@ -32,7 +32,10 @@ def chat_endpoint(payload: dict):
     q = payload.get("question", "").strip()
     if not q:
         return {"answer": "Vui lòng nhập câu hỏi.", "sources": []}
-    return rag_core.answer(q)
+    history = payload.get("history", [])
+    if isinstance(history, list) and len(history) > 10:
+        history = history[-10:]
+    return rag_core.answer(q, chat_history=history)
 
 @app.post("/api/sync-data")
 def sync_data_endpoint():

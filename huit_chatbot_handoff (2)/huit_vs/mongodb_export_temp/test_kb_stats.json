@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "Học phí & Lệ phí",
+    "total_chunks": 23,
+    "avg_text_length": 13417.130434782608
+  },
+  {
+    "_id": "Ngành đào tạo",
+    "total_chunks": 2,
+    "avg_text_length": 7812.0
+  },
+  {
+    "_id": "Điểm chuẩn & Xét tuyển",
+    "total_chunks": 1,
+    "avg_text_length": 8386.0
+  },
+  {
+    "_id": "Học bổng & Hỗ trợ",
+    "total_chunks": 1,
+    "avg_text_length": 8388.0
+  }
+]

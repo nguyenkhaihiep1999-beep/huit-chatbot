@@ -1,0 +1,86 @@
+{
+  "_id": "kb_duplicate_text",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Phát hiện nội dung tri thức trùng",
+  "source_collection": "huit_kb",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Phát hiện nội dung tri thức trùng",
+          "pipeline": [
+            {
+              "$match": {
+                "text": {
+                  "$type": "string",
+                  "$ne": ""
+                }
+              }
+            },
+            {
+              "$group": {
+                "_id": "$text",
+                "count": {
+                  "$sum": 1
+                },
+                "sources": {
+                  "$addToSet": "$source_url"
+                }
+              }
+            },
+            {
+              "$match": {
+                "count": {
+                  "$gt": 1
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "text_preview": {
+                  "$substrCP": [
+                    "$_id",
+                    0,
+                    180
+                  ]
+                },
+                "count": 1,
+                "sources": 1
+              }
+            },
+            {
+              "$sort": {
+                "count": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

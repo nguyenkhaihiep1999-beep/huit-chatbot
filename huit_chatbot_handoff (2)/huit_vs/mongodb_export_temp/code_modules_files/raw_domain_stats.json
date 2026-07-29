@@ -1,0 +1,76 @@
+{
+  "_id": "raw_domain_stats",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Thống kê nguồn tên miền",
+  "source_collection": "raw_data",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Thống kê nguồn tên miền",
+          "pipeline": [
+            {
+              "$project": {
+                "domain": {
+                  "$arrayElemAt": [
+                    {
+                      "$split": [
+                        "$url",
+                        "/"
+                      ]
+                    },
+                    2
+                  ]
+                }
+              }
+            },
+            {
+              "$group": {
+                "_id": "$domain",
+                "count": {
+                  "$sum": 1
+                }
+              }
+            },
+            {
+              "$project": {
+                "_id": 0,
+                "domain": "$_id",
+                "count": 1
+              }
+            },
+            {
+              "$sort": {
+                "count": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "_id": "kb_faceted_audit",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Kiểm toán nhiều chiều kho tri thức",
+  "source_collection": "huit_kb",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Kiểm toán nhiều chiều kho tri thức",
+          "pipeline": [
+            {
+              "$facet": {
+                "missing_title": [
+                  {
+                    "$match": {
+                      "title": {
+                        "$in": [
+                          null,
+                          ""
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "$count": "count"
+                  }
+                ],
+                "missing_text": [
+                  {
+                    "$match": {
+                      "text": {
+                        "$in": [
+                          null,
+                          ""
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "$count": "count"
+                  }
+                ],
+                "missing_source": [
+                  {
+                    "$match": {
+                      "source_url": {
+                        "$in": [
+                          null,
+                          ""
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "$count": "count"
+                  }
+                ],
+                "missing_embedding": [
+                  {
+                    "$match": {
+                      "embedding": {
+                        "$exists": false
+                      }
+                    }
+                  },
+                  {
+                    "$count": "count"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

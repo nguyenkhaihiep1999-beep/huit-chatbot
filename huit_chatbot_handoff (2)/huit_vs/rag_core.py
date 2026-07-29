@@ -108,9 +108,10 @@ def _clean_doc_title(title):
 def _normalize(text):
     text = str(text or "").lower()
     telex_map = [
+        (r"\bngnah\b", "nganh"),
+        (r"\bnganhj\b", "nganh"),
         (r"\bhocj\b", "hoc"),
         (r"\bphij\b", "phi"),
-        (r"\bnganhj\b", "nganh"),
         (r"\bxetj\b", "xet"),
         (r"\bdiemj\b", "diem"),
         (r"\bdiems\b", "diem"),
@@ -143,6 +144,37 @@ QUERY_ALIASES = {
     "dây chuyền tự động": "công nghệ kỹ thuật điều khiển và tự động hóa",
     "phân tích dữ liệu": "khoa học dữ liệu phân tích khai phá dữ liệu thống kê",
     "dữ liệu lớn": "khoa học dữ liệu big data khai phá dữ liệu",
+    # Mở rộng hướng nghiệp & các ngành đào tạo HUIT
+    "thiết kế váy": "công nghệ dệt may kinh doanh thời trang và dệt may thiết kế rập trang phục",
+    "thiết kế áo": "công nghệ dệt may kinh doanh thời trang và dệt may trang phục",
+    "thiết kế đầm": "công nghệ dệt may kinh doanh thời trang và dệt may trang phục",
+    "thiết kế trang phục": "công nghệ dệt may kinh doanh thời trang và dệt may",
+    "thiết kế thời trang": "công nghệ dệt may kinh doanh thời trang và dệt may",
+    "may mặc": "công nghệ dệt may thiết kế rập may công nghiệp",
+    "may rập": "công nghệ dệt may kỹ sư thiết kế rập",
+    "bán hàng thời trang": "kinh doanh thời trang và dệt may marketing thời trang",
+    "thời trang": "công nghệ dệt may kinh doanh thời trang và dệt may",
+    "lập trình game": "công nghệ thông tin kỹ thuật phần mềm trí tuệ nhân tạo",
+    "lập trình app": "công nghệ thông tin kỹ thuật phần mềm",
+    "viết app": "công nghệ thông tin kỹ thuật phần mềm",
+    "viết code": "công nghệ thông tin kỹ thuật phần mềm",
+    "lập trình viên": "công nghệ thông tin kỹ thuật phần mềm",
+    "nấu ăn": "quản trị dịch vụ ăn uống và kỹ thuật chế biến món ăn",
+    "làm bánh": "quản trị dịch vụ ăn uống và kỹ thuật chế biến món ăn công nghệ thực phẩm",
+    "ẩm thực": "quản trị dịch vụ ăn uống và kỹ thuật chế biến món ăn",
+    "đầu bếp": "quản trị dịch vụ ăn uống và kỹ thuật chế biến món ăn",
+    "mỹ phẩm": "công nghệ kỹ thuật hóa học hóa mỹ phẩm",
+    "son môi": "công nghệ kỹ thuật hóa học hóa mỹ phẩm",
+    "hóa chất": "công nghệ kỹ thuật hóa học",
+    "thiết kế đồ họa": "truyền thông đa phương tiện đồ họa",
+    "truyền thông": "truyền thông đa phương tiện marketing",
+    "sếp": "quản trị kinh doanh",
+    "quản lý": "quản trị kinh doanh",
+    "khởi nghiệp": "quản trị kinh doanh kinh doanh thương mại",
+    "xuất nhập khẩu": "logistics và quản lý chuỗi cung ứng thương mại quốc tế",
+    "con gái nên học": "công nghệ dệt may kinh doanh thời trang quản trị kinh doanh kế toán ngôn ngữ anh ngôn ngữ trung công nghệ thực phẩm công nghệ kỹ thuật hóa học",
+    "nữ nên học": "công nghệ dệt may kinh doanh thời trang quản trị kinh doanh kế toán ngôn ngữ anh ngôn ngữ trung công nghệ thực phẩm công nghệ kỹ thuật hóa học",
+    "dễ xin việc": "công nghệ thông tin công nghệ thực phẩm logistics và quản lý chuỗi cung ứng marketing kế toán công nghệ dệt may",
 }
 
 
@@ -164,12 +196,19 @@ INTENT_TERMS = {
     ),
     "cutoff": (
         "diem san", "diem chuan", "diem trung tuyen", "diem nganh",
-        "diem cntt", "diem it",
+        "diem cntt", "diem it", "diem nay", "diem xet tuyen",
     ),
     "scholarship": ("hoc bong", "giam hoc phi", "mien hoc phi"),
     "admission": (
         "phuong thuc xet tuyen", "xet tuyen", "xet hoc ba",
         "danh gia nang luc",
+    ),
+    "career": (
+        "chon nganh", "hoc nganh", "hoc ngnah", "hoc gi", "phu hop",
+        "huong nghiep", "nghe nghiep", "thich", "muon hoc", "muon lam",
+        "dam me", "con gai nen hoc", "nu nen hoc", "de xin viec",
+        "thiet ke", "vay", "dam", "may mac", "lap trinh", "nau an",
+        "my pham", "game", "truyen thong", "logistics", "xuat nhap khau",
     ),
     "major": ("ma nganh", "to hop", "nganh hoc", "co hoi viec lam", "nganh"),
     "contact": ("dia chi", "co so", "hotline", "lien he"),
@@ -182,7 +221,7 @@ TITLE_STOP_WORDS = {
 
 def classify_intent(question):
     normalized = _normalize(question)
-    for intent in ("scholarship", "cutoff", "tuition", "admission", "contact"):
+    for intent in ("scholarship", "cutoff", "tuition", "admission", "contact", "career"):
         if any(term in normalized for term in INTENT_TERMS[intent]):
             return intent
     scores = {
@@ -358,6 +397,23 @@ def retrieve(question, top_k=3):
             and major_title in q_normalized
             else 0.0
         )
+        # Career alignment boost to match user intent to proper faculty/program docs
+        career_boost = 0.0
+        norm_text = _normalize(text_content)
+        if intent == "career" or any(term in q_normalized for term in ["thiet ke", "vay", "dam", "may mac", "thoi trang", "nau an", "my pham", "lap trinh"]):
+            if any(k in q_normalized for k in ["vay", "dam", "may mac", "thoi trang", "trang phuc", "may rap"]):
+                if any(m in norm_text for m in ["det, may", "thoi trang", "7540204", "7340123", "khoa may"]):
+                    career_boost += 0.8
+            elif any(k in q_normalized for k in ["nau an", "lam banh", "am thuc", "dau bep"]):
+                if any(m in norm_text for m in ["che bien mon an", "dich vu an uong", "7810202", "am thuc"]):
+                    career_boost += 0.8
+            elif any(k in q_normalized for k in ["lap trinh", "game", "code", "app"]):
+                if any(m in norm_text for m in ["cong nghe thong tin", "ky thuat phan mem", "tri tue nhan tao", "7480101", "7480107"]):
+                    career_boost += 0.8
+            elif any(k in q_normalized for k in ["my pham", "son", "kem duong", "hoa chat"]):
+                if any(m in norm_text for m in ["hoa hoc", "hoa my pham", "7510401"]):
+                    career_boost += 0.8
+
         year_boost = 0.2 if requested_years and metadata["year"] in requested_years else 0.0
         year_penalty = -0.12 if requested_years and metadata["year"] and metadata["year"] not in requested_years else 0.0
         final_score = (
@@ -367,6 +423,7 @@ def retrieve(question, top_k=3):
             + code_boost
             + intent_boost
             + exact_major_boost
+            + career_boost
             + year_boost
             + year_penalty
         )
@@ -375,7 +432,7 @@ def retrieve(question, top_k=3):
         scored_candidates.append((final_score, doc))
 
     scored_candidates.sort(key=lambda x: x[0], reverse=True)
-    docs = [item[1] for item in scored_candidates if item[0] >= 0.18][:top_k]
+    docs = [item[1] for item in scored_candidates if item[0] >= 0.15][:top_k]
 
     # 4. General tuition heuristic fallback
     q_lower = question.lower()
@@ -393,7 +450,7 @@ def retrieve(question, top_k=3):
         if not any(d.get("_id") == general_tuition_doc["_id"] for d in docs):
             docs.insert(0, general_tuition_doc)
 
-    if intent == "cutoff":
+    if intent == "cutoff" or "diem nay" in q_normalized:
         cutoff_doc = {
             "_id": "huit_2026_cutoff_override",
             "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
@@ -454,9 +511,10 @@ def _call_llm(system_prompt, user_prompt):
     # Chuỗi ưu tiên các mô hình Qwen 2.5 và fallback linh hoạt
     models_to_try = [
         LLM_MODEL,
-        "qwen/qwen-2.5-72b-instruct",
+        "qwen/qwen-2.5-72b-instruct:free",
+        "meta-llama/llama-3.1-8b-instruct:free",
         "google/gemma-2-9b-it:free",
-        "meta-llama/llama-3.2-11b-vision-instruct:free",
+        "mistralai/mistral-7b-instruct:free",
         "openrouter/free",
     ]
     unique_models = []
@@ -818,6 +876,46 @@ def _fallback_answer(question, docs):
             "là chương trình riêng, cần phân biệt với hệ chính quy. [2]"
         )
 
+    if intent == "career" or any(k in q_normalized for k in ["vay", "dam", "may mac", "thoi trang", "lap trinh", "nau an", "my pham", "game", "truyen thong", "con gai nen hoc", "nu nen hoc"]):
+        if any(k in q_normalized for k in ["vay", "dam", "may mac", "thoi trang", "trang phuc", "may rap"]):
+            return (
+                "Nếu bạn yêu thích thiết kế váy, quần áo hoặc thời trang, tại **Trường Đại học Công Thương TP.HCM (HUIT)** bạn có thể lựa chọn 2 ngành đào tạo phù hợp nhất:\n\n"
+                "1. **Ngành Công nghệ dệt, may** (Mã ngành: `7540204`): Đào tạo chuyên sâu về thiết kế rập 2D/3D (Gerber, Lectra), quản lý dây chuyền sản xuất may công nghiệp, kiểm soát chất lượng trang phục xuất khẩu.\n"
+                "2. **Ngành Kinh doanh thời trang và dệt may** (Mã ngành: `7340123`): Đào tạo về kinh doanh chuỗi thời trang, Marketing thời trang, quản lý chuỗi cung ứng dệt may và phân tích xu hướng mốt.\n\n"
+                "Cả 2 ngành đều thuộc Khoa May - Thời trang HUIT và áp dụng chính sách học bổng hỗ trợ 50% học phí HK1 [1]. Bạn muốn mình tư vấn thêm về tổ hợp xét tuyển hay chương trình học ngành nào?"
+            )
+        if any(k in q_normalized for k in ["lap trinh", "game", "code", "app", "web"]):
+            return (
+                "Nếu bạn quan tâm đến lập trình, phát triển phần mềm hoặc game, HUIT có các ngành đào tạo nổi bật thuộc nhóm CNTT:\n\n"
+                "1. **Ngành Công nghệ thông tin** (Mã ngành: `7480101`): Lập trình phần mềm, ứng dụng di động, hệ thống mạng.\n"
+                "2. **Ngành Trí tuệ nhân tạo** (Mã ngành: `7480107`): Học máy, xử lý dữ liệu lớn, phân tích dữ liệu thông minh và AI.\n"
+                "3. **Ngành An toàn thông tin** (Mã ngành: `7480202`): Bảo mật thông tin, an ninh mạng.\n\n"
+                "Bạn muốn tìm hiểu tổ hợp môn xét tuyển hay điểm sàn năm 2026 của ngành nào? [1]"
+            )
+        if any(k in q_normalized for k in ["nau an", "lam banh", "am thuc", "dau bep", "nha hang"]):
+            return (
+                "Nếu bạn yêu thích ẩm thực, nấu ăn và quản lý nhà hàng, HUIT đào tạo các ngành rất phù hợp:\n\n"
+                "• **Ngành Quản trị dịch vụ ăn uống và kỹ thuật chế biến món ăn** (Mã ngành: `7810202`): Kỹ thuật chế biến món ăn Á - Âu, nghệ thuật ẩm thực và quản lý nhà hàng [1].\n"
+                "• **Ngành Quản trị nhà hàng và dịch vụ ăn uống** (Mã ngành: `7810206`)\n"
+                "• **Ngành Công nghệ thực phẩm** (Mã ngành: `7540101`)\n\n"
+                "Bạn muốn tra cứu thêm thông tin về tổ hợp môn hay phương thức xét tuyển ngành nào?"
+            )
+        if any(k in q_normalized for k in ["my pham", "son", "kem duong", "hoa chat"]):
+            return (
+                "Nếu bạn quan tâm đến lĩnh vực điều chế và sản xuất mỹ phẩm (kem dưỡng, son môi, sản phẩm làm đẹp), ngành học chuẩn nhất tại HUIT là:\n\n"
+                "• **Ngành Công nghệ kỹ thuật hóa học** (Mã ngành: `7510401`): Có chuyên ngành Hóa mỹ phẩm, đào tạo quy trình tổng hợp, kiểm nghiệm và sản xuất mỹ phẩm [1].\n\n"
+                "Bạn cần mình hỗ trợ tra cứu điểm sàn hay tổ hợp xét tuyển của ngành này không?"
+            )
+        if any(k in q_normalized for k in ["con gai", "nu"]):
+            return (
+                "Tại HUIT, sinh viên nữ có rất nhiều lựa chọn ngành học hot và cơ hội việc làm rộng mở:\n\n"
+                "1. **Nhóm Thời trang & Thiết kế**: Kinh doanh thời trang & dệt may, Công nghệ dệt may.\n"
+                "2. **Nhóm Kinh tế - Dịch vụ**: Quản trị kinh doanh, Marketing, Thương mại điện tử, Kế toán, Tài chính ngân hàng.\n"
+                "3. **Nhóm Ngôn ngữ**: Ngôn ngữ Anh, Ngôn ngữ Trung Quốc.\n"
+                "4. **Nhóm Hóa - Thực phẩm**: Công nghệ thực phẩm, Công nghệ kỹ thuật hóa học (Hóa mỹ phẩm).\n\n"
+                "Bạn muốn mình tư vấn chi tiết hơn về nhóm ngành nào?"
+            )
+
     if intent == "major" and docs:
         best = docs[0]
         code = best.get("major_code")
@@ -927,15 +1025,25 @@ def answer(question, chat_history=None, use_cache=True):
         used_fallback = True
         text = _fallback_answer(question, docs)
     
+    elapsed_ms = round((time.perf_counter() - started) * 1000)
+    trace = [
+        {"step": 1, "name": "Nhận diện Ý định (NLU)", "detail": f"Ý định: {intent}", "status": "success"},
+        {"step": 2, "name": "Truy vấn Kho tri thức HUIT", "detail": f"Vector Search & Keyword: Lấy {len(docs)} đoạn tri thức", "status": "success"},
+        {"step": 3, "name": "Tối ưu & Xếp hạng Ngữ cảnh", "detail": f"Lọc {len(sources)} nguồn minh chứng khớp nhất", "status": "success"},
+        {"step": 4, "name": "Tổng hợp qua LLM", "detail": f"Mô hình: {LLM_MODEL} ({'Chế độ fallback' if used_fallback else 'Hoàn tất'})", "status": "warning" if used_fallback else "success"}
+    ]
+
     res = {
         "answer": text,
         "sources": sources,
+        "trace": trace,
         "meta": {
             "intent": intent,
             "fallback": used_fallback,
             "model": LLM_MODEL,
             "kb_version": KB_VERSION,
             "rag_version": RAG_VERSION,
+            "latency_ms": elapsed_ms,
         },
     }
     if use_cache:
@@ -943,7 +1051,7 @@ def answer(question, chat_history=None, use_cache=True):
     log_event(
         question,
         res,
-        int((time.perf_counter() - started) * 1000),
+        elapsed_ms,
         intent,
     )
     return res

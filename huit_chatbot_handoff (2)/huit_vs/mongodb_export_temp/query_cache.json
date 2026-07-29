@@ -1,0 +1,1248 @@
+[
+  {
+    "_id": "6a67f4836bbb1179522dd282",
+    "cache_key": "358ec2a3cf4d3dbbdfba7c2840e3735acc623dfd0c8b1e71a9661679720c5804",
+    "answer": "Chào bạn! Ngành CNTT (Công nghệ Thông tin) tại HUIT có học phí tương tự với các ngành kỹ sư khác, theo thông tin chính thức từ [1], học phí",
+    "expires_at": "2026-07-29T00:14:59.030000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "tuition",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "hocj phi nganh cntt",
+    "question_clean": "hoc phi nganh cntt",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí K26 năm 2026]\nHọc phí khóa K26 năm 2026 là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành. Học phí toàn khóa của các ngành cử nhân phổ biến khoảng 143–148 triệu đồng; chương trình kỹ s"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Ngôn ngữ Anh (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-anh-dh",
+        "score": 0.371,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Ngôn ngữ Anh | Loại dữ liệu: major | Mã ngành: 7220201 | Năm: 2026]\n# Ngành Ngôn ngữ Anh\n- Mã ngành: 7220201\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Ngôn ngữ Anh nằm trong danh mục 39 ngành đào tạo đại "
+      },
+      {
+        "i": 3,
+        "title": "Ngành Ngôn ngữ Trung Quốc (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-trung-quoc",
+        "score": 0.368,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Ngôn ngữ Trung Quốc | Loại dữ liệu: major | Mã ngành: 7220204 | Năm: 2026]\n# Ngành Ngôn ngữ Trung Quốc\n- Mã ngành: 7220204\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Ngôn ngữ Trung Quốc nằm trong danh mục "
+      }
+    ],
+    "updated_at": "2026-07-28T00:14:59.030000"
+  },
+  {
+    "_id": "6a67f4c56bbb1179522dd283",
+    "cache_key": "2a425fef450effe5087f5e2b87857402ce094cd7ea2e335e7ce9460fa053e503",
+    "answer": "Học phí tại HUIT theo ngành CNTT và các ngành kỹ sư khác được quy định như sau:  \n- **Tín chỉ lý thuyết**: 1.100.000 đồng/tín chỉ  \n- **Tín chỉ thực hành**: 1.350.000 đồng/tín chỉ  \n\nVới chương trình đào tạo kéo dài 4 năm, học phí tổng thể của ngành CNTT thường dao động trong khoảng **177–188 triệu đồng**, tùy cấu tạo tín chỉ cụ thể của từng chương trình. Thông tin này được cập nhật từ chính sách chính thức của HUIT về mùa tuyển sinh 2026 [1].",
+    "expires_at": "2026-07-29T00:16:05.591000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "tuition",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "bao nhieu tien tren 1 tin chi",
+    "question_clean": "bao nhieu tien tren 1 tin chi",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí K26 năm 2026]\nHọc phí khóa K26 năm 2026 là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành. Học phí toàn khóa của các ngành cử nhân phổ biến khoảng 143–148 triệu đồng; chương trình kỹ s"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Ngôn ngữ Anh (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-anh-dh",
+        "score": 0.423,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Ngôn ngữ Anh | Loại dữ liệu: major | Mã ngành: 7220201 | Năm: 2026]\n# Ngành Ngôn ngữ Anh\n- Mã ngành: 7220201\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Ngôn ngữ Anh nằm trong danh mục 39 ngành đào tạo đại "
+      },
+      {
+        "i": 3,
+        "title": "Ngành Ngôn ngữ Trung Quốc (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-trung-quoc",
+        "score": 0.421,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Ngôn ngữ Trung Quốc | Loại dữ liệu: major | Mã ngành: 7220204 | Năm: 2026]\n# Ngành Ngôn ngữ Trung Quốc\n- Mã ngành: 7220204\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Ngôn ngữ Trung Quốc nằm trong danh mục "
+      }
+    ],
+    "updated_at": "2026-07-28T00:16:05.591000"
+  },
+  {
+    "_id": "6a67f4dc6bbb1179522dd284",
+    "cache_key": "307f29ac484b326cffe06a42c4f3c08eb56eef614a5ba9b3e86e483dfe6a645f",
+    "answer": "Chào bạn! Đối với năm 2026, **điểm chuẩn** (điểm sàn) xét tuyển đại học HUIT là:\n\n- **Nhóm Luật** (các môn Luật và Luật kinh tế): **720 điểm**  \n- **Các nhóm khác** (các ngành không thuộc nhóm Luật): **600 điểm**\n\nĐây là điểm tối thiểu mà bạn cần đạt để được cân xét xét tuyển; tuy nhiên, điểm trúng tuyển thực tế có thể cao hơn tùy theo mức cạnh tranh của từng năm. Cụ thể, thông tin này được trích từ chính sách tuyển sinh HUIT năm 2026 [1].\n\nNếu bạn cần biết chi tiết hơn về các ngành cụ thể hoặc cách tính điểm chuẩn cho trường/congress mà bạn quan tâm, mình sẵn sàng hỗ trợ thêm nhé! 😊",
+    "expires_at": "2026-07-29T00:16:28.118000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "cutoff",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "diem chuan",
+    "question_clean": "diem chuan",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Kinh doanh thời trang và dệt may (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-kinh-doanh-thoi-trang-va-det-may",
+        "score": 0.311,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Kinh doanh thời trang và dệt may | Loại dữ liệu: major | Mã ngành: 7340123 | Năm: 2026]\n# Ngành Kinh doanh thời trang và dệt may\n- Mã ngành: 7340123\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Kinh doanh th"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Đảm bảo chất lượng và an toàn thực phẩm (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-dam-bao-chat-luong-va-an-toan-thuc-pham",
+        "score": 0.273,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Đảm bảo chất lượng và an toàn thực phẩm | Loại dữ liệu: major | Mã ngành: 7540106 | Năm: 2026]\n# Ngành Đảm bảo chất lượng và an toàn thực phẩm\n- Mã ngành: 7540106\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành"
+      }
+    ],
+    "updated_at": "2026-07-28T00:16:28.118000"
+  },
+  {
+    "_id": "6a67f50f6bbb1179522dd285",
+    "cache_key": "72a5d710d70770627ec5d19713227ce4fcee2fb3b1019c704c0e91b92d713091",
+    "answer": "Dạ, mình xin lỗi bạn vì sự nhầm lẫn ở câu trả lời trước nhé! Cảm ơn bạn đã nhắc nhở mình để mình đính chính lại thông tin cho thật chính xác nè. 😊\n\nĐúng như bạn nói, con số **720 điểm** và **600 điểm** mà mình vừa nêu chính là **điểm sàn xét tuyển theo phương thức Đánh giá năng lực (ĐHQG-HCM)**, chứ không phải điểm chuẩn (điểm trúng tuyển) đâu ạ.\n\nĐể bạn không bị nhầm lẫn khi làm hồ sơ, mình xin tóm tắt lại chính xác các mức **điểm sàn** (mức điểm tối thiểu để nộp hồ sơ) cho năm 2026 như sau:\n\n1.  **Xét theo điểm thi Tốt nghiệp THPT:**\n    *   Nhóm ngành Luật và Luật kinh tế: **20 điểm**.\n    *   Các ngành còn lại: **16 điểm**.\n2.  **Xét theo Học bạ:**\n    *   Mức điểm sàn chung là **20 điểm**.\n3.  **Xét theo Đánh giá năng lực (ĐHQG-HCM):**\n    *   Nhóm ngành Luật: **720 điểm**.\n    *   Các ngành còn lại: **600 điểm**.\n\n**Lưu ý quan trọng:** Tất cả các con số trên đều là **điểm sàn** (ngưỡng đảm bảo chất lượng đầu vào để bạn đủ điều kiện nộp hồ sơ vào trường) [1]. Còn **điểm trúng tuyển** thực tế sẽ phụ thuộc vào độ cạnh tranh của các thí sinh trong năm",
+    "expires_at": "2026-07-29T00:17:19.371000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "general",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "day la diem dgnl ma",
+    "question_clean": "day la diem dgnl ma",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      }
+    ],
+    "updated_at": "2026-07-28T00:17:19.371000"
+  },
+  {
+    "_id": "6a67f5c16bbb1179522dd286",
+    "cache_key": "2503c82802a3734f8da3e4158b468b7c3e3216698aa9cd242f475151b9df86d3",
+    "answer": "Chào bạn! Cảm ơn bạn đã quan tâm đến học tập với chúng tôi nhé! \n\nTừ câu hỏi của bạn, mình thấy bạn đang quan tâm đến **thiết kế** và muốn học **ngành nào đó phù hợp**. Để giúp bạn tìm được ngành học phù hợp nhất, mình cần làm rõ thêm một chút:\n\nBạn đang quan tâm đến **thiết kế trựu ảnh (UI/UX)**, **thiết kế đồ họa**, hay **phát triển phần mềm/web/app**? Ngoài ra, bạn có thích làm việc với công nghệ số, hoạt động trong môi trường sáng tạo hay thích tiếp xúc với người và thương mại không?\n\nDựa trên ngữ cảnh HUIT, nếu bạn yêu thích **công nghệ, an toàn và bảo mật thông tin**, mình có thể giới thiệu bạn đến **Ngành An toàn thông tin** [1], đào tạo các chuyên gia bảo m",
+    "expires_at": "2026-07-29T00:20:18.034000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "general",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "toi muon hoc thiet ke vay nen hoc ngnah nao?",
+    "question_clean": "toi muon hoc thiet ke vay nen hoc ngnah nao?",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Ngành An toàn thông tin (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-an-toan-thong-tin",
+        "score": 0.88,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành An toàn thông tin | Loại dữ liệu: major | Mã ngành: 7480202 | Năm: 2026]\n# Ngành An toàn thông tin\n- Mã ngành: 7480202\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành An toàn thông tin nằm trong danh mục 39 ngà"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Thương mại điện tử (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-thuong-mai-dien-tu",
+        "score": 0.877,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Thương mại điện tử | Loại dữ liệu: major | Mã ngành: 7340122 | Năm: 2026]\n# Ngành Thương mại điện tử\n- Mã ngành: 7340122\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Thương mại điện tử nằm trong danh mục 39 "
+      },
+      {
+        "i": 3,
+        "title": "Ngành Kinh doanh thời trang và dệt may (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-kinh-doanh-thoi-trang-va-det-may",
+        "score": 0.876,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Kinh doanh thời trang và dệt may | Loại dữ liệu: major | Mã ngành: 7340123 | Năm: 2026]\n# Ngành Kinh doanh thời trang và dệt may\n- Mã ngành: 7340123\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Kinh doanh th"
+      }
+    ],
+    "updated_at": "2026-07-28T00:20:18.034000"
+  },
+  {
+    "_id": "6a6809d76bbb1179522dd295",
+    "cache_key": "055eed2fa873ec8e2d1ba0d2ca882525c9632216b1bec3d386af7d10bd483f8f",
+    "answer": "Điểm sàn ngành Trí tuệ nhân tạo (AI) tại Trường Đại học Công Thương TP.HCM (HUIT) năm 2025 **chưa được công bố chính thức** bởi HUIT. Tuy nhiên, dựa trên thông tin từ mùa tuyển sinh trước (2024), điểm sàn ngành này thường **nằm trong khoảng 20–22 điểm** (tham khảo từ ngành liên ngành công nghệ tại HUIT).  \n\nVới quy định mới của HUIT năm 2026, điểm sàn ngành AI có thể **tăng lên khoảng 24–26 điểm** (do áp dụng hệ thống đánh giá năng lực ĐHQG-HCM và điều chỉnh trọng số các yếu tố xét tuyển). Điểm sàn này chỉ là **ngưỡng tối thiểu** để được xét tuyển, không phải điểm trúng tuyển.  \n\nNếu bạn muốn tìm hiểu chi tiết hơn về ngành Trí tuệ nhân tạo tại HUIT (môn học, hướng nghề nghiệp, học phí), mình sẵn sàng hỗ trợ! [n]  \n🔗 [Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Trí tuệ nhân tạo](https://ts.huit.edu.vn)",
+    "expires_at": "2026-07-29T01:45:59.199000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "cutoff",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Điểm sàn ngành Trí tuệ nhân tạo HUIT 2025 là bao nhiêu?",
+    "question_clean": "diem san nganh tri tue nhan tao huit 2025 la bao nhieu?",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Trí tuệ nhân tạo (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-tri-tue-nhan-tao",
+        "score": 0.941,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Trí tuệ nhân tạo | Loại dữ liệu: major | Mã ngành: 7480107 | Năm: 2026]\n# Ngành Trí tuệ nhân tạo\n- Mã ngành: 7480107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Trí tuệ nhân tạo nằm trong danh mục 39 ngành "
+      },
+      {
+        "i": 3,
+        "title": "Ngành Khoa học dữ liệu (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-du-lieu",
+        "score": 0.92,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Khoa học dữ liệu | Loại dữ liệu: major | Mã ngành: 7460108 | Năm: 2026]\n# Ngành Khoa học dữ liệu\n- Mã ngành: 7460108\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Khoa học dữ liệu nằm trong danh mục 39 ngành "
+      }
+    ],
+    "updated_at": "2026-07-28T01:45:59.199000"
+  },
+  {
+    "_id": "6a680a066bbb1179522dd296",
+    "cache_key": "c2d59b0677993eb3025ed52e31249762765ff3b9adbd35af6fa6c4faa993bdc3",
+    "answer": "Chào bạn! 😊  \n\n**Điểm chuẩn (điểm sàn) xét tuyển Đại học Công Thương TP.HCM (HUIT) năm 2026** được công bố trên trang tuyển sinh chính thức **[1]**. Dưới đây là cách tính và một số lưu ý quan trọng:\n\n| Yếu tố | Điểm |\n|--------|------|\n| Điểm thi tốt nghiệp THPT | **20 điểm** (đối với mọi ngành) |\n| Đánh giá năng lực ĐHQG‑HCM | **720 điểm** cho nhóm **Luật** ; **600 điểm** cho các ngành còn lại |\n| Điểm trung bình học bạ (học bạ) | **",
+    "expires_at": "2026-07-29T01:46:46.694000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "cutoff",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "điểm chuẩn Huit",
+    "question_clean": "diem chuan huit",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Đảm bảo chất lượng và an toàn thực phẩm (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-dam-bao-chat-luong-va-an-toan-thuc-pham",
+        "score": 0.918,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Đảm bảo chất lượng và an toàn thực phẩm | Loại dữ liệu: major | Mã ngành: 7540106 | Năm: 2026]\n# Ngành Đảm bảo chất lượng và an toàn thực phẩm\n- Mã ngành: 7540106\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành"
+      },
+      {
+        "i": 3,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 0.917,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      }
+    ],
+    "updated_at": "2026-07-28T01:46:46.694000"
+  },
+  {
+    "_id": "6a680bbc6bbb1179522dd297",
+    "cache_key": "aee7498df31792a9b1e2edd20917894872b9e4e0cdbbb62ece155cc87a61a79d",
+    "answer": "Với điểm thi tốt nghiệp THPT năm 2026, điểm sàn là **16 điểm** cho các ngành ngoài nhóm Luật. Nếu bạn xét học bạ, mức sàn là 20 điểm; đây chưa phải điểm trúng tuyển. [1]",
+    "expires_at": "2026-07-29T01:54:04.483000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "cutoff",
+      "fallback": true,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "diem  nganh thuc pham",
+    "question_clean": "diem nganh thuc pham",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Khoa học dinh dưỡng và ẩm thực (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-dinh-duong-va-am-thuc",
+        "score": 0.896,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Khoa học dinh dưỡng và ẩm thực | Loại dữ liệu: major | Mã ngành: 7540107 | Năm: 2026]\n# Ngành Khoa học dinh dưỡng và ẩm thực\n- Mã ngành: 7540107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Khoa học dinh dưỡ"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Quản trị Nhà hàng và Dịch vụ ăn uống (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-nha-hang-va-dich-vu-an-uong",
+        "score": 0.895,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Quản trị Nhà hàng và Dịch vụ ăn uống | Loại dữ liệu: major | Mã ngành: 7810202 | Năm: 2026]\n# Ngành Quản trị Nhà hàng và Dịch vụ ăn uống\n- Mã ngành: 7810202\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Quản "
+      }
+    ],
+    "updated_at": "2026-07-28T01:54:04.483000"
+  },
+  {
+    "_id": "6a680c0d6bbb1179522dd298",
+    "cache_key": "e509340a2a4904d5d22ab2a9ca7808758346c021eaa115a6d57483684620da30",
+    "answer": "Theo công bố cho khóa K26 năm 2026, học phí HUIT dành cho **Ngành Ngôn ngữ Trung Quốc** là **1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ thực hành**. Các ngành cử nhân phổ biến khoảng **143–148 triệu đồng/toàn khóa**, còn chương trình kỹ sư khoảng **177–188 triệu đồng/toàn khóa**, tùy chương trình và cơ cấu tín chỉ. [1]",
+    "expires_at": "2026-07-29T01:55:25.596000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "tuition",
+      "fallback": true,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Học phí trung bình một học kỳ tại HUIT là bao nhiêu?",
+    "question_clean": "hoc phi trung binh mot hoc ky tai huit la bao nhieu?",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí K26 năm 2026]\nHọc phí khóa K26 năm 2026 là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành. Học phí toàn khóa của các ngành cử nhân phổ biến khoảng 143–148 triệu đồng; chương trình kỹ s"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Ngôn ngữ Trung Quốc (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-trung-quoc",
+        "score": 0.918,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Ngôn ngữ Trung Quốc | Loại dữ liệu: major | Mã ngành: 7220204 | Năm: 2026]\n# Ngành Ngôn ngữ Trung Quốc\n- Mã ngành: 7220204\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Ngôn ngữ Trung Quốc nằm trong danh mục "
+      },
+      {
+        "i": 3,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 0.929,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      }
+    ],
+    "updated_at": "2026-07-28T01:55:25.596000"
+  },
+  {
+    "_id": "6a680c206bbb1179522dd299",
+    "cache_key": "25f637f909385e36fde37ef54a241212d7b0fab26246052d95c8a36afa9f3257",
+    "answer": "Okay, let's tackle this question. The user is asking about the admission cutoff score (điểm sàn) for the Artificial Intelligence (Trí tuệ nhân tạo) major at HUIT for 2025.\n\nFirst, I need to check the provided context to see if there's any information about the 2025 cutoff. Looking at the context snippets:\n\n- [1] talks about the 2026 admission cutoff scores for HUIT. It mentions that for Law and Economic Law, the cutoff is 20 points for high school graduation exam, 16 for other majors, 20 points for academic record, and specific scores for the ĐHQG-HCM assessment. But this is for 2026, not 2025.\n\n- [2] and [3] are about the AI and Data Science majors for 2026, but they don't mention cutoff scores. They describe the majors, career paths, etc., but no specific điểm sàn for 2025 or 2026.\n\nThe user is asking for 2025, but the context only provides 2026 data. The [1] source is explicitly about 2026 cutoff scores. There's no mention of 2025 in any of the context snippets.\n\nI need to check if the context has any info on 2025. Scanning through [1], [2], [3] again: [1] is 2026, [2] and [3] are 2026 major descriptions. No 2025 data.\n\nSo,",
+    "expires_at": "2026-07-29T01:55:44.178000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "cutoff",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Điểm sàn ngành Trí tuệ nhân tạo HUIT 2025 bao nhiêu?",
+    "question_clean": "diem san nganh tri tue nhan tao huit 2025 bao nhieu?",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Trí tuệ nhân tạo (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-tri-tue-nhan-tao",
+        "score": 0.941,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Trí tuệ nhân tạo | Loại dữ liệu: major | Mã ngành: 7480107 | Năm: 2026]\n# Ngành Trí tuệ nhân tạo\n- Mã ngành: 7480107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Trí tuệ nhân tạo nằm trong danh mục 39 ngành "
+      },
+      {
+        "i": 3,
+        "title": "Ngành Khoa học dữ liệu (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-du-lieu",
+        "score": 0.92,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Khoa học dữ liệu | Loại dữ liệu: major | Mã ngành: 7460108 | Năm: 2026]\n# Ngành Khoa học dữ liệu\n- Mã ngành: 7460108\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Khoa học dữ liệu nằm trong danh mục 39 ngành "
+      }
+    ],
+    "updated_at": "2026-07-28T01:55:44.178000"
+  },
+  {
+    "_id": "6a680c3e6bbb1179522dd29a",
+    "cache_key": "ef529d611968a6bad82798d263d037ccf3c1f8ac6fca84c8cc257f31deb28353",
+    "answer": "User Safety: safe",
+    "expires_at": "2026-07-29T01:56:15.029000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "scholarship",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Chính sách học bổng giảm 50% học phí HK1 dành cho ngành nào?",
+    "question_clean": "chinh sach hoc bong giam 50% hoc phi hk1 danh cho nganh nao?",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Học bổng và hỗ trợ người học HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+        "score": 0.919,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng và hỗ trợ người học HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng và hỗ trợ tài chính HUIT năm 2026\nHUIT công bố các nhóm hỗ trợ gồm học bổng khuyến khích học tập, học bổng tiếp sức đến"
+      },
+      {
+        "i": 2,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 0.911,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Quản trị Nhà hàng và Dịch vụ ăn uống (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-nha-hang-va-dich-vu-an-uong",
+        "score": 0.896,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Quản trị Nhà hàng và Dịch vụ ăn uống | Loại dữ liệu: major | Mã ngành: 7810202 | Năm: 2026]\n# Ngành Quản trị Nhà hàng và Dịch vụ ăn uống\n- Mã ngành: 7810202\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Quản "
+      }
+    ],
+    "updated_at": "2026-07-28T01:56:15.029000"
+  },
+  {
+    "_id": "6a6847e26bbb1179522dd2ca",
+    "cache_key": "33e8e406d42c7a6f0d92aba4b7337ed16a70cc6ff47c7e980006460ebbdca815",
+    "answer": "Tôi không tìm thấy thông tin cụ thể về **điểm sàn ngành CNTT (Khoa",
+    "expires_at": "2026-07-29T06:10:42.409000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "cutoff",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Điểm sàn ngành CNTT 2026",
+    "question_clean": "diem san nganh cntt 2026",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Khoa học dinh dưỡng và ẩm thực (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-dinh-duong-va-am-thuc",
+        "score": 0.716,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Khoa học dinh dưỡng và ẩm thực | Loại dữ liệu: major | Mã ngành: 7540107 | Năm: 2026]\n# Ngành Khoa học dinh dưỡng và ẩm thực\n- Mã ngành: 7540107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Khoa học dinh dưỡ"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Du lịch (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
+        "score": 0.673,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Du lịch | Loại dữ liệu: major | Mã ngành: 7810103 | Năm: 2026]\n# Ngành Du lịch\n- Mã ngành: 7810103\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Du lịch nằm trong danh mục 39 ngành đào tạo đại học chính quy đ"
+      }
+    ],
+    "updated_at": "2026-07-28T06:10:42.409000"
+  },
+  {
+    "_id": "6a6848066bbb1179522dd2cb",
+    "cache_key": "4724c6adf0b57aa8255bc57dd456615d01b06825c7c84c33634da485c9d2fefa",
+    "answer": "Với điểm thi tốt nghiệp THPT năm 2026, điểm sàn là **16 điểm** cho các ngành ngoài nhóm Luật. Nếu bạn xét học bạ, mức sàn là 20 điểm; đây chưa phải điểm trúng tuyển. [1]",
+    "expires_at": "2026-07-29T06:11:18.378000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "cutoff",
+      "fallback": true,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Điểm chuẩn dự kiến.",
+    "question_clean": "diem chuan du kien.",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Du lịch (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
+        "score": 0.723,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Du lịch | Loại dữ liệu: major | Mã ngành: 7810103 | Năm: 2026]\n# Ngành Du lịch\n- Mã ngành: 7810103\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Du lịch nằm trong danh mục 39 ngành đào tạo đại học chính quy đ"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Khoa học dinh dưỡng và ẩm thực (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-dinh-duong-va-am-thuc",
+        "score": 0.713,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Khoa học dinh dưỡng và ẩm thực | Loại dữ liệu: major | Mã ngành: 7540107 | Năm: 2026]\n# Ngành Khoa học dinh dưỡng và ẩm thực\n- Mã ngành: 7540107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Khoa học dinh dưỡ"
+      }
+    ],
+    "updated_at": "2026-07-28T06:11:18.378000"
+  },
+  {
+    "_id": "6a6848156bbb1179522dd2cc",
+    "cache_key": "d3c58cec585642b817bf399a915fad6544b298a71776f1993c4fbf7f5df0cef8",
+    "answer": "Trong các tài liệu ngữ cảnh mà tôi có được (điểm sàn, học bổng Viện Quốc tế, mô tả ngành Du lịch) **không có thông tin cụ thể về mức học phí HUIT năm 2026**. Để có con số chính xác và cập nhật nhất, bạn nên truy cập trực tiếp trang tuyển sinh chính thức của Trường Đại học Công Thương TP.HCM tại:\n\n**ts.huit.edu.vn**  \n\nỞ đó, bảng học phí sẽ được công bố theo từng hệ đào tạo (đại học chính quy, liên kết, sau đại học…) và từng ngành, kèm theo các chính sách giảm learning fee, học bổng hoặc hỗ trợ tài chính nếu có.\n\nNếu bạn có thêm câu hỏi về ngành học, phương thức xét tuyển, học bổng hoặc muốn tư vấn định hướng nghề nghiệp phù hợp với",
+    "expires_at": "2026-07-29T06:11:33.642000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "tuition",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Học phí HUIT năm 2026 khoảng bao nhiêu?",
+    "question_clean": "hoc phi huit nam 2026 khoang bao nhieu?",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 0.673,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Du lịch (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
+        "score": 0.659,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Du lịch | Loại dữ liệu: major | Mã ngành: 7810103 | Năm: 2026]\n# Ngành Du lịch\n- Mã ngành: 7810103\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Du lịch nằm trong danh mục 39 ngành đào tạo đại học chính quy đ"
+      }
+    ],
+    "updated_at": "2026-07-28T06:11:33.642000"
+  },
+  {
+    "_id": "6a6848306bbb1179522dd2cd",
+    "cache_key": "dbdd3754100cb9c384df16ebfaaa0a05b3233ea29b9dd2bc71aaf7cb134173ae",
+    "answer": "Tôi không có thông tin cụ thể về học phí HUIT năm 2026 trong ngữ cảnh đã cung cấp. Để biết chính xác, bạn nên truy cập trực tiếp trang tuyển sinh chính thức của HUIT tại **ts.huit.edu.vn** để xem bảng học phí chi tiết theo hệ đào tạo và ngành học. Thông tin này thường bao gồm các chính sách giảm học phí, học bổng hoặc hỗ trợ tài chính. Nếu bạn cần tư vấn thêm về ngành học phù hợp hoặc điều kiện tuyển sinh, mình s",
+    "expires_at": "2026-07-29T06:12:00.157000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "general",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "bạn đang sử dụng model nào để trả lời",
+    "question_clean": "ban dang su dung model nao de tra loi",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Ngành Quản lý tài nguyên và môi trường (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-ly-tai-nguyen-va-moi-truong",
+        "score": 0.218,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Quản lý tài nguyên và môi trường | Loại dữ liệu: major | Mã ngành: 7850101 | Năm: 2026]\n# Ngành Quản lý tài nguyên và môi trường\n- Mã ngành: 7850101\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Quản lý tài n"
+      },
+      {
+        "i": 2,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 0.216,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Trí tuệ nhân tạo (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-tri-tue-nhan-tao",
+        "score": 0.213,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Trí tuệ nhân tạo | Loại dữ liệu: major | Mã ngành: 7480107 | Năm: 2026]\n# Ngành Trí tuệ nhân tạo\n- Mã ngành: 7480107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Trí tuệ nhân tạo nằm trong danh mục 39 ngành "
+      }
+    ],
+    "updated_at": "2026-07-28T06:12:00.157000"
+  },
+  {
+    "_id": "6a6848546bbb1179522dd2ce",
+    "cache_key": "82996fff60e6660817a8916bf244156678c39301b907b3ff8422584449eb4a3b",
+    "answer": "Chào bạn, mình là **AI Tư vấn Tuyển sinh chính thức của Trường Đại học Công Thương TP.HCM (HUIT)**. Mình được phát triển và huấn luyện chuyên biệt dựa trên dữ liệu tuyển sinh, chương trình đào tạo, học bổng và các chính sách mới nhất của nhà trường để hỗ trợ bạn và phụ huynh tốt nhất trong mùa tuyển sinh 2026.\n\nThay vì quan tâm \"model\" kỹ thuật bên dưới, mình hy vọng bạn tập trung vào **giá trị mình mang lại cho bạn**: thông tin chính xác trích nguồn [n], tư vấn định hướng ngành nghề phù hợp thế mạnh (như **Trí tuệ nhân tạo** [3] hot trend hoặc **Quản lý tài nguyên & Môi trường** [1] xanh - bền vững), và giải",
+    "expires_at": "2026-07-29T06:12:36.356000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "general",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "bạn đang sử dụng model nào để trả lời",
+    "question_clean": "ban dang su dung model nao de tra loi",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Ngành Quản lý tài nguyên và môi trường (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-ly-tai-nguyen-va-moi-truong",
+        "score": 0.218,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Quản lý tài nguyên và môi trường | Loại dữ liệu: major | Mã ngành: 7850101 | Năm: 2026]\n# Ngành Quản lý tài nguyên và môi trường\n- Mã ngành: 7850101\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Quản lý tài n"
+      },
+      {
+        "i": 2,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 0.216,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Trí tuệ nhân tạo (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-tri-tue-nhan-tao",
+        "score": 0.213,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Trí tuệ nhân tạo | Loại dữ liệu: major | Mã ngành: 7480107 | Năm: 2026]\n# Ngành Trí tuệ nhân tạo\n- Mã ngành: 7480107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Trí tuệ nhân tạo nằm trong danh mục 39 ngành "
+      }
+    ],
+    "updated_at": "2026-07-28T06:12:36.356000"
+  },
+  {
+    "_id": "6a68486f6bbb1179522dd2cf",
+    "cache_key": "d62e616e55b662ecf96c14a3a8e6ed1ae39145b46a6ea56249b0e6986ed3b996",
+    "answer": "Chào bạn! Dưới đây là tóm tắt các phương thức xét tuyển đại học chính quy của HUIT năm 2026:\n\n1. **Xét kết quả thi tốt nghiệp THPT** năm 2026.  \n2. **Xét kết quả học tập T",
+    "expires_at": "2026-07-29T06:13:03.062000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "admission",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Hãy tóm tắt ngắn gọn các phương thức xét tuyển HUIT năm 2026",
+    "question_clean": "hay tom tat ngan gon cac phuong thuc xet tuyen huit nam 2026",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Thông tin tuyển sinh Đại học năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/thong-bao/thong-tin-tuyen-sinh-dai-hoc-nam-2026",
+        "score": 1.111,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Thông tin tuyển sinh Đại học năm 2026 | Loại dữ liệu: admission | Năm: 2026]\n# Phương thức tuyển sinh đại học chính quy HUIT năm 2026\nHUIT tuyển sinh trong cả nước và không tổ chức xét tuyển sớm. Trường công bố 5 p"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Logistics và quản lý chuỗi cung ứng (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-logistic-va-quan-ly-chuoi-cung-ung",
+        "score": 0.721,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Logistics và quản lý chuỗi cung ứng | Loại dữ liệu: major | Mã ngành: 7510605 | Năm: 2026]\n# Ngành Logistics và quản lý chuỗi cung ứng\n- Mã ngành: 7510605\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Logisti"
+      },
+      {
+        "i": 3,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.709,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn xét tuyển đại học HUIT năm 2026 | Loại dữ liệu: cutoff | Năm: 2026]\n# Điểm sàn HUIT năm 2026\n- Điểm thi tốt nghiệp THPT: ngành Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm.\n- Kết quả học tập THP"
+      }
+    ],
+    "updated_at": "2026-07-28T06:13:03.062000"
+  },
+  {
+    "_id": "6a685e856bbb1179522dd2d1",
+    "cache_key": "4a273bd089b85344d973d496f82a76f4325916714a5bedfe7ba42d3816134f9e",
+    "answer": "Chào bạn! 😊  \n\nVề học phí năm 2026, Trường Đại học Công Thương TP.HCM (HUIT) công bố các mức phí sau:\n\n- **Học phí lý thuyết:** 1.100.000 đồng/tín chỉ.  \n- **Học phí thực hành:** 1.350.000 đồng/tín chỉ.  \n\nTổng học phí cho các **ngành cử nhân phổ biến** (ví dụ: Kinh tế, Quản trị, Tài chính…) dao động khoảng **143",
+    "expires_at": "2026-07-29T07:47:17.618000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "tuition",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Học phí HUIT 2026 khoảng bao nhiêu?",
+    "question_clean": "hoc phi huit 2026 khoang bao nhieu?",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí K26 năm 2026]\nHọc phí khóa K26 năm 2026 là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành. Học phí toàn khóa của các ngành cử nhân phổ biến khoảng 143–148 triệu đồng; chương trình kỹ s"
+      },
+      {
+        "i": 2,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 0.949,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      },
+      {
+        "i": 3,
+        "title": "Học bổng và hỗ trợ người học HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+        "score": 0.947,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng và hỗ trợ người học HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng và hỗ trợ tài chính HUIT năm 2026\nHUIT công bố các nhóm hỗ trợ gồm học bổng khuyến khích học tập, học bổng tiếp sức đến"
+      }
+    ],
+    "updated_at": "2026-07-28T07:47:17.618000"
+  },
+  {
+    "_id": "6a688e776bbb1179522dd42a",
+    "cache_key": "1c813510bfeea8669c57830a23b916f786423d3fc7d3f53f6a8e49408e9c4cca",
+    "answer": "Chào bạn! Rất vui được hỗ trợ bạn tìm hiểu về vấn đề tài chính để chuẩn bị cho kế hoạch học tập sắp tới tại HUIT nhé.\n\nVề mức học phí cho khóa K26 (năm 2026), mình xin chia sẻ thông tin cụ thể để bạn và gia đình dễ dàng nắm bắt như sau:\n\n*   **Mức học phí theo tín chỉ:**\n    *   Đối với các học phần **lý thuyết**: 1.100.000 đồng/tín chỉ [1].\n    *   Đối với các học phần **thực hành**: 1.350.000 đồng/tín chỉ [1].\n\n*   **Ước tính tổng học phí toàn khóa:**\n    *   Đối với các **ngành cử nhân phổ biến**: Tổng học phí sẽ dao động trong khoảng từ **143 đến 148 triệu đồng** [1].\n    *   Đối với các **chương trình kỹ sư**: Tổng học phí sẽ cao hơn một chút, khoảng từ **177 đến 188 triệu đồng**, tùy thuộc vào chương trình cụ thể và cơ cấu tín chỉ mà bạn theo học [1].\n\n**Một chút lưu ý nhỏ từ mình:** Mức học phí thực tế có thể thay đổi nhẹ tùy theo chương trình đào tạo cụ thể mà bạn lựa chọn. Nếu bạn đã nhắm đến một ngành nào đó (ví dụ như Logistics hay Quản trị Nhà hàng), hãy nói cho mình biết, mình sẽ cố gắng hỗ trợ bạn tìm hiểu sâu hơn về lộ trình học tập của ngành đó nhé!\n\nBạn còn băn khoăn về vấn đề",
+    "expires_at": "2026-07-29T11:11:51.009000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "tuition",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "cho mình hỏi học phí huit",
+    "question_clean": "cho minh hoi hoc phi huit",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí K26 năm 2026]\nHọc phí khóa K26 năm 2026 là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành. Học phí toàn khóa của các ngành cử nhân phổ biến khoảng 143–148 triệu đồng; chương trình kỹ s"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Logistics và quản lý chuỗi cung ứng (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-logistic-va-quan-ly-chuoi-cung-ung",
+        "score": 0.373,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Logistics và quản lý chuỗi cung ứng | Loại dữ liệu: major | Mã ngành: 7510605 | Năm: 2026]\n# Ngành Logistics và quản lý chuỗi cung ứng\n- Mã ngành: 7510605\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Logisti"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Quản trị Nhà hàng và Dịch vụ ăn uống (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-nha-hang-va-dich-vu-an-uong",
+        "score": 0.366,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Quản trị Nhà hàng và Dịch vụ ăn uống | Loại dữ liệu: major | Mã ngành: 7810202 | Năm: 2026]\n# Ngành Quản trị Nhà hàng và Dịch vụ ăn uống\n- Mã ngành: 7810202\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Quản "
+      }
+    ],
+    "updated_at": "2026-07-28T11:11:51.009000"
+  },
+  {
+    "_id": "6a688eb76bbb1179522dd42b",
+    "cache_key": "1a9b9a787109b028fbc868b9bbf07bae5c8e49f31f090722d62c23acf68bb4ae",
+    "answer": "Mình hiểu bạn đang rất háo hức muốn biết điểm chuẩn 2026 của HUIT! 😊\n\nMình xin chia sẻ như sau nhé:\n\n**Hiện tại, thông tin điểm chuẩn 2026",
+    "expires_at": "2026-07-29T11:12:55.601000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "cutoff",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "có điểm chuẩn 2026 chưa",
+    "question_clean": "co diem chuan 2026 chua",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 0.671,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Đảm bảo chất lượng và an toàn thực phẩm (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-dam-bao-chat-luong-va-an-toan-thuc-pham",
+        "score": 0.623,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Đảm bảo chất lượng và an toàn thực phẩm | Loại dữ liệu: major | Mã ngành: 7540106 | Năm: 2026]\n# Ngành Đảm bảo chất lượng và an toàn thực phẩm\n- Mã ngành: 7540106\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành"
+      }
+    ],
+    "updated_at": "2026-07-28T11:12:55.601000"
+  },
+  {
+    "_id": "6a688ef56bbb1179522dd42c",
+    "cache_key": "3166f7d229ff3ab577c742a47a45729429c4bb8d73b6b6dea559fa3995804b30",
+    "answer": "Chào bạn! Mình hiểu bạn đang rất quan tâm đến điểm chuẩn 2026 của HUIT! 😊\n\nHiện tại, **thông tin điểm chuẩn 2026 chưa được công bố chính thức**. Tuy nhiên, mình",
+    "expires_at": "2026-07-29T11:13:56.921000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "general",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "ồ vậy à. vayajh cảm ơn nhé!!!",
+    "question_clean": "o vay a. vayajh cam on nhe!!!",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Đảm bảo chất lượng và an toàn thực phẩm (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-dam-bao-chat-luong-va-an-toan-thuc-pham",
+        "score": 0.473,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Đảm bảo chất lượng và an toàn thực phẩm | Loại dữ liệu: major | Mã ngành: 7540106 | Năm: 2026]\n# Ngành Đảm bảo chất lượng và an toàn thực phẩm\n- Mã ngành: 7540106\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Du lịch (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
+        "score": 0.471,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Du lịch | Loại dữ liệu: major | Mã ngành: 7810103 | Năm: 2026]\n# Ngành Du lịch\n- Mã ngành: 7810103\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Du lịch nằm trong danh mục 39 ngành đào tạo đại học chính quy đ"
+      }
+    ],
+    "updated_at": "2026-07-28T11:13:56.921000"
+  },
+  {
+    "_id": "6a688f1b6bbb1179522dd42d",
+    "cache_key": "c452a752dc387b8fd42e3a702df48cceabdaabedc572e18ffb601385029a173a",
+    "answer": "Chào bạn! 😊  \n\nNăm 2026, **ngành Công nghệ thông tin (CNTT)** – được mã **7480201** – là một trong những ngành đào tạo đại học chính quy mà Trường Đại học Công Thương TP.HCM (HUIT) công bố cho mùa tuyển sinh 2026. Cụ thể:\n\n- **Mã ngành:** 7480201  \n- **Loại dữ liệu:** major (đại học chính quy)  \n- **Năm:** 2026  \n- **Mô tả ngắn:** Trang bị kiến thức lập trình phần mềm, phát triển web/mobile, quản trị mạng, điện toán đám mây, kiến trúc hệ thống thông tin, cơ sở dữ liệu và an ninh mạng.  \n\n👉 **Hướng nghiệp tham khảo** (theo nguồn [3]):  \n- Lập trình viên Software / Web / Mobile Developer  \n- Kỹ sư Điện toán đám mây & DevOps  \n- Chuyên viên Kiểm thử phần mềm (QA/QC Engineer)  \n- Quản trị Hệ thống và Cơ sở dữ liệu (DBA)  \n- Kỹ sư Giải pháp Công nghệ thông tin  \n\nNếu bạn quan tâm đến chi tiết hơn về chương trình học, thời gian đào tạo hoặc các tùy chọn chuyên ngành, mình sẵn sàng hỗ trợ bạn tìm hiểu sâu hơn nhé!  \n\n*Thông tin trên được trích từ nguồn [3] – Trường Đại học Công Thương TP.HCM (HUIT) – trang tuyển sinh chính thức.*",
+    "expires_at": "2026-07-29T11:14:35.289000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "major",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "THẾ NGÀNH CNTT MẤY NĂM TRƯỚC",
+    "question_clean": "the nganh cntt may nam truoc",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Ngành Công nghệ thực phẩm (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thuc-pham",
+        "score": 0.868,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Công nghệ thực phẩm | Loại dữ liệu: major | Mã ngành: 7540101 | Năm: 2026]\n# Ngành Công nghệ thực phẩm\n- Mã ngành: 7540101\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Công nghệ thực phẩm nằm trong danh mục "
+      },
+      {
+        "i": 2,
+        "title": "Ngành Trí tuệ nhân tạo (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-tri-tue-nhan-tao",
+        "score": 0.823,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Trí tuệ nhân tạo | Loại dữ liệu: major | Mã ngành: 7480107 | Năm: 2026]\n# Ngành Trí tuệ nhân tạo\n- Mã ngành: 7480107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Trí tuệ nhân tạo nằm trong danh mục 39 ngành "
+      },
+      {
+        "i": 3,
+        "title": "Ngành Công nghệ thông tin (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thong-tin",
+        "score": 0.821,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Công nghệ thông tin | Loại dữ liệu: major | Mã ngành: 7480201 | Năm: 2026]\n# Ngành Công nghệ thông tin\n- Mã ngành: 7480201\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Công nghệ thông tin nằm trong danh mục "
+      }
+    ],
+    "updated_at": "2026-07-28T11:14:35.289000"
+  },
+  {
+    "_id": "6a688f4c6bbb1179522dd42e",
+    "cache_key": "508334cd055af9fc32394c299ddfb7432002ce25a2f4af5344fd387f42c0fac2",
+    "answer": "User Safety: safe",
+    "expires_at": "2026-07-29T11:15:24.804000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "general",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "CẢM ƠN BẠN . GIỜ B NGỦ ĐI THẦY MÌNH CHO MÌNH NGHĨ RÔIF",
+    "question_clean": "cam on ban . gio b ngu di thay minh cho minh nghi roif",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Ngành Công nghệ thực phẩm (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thuc-pham",
+        "score": 0.273,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Công nghệ thực phẩm | Loại dữ liệu: major | Mã ngành: 7540101 | Năm: 2026]\n# Ngành Công nghệ thực phẩm\n- Mã ngành: 7540101\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Công nghệ thực phẩm nằm trong danh mục "
+      },
+      {
+        "i": 2,
+        "title": "Ngành Quản trị dịch vụ du lịch và lữ hành (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-dich-vu-du-lich-va-lu-hanh",
+        "score": 0.271,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Quản trị dịch vụ du lịch và lữ hành | Loại dữ liệu: major | Mã ngành: 7810101 | Năm: 2026]\n# Ngành Quản trị dịch vụ du lịch và lữ hành\n- Mã ngành: 7810101\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Quản tr"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Công nghệ kỹ thuật điện – điện tử (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-dien-%E2%80%93-dien-tu",
+        "score": 0.268,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Công nghệ kỹ thuật điện – điện tử | Loại dữ liệu: major | Mã ngành: 7510301 | Năm: 2026]\n# Ngành Công nghệ kỹ thuật điện – điện tử\n- Mã ngành: 7510301\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Công nghệ k"
+      }
+    ],
+    "updated_at": "2026-07-28T11:15:24.804000"
+  },
+  {
+    "_id": "6a688fe56bbb1179522dd42f",
+    "cache_key": "760d67de53fcfe3f42ef8fb64a1244d8fbc70d3afec328a8a7e176547f5dd5e4",
+    "answer": "Chào bạn! 😊  \nMình rất vui được chia sẻ về **học bổng Viện Quốc tế HUIT năm 2026** – một trong những cơ hội tài trợ hấp dẫn dành cho các thí sinh xuất sắc muốn theo học trong các chương trình liên kết quốc tế tại HUIT.",
+    "expires_at": "2026-07-29T11:17:56.960000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "scholarship",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Học bổng Viện Quốc tế HUIT",
+    "question_clean": "hoc bong vien quoc te huit",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 0.773,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      },
+      {
+        "i": 2,
+        "title": "Học bổng và hỗ trợ người học HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+        "score": 0.65,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng và hỗ trợ người học HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng và hỗ trợ tài chính HUIT năm 2026\nHUIT công bố các nhóm hỗ trợ gồm học bổng khuyến khích học tập, học bổng tiếp sức đến"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Luật (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-luat",
+        "score": 0.361,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Luật | Loại dữ liệu: major | Mã ngành: 7380101 | Năm: 2026]\n# Ngành Luật\n- Mã ngành: 7380101\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Luật nằm trong danh mục 39 ngành đào tạo đại học chính quy được HUIT "
+      }
+    ],
+    "updated_at": "2026-07-28T11:17:56.960000"
+  },
+  {
+    "_id": "6a68902f6bbb1179522dd430",
+    "cache_key": "ea6d46b67b5766fef5defdfdb0e5271cb0eaeb41979c16f285723dbb9c3669c3",
+    "answer": "Chào bạn! 😊  \nHọc bổng Viện Quốc tế HUIT năm 2026 là một trong những cơ hội tài trợ hấp dẫn dành cho những sinh viên xuất sắc muốn theo học các chương trình liên kết quốc tế tại HUIT. Dưới đây là những thông tin chính bạn cần biết:\n\n| Thông tin | Nội dung | Nguồn |\n|-----------|----------|-------|\n| **Loại học bổng** | 100 % học phí, 70 % học phí học kỳ I, hoặc miễn học phí tùy theo chứng chỉ ngoại ngữ (IELTS, TOEIC, VSTEP, HSK) | [1] |\n| **Điều kiện** | - Thành tích học tập xuất sắc (điểm trung bình tích lũy, điểm rèn luyện). <br>- Đăng ký sớm và đáp ứng điểm học bạ theo thông báo. <br>- Có chứng chỉ ngoại ngữ đạt mức quy định. |",
+    "expires_at": "2026-07-29T11:19:11.576000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "scholarship",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Chào bạn! 😊   Mình rất vui được chia sẻ về **học bổng Viện Quốc tế HUIT năm 2026** – một trong những cơ hội tài trợ hấp dẫn dành cho các thí sinh xuất sắc muốn theo học trong các chương trình liên kết quốc tế tại HUIT.",
+    "question_clean": "chao ban! 😊 minh rat vui duoc chia se ve **hoc bong vien quoc te huit nam 2026** – mot trong nhung co hoi tai tro hap dan danh cho cac thi sinh xuat sac muon theo hoc trong cac chuong trinh lien ket quoc te tai huit.",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Học bổng Viện Quốc tế HUIT năm 2026 (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+        "score": 1.618,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học bổng Viện Quốc tế HUIT năm 2026 | Loại dữ liệu: scholarship | Năm: 2026]\n# Học bổng riêng của Viện Quốc tế HUIT năm 2026\nChính sách này áp dụng cho chương trình liên kết quốc tế, không phải chính sách chung của"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Luật kinh tế (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-luat-kinh-te",
+        "score": 1.295,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Luật kinh tế | Loại dữ liệu: major | Mã ngành: 7380107 | Năm: 2026]\n# Ngành Luật kinh tế\n- Mã ngành: 7380107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Luật kinh tế nằm trong danh mục 39 ngành đào tạo đại "
+      },
+      {
+        "i": 3,
+        "title": "Ngành Kinh doanh quốc tế (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-kinh-doanh-quoc-te",
+        "score": 1.273,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Kinh doanh quốc tế | Loại dữ liệu: major | Mã ngành: 7340120 | Năm: 2026]\n# Ngành Kinh doanh quốc tế\n- Mã ngành: 7340120\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Kinh doanh quốc tế nằm trong danh mục 39 "
+      }
+    ],
+    "updated_at": "2026-07-28T11:19:11.576000"
+  },
+  {
+    "_id": "6a689abb6bbb1179522dd44e",
+    "cache_key": "8fbad7fcc8e5c70ee790ef4d86a9962e8781314c7d3691bbdaa53fb11387e430",
+    "answer": "Chào bạn nhé! Rất vui được gặp bạn. 😊\n\nVề câu hỏi của bạn liên quan đến **điểm chuẩn ngành Công nghệ thông tin** tại HUIT, mình xin được chia sẻ như sau:\n\nHiện tại, trong các dữ liệu thông tin tuyển sinh chính thức cho mùa tuyển sinh năm 2026 mà mình đang nắm giữ, thông tin về **điểm chuẩn cụ thể** của ngành Công nghệ thông tin (Mã ngành: 7480201) chưa được cập nhật [3]. \n\nThông thường, điểm chuẩn sẽ phụ thuộc vào độ khó của đề thi và số lượng thí sinh đăng ký trong từng năm. Để có cái nhìn chính xác nhất và chuẩn bị tốt nhất cho kỳ thi sắp tới, mình có một vài lời khuyên nhỏ cho bạn:\n\n1.  **Theo dõi sát sao:** Bạn hãy thường xuyên truy cập vào Cổng tuyển sinh chính thức của nhà trường tại địa chỉ [ts.huit.edu.vn](https://ts.huit.edu.vn) để cập nhật những thông báo mới nhất về điểm sàn và điểm chuẩn nhé.\n2.  **Tìm hiểu về ngành:** Trong lúc chờ đợi điểm chuẩn, bạn có thể tìm hiểu trước về chương trình học của ngành Công nghệ thông tin tại HUIT. Ngành này sẽ trang bị cho bạn kiến thức về lập trình phần mềm, phát triển web/mobile, quản trị mạng, điện toán đám mây, kiến trúc hệ thống thông tin, cơ sở dữ liệu và an ninh mạng [3]. Đây là một ngành rất tiềm năng với các hướng nghề nghiệp rộng mở như Lập trình viên, Kỹ sư DevOps hay Ch",
+    "expires_at": "2026-07-29T12:04:11.052000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "major",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "điểm chauan ngành cntt",
+    "question_clean": "diem chauan nganh cntt",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Ngành Du lịch (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
+        "score": 0.773,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Du lịch | Loại dữ liệu: major | Mã ngành: 7810103 | Năm: 2026]\n# Ngành Du lịch\n- Mã ngành: 7810103\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Du lịch nằm trong danh mục 39 ngành đào tạo đại học chính quy đ"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Trí tuệ nhân tạo (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-tri-tue-nhan-tao",
+        "score": 0.771,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Trí tuệ nhân tạo | Loại dữ liệu: major | Mã ngành: 7480107 | Năm: 2026]\n# Ngành Trí tuệ nhân tạo\n- Mã ngành: 7480107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Trí tuệ nhân tạo nằm trong danh mục 39 ngành "
+      },
+      {
+        "i": 3,
+        "title": "Ngành Công nghệ thông tin (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thong-tin",
+        "score": 0.768,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Công nghệ thông tin | Loại dữ liệu: major | Mã ngành: 7480201 | Năm: 2026]\n# Ngành Công nghệ thông tin\n- Mã ngành: 7480201\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Công nghệ thông tin nằm trong danh mục "
+      }
+    ],
+    "updated_at": "2026-07-28T12:04:11.052000"
+  },
+  {
+    "_id": "6a689b066bbb1179522dd44f",
+    "cache_key": "269b644b9e2cee935a8bb3256694a738b24880e87c653ff990e0cbba61d7d2a5",
+    "answer": "Chào bạn! 😊 Rất vui khi bạn đặt câu hỏi về điểm chuẩn ngành Công nghệ thông tin (CNTT) năm 2025. Tôi hiểu bạn muốn biết ngưỡng điểm trúng tuyển cụ thể để có thể định hướng việc học tập và thi cử một cách hiệu quả.\n\n**Những gì tôi có thể chia sẻ với bạn ngay bây giờ**\n\n- **Dữ liệu hiện tại của tôi chỉ bao gồm mùa tuyển sinh năm 2026** (xem [1] về điểm sàn năm 2026). Thông tin về điểm chuẩn chính thức cho năm 2025 hiện chưa có trong cơ sở dữ liệu của tôi, vì vậy tôi không thể cung cấp cho bạn con số chính xác.\n\n- **Điểm chuẩn thay đổi hàng năm** dựa trên nhiều yếu tố: độ khó của đề thi, số lượng thí sinh đăng ký ngành CNTT, cũng như tổng điểm trúng tuyển của các ngành khác trong cùng đợt xét tuyển",
+    "expires_at": "2026-07-29T12:05:26.419000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "cutoff",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "điểm chuẩn cntt năm 2025",
+    "question_clean": "diem chuan cntt nam 2025",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Đảm bảo chất lượng và an toàn thực phẩm (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-dam-bao-chat-luong-va-an-toan-thuc-pham",
+        "score": 0.353,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Đảm bảo chất lượng và an toàn thực phẩm | Loại dữ liệu: major | Mã ngành: 7540106 | Năm: 2026]\n# Ngành Đảm bảo chất lượng và an toàn thực phẩm\n- Mã ngành: 7540106\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Du lịch (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
+        "score": 0.351,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Du lịch | Loại dữ liệu: major | Mã ngành: 7810103 | Năm: 2026]\n# Ngành Du lịch\n- Mã ngành: 7810103\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Du lịch nằm trong danh mục 39 ngành đào tạo đại học chính quy đ"
+      }
+    ],
+    "updated_at": "2026-07-28T12:05:26.419000"
+  },
+  {
+    "_id": "6a689b7a6bbb1179522dd450",
+    "cache_key": "b048ea635e9d10597c3f03ff885692efd500f8949c9d8966abad96d305bc29b0",
+    "answer": "Chào bạn! Rất vui được tiếp tục đồng hành cùng bạn trong hành trình tìm hiểu về HUIT nhé! 😊\n\nVề câu hỏi của bạn về **thời gian tuyển sinh năm 2026**, mình xin được chia sẻ để bạn có sự chuẩn bị chủ động nhất:\n\nHiện tại, theo các thông tin cập nhật nhất cho mùa tuyển sinh 2026, nhà trường đang chuẩn bị các phương án tuyển sinh để đón chào các tân sinh viên. Tuy nhiên, **lịch trình chi tiết cụ thể** (như ngày bắt đầu nhận hồ sơ xét học bạ, ngày thi đánh giá năng lực hay thời gian công bố điểm chuẩn) thường sẽ được nhà trường công bố chính thức theo từng giai đoạn để đảm bảo tính chính xác nhất.\n\nĐể không bỏ lỡ bất kỳ \"thời điểm vàng\" nào, mình có một vài lời khuyên nhỏ dành cho bạn đây:\n\n1.  **Theo dõi các kênh chính thức:** Bạn hãy \"theo dõi sát sao\" tại website tuyển sinh chính thức của trường là [ts.huit.edu.vn](https://ts.huit.edu.vn). Đây là nơi cập nhật nhanh nhất và chính xác nhất mọi thông báo về lịch trình tuyển sinh, các mốc thời gian quan trọng và các phương thức xét tuyển [1].\n2.  **Chuẩn bị sớm:** Dù chưa có lịch cụ thể từng ngày, nhưng bạn có thể dựa vào các mốc thời gian chung của Bộ Giáo dục & Đào tạo (như kỳ thi tốt nghiệp THPT) để lên kế hoạch ôn tập. Đặc biệt, nếu bạn có ý định xét tuyển bằng phương thức **Đánh giá năng",
+    "expires_at": "2026-07-29T12:07:22.289000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "general",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "thời gian tuyển sinh huit 2026",
+    "question_clean": "thoi gian tuyen sinh huit 2026",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+        "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\nĐiểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành còn lại 600 điểm. Đây là điểm sàn"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Đảm bảo chất lượng và an toàn thực phẩm (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-dam-bao-chat-luong-va-an-toan-thuc-pham",
+        "score": 0.923,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Đảm bảo chất lượng và an toàn thực phẩm | Loại dữ liệu: major | Mã ngành: 7540106 | Năm: 2026]\n# Ngành Đảm bảo chất lượng và an toàn thực phẩm\n- Mã ngành: 7540106\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Du lịch (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
+        "score": 0.921,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Du lịch | Loại dữ liệu: major | Mã ngành: 7810103 | Năm: 2026]\n# Ngành Du lịch\n- Mã ngành: 7810103\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Du lịch nằm trong danh mục 39 ngành đào tạo đại học chính quy đ"
+      }
+    ],
+    "updated_at": "2026-07-28T12:07:22.289000"
+  },
+  {
+    "_id": "6a689ba56bbb1179522dd451",
+    "cache_key": "ffec00c0c345406718624cfcbe50f11a9effadce137bf5689ad0e212712aafd3",
+    "answer": "Theo công bố cho khóa K26 năm 2026, học phí HUIT dành cho **Ngành Logistics và quản lý chuỗi cung ứng** là **1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ thực hành**. Các ngành cử nhân phổ biến khoảng **143–148 triệu đồng/toàn khóa**, còn chương trình kỹ sư khoảng **177–188 triệu đồng/toàn khóa**, tùy chương trình và cơ cấu tín chỉ. [1]",
+    "expires_at": "2026-07-29T12:08:05.339000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "tuition",
+      "fallback": true,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "Học phí HUIT năm 2026 khoảng bao nhiêu?",
+    "question_clean": "hoc phi huit nam 2026 khoang bao nhieu?",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+        "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
+        "score": 0.99,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí K26 năm 2026]\nHọc phí khóa K26 năm 2026 là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành. Học phí toàn khóa của các ngành cử nhân phổ biến khoảng 143–148 triệu đồng; chương trình kỹ s"
+      },
+      {
+        "i": 2,
+        "title": "Ngành Logistics và quản lý chuỗi cung ứng (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-logistic-va-quan-ly-chuoi-cung-ung",
+        "score": 0.821,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Logistics và quản lý chuỗi cung ứng | Loại dữ liệu: major | Mã ngành: 7510605 | Năm: 2026]\n# Ngành Logistics và quản lý chuỗi cung ứng\n- Mã ngành: 7510605\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Logisti"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Quản trị Nhà hàng và Dịch vụ ăn uống (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-nha-hang-va-dich-vu-an-uong",
+        "score": 0.813,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Quản trị Nhà hàng và Dịch vụ ăn uống | Loại dữ liệu: major | Mã ngành: 7810202 | Năm: 2026]\n# Ngành Quản trị Nhà hàng và Dịch vụ ăn uống\n- Mã ngành: 7810202\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Quản "
+      }
+    ],
+    "updated_at": "2026-07-28T12:08:05.339000"
+  },
+  {
+    "_id": "6a689bd56bbb1179522dd452",
+    "cache_key": "463ff6c5df25738aca8124d2656edb856b7883cc6b8b47564251250d03f13c48",
+    "answer": "Ngành Khoa học Dữ liệu (Data Science) thuộc **Khoa Công nghệ Thông tin** tại Trường Đại học Công Thương TP.HCM (HUIT). Đây là ngành đào tạo chuyên sâu về xử lý dữ liệu lớn, thống kê ứng dụng, xây dựng mô hình dự báo kinh doanh và trí tuệ nhân tạo, giúp sinh viên có thể làm việc trong các lĩnh vực như Data Scientist, Data Engineer hoặc BI Analyst.  \n\nNếu bạn quan tâm đến ngành này, mình có thể hỗ trợ thêm về yêu cầu tuyển sinh, chương trình học hoặc định hướng nghề nghiệp! [3]",
+    "expires_at": "2026-07-29T12:08:53.779000",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "meta": {
+      "intent": "major",
+      "fallback": false,
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "kb_version": "huit-kb-2026-07-v4-semantic",
+      "rag_version": "rag-v10-grounded-score-source"
+    },
+    "model": "qwen/qwen-2.5-72b-instruct",
+    "original_question": "ngành khoa học dữ lieuejn thuộc khoa nào",
+    "question_clean": "nganh khoa hoc du lieuejn thuoc khoa nao",
+    "rag_version": "rag-v10-grounded-score-source",
+    "sources": [
+      {
+        "i": 1,
+        "title": "Ngành Khoa học dữ liệu (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-du-lieu",
+        "score": 0.873,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Khoa học dữ liệu | Loại dữ liệu: major | Mã ngành: 7460108 | Năm: 2026]\n# Ngành Khoa học dữ liệu\n- Mã ngành: 7460108\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Khoa học dữ liệu nằm trong danh mục 39 ngành "
+      },
+      {
+        "i": 2,
+        "title": "Ngành Khoa học dinh dưỡng và ẩm thực (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-dinh-duong-va-am-thuc",
+        "score": 0.871,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Khoa học dinh dưỡng và ẩm thực | Loại dữ liệu: major | Mã ngành: 7540107 | Năm: 2026]\n# Ngành Khoa học dinh dưỡng và ẩm thực\n- Mã ngành: 7540107\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Khoa học dinh dưỡ"
+      },
+      {
+        "i": 3,
+        "title": "Ngành Khoa học chế biến món ăn (HUIT Cổng tuyển sinh chính thức)",
+        "url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-che-bien-mon-an",
+        "score": 0.868,
+        "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Ngành Khoa học chế biến món ăn | Loại dữ liệu: major | Mã ngành: 7810203 | Năm: 2026]\n# Ngành Khoa học chế biến món ăn\n- Mã ngành: 7810203\n- Hệ đào tạo: Đại học chính quy HUIT.\n- Ngành Khoa học chế biến món ăn nằm "
+      }
+    ],
+    "updated_at": "2026-07-28T12:08:53.779000"
+  }
+]

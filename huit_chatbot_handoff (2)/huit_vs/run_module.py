@@ -14,14 +14,18 @@ import os
 import sys
 from urllib.parse import quote_plus
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 from pymongo import MongoClient
 
 USER = "nguyenkhaihiep1999_db_user"
 HOST = "cluster0.hyj8rab.mongodb.net"
 DB = "huit_chatbot"
 COLL = "huit_kb"
-MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-DEFAULT_MODULE = "/home/user/huit_vs/huit_semantic_search.module.json"
+MODEL = "intfloat/multilingual-e5-large"
+HERE = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_MODULE = os.path.join(HERE, "huit_semantic_search.module.json")
 
 question = sys.argv[1] if len(sys.argv) > 1 else "Trường có đào tạo ngành công nghệ thông tin không?"
 module_path = sys.argv[2] if len(sys.argv) > 2 else DEFAULT_MODULE
@@ -33,15 +37,24 @@ pipeline = copy.deepcopy(mod["private"]["node_function"]["edge"][0]["pipeline"])
 # 2) embed the question
 from fastembed import TextEmbedding
 emb = TextEmbedding(MODEL)
-qv = list(emb.embed([question]))[0].tolist()
+qv = list(emb.embed(["query: " + question]))[0].tolist()
 
 # 3) substitute the placeholder query vector
 for stage in pipeline:
     vs = stage.get("$vectorSearch")
-    if vs and vs.get("queryVector") == "<<QUERY_VECTOR_384>>":
+    if vs and (vs.get("queryVector") == "<<QUERY_VECTOR_384>>" or vs.get("queryVector") == "<<QUERY_VECTOR_1024>>"):
         vs["queryVector"] = qv
 
 # 4) run the pipeline on MongoDB Atlas
+if not os.environ.get("MONGODB_PASSWORD"):
+    _env = os.path.join(HERE, ".env")
+    if os.path.exists(_env):
+        for line in open(_env, encoding="utf-8"):
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                os.environ[k.strip()] = v.strip()
+
 pwd = os.environ.get("MONGODB_PASSWORD")
 if not pwd:
     sys.exit("MONGODB_PASSWORD missing")

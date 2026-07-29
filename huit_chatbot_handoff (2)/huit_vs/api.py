@@ -21,13 +21,14 @@ if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
 from fastapi import FastAPI, Header, HTTPException, Request, status
+from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 import rag_core
 
-app = FastAPI(title="HUIT Chatbot API", version="1.0")
+app = FastAPI(title="HUIT Chatbot API", version="1.0", docs_url=None, redoc_url=None)
 
 
 from typing import List, Dict, Optional, Any
@@ -90,7 +91,7 @@ def require_admin(x_admin_token: str = Header(default="")):
 async def security_headers(request: Request, call_next):
     response = await call_next(request)
     response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["Permissions-Policy"] = "camera=(), geolocation=()"
     response.headers["Content-Security-Policy"] = (
@@ -164,11 +165,12 @@ def chat(req: ChatRequest, request: Request):
     if not q:
         raise HTTPException(status_code=422, detail="Vui lòng nhập câu hỏi.")
     history = req.history or []
-    if len(history) > 12:
-        raise HTTPException(status_code=422, detail="Lịch sử hội thoại quá dài.")
+    # Auto sliding-window: trim history to latest 10 messages (5 QA turns) to prevent payload bloat
+    if len(history) > 10:
+        history = history[-10:]
     for turn in history:
         if not isinstance(turn, dict) or len(str(turn.get("content", ""))) > 2000:
-            raise HTTPException(status_code=422, detail="Lịch sử hội thoại không hợp lệ.")
+            turn["content"] = str(turn.get("content", ""))[:2000]
     try:
         return rag_core.answer(q, chat_history=history)
     except Exception as e:  # noqa: BLE001
@@ -374,9 +376,24 @@ def test_vector_search(req: VectorSearchTestRequest, x_admin_token: str = Header
     }
 
 
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - Swagger UI",
+        swagger_js_url="/static/swagger-ui/swagger-ui-bundle.js",
+        swagger_css_url="/static/swagger-ui/swagger-ui.css",
+    )
+
+
 @app.get("/admin")
 def admin_page():
     return FileResponse(os.path.join(HERE, "static", "admin.html"))
+
+
+@app.get("/workflow")
+def workflow_page():
+    return FileResponse(os.path.join(HERE, "static", "workflow.html"))
 
 
 @app.get("/")

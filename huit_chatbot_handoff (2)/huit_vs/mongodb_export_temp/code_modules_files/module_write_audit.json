@@ -1,0 +1,59 @@
+{
+  "_id": "module_write_audit",
+  "module_version": "1.0.0",
+  "kind": "mongodb_aggregation",
+  "enabled": true,
+  "description": "Liệt kê module có quyền ghi",
+  "source_collection": "code_modules",
+  "risk_level": "read",
+  "allowed_targets": [],
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "public": {
+    "node_data": {
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "_id",
+          "module_version",
+          "kind",
+          "enabled",
+          "source_collection",
+          "risk_level"
+        ]
+      }
+    }
+  },
+  "private": {
+    "node_function": {
+      "edge": [
+        {
+          "purpose": "Liệt kê module có quyền ghi",
+          "pipeline": [
+            {
+              "$match": {
+                "risk_level": "write"
+              }
+            },
+            {
+              "$project": {
+                "_id": 1,
+                "module_version": 1,
+                "enabled": 1,
+                "allowed_targets": 1
+              }
+            },
+            {
+              "$sort": {
+                "_id": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
