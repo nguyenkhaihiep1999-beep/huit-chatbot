@@ -599,15 +599,65 @@
         .log-amber { color: var(--neon-amber); }
 
         /* Responsive Breakpoints */
-        @media (max-width: 1200px) {
-            .nexus-nodes-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-            .inspection-nexus-grid { grid-template-columns: 1fr; }
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1rem 1.2rem;
+                align-items: flex-start;
+            }
+            .header-links {
+                width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 4px;
+            }
+            .cyber-link {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.78rem;
+                white-space: nowrap;
+            }
+            .brand-text {
+                font-size: 1.15rem;
+            }
+            .brand-tag {
+                font-size: 0.7rem;
+            }
+            .command-deck {
+                padding: 1rem 1.2rem;
+            }
+            .cyber-flow-viewport {
+                padding: 1rem;
+                gap: 1.2rem;
+            }
+            .nexus-art-stage {
+                padding: 1.5rem 1rem;
+                border-radius: 20px;
+            }
+            .nexus-nodes-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .inspection-nexus-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        @media (max-width: 640px) {
-            .nexus-nodes-grid { grid-template-columns: 1fr; }
-            .input-bar-group { flex-direction: column; }
-            .btn-ignite { width: 100%; justify-content: center; }
+        @media (max-width: 550px) {
+            .nexus-nodes-grid {
+                grid-template-columns: 1fr;
+            }
+            .input-bar-group {
+                flex-direction: column;
+            }
+            .btn-ignite {
+                width: 100%;
+                justify-content: center;
+            }
+            .cyber-input-field {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
