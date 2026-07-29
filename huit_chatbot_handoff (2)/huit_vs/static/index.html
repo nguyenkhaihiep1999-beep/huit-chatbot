@@ -1685,7 +1685,7 @@
   });
 
 <!-- MODAL OVERLAY HIỂN THỊ SƠ ĐỒ LUỒNG RAG NEXUS TRỰC TIẾP TRONG CHAT -->
-<div id="workflow-modal" class="workflow-modal-overlay">
+<div id="workflow-modal" class="workflow-modal-overlay" style="display:none;">
   <div class="workflow-modal-container">
     <div class="workflow-modal-header">
       <div class="workflow-modal-title">
@@ -1703,12 +1703,18 @@
 <script>
   function openWorkflowModal() {
     const modal = document.getElementById('workflow-modal');
-    if (modal) modal.classList.add('active');
+    if (modal) {
+      modal.style.display = 'flex';
+      modal.classList.add('active');
+    }
   }
 
   function closeWorkflowModal() {
     const modal = document.getElementById('workflow-modal');
-    if (modal) modal.classList.remove('active');
+    if (modal) {
+      modal.style.display = 'none';
+      modal.classList.remove('active');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
