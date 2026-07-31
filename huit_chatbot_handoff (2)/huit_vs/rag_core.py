@@ -962,128 +962,102 @@ def log_event(question, response_data, elapsed_ms, intent, cached=False, error=N
 
 
 def _fallback_answer(question, docs):
-    """Create a concise grounded answer when every configured LLM is unavailable."""
+    """Create a concise grounded answer when LLM streaming is unavailable or truncated."""
     if not docs:
         return "Hiện chưa tìm thấy thông tin chi tiết phù hợp trong kho tri thức tuyển sinh HUIT. Bạn vui lòng đặt câu hỏi cụ thể hơn hoặc liên hệ hotline Cổng tuyển sinh HUIT nhé!"
 
-    q_lower = question.lower()
     q_normalized = _normalize(question)
     intent = classify_intent(question)
 
-    major_title = ""
-    for d in docs:
-        if d.get("category") == "major" or d.get("major_code"):
-            t = str(d.get("page_title") or d.get("title") or "").strip()
-            t = re.sub(r"\s*\(HUIT.*$", "", t).strip()
-            t = re.sub(r"^Ngành\s+", "", t, flags=re.IGNORECASE).strip()
-            if t:
-                major_title = f" dành cho **Ngành {t}**"
-                break
-
+    # 1. Tuition
     if intent == "tuition" or any(k in q_normalized for k in ["hoc phi", "tin chi", "tien hoc", "muc phi", "chi phi"]):
         return (
-            f"Theo công bố cho khóa K26 năm 2026, học phí HUIT{major_title} là "
+            "Theo công bố cho khóa K26 năm 2026, học phí HUIT là "
             "**1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ "
             "thực hành**. Các ngành cử nhân phổ biến khoảng **143–148 triệu "
-            "đồng/toàn khóa**, còn chương trình kỹ sư khoảng **177–188 triệu "
-            "đồng/toàn khóa**, tùy chương trình và cơ cấu tín chỉ. [1]"
+            "đồng/toàn khóa**, chương trình kỹ sư khoảng **177–188 triệu đồng/toàn khóa**. [1]"
         )
 
-    if intent == "cutoff":
+    # 2. Cutoff Scores
+    if intent == "cutoff" or any(k in q_normalized for k in ["diem san", "diem chuan", "diem trung tuyen"]):
         is_law = "luat" in q_normalized
-        if "danh gia nang luc" in q_normalized and "su pham" not in q_normalized:
+        if "danh gia nang luc" in q_normalized:
             score = "720" if is_law else "600"
             return (
-                f"Điểm sàn Đánh giá năng lực ĐHQG-HCM năm 2026 là **{score} "
-                f"điểm** cho {'nhóm Luật và Luật kinh tế' if is_law else 'các ngành ngoài nhóm Luật'}. "
-                "Đây là điểm sàn, chưa phải điểm trúng tuyển. [1]"
+                f"Điểm sàn Đánh giá năng lực ĐHQG-HCM năm 2026 HUIT là **{score} điểm** "
+                f"cho {'nhóm Luật và Luật kinh tế' if is_law else 'các ngành ngoài nhóm Luật'}. [1]"
             )
         score = "20" if is_law else "16"
         return (
-            f"Với điểm thi tốt nghiệp THPT năm 2026, điểm sàn là **{score} "
-            f"điểm** cho {'Luật và Luật kinh tế' if is_law else 'các ngành ngoài nhóm Luật'}. "
-            "Nếu bạn xét học bạ, mức sàn là 20 điểm; đây chưa phải điểm trúng tuyển. [1]"
+            f"Điểm sàn xét điểm thi THPT năm 2026 HUIT là **{score} điểm** "
+            f"cho {'nhóm Luật' if is_law else 'các ngành ngoài nhóm Luật'}. Điểm sàn xét học bạ là 20 điểm. [1]"
         )
 
-    if intent == "admission":
+    # 3. Admission methods
+    if intent == "admission" or any(k in q_normalized for k in ["phuong thuc", "xet hoc ba", "tuyen thang"]):
         return (
-            "Năm 2026, HUIT có 5 phương thức: điểm thi tốt nghiệp THPT, học bạ "
-            "lớp 10–12, Đánh giá năng lực ĐHQG-HCM, tuyển thẳng theo quy định "
-            "của Bộ GD&ĐT, và bài thi năng lực chuyên biệt của ĐH Sư phạm "
-            "TP.HCM kết hợp học bạ. [1] Bạn muốn mình giải thích phương thức nào?"
+            "Năm 2026, HUIT áp dụng 5 phương thức xét tuyển: 1) Điểm thi tốt nghiệp THPT, "
+            "2) Học bạ THPT (lớp 10, 11 và HK1 lớp 12), 3) Đánh giá năng lực ĐHQG-HCM, "
+            "4) Tuyển thẳng theo quy định Bộ GD&ĐT, 5) Bài thi năng lực chuyên biệt ĐH Sư phạm TP.HCM kết hợp học bạ. [1]"
         )
 
-    if intent == "scholarship":
+    # 4. Career Orientation Topic matching
+    # A. English / Languages
+    if any(k in q_normalized for k in ["tieng anh", "ngon ngu anh", "anh van", "ngoai ngu", "tieng trung"]):
         return (
-            "Không có công bố chính thức về mức giảm **50% học phí học kỳ đầu "
-            "áp dụng chung cho mọi ngành chính quy**. HUIT có nhiều nhóm học "
-            "bổng như khuyến khích học tập, tiếp sức đến trường, thủ khoa–á "
-            "khoa và hỗ trợ sinh viên vượt khó. [1] Chính sách của Viện Quốc tế "
-            "là chương trình riêng, cần phân biệt với hệ chính quy. [2]"
+            "Nếu bạn yêu thích tiếng Anh và ngôn ngữ, tại **Trường Đại học Công Thương TP.HCM (HUIT)** bạn có thể tham khảo 2 ngành đào tạo chuẩn mực:\n\n"
+            "1. **Ngành Ngôn ngữ Anh** (Mã ngành: `7220201`): Đào tạo chuyên sâu về Tiếng Anh thương mại, biên - phiên dịch, giảng dạy và truyền thông doanh nghiệp.\n"
+            "2. **Ngành Ngôn ngữ Trung Quốc** (Mã ngành: `7220204`): Đào tạo tiếng Trung thương mại, dịch thuật và thương mại quốc tế.\n\n"
+            "Cả 2 ngành đều áp dụng các phương thức xét tuyển học bạ, điểm thi THPT và ĐGNL năm 2026. Bạn muốn xem chi tiết tổ hợp môn ngành nào? [1]"
         )
 
-    if intent == "career" or any(k in q_normalized for k in ["vay", "dam", "may mac", "thoi trang", "lap trinh", "nau an", "my pham", "game", "truyen thong", "con gai nen hoc", "nu nen hoc"]):
-        if any(k in q_normalized for k in ["vay", "dam", "may mac", "thoi trang", "trang phuc", "may rap"]):
-            return (
-                "Nếu bạn yêu thích thiết kế váy, quần áo hoặc thời trang, tại **Trường Đại học Công Thương TP.HCM (HUIT)** bạn có thể lựa chọn 2 ngành đào tạo phù hợp nhất:\n\n"
-                "1. **Ngành Công nghệ dệt, may** (Mã ngành: `7540204`): Đào tạo chuyên sâu về thiết kế rập 2D/3D (Gerber, Lectra), quản lý dây chuyền sản xuất may công nghiệp, kiểm soát chất lượng trang phục xuất khẩu.\n"
-                "2. **Ngành Kinh doanh thời trang và dệt may** (Mã ngành: `7340123`): Đào tạo về kinh doanh chuỗi thời trang, Marketing thời trang, quản lý chuỗi cung ứng dệt may và phân tích xu hướng mốt.\n\n"
-                "Cả 2 ngành đều thuộc Khoa May - Thời trang HUIT và áp dụng chính sách học bổng hỗ trợ 50% học phí HK1 [1]. Bạn muốn mình tư vấn thêm về tổ hợp xét tuyển hay chương trình học ngành nào?"
-            )
-        if any(k in q_normalized for k in ["lap trinh", "game", "code", "app", "web"]):
-            return (
-                "Nếu bạn quan tâm đến lập trình, phát triển phần mềm hoặc game, HUIT có các ngành đào tạo nổi bật thuộc nhóm CNTT:\n\n"
-                "1. **Ngành Công nghệ thông tin** (Mã ngành: `7480101`): Lập trình phần mềm, ứng dụng di động, hệ thống mạng.\n"
-                "2. **Ngành Trí tuệ nhân tạo** (Mã ngành: `7480107`): Học máy, xử lý dữ liệu lớn, phân tích dữ liệu thông minh và AI.\n"
-                "3. **Ngành An toàn thông tin** (Mã ngành: `7480202`): Bảo mật thông tin, an ninh mạng.\n\n"
-                "Bạn muốn tìm hiểu tổ hợp môn xét tuyển hay điểm sàn năm 2026 của ngành nào? [1]"
-            )
-        if any(k in q_normalized for k in ["nau an", "lam banh", "am thuc", "dau bep", "nha hang"]):
-            return (
-                "Nếu bạn yêu thích ẩm thực, nấu ăn và quản lý nhà hàng, HUIT đào tạo các ngành rất phù hợp:\n\n"
-                "• **Ngành Quản trị dịch vụ ăn uống và kỹ thuật chế biến món ăn** (Mã ngành: `7810202`): Kỹ thuật chế biến món ăn Á - Âu, nghệ thuật ẩm thực và quản lý nhà hàng [1].\n"
-                "• **Ngành Quản trị nhà hàng và dịch vụ ăn uống** (Mã ngành: `7810206`)\n"
-                "• **Ngành Công nghệ thực phẩm** (Mã ngành: `7540101`)\n\n"
-                "Bạn muốn tra cứu thêm thông tin về tổ hợp môn hay phương thức xét tuyển ngành nào?"
-            )
-        if any(k in q_normalized for k in ["my pham", "son", "kem duong", "hoa chat"]):
-            return (
-                "Nếu bạn quan tâm đến lĩnh vực điều chế và sản xuất mỹ phẩm (kem dưỡng, son môi, sản phẩm làm đẹp), ngành học chuẩn nhất tại HUIT là:\n\n"
-                "• **Ngành Công nghệ kỹ thuật hóa học** (Mã ngành: `7510401`): Có chuyên ngành Hóa mỹ phẩm, đào tạo quy trình tổng hợp, kiểm nghiệm và sản xuất mỹ phẩm [1].\n\n"
-                "Bạn cần mình hỗ trợ tra cứu điểm sàn hay tổ hợp xét tuyển của ngành này không?"
-            )
-        if any(k in q_normalized for k in ["con gai", "nu"]):
-            return (
-                "Tại HUIT, sinh viên nữ có rất nhiều lựa chọn ngành học hot và cơ hội việc làm rộng mở:\n\n"
-                "1. **Nhóm Thời trang & Thiết kế**: Kinh doanh thời trang & dệt may, Công nghệ dệt may.\n"
-                "2. **Nhóm Kinh tế - Dịch vụ**: Quản trị kinh doanh, Marketing, Thương mại điện tử, Kế toán, Tài chính ngân hàng.\n"
-                "3. **Nhóm Ngôn ngữ**: Ngôn ngữ Anh, Ngôn ngữ Trung Quốc.\n"
-                "4. **Nhóm Hóa - Thực phẩm**: Công nghệ thực phẩm, Công nghệ kỹ thuật hóa học (Hóa mỹ phẩm).\n\n"
-                "Bạn muốn mình tư vấn chi tiết hơn về nhóm ngành nào?"
-            )
+    # B. Cooking / Culinary / Food
+    if any(k in q_normalized for k in ["nau an", "lam banh", "am thuc", "dau bep", "nha hang", "che bien"]):
+        return (
+            "Nếu bạn yêu thích ẩm thực, nấu ăn và kỹ thuật chế biến món ăn, HUIT đào tạo các ngành rất phù hợp:\n\n"
+            "1. **Ngành Quản trị dịch vụ ăn uống và kỹ thuật chế biến món ăn** (Mã ngành: `7810202`): Đào tạo nghệ thuật ẩm thực Á - Âu, kỹ thuật chế biến món ăn và quản lý nhà hàng [1].\n"
+            "2. **Ngành Quản trị nhà hàng và dịch vụ ăn uống** (Mã ngành: `7810206`)\n"
+            "3. **Ngành Công nghệ thực phẩm** (Mã ngành: `7540101`)\n\n"
+            "Bạn muốn tra cứu thêm thông tin về tổ hợp môn hay phương thức xét tuyển ngành nào?"
+        )
 
-    if intent == "major" and docs:
-        best = docs[0]
-        code = best.get("major_code")
-        title = str(best.get("page_title") or best.get("title") or "ngành này")
-        title = re.sub(r"\s*\(HUIT.*$", "", title).strip()
-        if code:
-            return (
-                f"HUIT có đào tạo **{title}**, mã ngành **{code}**, thuộc hệ "
-                "đại học chính quy trong danh mục tuyển sinh 2026. [1] "
-                "Bạn muốn xem thêm tổ hợp xét tuyển hay chương trình học?"
-            )
+    # C. IT / AI / Tech
+    if any(k in q_normalized for k in ["cntt", "it", "lap trinh", "game", "ai", "tri tue nhan tao", "data", "an toan thong tin", "code"]):
+        return (
+            "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:\n\n"
+            "1. **Ngành Công nghệ thông tin** (Mã ngành: `7480201`): Lập trình phần mềm, ứng dụng di động, hệ thống mạng.\n"
+            "2. **Ngành Trí tuệ nhân tạo** (Mã ngành: `7480107`): Học máy, xử lý dữ liệu lớn, phân tích dữ liệu thông minh và AI.\n"
+            "3. **Ngành An toàn thông tin** (Mã ngành: `7480202`): Bảo mật thông tin, an ninh mạng.\n\n"
+            "Bạn cần tư vấn chi tiết về điểm sàn hay tổ hợp xét tuyển của ngành nào? [1]"
+        )
 
-    best_doc = docs[0]
-    excerpt = str(best_doc.get("raw_text") or best_doc.get("text", "")).strip()
-    excerpt = re.sub(r"^\[[^\]]+\]\s*", "", excerpt)
-    excerpt = re.sub(r"[#*_`]+", "", excerpt)
-    if len(excerpt) > 500:
-        excerpt = excerpt[:500].rsplit(" ", 1)[0] + "…"
+    # D. Fashion / Garments
+    if any(k in q_normalized for k in ["vay", "dam", "may mac", "thoi trang", "trang phuc", "may rap"]):
+        return (
+            "Nếu bạn yêu thích thiết kế váy, quần áo hoặc thời trang, tại **Trường Đại học Công Thương TP.HCM (HUIT)** bạn có thể lựa chọn 2 ngành đào tạo phù hợp nhất:\n\n"
+            "1. **Ngành Công nghệ dệt, may** (Mã ngành: `7540204`): Đào tạo chuyên sâu về thiết kế rập 2D/3D (Gerber, Lectra), quản lý dây chuyền sản xuất may công nghiệp.\n"
+            "2. **Ngành Kinh doanh thời trang và dệt may** (Mã ngành: `7340123`): Đào tạo về kinh doanh chuỗi thời trang, Marketing thời trang và quản lý chuỗi cung ứng dệt may.\n\n"
+            "Bạn muốn mình tư vấn thêm về tổ hợp xét tuyển hay chương trình học ngành nào? [1]"
+        )
+
+    # 5. Dynamic fallback matching TOP retrieved docs
+    relevant_majors = []
+    for d in docs[:3]:
+        t = _clean_doc_title(d.get("title"))
+        if t and t not in relevant_majors and "Thông tin Tuyển sinh" not in t:
+            relevant_majors.append(f"• **{t}**")
+
+    if relevant_majors:
+        majors_list_str = "\n".join(relevant_majors)
+        return (
+            f"Dựa trên thông tin tuyển sinh chính thức của HUIT, dưới đây là các ngành đào tạo liên quan phù hợp nhất với yêu cầu của bạn:\n\n"
+            f"{majors_list_str}\n\n"
+            "Bạn muốn mình tư vấn chi tiết hơn về mã ngành, tổ hợp môn hay điểm sàn của ngành nào? [1]"
+        )
+
     return (
-        f"Mình tìm thấy thông tin này trên nguồn tuyển sinh chính thức của HUIT: "
-        f"{excerpt} [1]\n\nNếu bạn nói rõ ngành hoặc năm tuyển sinh, mình sẽ "
-        "tra cứu chính xác hơn."
+        "Cổng thông tin tuyển sinh HUIT hiện công bố đầy đủ 39 ngành đào tạo đại học chính quy năm 2026. "
+        "Bạn vui lòng cho biết rõ tên ngành hoặc câu hỏi cụ thể để mình tư vấn chính xác nhất nhé! [1]"
     )
 
 
