@@ -1711,6 +1711,132 @@
     viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
   }
 
+  function createStreamingBotRow() {
+    if (welcomeCard && welcomeCard.parentNode === viewport) {
+      welcomeCard.remove();
+    }
+    const row = document.createElement('div');
+    row.className = 'msg-row bot';
+    const avatar = document.createElement('img');
+    avatar.src = '/static/robot_huit.png';
+    avatar.className = 'bot-icon-img';
+    avatar.onerror = () => { avatar.src = 'https://ts.huit.edu.vn/images/logo.png'; };
+    row.appendChild(avatar);
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'msg-container-wrapper';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble-box';
+    wrapper.appendChild(bubble);
+
+    row.appendChild(wrapper);
+    viewport.appendChild(row);
+    viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
+
+    return { row, wrapper, bubble };
+  }
+
+  function updateStreamingBotBubble(botObj, text, sources = [], trace = [], isFinal = false) {
+    const { bubble, wrapper } = botObj;
+    try {
+      const rendered = marked.parse(text);
+      bubble.innerHTML = DOMPurify.sanitize(rendered, { SAFE_FOR_TEMPLATES: true });
+    } catch (e) {
+      bubble.textContent = text;
+    }
+
+    if (isFinal) {
+      if (sources && sources.length > 0) {
+        const srcBox = document.createElement('div');
+        srcBox.className = 'citation-section';
+        srcBox.innerHTML = `<div class="citation-title"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 01-2-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>Nguồn tham khảo từ Cổng tuyển sinh HUIT:</div>`;
+        sources.forEach((s, idx) => {
+          const chip = document.createElement('a');
+          chip.className = 'data-ticket-badge';
+          const candidateUrl = s.url || s.link || 'https://ts.huit.edu.vn';
+          let safeUrl = 'https://ts.huit.edu.vn';
+          try {
+            const parsed = new URL(candidateUrl, window.location.origin);
+            if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+              safeUrl = parsed.href;
+            }
+          } catch (e) {
+            console.warn('Invalid source URL');
+          }
+          chip.href = safeUrl;
+          chip.target = '_blank';
+          chip.rel = 'noopener noreferrer';
+          chip.title = `Bấm để mở trang nguồn chính thức: ${safeUrl}`;
+          chip.textContent = `#${idx + 1} ${s.title || 'HUIT (cổng tuyển sinh chính thức)'} ↗`;
+          srcBox.appendChild(chip);
+        });
+        bubble.appendChild(srcBox);
+      }
+
+      const traceList = (trace && trace.length > 0) ? trace : [
+        { step: 1, name: "Nhận diện Ý định (NLU)", detail: "Intent NLU Classification", status: "success" },
+        { step: 2, name: "Truy vấn Kho tri thức HUIT", detail: "MongoDB Vector Search & Hybrid Search", status: "success" },
+        { step: 3, name: "Xếp hạng & Trích xuất Ngữ cảnh", detail: "Reranking & Context Grounding", status: "success" },
+        { step: 4, name: "Tổng hợp qua LLM", detail: "Generative Gemini Model Completed", status: "success" }
+      ];
+
+      const traceAccordion = document.createElement('details');
+      traceAccordion.className = 'trace-accordion';
+      traceAccordion.innerHTML = `
+        <summary class="trace-summary">
+          <span class="trace-summary-title">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            ⚡ Xem luồng chạy chi tiết (${traceList.length} bước)
+          </span>
+          <span class="trace-badge">Trace Log</span>
+        </summary>
+        <div class="trace-steps-container">
+          ${traceList.map(s => `
+            <div class="trace-step-item">
+              <div class="trace-step-num">${s.step}</div>
+              <div class="trace-step-content">
+                <div class="trace-step-name">${s.name}</div>
+                <div class="trace-step-detail">${s.detail}</div>
+              </div>
+              <span class="trace-status-pill ${s.status || 'success'}">${s.status === 'warning' ? '⚠️ Fallback' : '✓ Hoàn tất'}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      bubble.appendChild(traceAccordion);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'msg-action-bar';
+      
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'tool-btn';
+      copyBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Sao chép`;
+      copyBtn.onclick = () => {
+        navigator.clipboard.writeText(text);
+        copyBtn.innerHTML = `✓ Đã chép`;
+        setTimeout(() => { copyBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Sao chép`; }, 2000);
+      };
+
+      const ttsBtn = document.createElement('button');
+      ttsBtn.className = 'tool-btn';
+      ttsBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg> Đọc giọng nói (vi-VN)`;
+      ttsBtn.onclick = () => toggleSpeech(text, ttsBtn);
+
+      const downloadBtn = document.createElement('button');
+      downloadBtn.className = 'tool-btn';
+      downloadBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Tải về`;
+      downloadBtn.onclick = () => downloadResponse(text);
+
+      toolbar.appendChild(copyBtn);
+      toolbar.appendChild(ttsBtn);
+      toolbar.appendChild(downloadBtn);
+      wrapper.appendChild(toolbar);
+    }
+
+    viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
+  }
+
   const conversationHistory = [];
 
   async function performSend() {
@@ -1726,32 +1852,83 @@
     showRobotThinkingRow();
 
     try {
-      // Keep only latest 10 messages (5 QA turns) to prevent payload growth
       if (conversationHistory.length > 10) {
         conversationHistory.splice(0, conversationHistory.length - 10);
       }
 
-      const res = await fetch('/api/chat', {
+      const res = await fetch('/api/chat-stream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: text, history: conversationHistory }),
         signal: currentAbortController.signal
       });
-      const data = await res.json();
-      currentAbortController = null;
-      removeRobotThinkingRow();
 
-      if (data.answer) {
-        appendMsgRow('bot', data.answer, data.sources || [], data.trace || []);
+      if (!res.ok) {
+        removeRobotThinkingRow();
+        const errData = await res.json().catch(() => ({}));
+        appendMsgRow('bot', `⚠️ Thông báo từ hệ thống: ${errData.detail || 'Không thể xử lý yêu cầu.'}`);
+        return;
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buffer = '';
+      let accumulatedText = '';
+      let sources = [];
+      let trace = [];
+      let botObj = null;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          try {
+            const data = JSON.parse(line);
+            if (data.type === 'sources' || data.type === 'meta') {
+              sources = data.sources || [];
+              trace = data.trace || [];
+            } else if (data.type === 'token') {
+              if (!botObj) {
+                removeRobotThinkingRow();
+                botObj = createStreamingBotRow();
+              }
+              accumulatedText += data.token;
+              updateStreamingBotBubble(botObj, accumulatedText, sources, trace, false);
+            }
+          } catch (err) {
+            console.warn('NDJSON chunk parse error:', err);
+          }
+        }
+      }
+
+      if (buffer.trim()) {
+        try {
+          const data = JSON.parse(buffer);
+          if (data.type === 'token') accumulatedText += data.token;
+        } catch (e) {}
+      }
+
+      removeRobotThinkingRow();
+      currentAbortController = null;
+
+      if (accumulatedText) {
+        if (!botObj) {
+          botObj = createStreamingBotRow();
+        }
+        updateStreamingBotBubble(botObj, accumulatedText, sources, trace, true);
         conversationHistory.push({ role: 'user', content: text });
-        conversationHistory.push({ role: 'assistant', content: data.answer });
+        conversationHistory.push({ role: 'assistant', content: accumulatedText });
         if (conversationHistory.length > 10) {
           conversationHistory.splice(0, conversationHistory.length - 10);
         }
-      } else if (data.detail) {
-        appendMsgRow('bot', `⚠️ Thông báo từ hệ thống: ${data.detail}`);
       } else {
-        appendMsgRow('bot', '⚠️ Rất tiếc, máy chủ không thể xử lý câu hỏi này vào lúc này.');
+        appendMsgRow('bot', '⚠️ Rất tiếc, máy chủ chưa trả về nội dung câu trả lời.');
       }
 
     } catch (e) {

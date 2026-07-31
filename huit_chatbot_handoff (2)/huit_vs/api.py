@@ -191,6 +191,18 @@ def chat_stream(question: str, request: Request):
     return StreamingResponse(rag_core.stream_answer(q), media_type="application/x-ndjson")
 
 
+@app.post("/api/chat-stream")
+def chat_stream_post(req: ChatRequest, request: Request):
+    enforce_rate_limit(request)
+    q = (req.question or "").strip()
+    if not q:
+        raise HTTPException(status_code=422, detail="Vui lòng nhập câu hỏi.")
+    history = req.history or []
+    if len(history) > 10:
+        history = history[-10:]
+    return StreamingResponse(rag_core.stream_answer(q, chat_history=history), media_type="application/x-ndjson")
+
+
 @app.post("/api/clear-cache")
 def clear_cache(x_admin_token: str = Header(default="")):
     require_admin(x_admin_token)

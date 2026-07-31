@@ -14,6 +14,7 @@ import time
 import unicodedata
 from datetime import datetime, timedelta, timezone
 from urllib.parse import quote_plus
+import numpy as np
 
 from pymongo import MongoClient
 
@@ -23,8 +24,10 @@ DB = "huit_chatbot"
 COLL = "huit_kb"
 MODEL = "intfloat/multilingual-e5-large"
 DIMS = 1024
-LLM_MODEL = os.environ.get("OPENROUTER_MODEL", "qwen/qwen-2.5-72b-instruct")
+LLM_MODEL = os.environ.get("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
 LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "350"))
+_ram_cache = {}
+_ram_cache_expiry = {}
 # Version is coupled to the embeddings currently promoted in Atlas. Keeping it
 # code-owned prevents a stale Vercel environment value from reusing old caches.
 KB_VERSION = "huit-kb-2026-07-v4-semantic"
@@ -62,10 +65,11 @@ _embedder = None
 _mongo = None
 _retrieval_pipeline = None
 _rag_cfg = None
+_cluster_centroids = None
 
 
 def _init():
-    global _embedder, _mongo, _retrieval_pipeline, _rag_cfg
+    global _embedder, _mongo, _retrieval_pipeline, _rag_cfg, _cluster_centroids
     if _mongo is None:
         pwd = os.environ.get("MONGODB_PASSWORD")
         if not pwd:
@@ -88,6 +92,13 @@ def _init():
     if _rag_cfg is None:
         rag = json.load(open(RAG_MODULE, encoding="utf-8"))
         _rag_cfg = rag["private"]["node_function"]["edge"][0]["config"]
+    if _cluster_centroids is None:
+        c_path = os.path.join(HERE, "huit_cluster_centroids.json")
+        if os.path.exists(c_path):
+            try:
+                _cluster_centroids = json.load(open(c_path, encoding="utf-8"))
+            except Exception as e:
+                print("Centroids load warning:", e)
     if _embedder is None:
         try:
             from fastembed import TextEmbedding
@@ -280,14 +291,34 @@ def retrieve(question, top_k=3):
     vector_ranks = {}
     keyword_ranks = {}
 
+    # 0. Phân cụm Ý định & Chủ đề qua KMeans Centroids (Machine Learning Clustering)
+    top_cluster_id = None
+    qv = None
+    if _embedder and _cluster_centroids and "clusters" in _cluster_centroids:
+        try:
+            qv_list = list(_embedder.embed([f"query: {question}"]))[0].tolist()
+            qv = qv_list
+            qv_arr = np.array(qv_list, dtype=np.float32)
+            qv_norm = np.linalg.norm(qv_arr)
+            best_sim = -1.0
+            for cid_str, cinfo in _cluster_centroids["clusters"].items():
+                c_arr = np.array(cinfo["centroid"], dtype=np.float32)
+                c_norm = np.linalg.norm(c_arr)
+                if qv_norm > 0 and c_norm > 0:
+                    sim = float(np.dot(qv_arr, c_arr) / (qv_norm * c_norm))
+                    if sim > best_sim:
+                        best_sim = sim
+                        top_cluster_id = int(cid_str)
+        except Exception as e:
+            print("Cluster matching warning:", e)
+
     # 1. Dense Vector Search (E5-Large 1024D)
     vector_docs = []
     if _embedder and _retrieval_pipeline and _mongo is not None:
         try:
             pipeline = copy.deepcopy(_retrieval_pipeline)
-            # multilingual-e5-large expects the asymmetric "query:" prefix;
-            # KB records are embedded with "passage:" during ingestion.
-            qv = list(_embedder.embed([f"query: {question}"]))[0].tolist()
+            if qv is None:
+                qv = list(_embedder.embed([f"query: {question}"]))[0].tolist()
             for stage in pipeline:
                 vs = stage.get("$vectorSearch")
                 if vs and isinstance(vs.get("queryVector"), str) and vs["queryVector"].startswith("<<QUERY_VECTOR"):
@@ -416,6 +447,7 @@ def retrieve(question, top_k=3):
 
         year_boost = 0.2 if requested_years and metadata["year"] in requested_years else 0.0
         year_penalty = -0.12 if requested_years and metadata["year"] and metadata["year"] not in requested_years else 0.0
+        cluster_boost = 0.35 if (top_cluster_id is not None and doc.get("cluster_id") == top_cluster_id) else 0.0
         final_score = (
             (rrf_score * 10)
             + (overlap_count * 0.05)
@@ -424,6 +456,7 @@ def retrieve(question, top_k=3):
             + intent_boost
             + exact_major_boost
             + career_boost
+            + cluster_boost
             + year_boost
             + year_penalty
         )
@@ -508,13 +541,13 @@ def _call_llm(system_prompt, user_prompt):
     from openai import OpenAI
     client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
     
-    # Chuỗi ưu tiên các mô hình Qwen 2.5 và fallback linh hoạt
+    # Chuỗi ưu tiên các mô hình siêu nhanh khả dụng trên OpenRouter
     models_to_try = [
         LLM_MODEL,
-        "qwen/qwen-2.5-72b-instruct:free",
-        "meta-llama/llama-3.1-8b-instruct:free",
-        "google/gemma-2-9b-it:free",
-        "mistralai/mistral-7b-instruct:free",
+        "google/gemini-2.0-flash-exp:free",
+        "meta-llama/llama-3.3-70b-instruct:free",
+        "qwen/qwen-2.5-coder-32b-instruct:free",
+        "deepseek/deepseek-r1:free",
         "openrouter/free",
     ]
     unique_models = []
@@ -746,20 +779,36 @@ def _cache_key(question, chat_history=None):
 
 def get_cached_response(question, chat_history=None):
     _init()
+    ckey = _cache_key(question, chat_history)
+    now_ts = time.time()
+    
+    # 1. Kiểm tra RAM Cache tức thì (0ms)
+    if ckey in _ram_cache and _ram_cache_expiry.get(ckey, 0) > now_ts:
+        res = copy.deepcopy(_ram_cache[ckey])
+        res["cached"] = True
+        res["meta"]["ram_cached"] = True
+        return res
+
+    # 2. Fallback sang MongoDB Cache nếu RAM cache lỡ miss
     if _mongo is not None:
         try:
             now = datetime.now(timezone.utc)
             cached = _mongo[DB]["query_cache"].find_one({
-                "cache_key": _cache_key(question, chat_history),
+                "cache_key": ckey,
                 "expires_at": {"$gt": now},
             })
             if cached:
-                return {
+                res = {
                     "answer": cached["answer"],
                     "sources": cached.get("sources", []),
+                    "trace": cached.get("trace", []),
                     "cached": True,
                     "meta": cached.get("meta", {}),
                 }
+                # Pre-fill RAM cache
+                _ram_cache[ckey] = res
+                _ram_cache_expiry[ckey] = now_ts + (CACHE_TTL_HOURS * 3600)
+                return res
         except Exception as e:
             print("Cache lookup warning:", e)
     return None
@@ -767,28 +816,37 @@ def get_cached_response(question, chat_history=None):
 
 def save_response_to_cache(question, response_data, chat_history=None):
     _init()
-    if _mongo is not None and response_data and response_data.get("answer"):
-        try:
-            now = datetime.now(timezone.utc)
-            _mongo[DB]["query_cache"].update_one(
-                {"cache_key": _cache_key(question, chat_history)},
-                {"$set": {
-                    "cache_key": _cache_key(question, chat_history),
-                    "question_clean": _normalize(question),
-                    "original_question": question,
-                    "answer": response_data["answer"],
-                    "sources": response_data.get("sources", []),
-                    "meta": response_data.get("meta", {}),
-                    "kb_version": KB_VERSION,
-                    "rag_version": RAG_VERSION,
-                    "model": LLM_MODEL,
-                    "updated_at": now,
-                    "expires_at": now + timedelta(hours=CACHE_TTL_HOURS),
-                }},
-                upsert=True
-            )
-        except Exception as e:
-            print("Save cache warning:", e)
+    if response_data and response_data.get("answer"):
+        ckey = _cache_key(question, chat_history)
+        now_ts = time.time()
+        # Lưu RAM cache tức thì
+        _ram_cache[ckey] = copy.deepcopy(response_data)
+        _ram_cache_expiry[ckey] = now_ts + (CACHE_TTL_HOURS * 3600)
+
+        # Lưu MongoDB persistent cache
+        if _mongo is not None:
+            try:
+                now = datetime.now(timezone.utc)
+                _mongo[DB]["query_cache"].update_one(
+                    {"cache_key": ckey},
+                    {"$set": {
+                        "cache_key": ckey,
+                        "question_clean": _normalize(question),
+                        "original_question": question,
+                        "answer": response_data["answer"],
+                        "sources": response_data.get("sources", []),
+                        "trace": response_data.get("trace", []),
+                        "meta": response_data.get("meta", {}),
+                        "kb_version": KB_VERSION,
+                        "rag_version": RAG_VERSION,
+                        "model": LLM_MODEL,
+                        "updated_at": now,
+                        "expires_at": now + timedelta(hours=CACHE_TTL_HOURS),
+                    }},
+                    upsert=True
+                )
+            except Exception as e:
+                print("Save cache warning:", e)
 
 
 def log_event(question, response_data, elapsed_ms, intent, cached=False, error=None):
@@ -1062,11 +1120,13 @@ def stream_answer(question, chat_history=None):
     res = answer(question, chat_history=chat_history)
     answer_text = res.get("answer", "")
     sources = res.get("sources", [])
+    trace = res.get("trace", [])
 
-    # First yield sources metadata
-    yield json.dumps({"type": "sources", "sources": sources}, ensure_ascii=False) + "\n"
+    # First yield metadata event containing sources & execution trace
+    yield json.dumps({"type": "meta", "sources": sources, "trace": trace}, ensure_ascii=False) + "\n"
 
     # Stream answer words with smooth micro-delay
     words = re.findall(r'\S+|\s+', answer_text)
     for word in words:
         yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
+
