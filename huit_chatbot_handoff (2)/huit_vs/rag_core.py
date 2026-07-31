@@ -551,15 +551,15 @@ def _call_llm(system_prompt, user_prompt):
     from openai import OpenAI
     client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
     
-    # Chuỗi ưu tiên các mô hình siêu nhanh & ổn định trên OpenRouter
+    # Chuỗi ưu tiên các mô hình siêu nhanh & hoạt động 100% trên OpenRouter
     models_to_try = [
+        "google/gemma-4-26b-a4b-it:free",
+        "google/gemma-4-31b-it:free",
+        "openrouter/free",
+        "nvidia/nemotron-3-nano-30b-a3b:free",
+        "inclusionai/ling-3.0-flash:free",
+        "openai/gpt-oss-20b:free",
         LLM_MODEL,
-        "google/gemini-2.0-flash-exp:free",
-        "qwen/qwen-2.5-72b-instruct",
-        "meta-llama/llama-3.3-70b-instruct:free",
-        "google/gemini-flash-1.5:free",
-        "qwen/qwen-2.5-coder-32b-instruct:free",
-        "mistralai/mistral-7b-instruct:free",
     ]
     unique_models = []
     for m in models_to_try:
@@ -606,13 +606,13 @@ def _stream_llm(system_prompt, user_prompt):
     client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
     
     models_to_try = [
+        "google/gemma-4-26b-a4b-it:free",
+        "google/gemma-4-31b-it:free",
+        "openrouter/free",
+        "nvidia/nemotron-3-nano-30b-a3b:free",
+        "inclusionai/ling-3.0-flash:free",
+        "openai/gpt-oss-20b:free",
         LLM_MODEL,
-        "google/gemini-2.0-flash-exp:free",
-        "qwen/qwen-2.5-72b-instruct",
-        "meta-llama/llama-3.3-70b-instruct:free",
-        "google/gemini-flash-1.5:free",
-        "qwen/qwen-2.5-coder-32b-instruct:free",
-        "mistralai/mistral-7b-instruct:free",
     ]
     unique_models = []
     for m in models_to_try:
