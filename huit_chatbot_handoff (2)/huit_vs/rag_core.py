@@ -417,17 +417,18 @@ def retrieve(question, top_k=3):
                 code_boost += 0.5
 
         intent_boost = 0.35 if intent != "general" and metadata["category"] == intent else 0.0
-        # A full major name in the query is stronger evidence than generic
-        # overlaps such as "thông tin" (which also appears in An toàn thông tin).
-        major_title = re.sub(r"^nganh\s+", "", normalized_title)
-        major_title = re.sub(r"\s+huit cong tuyen sinh chinh thuc.*$", "", major_title)
-        exact_major_boost = (
-            0.8
-            if metadata["category"] == "major"
-            and len(major_title) >= 4
-            and major_title in q_normalized
-            else 0.0
-        )
+        # Extract pure major name from document title
+        pure_major_name = re.sub(r"\s*\(mã ngành.*$", "", normalized_title, flags=re.IGNORECASE)
+        pure_major_name = re.sub(r"\s*\(ma nganh.*$", "", pure_major_name, flags=re.IGNORECASE)
+        pure_major_name = re.sub(r"^nganh\s+", "", pure_major_name, flags=re.IGNORECASE).strip()
+        pure_major_name = re.sub(r"\s*-.*$", "", pure_major_name).strip()
+
+        exact_major_boost = 0.0
+        if metadata["category"] == "major" and len(pure_major_name) >= 3:
+            if pure_major_name in q_normalized or (len(q_normalized) >= 5 and q_normalized in pure_major_name):
+                exact_major_boost = 3.5  # Massive boost ensuring exact major match ALWAYS wins #1 spot!
+            elif pure_major_name == "cong nghe thong tin" and any(alias in q_normalized for alias in ["cntt", "cn thong tin", "cong nghe thong tin"]):
+                exact_major_boost = 3.5
         # Career alignment boost to match user intent to proper faculty/program docs
         career_boost = 0.0
         norm_text = _normalize(text_content)
@@ -702,6 +703,18 @@ def check_intent_guardrail(question, chat_history=None):
                 "Mình là AI Tư vấn Tuyển sinh chính thức của Trường Đại học Công Thương TP.HCM (HUIT). "
                 "Mình có thể hỗ trợ bạn chọn ngành học, tra cứu phương thức xét tuyển, điểm sàn, học phí và học bổng. "
                 "Bạn cần mình hỗ trợ thông tin gì hôm nay?"
+            ),
+            "sources": []
+        }
+    
+    # 0.5 Applicants Count / Admissions Statistics Guardrail (Hỏi về số lượng thí sinh đăng ký NV 2026)
+    if any(k in q_norm for k in ["bao nhieu thi sinh", "so luong thi sinh", "bao nhieu nguyen vong", "tong so nguyen vong", "so thi sinh dang ky", "nguyen vong 2026"]):
+        return {
+            "is_handled": True,
+            "answer": (
+                "Hiện tại Bộ GD&ĐT và Trường Đại học Công Thương TP.HCM (HUIT) chưa công bố số liệu thống kê số lượng thí sinh đăng ký nguyện vọng năm 2026 "
+                "do hệ thống đăng ký nguyện vọng chính thức của Bộ GD&ĐT chưa kết thúc.\n\n"
+                "Bạn vui lòng theo dõi Cổng thông tin tuyển sinh chính thức **ts.huit.edu.vn** để cập nhật số liệu thống kê ngay khi có công bố chính thức nhé!"
             ),
             "sources": []
         }
