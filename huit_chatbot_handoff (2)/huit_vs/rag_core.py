@@ -25,7 +25,7 @@ COLL = "huit_kb"
 MODEL = "intfloat/multilingual-e5-large"
 DIMS = 1024
 LLM_MODEL = os.environ.get("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
-LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "350"))
+LLM_MAX_TOKENS = int(os.environ.get("LLM_MAX_TOKENS", "750"))
 _ram_cache = {}
 _ram_cache_expiry = {}
 # Version is coupled to the embeddings currently promoted in Atlas. Keeping it
@@ -530,6 +530,16 @@ def retrieve(question, top_k=3):
     return unique_docs[:top_k]
 
 
+def _clean_llm_text(text):
+    if not text:
+        return ""
+    # Strip unwanted system headers / preambles like "User Safety: safe", "<think>...", "Here is the answer:"
+    text = re.sub(r"^(User Safety:\s*safe|User Safety:\s*\w+|Safety status:\s*\w+)\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"^<think>.*?</think>\s*", "", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"^(here is the answer|we need to answer|here's the response):\s*", "", text, flags=re.IGNORECASE)
+    return text.strip()
+
+
 def _call_llm(system_prompt, user_prompt):
     msgs = [{"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}]
@@ -541,14 +551,15 @@ def _call_llm(system_prompt, user_prompt):
     from openai import OpenAI
     client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
     
-    # Chuỗi ưu tiên các mô hình siêu nhanh khả dụng trên OpenRouter
+    # Chuỗi ưu tiên các mô hình siêu nhanh & ổn định trên OpenRouter
     models_to_try = [
         LLM_MODEL,
         "google/gemini-2.0-flash-exp:free",
+        "qwen/qwen-2.5-72b-instruct",
         "meta-llama/llama-3.3-70b-instruct:free",
+        "google/gemini-flash-1.5:free",
         "qwen/qwen-2.5-coder-32b-instruct:free",
-        "deepseek/deepseek-r1:free",
-        "openrouter/free",
+        "mistralai/mistral-7b-instruct:free",
     ]
     unique_models = []
     for m in models_to_try:
@@ -563,16 +574,17 @@ def _call_llm(system_prompt, user_prompt):
                 messages=msgs,
                 temperature=0.3,
                 max_tokens=LLM_MAX_TOKENS,
-                timeout=45,
+                timeout=35,
             )
             if r and r.choices and r.choices[0].message.content:
                 content = r.choices[0].message.content.strip()
+                content = _clean_llm_text(content)
                 leaked_reasoning = (
                     content.lower().startswith(("we need to answer", "we need answer"))
                     or "must end with a short question" in content.lower()
                     or "provide answer in vietnamese" in content.lower()
                 )
-                if leaked_reasoning:
+                if leaked_reasoning or len(content) < 25:
                     continue
                 return content
         except Exception as e:
@@ -596,10 +608,11 @@ def _stream_llm(system_prompt, user_prompt):
     models_to_try = [
         LLM_MODEL,
         "google/gemini-2.0-flash-exp:free",
+        "qwen/qwen-2.5-72b-instruct",
         "meta-llama/llama-3.3-70b-instruct:free",
+        "google/gemini-flash-1.5:free",
         "qwen/qwen-2.5-coder-32b-instruct:free",
-        "deepseek/deepseek-r1:free",
-        "openrouter/free",
+        "mistralai/mistral-7b-instruct:free",
     ]
     unique_models = []
     for m in models_to_try:
@@ -614,18 +627,42 @@ def _stream_llm(system_prompt, user_prompt):
                 messages=msgs,
                 temperature=0.3,
                 max_tokens=LLM_MAX_TOKENS,
-                timeout=30,
+                timeout=25,
                 stream=True,
             )
-            has_yielded = False
+            
+            buffer = ""
+            header_cleaned = False
+            token_yielded_count = 0
+
             for chunk in stream:
                 if chunk.choices and len(chunk.choices) > 0 and chunk.choices[0].delta:
                     token = chunk.choices[0].delta.content or ""
-                    if token:
-                        has_yielded = True
+                    if not token:
+                        continue
+                    
+                    if not header_cleaned:
+                        buffer += token
+                        if len(buffer) >= 50 or "\n" in buffer:
+                            cleaned_buffer = _clean_llm_text(buffer)
+                            header_cleaned = True
+                            if cleaned_buffer:
+                                token_yielded_count += 1
+                                yield cleaned_buffer
+                        continue
+                    else:
+                        token_yielded_count += 1
                         yield token
-            if has_yielded:
+
+            if not header_cleaned and buffer:
+                cleaned_buffer = _clean_llm_text(buffer)
+                if cleaned_buffer:
+                    token_yielded_count += 1
+                    yield cleaned_buffer
+
+            if token_yielded_count > 0:
                 return
+
         except Exception as e:
             print(f"OpenRouter streaming model '{model_name}' warning:", e)
             last_error = e
@@ -1269,12 +1306,17 @@ def stream_answer(question, chat_history=None, use_cache=True):
             accumulated_text += token_chunk
             yield json.dumps({"type": "token", "token": token_chunk}, ensure_ascii=False) + "\n"
     except Exception as exc:
-        print("Streaming LLM error, switching to fallback:", exc)
+        print("Streaming LLM error:", exc)
+
+    cleaned_acc = _clean_llm_text(accumulated_text)
+    if not cleaned_acc or len(cleaned_acc) < 25:
         used_fallback = True
         fallback_text = _fallback_answer(question, docs)
         accumulated_text = fallback_text
         for word in re.findall(r'\S+|\s+', fallback_text):
             yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
+    else:
+        accumulated_text = cleaned_acc
 
     elapsed_ms = round((time.perf_counter() - started) * 1000)
     res_obj = {
