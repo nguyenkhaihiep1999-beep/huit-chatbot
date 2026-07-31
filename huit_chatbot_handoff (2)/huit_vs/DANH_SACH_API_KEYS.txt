@@ -1,0 +1,28 @@
+================================================================================
+          DANH SÁCH MÃ API KEY & CẤU HÌNH HỆ THỐNG HUIT CHATBOT
+================================================================================
+Thời gian khởi tạo: 2026-07-31
+
+1. OPENROUTER API KEY (Đang cấu hình trên Vercel Environment Variables):
+   • Tên biến môi trường Vercel: HUIT_OPENROUTER_KEY
+   • Mã Key: sk-or-v1-9f3a32b3ef9c... (Đã lưu trong Vercel Environment)
+   • Mô hình AI: google/gemma-4-26b-a4b-it:free, google/gemma-4-31b-it:free, openrouter/free
+
+2. HƯỚNG DẪN TẠO THÊM KEY GEMINI DIRECT API (1,500 lượt hỏi/ngày - Miễn phí 100%):
+   • Bước 1: Truy cập trang Google AI Studio: https://aistudio.google.com
+   • Bước 2: Đăng nhập bằng Gmail bất kỳ -> Bấm nút "Get API key" -> "Create API key".
+   • Bước 3: Copy mã key có dạng "AIzaSy..." và dán vào biến môi trường Vercel:
+     [GHI CHÚ]: GEMINI_API_KEY = <Dán mã AIzaSy... của bạn vào đây>
+
+3. HƯỚNG DẪN TẠO THÊM KEY GROQ DIRECT API (14,400 lượt hỏi/ngày - Siêu tốc 300ms):
+   • Bước 1: Truy cập trang Groq Console: https://console.groq.com
+   • Bước 2: Đăng nhập bằng Google/GitHub -> Chọn "API Keys" -> "Create API Key".
+   • Bước 3: Copy mã key có dạng "gsk_..." và dán vào biến môi trường Vercel:
+     [GHI CHÚ]: GROQ_API_KEY = <Dán mã gsk_... của bạn vào đây>
+
+4. CẤU HÌNH CƠ SỞ DỮ LIỆU MONGODB ATLAS:
+   • Database Name: huit_chatbot
+   • Vector Collection: huit_kb (1024D E5-Large Embeddings)
+   • Admin Token: huit_admin_2026
+
+================================================================================
