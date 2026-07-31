@@ -540,41 +540,68 @@ def _clean_llm_text(text):
     return text.strip()
 
 
+def _get_llm_endpoints():
+    """Build prioritized multi-provider LLM endpoint list (Gemini Direct -> Groq Direct -> OpenRouter)."""
+    from openai import OpenAI
+    endpoints = []
+
+    # 1. Google Gemini Direct API (1,500 free requests/day)
+    gemini_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+    if gemini_key:
+        try:
+            client = OpenAI(api_key=gemini_key, base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
+            for m in ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-flash-8b"]:
+                endpoints.append((client, m, "GeminiDirect"))
+        except Exception as e:
+            print("Gemini Direct init warning:", e)
+
+    # 2. Groq Direct API (14,400 free requests/day)
+    groq_key = os.environ.get("GROQ_API_KEY")
+    if groq_key:
+        try:
+            client = OpenAI(api_key=groq_key, base_url="https://api.groq.com/openai/v1")
+            for m in ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"]:
+                endpoints.append((client, m, "GroqDirect"))
+        except Exception as e:
+            print("Groq Direct init warning:", e)
+
+    # 3. OpenRouter API (Fallback)
+    or_key = os.environ.get("HUIT_OPENROUTER_KEY") or os.environ.get("OPENROUTER_API_KEY")
+    if or_key:
+        try:
+            client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
+            for m in [
+                "google/gemma-4-26b-a4b-it:free",
+                "google/gemma-4-31b-it:free",
+                "openrouter/free",
+                "nvidia/nemotron-3-nano-30b-a3b:free",
+                "inclusionai/ling-3.0-flash:free",
+                LLM_MODEL,
+            ]:
+                endpoints.append((client, m, "OpenRouter"))
+        except Exception as e:
+            print("OpenRouter init warning:", e)
+
+    return endpoints
+
+
 def _call_llm(system_prompt, user_prompt):
     msgs = [{"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}]
     
-    # 1. Ưu tiên OpenRouter API Key nếu được cấu hình
-    or_key = os.environ.get("HUIT_OPENROUTER_KEY") or os.environ.get("OPENROUTER_API_KEY")
-    if not or_key:
-        raise RuntimeError("HUIT_OPENROUTER_KEY chưa được cấu hình.")
-    from openai import OpenAI
-    client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
-    
-    # Chuỗi ưu tiên các mô hình siêu nhanh & hoạt động 100% trên OpenRouter
-    models_to_try = [
-        "google/gemma-4-26b-a4b-it:free",
-        "google/gemma-4-31b-it:free",
-        "openrouter/free",
-        "nvidia/nemotron-3-nano-30b-a3b:free",
-        "inclusionai/ling-3.0-flash:free",
-        "openai/gpt-oss-20b:free",
-        LLM_MODEL,
-    ]
-    unique_models = []
-    for m in models_to_try:
-        if m and m not in unique_models:
-            unique_models.append(m)
+    endpoints = _get_llm_endpoints()
+    if not endpoints:
+        raise RuntimeError("Chưa cấu hình API Key cho bất kỳ nhà cung cấp LLM nào (Gemini, Groq, OpenRouter).")
 
     last_error = None
-    for model_name in unique_models:
+    for client, model_name, provider in endpoints:
         try:
             r = client.chat.completions.create(
                 model=model_name,
                 messages=msgs,
                 temperature=0.3,
                 max_tokens=LLM_MAX_TOKENS,
-                timeout=35,
+                timeout=25,
             )
             if r and r.choices and r.choices[0].message.content:
                 content = r.choices[0].message.content.strip()
@@ -588,39 +615,23 @@ def _call_llm(system_prompt, user_prompt):
                     continue
                 return content
         except Exception as e:
-            print(f"OpenRouter model '{model_name}' warning:", e)
+            print(f"LLM Provider '{provider}' Model '{model_name}' warning:", e)
             last_error = e
             continue
 
-    raise RuntimeError(f"Tất cả mô hình OpenRouter đều tạm thời gián đoạn. Lỗi gần nhất: {last_error}")
+    raise RuntimeError(f"Tất cả nhà cung cấp LLM đều tạm thời gián đoạn. Lỗi gần nhất: {last_error}")
 
 
 def _stream_llm(system_prompt, user_prompt):
     msgs = [{"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}]
     
-    or_key = os.environ.get("HUIT_OPENROUTER_KEY") or os.environ.get("OPENROUTER_API_KEY")
-    if not or_key:
-        raise RuntimeError("HUIT_OPENROUTER_KEY chưa được cấu hình.")
-    from openai import OpenAI
-    client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
-    
-    models_to_try = [
-        "google/gemma-4-26b-a4b-it:free",
-        "google/gemma-4-31b-it:free",
-        "openrouter/free",
-        "nvidia/nemotron-3-nano-30b-a3b:free",
-        "inclusionai/ling-3.0-flash:free",
-        "openai/gpt-oss-20b:free",
-        LLM_MODEL,
-    ]
-    unique_models = []
-    for m in models_to_try:
-        if m and m not in unique_models:
-            unique_models.append(m)
+    endpoints = _get_llm_endpoints()
+    if not endpoints:
+        raise RuntimeError("Chưa cấu hình API Key cho bất kỳ nhà cung cấp LLM nào (Gemini, Groq, OpenRouter).")
 
     last_error = None
-    for model_name in unique_models:
+    for client, model_name, provider in endpoints:
         try:
             stream = client.chat.completions.create(
                 model=model_name,
@@ -664,11 +675,11 @@ def _stream_llm(system_prompt, user_prompt):
                 return
 
         except Exception as e:
-            print(f"OpenRouter streaming model '{model_name}' warning:", e)
+            print(f"LLM Provider '{provider}' Streaming Model '{model_name}' warning:", e)
             last_error = e
             continue
 
-    raise RuntimeError(f"Tất cả mô hình OpenRouter đều tạm thời gián đoạn. Lỗi gần nhất: {last_error}")
+    raise RuntimeError(f"Tất cả nhà cung cấp LLM đều tạm thời gián đoạn. Lỗi gần nhất: {last_error}")
 
 
 def check_intent_guardrail(question, chat_history=None):

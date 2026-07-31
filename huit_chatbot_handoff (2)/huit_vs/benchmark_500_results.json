@@ -1,0 +1,466 @@
+{
+  "summary": {
+    "total_questions": 500,
+    "total_time_sec": 709.91,
+    "throughput_qps": 0.7,
+    "avg_latency_ms": 11238.35,
+    "avg_ttft_ms": 706.07,
+    "p50_latency_ms": 13948.25,
+    "p90_latency_ms": 16200.25,
+    "p99_latency_ms": 42705.87,
+    "cache_hit_rate_pct": 0.0,
+    "accuracy_hit_rate_pct": 23.2
+  },
+  "results": [
+    {
+      "id": 1,
+      "question": "Mã ngành Trí tuệ nhân tạo HUIT là bao nhiêu?",
+      "latency_ms": 10572.73,
+      "ttft_ms": 2035.58,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được hỗ trợ bạn tìm hiểu về các ngành học tại HUIT. 😊  Nếu bạn đang quan tâm đến lĩnh vực công nghệ \"h"
+    },
+    {
+      "id": 9,
+      "question": "Mã ngành Công nghệ thông tin HUIT là bao nhiêu?",
+      "latency_ms": 13155.12,
+      "ttft_ms": 662.48,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được hỗ trợ bạn tìm hiểu về các ngành học tại Trường Đại học Công Thương TP.HCM (HUIT) nhé. 😊  Nếu bạn"
+    },
+    {
+      "id": 2,
+      "question": "Tra cứu thông tin ngành Trí tuệ nhân tạo tại trường HUIT.",
+      "latency_ms": 24502.55,
+      "ttft_ms": 2947.86,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được gặp bạn. Mình là AI Tư vấn Tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT) đây. 😊  Nếu bạ"
+    },
+    {
+      "id": 7,
+      "question": "Mã ngành 7480107 là ngành nào của HUIT?",
+      "latency_ms": 29541.78,
+      "ttft_ms": 1408.93,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được hỗ trợ bạn tìm hiểu về các chương trình đào tạo tại HUIT. 😊  Mã ngành **7480107** chính là ngành "
+    },
+    {
+      "id": 4,
+      "question": "Cho em thông tin chi tiết về ngành Trí tuệ nhân tạo.",
+      "latency_ms": 31626.6,
+      "ttft_ms": 1494.61,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào em! Rất vui được chia sẻ chi tiết về **Ngành Trí tuệ nhân tạo (Mã ngành: 7480107)** tại Trường Đại học Công Thương "
+    },
+    {
+      "id": 11,
+      "question": "Ngành Công nghệ thông tin HUIT mang mã ngành gì và xét tuyển thế nào?",
+      "latency_ms": 8672.04,
+      "ttft_ms": 657.2,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được gặp bạn. Mình là AI Tư vấn Tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT đây!). 🌟  Nếu b"
+    },
+    {
+      "id": 3,
+      "question": "Ngành Trí tuệ nhân tạo HUIT mang mã ngành gì và xét tuyển thế nào?",
+      "latency_ms": 42705.87,
+      "ttft_ms": 2651.01,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được gặp bạn. Mình là AI Tư vấn Tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT đây!). 🌟  Về th"
+    },
+    {
+      "id": 10,
+      "question": "Tra cứu thông tin ngành Công nghệ thông tin tại trường HUIT.",
+      "latency_ms": 22940.44,
+      "ttft_ms": 769.28,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được gặp bạn. Mình là AI Tư vấn Tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT) đây. 😊  Nếu bạ"
+    },
+    {
+      "id": 14,
+      "question": "Tổ hợp xét tuyển và điểm sàn ngành Công nghệ thông tin HUIT?",
+      "latency_ms": 21924.5,
+      "ttft_ms": 716.97,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được hỗ trợ bạn tìm hiểu về ngành Công nghệ thông tin tại HUIT. Đây là một ngành học cực kỳ \"hot\" và l"
+    },
+    {
+      "id": 15,
+      "question": "Mã ngành 7480201 là ngành nào của HUIT?",
+      "latency_ms": 17373.89,
+      "ttft_ms": 566.47,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được gặp bạn. Mình là AI Tư vấn Tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT đây!) 😊  Về câu"
+    },
+    {
+      "id": 8,
+      "question": "Em muốn học Trí tuệ nhân tạo tại HUIT thì đăng ký ra sao?",
+      "latency_ms": 63047.96,
+      "ttft_ms": 1853.64,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào em! Rất vui khi thấy em có niềm đam mê với lĩnh vực công nghệ đầy tiềm năng như Trí tuệ nhân tạo (AI). Đây là một l"
+    },
+    {
+      "id": 16,
+      "question": "Em muốn học Công nghệ thông tin tại HUIT thì đăng ký ra sao?",
+      "latency_ms": 16505.77,
+      "ttft_ms": 890.34,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào em nhé! Rất vui vì em đã dành sự quan tâm đến ngành Công nghệ thông tin (CNTT) tại Trường Đại học Công Thương TP.HC"
+    },
+    {
+      "id": 17,
+      "question": "Mã ngành An toàn thông tin HUIT là bao nhiêu?",
+      "latency_ms": 8890.83,
+      "ttft_ms": 636.1,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được hỗ trợ bạn tìm hiểu về các ngành học tại Trường Đại học Công Thương TP.HCM (HUIT) nhé. 😊  Mã ngàn"
+    },
+    {
+      "id": 12,
+      "question": "Cho em thông tin chi tiết về ngành Công nghệ thông tin.",
+      "latency_ms": 35293.39,
+      "ttft_ms": 722.62,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào em! Rất vui được gặp em. Ngành Công nghệ thông tin (CNTT) luôn là một trong những ngành \"hot\" nhất và là niềm đam m"
+    },
+    {
+      "id": 5,
+      "question": "HUIT có đào tạo ngành Trí tuệ nhân tạo không?",
+      "latency_ms": 68195.97,
+      "ttft_ms": 2249.1,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được gặp bạn. Cảm ơn bạn đã quan tâm đến các chương trình đào tạo tại Trường Đại học Công Thương TP.HC"
+    },
+    {
+      "id": 6,
+      "question": "Tổ hợp xét tuyển và điểm sàn ngành Trí tuệ nhân tạo HUIT?",
+      "latency_ms": 71883.02,
+      "ttft_ms": 1066.45,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được gặp bạn. Mình là AI Tư vấn Tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT) đây. 🌟  Nếu bạ"
+    },
+    {
+      "id": 20,
+      "question": "Cho em thông tin chi tiết về ngành An toàn thông tin.",
+      "latency_ms": 13377.77,
+      "ttft_ms": 907.23,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Theo công bố cho khóa K26 năm 2026, học phí HUIT là **1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ thự"
+    },
+    {
+      "id": 19,
+      "question": "Ngành An toàn thông tin HUIT mang mã ngành gì và xét tuyển thế nào?",
+      "latency_ms": 14228.19,
+      "ttft_ms": 794.07,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Năm 2026, HUIT áp dụng 5 phương thức xét tuyển: 1) Điểm thi tốt nghiệp THPT, 2) Học bạ THPT (lớp 10, 11 và HK1 lớp 12), "
+    },
+    {
+      "id": 21,
+      "question": "HUIT có đào tạo ngành An toàn thông tin không?",
+      "latency_ms": 13369.41,
+      "ttft_ms": 637.29,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 22,
+      "question": "Tổ hợp xét tuyển và điểm sàn ngành An toàn thông tin HUIT?",
+      "latency_ms": 13070.5,
+      "ttft_ms": 695.57,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Điểm sàn xét điểm thi THPT năm 2026 HUIT là **16 điểm** cho các ngành ngoài nhóm Luật. Điểm sàn xét học bạ là 20 điểm. ["
+    },
+    {
+      "id": 23,
+      "question": "Mã ngành 7480202 là ngành nào của HUIT?",
+      "latency_ms": 12788.33,
+      "ttft_ms": 546.05,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 24,
+      "question": "Em muốn học An toàn thông tin tại HUIT thì đăng ký ra sao?",
+      "latency_ms": 13414.01,
+      "ttft_ms": 828.55,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 13,
+      "question": "HUIT có đào tạo ngành Công nghệ thông tin không?",
+      "latency_ms": 56415.08,
+      "ttft_ms": 720.45,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được gặp bạn. HUIT luôn sẵn sàng đồng hành cùng bạn trên con đường chinh phục tri thức! 🌟  Về câu hỏi "
+    },
+    {
+      "id": 25,
+      "question": "Mã ngành Khoa học dữ liệu HUIT là bao nhiêu?",
+      "latency_ms": 13585.25,
+      "ttft_ms": 623.13,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 27,
+      "question": "Ngành Khoa học dữ liệu HUIT mang mã ngành gì và xét tuyển thế nào?",
+      "latency_ms": 13121.83,
+      "ttft_ms": 987.0,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Năm 2026, HUIT áp dụng 5 phương thức xét tuyển: 1) Điểm thi tốt nghiệp THPT, 2) Học bạ THPT (lớp 10, 11 và HK1 lớp 12), "
+    },
+    {
+      "id": 26,
+      "question": "Tra cứu thông tin ngành Khoa học dữ liệu tại trường HUIT.",
+      "latency_ms": 14910.91,
+      "ttft_ms": 729.17,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 18,
+      "question": "Tra cứu thông tin ngành An toàn thông tin tại trường HUIT.",
+      "latency_ms": 34212.49,
+      "ttft_ms": 718.94,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Chào bạn! Rất vui được gặp bạn. Mình là AI Tư vấn Tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT) đây. 😊  Nếu bạ"
+    },
+    {
+      "id": 28,
+      "question": "Cho em thông tin chi tiết về ngành Khoa học dữ liệu.",
+      "latency_ms": 16383.76,
+      "ttft_ms": 855.29,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Theo công bố cho khóa K26 năm 2026, học phí HUIT là **1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ thự"
+    },
+    {
+      "id": 29,
+      "question": "HUIT có đào tạo ngành Khoa học dữ liệu không?",
+      "latency_ms": 13560.48,
+      "ttft_ms": 644.42,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 30,
+      "question": "Tổ hợp xét tuyển và điểm sàn ngành Khoa học dữ liệu HUIT?",
+      "latency_ms": 15919.62,
+      "ttft_ms": 729.65,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Điểm sàn xét điểm thi THPT năm 2026 HUIT là **16 điểm** cho các ngành ngoài nhóm Luật. Điểm sàn xét học bạ là 20 điểm. ["
+    },
+    {
+      "id": 31,
+      "question": "Mã ngành 7460108 là ngành nào của HUIT?",
+      "latency_ms": 15058.08,
+      "ttft_ms": 586.71,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 32,
+      "question": "Em muốn học Khoa học dữ liệu tại HUIT thì đăng ký ra sao?",
+      "latency_ms": 14131.06,
+      "ttft_ms": 880.14,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 33,
+      "question": "Mã ngành Công nghệ thực phẩm HUIT là bao nhiêu?",
+      "latency_ms": 14002.86,
+      "ttft_ms": 801.23,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 34,
+      "question": "Tra cứu thông tin ngành Công nghệ thực phẩm tại trường HUIT.",
+      "latency_ms": 14581.84,
+      "ttft_ms": 765.18,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 36,
+      "question": "Cho em thông tin chi tiết về ngành Công nghệ thực phẩm.",
+      "latency_ms": 14615.68,
+      "ttft_ms": 1179.53,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Theo công bố cho khóa K26 năm 2026, học phí HUIT là **1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ thự"
+    },
+    {
+      "id": 37,
+      "question": "HUIT có đào tạo ngành Công nghệ thực phẩm không?",
+      "latency_ms": 17606.33,
+      "ttft_ms": 1204.11,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 35,
+      "question": "Ngành Công nghệ thực phẩm HUIT mang mã ngành gì và xét tuyển thế nào?",
+      "latency_ms": 18832.89,
+      "ttft_ms": 972.28,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Năm 2026, HUIT áp dụng 5 phương thức xét tuyển: 1) Điểm thi tốt nghiệp THPT, 2) Học bạ THPT (lớp 10, 11 và HK1 lớp 12), "
+    },
+    {
+      "id": 38,
+      "question": "Tổ hợp xét tuyển và điểm sàn ngành Công nghệ thực phẩm HUIT?",
+      "latency_ms": 14973.33,
+      "ttft_ms": 841.85,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Điểm sàn xét điểm thi THPT năm 2026 HUIT là **16 điểm** cho các ngành ngoài nhóm Luật. Điểm sàn xét học bạ là 20 điểm. ["
+    },
+    {
+      "id": 39,
+      "question": "Mã ngành 7540101 là ngành nào của HUIT?",
+      "latency_ms": 13736.97,
+      "ttft_ms": 579.72,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 40,
+      "question": "Em muốn học Công nghệ thực phẩm tại HUIT thì đăng ký ra sao?",
+      "latency_ms": 13803.8,
+      "ttft_ms": 977.58,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 41,
+      "question": "Mã ngành Đảm bảo chất lượng và an toàn thực phẩm HUIT là bao nhiêu?",
+      "latency_ms": 14232.64,
+      "ttft_ms": 1061.6,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 42,
+      "question": "Tra cứu thông tin ngành Đảm bảo chất lượng và an toàn thực phẩm tại trường HUIT.",
+      "latency_ms": 14724.1,
+      "ttft_ms": 968.42,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 43,
+      "question": "Ngành Đảm bảo chất lượng và an toàn thực phẩm HUIT mang mã ngành gì và xét tuyển thế nào?",
+      "latency_ms": 13981.74,
+      "ttft_ms": 915.21,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Năm 2026, HUIT áp dụng 5 phương thức xét tuyển: 1) Điểm thi tốt nghiệp THPT, 2) Học bạ THPT (lớp 10, 11 và HK1 lớp 12), "
+    },
+    {
+      "id": 44,
+      "question": "Cho em thông tin chi tiết về ngành Đảm bảo chất lượng và an toàn thực phẩm.",
+      "latency_ms": 13845.44,
+      "ttft_ms": 1034.19,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Theo công bố cho khóa K26 năm 2026, học phí HUIT là **1.100.000 đồng/tín chỉ lý thuyết** và **1.350.000 đồng/tín chỉ thự"
+    },
+    {
+      "id": 45,
+      "question": "HUIT có đào tạo ngành Đảm bảo chất lượng và an toàn thực phẩm không?",
+      "latency_ms": 14613.73,
+      "ttft_ms": 805.57,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 47,
+      "question": "Mã ngành 7540106 là ngành nào của HUIT?",
+      "latency_ms": 13195.78,
+      "ttft_ms": 666.81,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 48,
+      "question": "Em muốn học Đảm bảo chất lượng và an toàn thực phẩm tại HUIT thì đăng ký ra sao?",
+      "latency_ms": 15550.83,
+      "ttft_ms": 986.37,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Nếu bạn quan tâm đến công nghệ thông tin và lập trình, HUIT đào tạo các ngành thuộc khối ngành công nghệ cao:  1. **Ngàn"
+    },
+    {
+      "id": 49,
+      "question": "Mã ngành Khoa học chế biến món ăn HUIT là bao nhiêu?",
+      "latency_ms": 14910.94,
+      "ttft_ms": 771.52,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Nếu bạn yêu thích ẩm thực, nấu ăn và kỹ thuật chế biến món ăn, HUIT đào tạo các ngành rất phù hợp:  1. **Ngành Quản trị "
+    },
+    {
+      "id": 46,
+      "question": "Tổ hợp xét tuyển và điểm sàn ngành Đảm bảo chất lượng và an toàn thực phẩm HUIT?",
+      "latency_ms": 17925.63,
+      "ttft_ms": 1023.24,
+      "cached": false,
+      "accuracy_hit": false,
+      "answer_preview": "Điểm sàn xét điểm thi THPT năm 2026 HUIT là **16 điểm** cho các ngành ngoài nhóm Luật. Điểm sàn xét học bạ là 20 điểm. ["
+    },
+    {
+      "id": 50,
+      "question": "Tra cứu thông tin ngành Khoa học chế biến món ăn tại trường HUIT.",
+      "latency_ms": 14010.37,
+      "ttft_ms": 875.63,
+      "cached": false,
+      "accuracy_hit": true,
+      "answer_preview": "Nếu bạn yêu thích ẩm thực, nấu ăn và kỹ thuật chế biến món ăn, HUIT đào tạo các ngành rất phù hợp:  1. **Ngành Quản trị "
+    }
+  ]
+}
