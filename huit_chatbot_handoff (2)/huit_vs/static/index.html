@@ -1365,22 +1365,29 @@
   let currentAbortController = null;
   let activeTtsButton = null;
 
+  let isCurrentlyGenerating = false;
+
   function setButtonState(loading) {
-    if (loading) {
-      userInput.disabled = true;
-      sendButton.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg> <span>🛑 Dừng</span>`;
-      sendButton.classList.add('stop-state');
-      sendButton.disabled = false;
-    } else {
-      userInput.disabled = false;
-      sendButton.innerHTML = `<span>Gửi</span><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>`;
-      sendButton.classList.remove('stop-state');
-      sendButton.disabled = false;
+    isCurrentlyGenerating = loading;
+    userInput.disabled = false; // Luôn giữ ô nhập mở để người dùng gõ sẵn câu hỏi tiếp theo
+    updateSendButtonUI();
+    if (!loading) {
       userInput.focus();
     }
   }
 
-  function stopGenerating() {
+  function updateSendButtonUI() {
+    const hasText = userInput.value.trim().length > 0;
+    if (isCurrentlyGenerating && !hasText) {
+      sendButton.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg> <span>🛑 Dừng</span>`;
+      sendButton.classList.add('stop-state');
+    } else {
+      sendButton.innerHTML = `<span>Gửi</span><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>`;
+      sendButton.classList.remove('stop-state');
+    }
+  }
+
+  function stopGenerating(showMsg = true) {
     if (currentAbortController) {
       currentAbortController.abort();
       currentAbortController = null;
@@ -1389,7 +1396,9 @@
       window.speechSynthesis.cancel();
     }
     removeRobotThinkingRow();
-    appendMsgRow('bot', '🛑 *Đã dừng phản hồi theo yêu cầu của bạn.*');
+    if (showMsg) {
+      appendMsgRow('bot', '🛑 *Đã dừng phản hồi theo yêu cầu của bạn.*');
+    }
     setButtonState(false);
   }
 
@@ -1950,19 +1959,28 @@
     performSend();
   }
 
+  userInput.addEventListener('input', () => {
+    updateSendButtonUI();
+  });
+
   sendButton.addEventListener('click', () => {
     if (sendButton.classList.contains('stop-state')) {
-      stopGenerating();
+      stopGenerating(true);
     } else {
+      if (isCurrentlyGenerating) {
+        stopGenerating(false);
+      }
       performSend();
     }
   });
 
   userInput.addEventListener('keydown', e => { 
     if (e.key === 'Enter') {
-      if (!sendButton.classList.contains('stop-state')) {
-        performSend();
+      e.preventDefault();
+      if (isCurrentlyGenerating && userInput.value.trim().length > 0) {
+        stopGenerating(false);
       }
+      performSend();
     } 
   });
 

@@ -583,6 +583,57 @@ def _call_llm(system_prompt, user_prompt):
     raise RuntimeError(f"Tất cả mô hình OpenRouter đều tạm thời gián đoạn. Lỗi gần nhất: {last_error}")
 
 
+def _stream_llm(system_prompt, user_prompt):
+    msgs = [{"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}]
+    
+    or_key = os.environ.get("HUIT_OPENROUTER_KEY") or os.environ.get("OPENROUTER_API_KEY")
+    if not or_key:
+        raise RuntimeError("HUIT_OPENROUTER_KEY chưa được cấu hình.")
+    from openai import OpenAI
+    client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
+    
+    models_to_try = [
+        LLM_MODEL,
+        "google/gemini-2.0-flash-exp:free",
+        "meta-llama/llama-3.3-70b-instruct:free",
+        "qwen/qwen-2.5-coder-32b-instruct:free",
+        "deepseek/deepseek-r1:free",
+        "openrouter/free",
+    ]
+    unique_models = []
+    for m in models_to_try:
+        if m and m not in unique_models:
+            unique_models.append(m)
+
+    last_error = None
+    for model_name in unique_models:
+        try:
+            stream = client.chat.completions.create(
+                model=model_name,
+                messages=msgs,
+                temperature=0.3,
+                max_tokens=LLM_MAX_TOKENS,
+                timeout=30,
+                stream=True,
+            )
+            has_yielded = False
+            for chunk in stream:
+                if chunk.choices and len(chunk.choices) > 0 and chunk.choices[0].delta:
+                    token = chunk.choices[0].delta.content or ""
+                    if token:
+                        has_yielded = True
+                        yield token
+            if has_yielded:
+                return
+        except Exception as e:
+            print(f"OpenRouter streaming model '{model_name}' warning:", e)
+            last_error = e
+            continue
+
+    raise RuntimeError(f"Tất cả mô hình OpenRouter đều tạm thời gián đoạn. Lỗi gần nhất: {last_error}")
+
+
 def check_intent_guardrail(question, chat_history=None):
     q_norm = _normalize(question)
     words = [w for w in re.split(r'\s+', q_norm) if w]
@@ -1115,18 +1166,131 @@ def answer(question, chat_history=None, use_cache=True):
     return res
 
 
-def stream_answer(question, chat_history=None):
-    """Generator function yielding chunks for SSE streaming."""
-    res = answer(question, chat_history=chat_history)
-    answer_text = res.get("answer", "")
-    sources = res.get("sources", [])
-    trace = res.get("trace", [])
+def stream_answer(question, chat_history=None, use_cache=True):
+    """Generator function yielding chunks for SSE real-time LLM streaming."""
+    started = time.perf_counter()
+    _init()
+    intent = classify_intent(question)
 
-    # First yield metadata event containing sources & execution trace
+    # 1. Intent Guardrail Check
+    guard_res = check_intent_guardrail(question, chat_history=chat_history)
+    if guard_res["is_handled"]:
+        answer_text = guard_res.get("answer", "")
+        sources = guard_res.get("sources", [])
+        trace = guard_res.get("trace", [])
+        yield json.dumps({"type": "meta", "sources": sources, "trace": trace}, ensure_ascii=False) + "\n"
+        for word in re.findall(r'\S+|\s+', answer_text):
+            yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
+        return
+
+    # 2. Major Catalog Check
+    if _is_major_catalog_question(question):
+        catalog_res = _major_catalog_response()
+        if catalog_res:
+            answer_text = catalog_res.get("answer", "")
+            sources = catalog_res.get("sources", [])
+            trace = catalog_res.get("trace", [])
+            yield json.dumps({"type": "meta", "sources": sources, "trace": trace}, ensure_ascii=False) + "\n"
+            for word in re.findall(r'\S+|\s+', answer_text):
+                yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
+            log_event(question, catalog_res, int((time.perf_counter() - started) * 1000), intent)
+            return
+
+    # 3. Cache Hit Check (Ultra fast 0ms TTFT response)
+    cached_res = get_cached_response(question, chat_history) if use_cache else None
+    if cached_res:
+        answer_text = cached_res.get("answer", "")
+        sources = cached_res.get("sources", [])
+        trace = cached_res.get("trace", [])
+        yield json.dumps({"type": "meta", "sources": sources, "trace": trace}, ensure_ascii=False) + "\n"
+        for word in re.findall(r'\S+|\s+', answer_text):
+            yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
+        log_event(question, cached_res, int((time.perf_counter() - started) * 1000), intent, cached=True)
+        return
+
+    # 4. Retrieval Phase
+    retrieval_query = question
+    if chat_history and isinstance(chat_history, list) and len(question.split()) <= 8:
+        user_msgs = [
+            m.get("content", "") for m in chat_history
+            if isinstance(m, dict) and m.get("role") in ("user", "human") and m.get("content")
+        ]
+        if user_msgs:
+            last_user_msg = user_msgs[-1]
+            retrieval_query = f"{last_user_msg} {question}"
+
+    docs = retrieve(retrieval_query, _rag_cfg.get("top_k", 3))
+    if not docs:
+        res = {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
+        yield json.dumps({"type": "meta", "sources": [], "trace": []}, ensure_ascii=False) + "\n"
+        yield json.dumps({"type": "token", "token": res["answer"]}, ensure_ascii=False) + "\n"
+        return
+
+    source_limit = min(3, len(docs))
+    sources = [{
+        "i": i,
+        "title": _clean_doc_title(d.get("title")),
+        "url": d.get("source_url") or d.get("url") or d.get("link") or "https://ts.huit.edu.vn",
+        "score": round(d.get("score", 0), 3),
+        "text": d.get("text", "")[:300]
+    } for i, d in enumerate(docs[:source_limit], 1)]
+
+    context = "\n\n".join(
+        f"[{i}] {_clean_doc_title(d.get('title'))} — {str(d.get('text', ''))[:1100]}"
+        for i, d in enumerate(docs[:source_limit], 1)
+    )
+
+    history_str = ""
+    if chat_history and isinstance(chat_history, list):
+        formatted_turns = []
+        for turn in chat_history[-6:]:
+            role = "Người dùng" if turn.get("role") == "user" else "Trợ lý AI"
+            formatted_turns.append(f"{role}: {turn.get('content', '')}")
+        if formatted_turns:
+            history_str = "\n\n[LỊCH SỬ HỘI THOẠI TRƯỚC ĐÓ]:\n" + "\n".join(formatted_turns) + "\n"
+
+    trace = [
+        {"step": 1, "name": "Nhận diện Ý định (NLU)", "detail": f"Ý định: {intent}", "status": "success"},
+        {"step": 2, "name": "Truy vấn Kho tri thức HUIT", "detail": f"Vector Search & Keyword: Lấy {len(docs)} đoạn tri thức", "status": "success"},
+        {"step": 3, "name": "Tối ưu & Xếp hạng Ngữ cảnh", "detail": f"Lọc {len(sources)} nguồn minh chứng khớp nhất", "status": "success"},
+        {"step": 4, "name": "Tổng hợp qua LLM", "detail": f"Mô hình: {LLM_MODEL} (Phát luồng thời gian thực)", "status": "success"}
+    ]
+
+    # Send metadata to client immediately after retrieval (~200ms)
     yield json.dumps({"type": "meta", "sources": sources, "trace": trace}, ensure_ascii=False) + "\n"
 
-    # Stream answer words with smooth micro-delay
-    words = re.findall(r'\S+|\s+', answer_text)
-    for word in words:
-        yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
+    # 5. Stream Real LLM Tokens
+    user_prompt = f"{history_str}{_rag_cfg['answer_template'].format(context=context, question=question)}"
+    accumulated_text = ""
+    used_fallback = False
+
+    try:
+        for token_chunk in _stream_llm(_rag_cfg["system_prompt"], user_prompt):
+            accumulated_text += token_chunk
+            yield json.dumps({"type": "token", "token": token_chunk}, ensure_ascii=False) + "\n"
+    except Exception as exc:
+        print("Streaming LLM error, switching to fallback:", exc)
+        used_fallback = True
+        fallback_text = _fallback_answer(question, docs)
+        accumulated_text = fallback_text
+        for word in re.findall(r'\S+|\s+', fallback_text):
+            yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
+
+    elapsed_ms = round((time.perf_counter() - started) * 1000)
+    res_obj = {
+        "answer": accumulated_text,
+        "sources": sources,
+        "trace": trace,
+        "meta": {
+            "intent": intent,
+            "fallback": used_fallback,
+            "model": LLM_MODEL,
+            "kb_version": KB_VERSION,
+            "rag_version": RAG_VERSION,
+            "latency_ms": elapsed_ms,
+        }
+    }
+    if use_cache and accumulated_text:
+        save_response_to_cache(question, res_obj, chat_history)
+    log_event(question, res_obj, elapsed_ms, intent)
 
