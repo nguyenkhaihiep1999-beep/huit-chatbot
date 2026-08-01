@@ -777,6 +777,35 @@ Năm 2025, HUIT mở rộng tổ hợp môn khối C (C00, C01, C02, C03, C14) v
 4. **Giảm học phí người thân**: Giảm 10 - 20% học phí cho anh/chị/em ruột cùng học tại HUIT.
 5. **Đặc quyền Tân sinh viên**: Khám sức khỏe miễn phí, tham gia các khóa kỹ năng mềm chuẩn quốc tế miễn phí.
 """
+    },
+    {
+        "url": "https://ts.huit.edu.vn/vien-quoc-te-huit/chinh-sach-hoc-phi-hoc-bong-2026",
+        "title": "Chính sách Học bổng & Đào tạo Viện Quốc tế HUIT (Trường Đại học Công Thương TP.HCM)",
+        "markdown": """# Chính sách Học bổng & Đào tạo Viện Quốc tế HUIT (Trường Đại học Công Thương TP.HCM)
+
+Viện Đào tạo Quốc tế (Viện Quốc tế HUIT) là đơn vị trực thuộc Trường Đại học Công Thương TP.HCM, chuyên trách các chương trình cử nhân liên kết quốc tế, trao đổi sinh viên và đào tạo chất lượng cao.
+
+## I. Chính sách Học bổng Viện Quốc tế HUIT năm 2026
+1. **Học bổng 100% Học phí (Suất đặc biệt)**:
+   - Áp dụng cho thí sinh có chứng chỉ **IELTS từ 6.5 trở lên** (hoặc TOEFL iBT từ 79, TOEIC 750+) hoặc đạt **từ 850 điểm Đánh giá năng lực ĐHQG-HCM**.
+   - Miễn toàn bộ 100% học phí năm học đầu tiên khi nhập học các chương trình thuộc Viện Quốc tế HUIT.
+2. **Học bổng 50% Học phí năm 1**:
+   - Áp dụng cho thí sinh đạt chứng chỉ **IELTS từ 5.5 đến 6.0** (hoặc TOEFL iBT 65+) hoặc đạt điểm xét tuyển học bạ THPT từ **24.0 điểm trở lên** (3 môn tổ hợp).
+3. **Học bổng 30% Học kỳ I (Hỗ trợ Tân sinh viên nhập học sớm)**:
+   - Tặng 30% học phí học kỳ đầu tiên cho tân sinh viên hoàn tất thủ tục nhập học đợt 1 tại Viện Quốc tế HUIT.
+
+## II. Các Ngành & Chương trình Đào tạo tại Viện Quốc tế HUIT
+- **Chương trình Cử nhân Quản trị Kinh doanh Quốc tế**: Liên kết với các trường đối tác uy tín tại Đài Loan, Hàn Quốc, Malaysia.
+- **Chương trình Cử nhân Công nghệ Thông tin Quốc tế**: Đào tạo chuẩn phần mềm và AI quốc tế.
+- **Chương trình Cử nhân Ngôn ngữ Anh & Thương mại Quốc tế**: Biên phiên dịch, giao thương quốc tế.
+- **Chương trình Cử nhân Quản trị Khách sạn & Du lịch Quốc tế**.
+
+## III. Phương thức Xét tuyển Viện Quốc tế HUIT
+- **Phương thức 1**: Xét theo kết quả Học bạ THPT (Tổng điểm 3 môn từ 20.0 điểm trở lên).
+- **Phương thức 2**: Xét theo Điểm thi tốt nghiệp THPT năm 2026 (từ 16.0 điểm trở lên).
+- **Yêu cầu ngoại ngữ**: Thí sinh chưa có chứng chỉ IELTS/TOEFL được kiểm tra trình độ tiếng Anh đầu vào và tham gia khóa học Tiếng Anh Dự bị của Viện trước khi học chuyên ngành.
+- **Liên hệ Viện Quốc tế HUIT**: Hotline (028) 3816 1166 - Email: international@huit.edu.vn - Website: ts.huit.edu.vn.
+"""
     }
 ]
 

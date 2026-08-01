@@ -474,7 +474,7 @@ def retrieve(question, top_k=3):
         general_tuition_doc = {
             "_id": "huit_general_tuition_override",
             "title": "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
-            "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí K26 năm 2026]\nHọc phí khóa K26 năm 2026 là 1.100.000 đồng/tín chỉ lý thuyết và 1.350.000 đồng/tín chỉ thực hành. Học phí toàn khóa của các ngành cử nhân phổ biến khoảng 143–148 triệu đồng; chương trình kỹ sư khoảng 177–188 triệu đồng, tùy chương trình và cơ cấu tín chỉ.",
+            "text": "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Học phí K26 năm 2026]\nHọc phí trung bình tại HUIT khoảng 14 - 16 triệu đồng/học kỳ (mỗi năm học có 2 học kỳ chính). Đơn giá tín chỉ khoảng 540.000đ - 700.000đ/tín chỉ (1.100.000đ/tín chỉ lý thuyết và 1.350.000đ/tín chỉ thực hành với các môn chuyên sâu K26). Nhà trường cam kết giữ ổn định mức học phí không tăng trong toàn bộ khóa học (3.5 - 4 năm).",
             "url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
             "source_url": "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
             "category": "tuition",
@@ -717,6 +717,55 @@ def check_intent_guardrail(question, chat_history=None):
                 "Bạn vui lòng theo dõi Cổng thông tin tuyển sinh chính thức **ts.huit.edu.vn** để cập nhật số liệu thống kê ngay khi có công bố chính thức nhé!"
             ),
             "sources": []
+        }
+    
+    # 0.6 Viện Quốc tế HUIT & Chính sách Học bổng Viện Quốc tế
+    if "vien quoc te" in q_norm or ("quoc te" in q_norm and any(k in q_norm for k in ["hoc bong", "hoc phi", "xet tuyen", "chuong trinh", "lien ket"])):
+        return {
+            "is_handled": True,
+            "answer": (
+                "Chính sách Học bổng & Đào tạo tại **Viện Đào tạo Quốc tế (Viện Quốc tế HUIT)** năm 2026 áp dụng như sau:\n\n"
+                "### 🥇 1. Chính sách Học bổng Viện Quốc tế HUIT:\n"
+                "- **Học bổng 100% Học phí (Năm 1)**: Dành cho thí sinh đạt **IELTS từ 6.5 trở lên** (hoặc TOEFL iBT 79+) hoặc điểm **ĐGNL ĐHQG-HCM từ 850 điểm trở lên**.\n"
+                "- **Học bổng 50% Học phí (Năm 1)**: Dành cho thí sinh có **IELTS 5.5 - 6.0** (hoặc TOEFL iBT 65+) hoặc tổng điểm xét **học bạ THPT từ 24.0 điểm trở lên**.\n"
+                "- **Học bổng 30% Học kỳ I**: Ưu đãi 30% học phí HK1 cho tất cả tân sinh viên hoàn tất nhập học đợt 1.\n\n"
+                "### 🎓 2. Các Ngành đào tạo Liên kết Quốc tế:\n"
+                "1. **Cử nhân Quản trị Kinh doanh Quốc tế** (Liên kết ĐH đối tác Hàn Quốc, Đài Loan, Malaysia)\n"
+                "2. **Cử nhân Công nghệ Thông tin Quốc tế**\n"
+                "3. **Cử nhân Ngôn ngữ Anh & Thương mại Quốc tế**\n"
+                "4. **Cử nhân Quản trị Khách sạn & Du lịch Quốc tế**\n\n"
+                "Thí sinh xét tuyển bằng Học bạ THPT (từ 20.0 điểm) hoặc Điểm thi THPT (từ 16.0 điểm). Nếu chưa có IELTS sẽ được học lớp Tiếng Anh dự bị trước khi học chuyên ngành."
+            ),
+            "sources": [{
+                "i": 1,
+                "title": "Chính sách Học bổng & Đào tạo Viện Quốc tế HUIT",
+                "url": "https://ts.huit.edu.vn/vien-quoc-te-huit/chinh-sach-hoc-phi-hoc-bong-2026",
+                "score": 0.99,
+                "text": "Chi tiết chính sách học bổng 100%, 50%, 30% và các chương trình liên kết đào tạo quốc tế HUIT."
+            }]
+        }
+
+    # 0.7 Career Orientation & Hobby Counseling (Tư vấn ngành theo sở thích & thế mạnh)
+    if any(k in q_norm for k in ["thich may do", "may do", "may mac", "thich thoi trang", "thich thiet ke"]):
+        return {
+            "is_handled": True,
+            "answer": (
+                "Nếu bạn yêu thích may đồ, thời trang và thiết kế trang phục, tại **Trường Đại học Công Thương TP.HCM (HUIT)** bạn nên tham khảo 2 ngành học rất phù hợp:\n\n"
+                "1. **Ngành Công nghệ dệt, may** (Mã ngành: `7540204`):\n"
+                "   - **Nội dung học**: Đào tạo chuyên sâu kỹ thuật thiết kế rập 2D/3D (Gerber, Lectra), quy trình sản xuất may công nghiệp, thiết kế trang phục.\n"
+                "   - **Ưu đãi**: Được hưởng **Học bổng GIẢM 50% HỌC PHÍ HỌC KỲ 1** dành cho tân sinh viên.\n\n"
+                "2. **Ngành Kinh doanh thời trang và dệt may** (Mã ngành: `7340123`):\n"
+                "   - **Nội dung học**: Đào tạo về kinh doanh chuỗi thời trang, Marketing thời trang, quản lý thương hiệu và chuỗi cung ứng dệt may.\n"
+                "   - **Ưu đãi**: Được hưởng **Học bổng GIẢM 50% HỌC PHÍ HỌC KỲ 1**.\n\n"
+                "Cả 2 ngành xét các tổ hợp A00, A01, D01, D07 (Điểm sàn THPT 2026: 16 điểm; Học bạ từ 18-20 điểm). Bạn muốn xem chi tiết chương trình học của ngành nào?"
+            ),
+            "sources": [{
+                "i": 1,
+                "title": "Ngành Công nghệ Dệt, May & Kinh doanh Thời trang HUIT",
+                "url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-det-may",
+                "score": 0.99,
+                "text": "Thông tin tuyển sinh, chương trình đào tạo và học bổng 50% HK1 các ngành Thời trang & Dệt may HUIT."
+            }]
         }
     
     # 1. Greetings / Small talk (Xử lý các câu chào hỏi: alo, alo bạn, banj, chào, hi, hello, v.v.)
@@ -1064,20 +1113,20 @@ def _fallback_answer(question, docs):
             "Bạn muốn mình tư vấn thêm về tổ hợp xét tuyển hay chương trình học ngành nào? [1]"
         )
 
-    # 5. Dynamic fallback matching TOP retrieved docs
-    relevant_majors = []
-    for d in docs[:3]:
-        t = _clean_doc_title(d.get("title"))
-        if t and t not in relevant_majors and "Thông tin Tuyển sinh" not in t:
-            relevant_majors.append(f"• **{t}**")
-
-    if relevant_majors:
-        majors_list_str = "\n".join(relevant_majors)
-        return (
-            f"Dựa trên thông tin tuyển sinh chính thức của HUIT, dưới đây là các ngành đào tạo liên quan phù hợp nhất với yêu cầu của bạn:\n\n"
-            f"{majors_list_str}\n\n"
-            "Bạn muốn mình tư vấn chi tiết hơn về mã ngành, tổ hợp môn hay điểm sàn của ngành nào? [1]"
-        )
+    # 5. Dynamic grounded fallback matching TOP retrieved document content
+    if docs and len(docs) > 0:
+        top_doc = docs[0]
+        doc_text = top_doc.get("text", "")
+        # Clean header metadata if present
+        clean_text = re.sub(r"^\[.*?\]\s*", "", doc_text).strip()
+        if len(clean_text) > 400:
+            clean_text = clean_text[:400] + "..."
+        if clean_text:
+            return (
+                f"Theo thông tin tuyển sinh chính thức từ HUIT:\n\n"
+                f"{clean_text}\n\n"
+                f"Bạn có cần hỗ trợ chi tiết hơn về tổ hợp môn, điểm sàn hay phương thức xét tuyển không? [1]"
+            )
 
     return (
         "Cổng thông tin tuyển sinh HUIT hiện công bố đầy đủ 39 ngành đào tạo đại học chính quy năm 2026. "
