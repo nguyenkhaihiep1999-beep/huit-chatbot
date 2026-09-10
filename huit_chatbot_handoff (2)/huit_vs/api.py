@@ -220,16 +220,25 @@ def save_generated_image(req):
 
 
 def image_chat(question):
-    result = save_generated_image(image_service.ImageRequest(prompt=image_service.image_prompt(question)))
-    return {"answer": f"Ảnh minh họa đã lưu MongoDB ({result['scene_bytes']} byte JSON).\n\n![Ảnh minh họa]({result['url']})\n\n[Tải SVG miễn phí]({result['url']}?download=true) · [Xem JSON]({result['json_url']})", "sources": [], "image": result}
+    prompt = image_service.image_prompt(question) or question
+    result = save_generated_image(image_service.ImageRequest(prompt=prompt, backend="flux"))
+    w = result.get('width', 512)
+    h = result.get('height', 512)
+    answer = (
+        f"🎨 **Ảnh nghệ thuật AI (Mô hình FLUX.1)** ({w} × {h}):\n\n"
+        f"![Ảnh AI]({result['url']})\n\n"
+        f"📥 [Tải ảnh gốc HD]({result['url']}?download=true) · 🔍 [Mở ảnh xem chi tiết]({result['url']})"
+    )
+    return {"answer": answer, "sources": [], "image": result}
 
 
 def image_chat_stream(question):
     result = image_chat(question)
     events = [
         {"type": "meta", "sources": [], "trace": [
-            {"step": 1, "name": "Sinh JSON miễn phí", "detail": "OpenRouter free → kiểm tra dung lượng", "status": "success"},
-            {"step": 2, "name": "Lưu ảnh MongoDB", "detail": "Đọc JSON → dựng SVG", "status": "success"},
+            {"step": 1, "name": "Khởi tạo Yêu cầu AI", "detail": "Phân tích prompt & Tối ưu nghệ thuật", "status": "success"},
+            {"step": 2, "name": "Vẽ tranh qua FLUX.1", "detail": "Mô hình khuếch tán FLUX cao cấp", "status": "success"},
+            {"step": 3, "name": "Lưu trữ CSDL", "detail": "Đã lưu ảnh HD vào MongoDB Atlas", "status": "success"}
         ]},
         {"type": "token", "token": result["answer"]},
     ]
@@ -255,12 +264,42 @@ def load_generated_image(image_id):
 @app.get("/api/images/{image_id}")
 def image_json(image_id: str):
     doc = load_generated_image(image_id)
-    return {"id": doc["_id"], "width": doc["width"], "height": doc["height"], "scene_bytes": doc["scene_bytes"], "scene": doc["scene"]}
+    if "scene" in doc:
+        return {"id": doc["_id"], "width": doc["width"], "height": doc["height"], "scene_bytes": doc.get("scene_bytes", 0), "scene": doc["scene"]}
+    return {
+        "id": doc["_id"],
+        "width": doc.get("width", 512),
+        "height": doc.get("height", 512),
+        "model": doc.get("model", "FLUX.1-schnell"),
+        "style": doc.get("style", "photorealistic"),
+        "prompt": doc.get("prompt", ""),
+        "image_bytes": doc.get("image_bytes", len(doc.get("image_data", b""))),
+        "created_at": str(doc.get("created_at", ""))
+    }
+
+
+@app.get("/api/images/{image_id}/file")
+def image_file(image_id: str, download: bool = False):
+    doc = load_generated_image(image_id)
+    if "image_data" in doc:
+        ctype = doc.get("content_type", "image/jpeg")
+        ext = "jpg" if "jpeg" in ctype or "jpg" in ctype else "png"
+        return Response(doc["image_data"], media_type=ctype, headers={
+            "Content-Disposition": f"{'attachment' if download else 'inline'}; filename=ai-art-{image_id[:8]}.{ext}",
+            "Cache-Control": "public, max-age=86400",
+        })
+    return Response(image_service.render_svg(doc), media_type="image/svg+xml", headers={
+        "Content-Security-Policy": "default-src 'none'; sandbox",
+        "Content-Disposition": f"{'attachment' if download else 'inline'}; filename=illustration-{image_id}.svg",
+        "Cache-Control": "private, max-age=3600",
+    })
 
 
 @app.get("/api/images/{image_id}/svg")
 def image_svg(image_id: str, download: bool = False):
     doc = load_generated_image(image_id)
+    if "image_data" in doc:
+        return image_file(image_id, download=download)
     return Response(image_service.render_svg(doc), media_type="image/svg+xml", headers={
         "Content-Security-Policy": "default-src 'none'; sandbox",
         "Content-Disposition": f"{'attachment' if download else 'inline'}; filename=illustration-{image_id}.svg",

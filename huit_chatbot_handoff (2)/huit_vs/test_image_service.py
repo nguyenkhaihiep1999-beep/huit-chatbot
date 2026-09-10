@@ -49,7 +49,7 @@ class ImageTests(unittest.TestCase):
         coll.find_one.side_effect = lambda query: dict(stored) if query["_id"] == stored.get("_id") else None
         scene = images.Scene.model_validate(SCENE)
         with patch.object(images, "collection", return_value=coll), patch.object(images, "generate_scene", return_value=(scene, 200)), patch.object(api.rag_core, "_init", side_effect=AssertionError("must not load embedder")):
-            response = self.client.post("/api/images", json={"prompt": "mèo", "width": 768, "max_json_kb": 4})
+            response = self.client.post("/api/images", json={"prompt": "mèo", "width": 768, "max_json_kb": 4, "backend": "svg"})
             self.assertEqual(response.status_code, 200)
             result = response.json()
             self.assertEqual(self.client.get(result["json_url"]).json()["scene"], SCENE)
@@ -59,10 +59,25 @@ class ImageTests(unittest.TestCase):
             self.assertIn("sandbox", svg.headers["content-security-policy"])
             self.assertEqual(stored["width"], 768)
 
+    def test_flux_image_generation(self):
+        coll = MagicMock()
+        stored = {}
+        coll.insert_one.side_effect = lambda doc: stored.update(doc)
+        coll.find_one.side_effect = lambda query: dict(stored) if query["_id"] == stored.get("_id") else None
+        fake_jpg = b"\xff\xd8\xff\xe0fakejpegdata"
+        with patch.object(images, "collection", return_value=coll), patch.object(images, "generate_flux_image", return_value=(fake_jpg, "image/jpeg")):
+            response = self.client.post("/api/images", json={"prompt": "chú chó con", "width": 512, "backend": "flux"})
+            self.assertEqual(response.status_code, 200)
+            res = response.json()
+            self.assertEqual(res["model"], "FLUX.1-schnell")
+            img_res = self.client.get(res["url"])
+            self.assertEqual(img_res.status_code, 200)
+            self.assertEqual(img_res.content, fake_jpg)
+
     def test_failure_does_not_save_and_hides_secrets(self):
         coll = MagicMock()
         with patch.object(images, "collection", return_value=coll), patch.object(images, "generate_scene", side_effect=RuntimeError("secret-key")):
-            response = self.client.post("/api/images", json={"prompt": "mèo"})
+            response = self.client.post("/api/images", json={"prompt": "mèo", "backend": "svg"})
             self.assertEqual(response.status_code, 503)
             self.assertNotIn("secret-key", response.text)
             coll.insert_one.assert_not_called()

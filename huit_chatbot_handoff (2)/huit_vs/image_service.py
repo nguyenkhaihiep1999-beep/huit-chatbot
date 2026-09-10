@@ -5,7 +5,7 @@ import re
 import secrets
 from datetime import datetime, timezone
 from html import escape
-from typing import Annotated, Literal, Union
+from typing import Annotated, Literal, Optional, Union
 from urllib.parse import quote_plus
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -57,6 +57,8 @@ class ImageRequest(BaseModel):
     width: int = Field(default=512, ge=128, le=1024)
     height: int = Field(default=512, ge=128, le=1024)
     max_json_kb: int = Field(default=12, ge=2, le=24)
+    style: Optional[str] = Field(default="photorealistic")
+    backend: Literal["flux", "svg"] = Field(default="flux")
 
 
 _mongo = None
@@ -76,6 +78,30 @@ def collection():
         _mongo = MongoClient(uri, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000, socketTimeoutMS=10000)
     import rag_core
     return _mongo[rag_core.DB]["generated_images"]
+
+
+def generate_flux_image(req):
+    import urllib.request
+    import urllib.parse
+    import random
+    prompt = req.prompt.strip()
+    style_prompts = {
+        "photorealistic": f"{prompt}, photorealistic, 8k resolution, highly detailed, sharp focus, professional photography, realistic lighting",
+        "3d": f"{prompt}, 3d render, octane render, unreal engine 5, volumetric lighting, masterpiece, clean 3d model",
+        "anime": f"{prompt}, beautiful anime art style, studio ghibli, Makoto Shinkai, vibrant colors, detailed illustration",
+        "painting": f"{prompt}, fine art painting, oil on canvas, digital masterpiece, rich vibrant colors, expressive strokes"
+    }
+    style = getattr(req, "style", "photorealistic") or "photorealistic"
+    enhanced_prompt = style_prompts.get(style, prompt)
+    seed = random.randint(1000, 9999999)
+    encoded = urllib.parse.quote(enhanced_prompt)
+    url = f"https://image.pollinations.ai/prompt/{encoded}?width={req.width}&height={req.height}&model=flux&nologo=true&seed={seed}"
+    req_obj = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; HUIT-Chatbot/2.0)"})
+    with urllib.request.urlopen(req_obj, timeout=40) as res:
+        data = res.read()
+    if not data or len(data) < 1000:
+        raise ValueError("Dữ liệu ảnh nhận được từ mô hình FLUX không hợp lệ.")
+    return data, "image/jpeg"
 
 
 def generate_scene(req):
@@ -127,6 +153,36 @@ def create_image(req):
     coll = collection()
     # Check storage before consuming the free API quota.
     coll.database.command("ping")
+
+    if getattr(req, "backend", "flux") == "flux":
+        image_bytes, ctype = generate_flux_image(req)
+        image_id = secrets.token_hex(24)
+        doc = {
+            "_id": image_id,
+            "version": 2,
+            "prompt": req.prompt,
+            "width": req.width,
+            "height": req.height,
+            "style": getattr(req, "style", "photorealistic"),
+            "model": "flux",
+            "content_type": ctype,
+            "image_data": image_bytes,
+            "image_bytes": len(image_bytes),
+            "created_at": datetime.now(timezone.utc)
+        }
+        coll.insert_one(doc)
+        return {
+            "id": image_id,
+            "url": f"/api/images/{image_id}/file",
+            "svg_url": f"/api/images/{image_id}/svg",
+            "json_url": f"/api/images/{image_id}",
+            "image_bytes": len(image_bytes),
+            "width": req.width,
+            "height": req.height,
+            "model": "FLUX.1-schnell",
+            "billing": "free"
+        }
+
     scene, size = generate_scene(req)
     image_id = secrets.token_hex(24)
     doc = {"_id": image_id, "version": 1, "prompt": req.prompt,
