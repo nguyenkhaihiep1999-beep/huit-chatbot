@@ -220,12 +220,28 @@ def save_generated_image(req):
 
 
 def image_chat(question):
-    prompt = image_service.image_prompt(question) or question
-    result = save_generated_image(image_service.ImageRequest(prompt=prompt, backend="flux"))
-    w = result.get('width', 512)
-    h = result.get('height', 512)
+    raw_prompt = image_service.image_prompt(question) or question
+    clean_prompt, detected_style, width, height = image_service.extract_image_options(raw_prompt)
+    result = save_generated_image(image_service.ImageRequest(
+        prompt=clean_prompt,
+        width=width,
+        height=height,
+        style=detected_style,
+        backend="flux"
+    ))
+    w = result.get('width', width)
+    h = result.get('height', height)
+    style_names = {
+        "photorealistic": "📸 Chân thực 8K",
+        "anime": "🌸 Anime Nghệ Thuật (Ghibli)",
+        "3d": "🧊 3D Render (Pixar / Unreal 5)",
+        "painting": "🖌️ Tranh Sơn Dầu (Fine Art)",
+        "cyberpunk": "⚡ Cyberpunk Tương Lai",
+        "cinematic": "🎬 Điện Ảnh (Cinematic Film)"
+    }
+    style_label = style_names.get(detected_style, detected_style.capitalize())
     answer = (
-        f"🎨 **Ảnh nghệ thuật AI (Mô hình FLUX.1)** ({w} × {h}):\n\n"
+        f"🎨 **Ảnh nghệ thuật AI (Mô hình FLUX.1)** · *{style_label}* ({w} × {h}):\n\n"
         f"![Ảnh AI]({result['url']})\n\n"
         f"📥 [Tải ảnh gốc HD]({result['url']}?download=true) · 🔍 [Mở ảnh xem chi tiết]({result['url']})"
     )
@@ -234,10 +250,14 @@ def image_chat(question):
 
 def image_chat_stream(question):
     result = image_chat(question)
+    img_info = result.get("image", {})
+    style = img_info.get("style", "photorealistic")
+    w = img_info.get("width", 512)
+    h = img_info.get("height", 512)
     events = [
         {"type": "meta", "sources": [], "trace": [
-            {"step": 1, "name": "Khởi tạo Yêu cầu AI", "detail": "Phân tích prompt & Tối ưu nghệ thuật", "status": "success"},
-            {"step": 2, "name": "Vẽ tranh qua FLUX.1", "detail": "Mô hình khuếch tán FLUX cao cấp", "status": "success"},
+            {"step": 1, "name": "Khởi tạo Yêu cầu AI", "detail": f"Phong cách: {style} · Kích thước: {w}×{h}", "status": "success"},
+            {"step": 2, "name": "Vẽ tranh qua FLUX.1", "detail": "Mô hình khuếch tán FLUX cao cấp với Multi-Model Fallback", "status": "success"},
             {"step": 3, "name": "Lưu trữ CSDL", "detail": "Đã lưu ảnh HD vào MongoDB Atlas", "status": "success"}
         ]},
         {"type": "token", "token": result["answer"]},

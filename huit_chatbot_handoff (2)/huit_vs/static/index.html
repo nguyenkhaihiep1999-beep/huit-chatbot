@@ -1582,22 +1582,24 @@
 
             <div id="popover-image-controls" class="popover-select-group" style="display:none">
               <div>
-                <span style="display:block;margin-bottom:2px">📸 Phong cách:</span>
+                <span style="display:block;margin-bottom:2px">📸 Phong cách nghệ thuật:</span>
                 <select id="image-style" onchange="syncImageModeUI()">
-                  <option value="photorealistic" selected>📸 Chân thực (Photorealistic)</option>
-                  <option value="3d">🧊 Nghệ thuật 3D (Octane Render)</option>
+                  <option value="photorealistic" selected>📸 Chân thực (Photorealistic 8K)</option>
                   <option value="anime">🌸 Hoạt hình Anime (Studio Ghibli)</option>
-                  <option value="painting">🖌️ Tranh sơn dầu (Digital Art)</option>
+                  <option value="3d">🧊 Nghệ thuật 3D (Pixar / Unreal 5)</option>
+                  <option value="painting">🖌️ Tranh sơn dầu (Fine Art)</option>
+                  <option value="cyberpunk">⚡ Cyberpunk (Khoa học tương lai)</option>
+                  <option value="cinematic">🎬 Điện ảnh (Cinematic Film)</option>
                 </select>
               </div>
 
               <div>
-                <span style="display:block;margin-bottom:2px">📐 Kích thước:</span>
+                <span style="display:block;margin-bottom:2px">📐 Kích thước & Tỷ lệ:</span>
                 <select id="image-size" onchange="syncImageModeUI()">
-                  <option value="512x512" selected>512 × 512 (Vuông)</option>
-                  <option value="768x512">768 × 512 (Ngang)</option>
-                  <option value="512x768">512 × 768 (Dọc)</option>
-                  <option value="1024x1024">1024 × 1024 (HD)</option>
+                  <option value="512x512" selected>1:1 Vuông Tiêu Chuẩn (512 × 512)</option>
+                  <option value="768x768">1:1 Vuông Sắc Nét HD (768 × 768)</option>
+                  <option value="768x432">16:9 Ngang Phong Cảnh (768 × 432)</option>
+                  <option value="432x768">9:16 Dọc Story / Điện Thoại (432 × 768)</option>
                 </select>
               </div>
             </div>
@@ -1606,10 +1608,11 @@
           <div>
             <div class="popover-quick-label" style="margin-bottom:6px">💡 Gợi ý vẽ ảnh nhanh:</div>
             <div class="popover-quick-chips">
-              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ 1 chàng trai đẹp trai đeo kính')">🧑 Chàng trai</span>
-              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ nữ sinh HUIT duyên dáng mặc áo dài')">🌸 Nữ sinh áo dài</span>
-              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ chú cún con shiba lông xù siêu dễ thương')">🐶 Chú cún Shiba</span>
-              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ khuôn viên trường đại học HUIT tương lai hiện đại')">🏫 Trường HUIT</span>
+              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ bạn nam sinh viên HUIT đẹp trai đeo kính cầm sách')">🧑 Nam sinh HUIT</span>
+              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ nữ sinh HUIT duyên dáng mặc áo dài trắng cầm hoa sen')">🌸 Nữ sinh áo dài</span>
+              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ khuôn viên trường đại học HUIT tương lai lúc hoàng hôn')">🏫 Trường HUIT</span>
+              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ robot HUIT siêu dễ thương đang đọc sách ở thư viện')">🤖 Robot HUIT</span>
+              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ chú cún con shiba lông xù siêu đáng yêu')">🐶 Cún Shiba</span>
             </div>
           </div>
         </div>
@@ -2164,9 +2167,10 @@
 
     if (isChecked && pillText) {
       const styleSelect = document.getElementById('image-style');
-      const styleText = styleSelect ? styleSelect.options[styleSelect.selectedIndex].text.split(' ')[1] : 'AI';
-      const sizeText = document.getElementById('image-size')?.value || '512×512';
-      pillText.textContent = `🎨 Đang bật Tạo ảnh AI: ${styleText} · ${sizeText}`;
+      const styleName = styleSelect ? styleSelect.options[styleSelect.selectedIndex].text : 'AI';
+      const sizeSelect = document.getElementById('image-size');
+      const sizeText = sizeSelect ? sizeSelect.value : '512×512';
+      pillText.textContent = `🎨 Đang bật Tạo ảnh AI: ${styleName} · ${sizeText}`;
     }
   }
 
@@ -2235,10 +2239,19 @@
         const data = await response.json();
         if (!response.ok) throw new Error(typeof data.detail === 'string' ? data.detail : 'Yêu cầu tạo ảnh không hợp lệ.');
         removeRobotThinkingRow();
-        const answer = `🎨 **Ảnh nghệ thuật AI (Mô hình FLUX.1)** · ${data.width} × ${data.height}\n\n![Ảnh nghệ thuật AI](${data.url})\n\n📥 [Tải ảnh gốc HD](${data.url}?download=true) · 🔍 [Mở ảnh xem chi tiết](${data.url})`;
+        const styleNames = {
+          photorealistic: "Ảnh Chân Thực 8K",
+          anime: "Anime Nghệ Thuật (Ghibli)",
+          "3d": "3D Render (Pixar / Unreal 5)",
+          painting: "Tranh Sơn Dầu (Fine Art)",
+          cyberpunk: "Cyberpunk Tương Lai",
+          cinematic: "Điện Ảnh (Cinematic Film)"
+        };
+        const styleLabel = styleNames[style] || style;
+        const answer = `🎨 **Ảnh nghệ thuật AI (Mô hình FLUX.1)** · *${styleLabel}* (${data.width} × ${data.height})\n\n![Ảnh nghệ thuật AI](${data.url})\n\n📥 [Tải ảnh gốc HD](${data.url}?download=true) · 🔍 [Mở ảnh xem chi tiết](${data.url})`;
         appendMsgRow('bot', answer, [], [
-          {step: 1, name: 'Khởi tạo Yêu cầu AI', detail: `Phong cách: ${style} · Kích thước: ${data.width}×${data.height}`, status: 'success'},
-          {step: 2, name: 'Vẽ tranh qua FLUX.1', detail: 'Mô hình khuếch tán FLUX cao cấp', status: 'success'},
+          {step: 1, name: 'Khởi tạo Yêu cầu AI', detail: `Phong cách: ${styleLabel} · Kích thước: ${data.width}×${data.height}`, status: 'success'},
+          {step: 2, name: 'Vẽ tranh qua FLUX.1', detail: 'Mô hình khuếch tán FLUX cao cấp với Multi-Model Fallback', status: 'success'},
           {step: 3, name: 'Lưu trữ CSDL', detail: 'Đã lưu ảnh HD vào MongoDB Atlas', status: 'success'}
         ]);
         return;

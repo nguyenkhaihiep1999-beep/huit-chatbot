@@ -99,6 +99,27 @@ class ImageTests(unittest.TestCase):
         with patch.object(api, "RATE_LIMIT_PER_MINUTE", 0):
             self.assertEqual(self.client.post("/api/images", json={"prompt": "mèo"}).status_code, 429)
 
+    def test_extract_image_options(self):
+        prompt, style, w, h = images.extract_image_options("vẽ tranh sơn dầu khuôn viên HUIT hoàng hôn 16:9")
+        self.assertEqual(style, "painting")
+        self.assertEqual(w, 768)
+        self.assertEqual(h, 432)
+
+        prompt, style, w, h = images.extract_image_options("vẽ anime nữ sinh HUIT cầm hoa 9:16")
+        self.assertEqual(style, "anime")
+        self.assertEqual(w, 432)
+        self.assertEqual(h, 768)
+
+        prompt, style, w, h = images.extract_image_options("tạo ảnh 3d robot HUIT")
+        self.assertEqual(style, "3d")
+
+    def test_vietnamese_prompt_translation(self):
+        translated = images.translate_prompt_to_english("vẽ nữ sinh HUIT duyên dáng mặc áo dài trắng cầm hoa sen trước cổng trường")
+        self.assertIn("Ao Dai", translated)
+        self.assertIn("lotus", translated)
+        self.assertIn("HUIT", translated)
+        self.assertIn("Asian female", translated)
+
 
 if __name__ == "__main__":
     unittest.main()
