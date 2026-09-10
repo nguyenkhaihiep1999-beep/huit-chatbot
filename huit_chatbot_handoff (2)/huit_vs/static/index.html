@@ -835,6 +835,166 @@
 
   #send-button:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
 
+  /* Plus Menu Styles */
+  #plus-menu-button {
+    background: transparent;
+    border: none;
+    color: var(--text-subtle, #64748b);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+  }
+  #plus-menu-button:hover {
+    color: var(--brand-primary);
+    background: var(--brand-light);
+  }
+  #plus-menu-button.active {
+    color: var(--brand-primary);
+    background: var(--brand-light);
+    transform: rotate(45deg);
+  }
+  #plus-menu-button.has-active-mode {
+    color: #ffffff;
+    background: var(--brand-primary);
+    box-shadow: 0 2px 8px rgba(0, 102, 196, 0.35);
+  }
+  .plus-menu-popover {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 4px;
+    width: 340px;
+    background: var(--card-bg, #ffffff);
+    border: 1.5px solid var(--border-color, #e2eefb);
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 50, 120, 0.14), 0 2px 8px rgba(0, 0, 0, 0.04);
+    padding: 14px;
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+    font-family: inherit;
+    animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .plus-menu-popover.open {
+    display: flex;
+  }
+  @keyframes popoverFadeIn {
+    from { opacity: 0; transform: translateY(6px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .popover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--text-main, #1e293b);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color, #e2eefb);
+  }
+  .popover-feature-card {
+    background: var(--brand-light, #f0f7ff);
+    border: 1px solid rgba(0, 102, 196, 0.18);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .popover-feature-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand-dark, #004c99);
+    cursor: pointer;
+  }
+  .popover-select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted, #475569);
+    margin-top: 4px;
+  }
+  .popover-select-group select {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    font-size: 12.5px;
+    color: #1e293b;
+    outline: none;
+    cursor: pointer;
+  }
+  .popover-quick-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+  }
+  .popover-quick-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .popover-chip {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    padding: 4px 9px;
+    border-radius: 14px;
+    font-size: 11.5px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .popover-chip:hover {
+    background: var(--brand-light, #f0f7ff);
+    border-color: var(--brand-primary, #0066c4);
+    color: var(--brand-primary, #0066c4);
+  }
+  .image-mode-active-pill {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 6px 0;
+    width: fit-content;
+    box-shadow: 0 1px 3px rgba(0, 50, 120, 0.08);
+  }
+  .image-mode-active-pill.visible {
+    display: inline-flex;
+  }
+  .image-mode-active-pill button {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    padding: 0;
+  }
+  .image-mode-active-pill button:hover {
+    color: #ef4444;
+  }
+
   /* ADVANCED LIVE MOTION ANIMATIONS FOR 3D ROBOT MASCOT */
   @keyframes robotLiveMotion {
     0%, 100% {
@@ -1333,14 +1493,68 @@
         </button>
       </div>
 
-      <div id="image-toolbar" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:8px 0;font-size:13px;background:rgba(59,130,246,0.06);padding:8px 12px;border-radius:10px;border:1px solid rgba(59,130,246,0.15)">
-        <label style="font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="image-mode"> 🎨 Tạo ảnh nghệ thuật AI (FLUX.1)</label>
-        <label>Phong cách: <select id="image-style" style="padding:2px 8px;border-radius:6px;border:1px solid #cbd5e1;font-size:12px"><option value="photorealistic" selected>📸 Chân thực (Photorealistic)</option><option value="3d">🧊 Nghệ thuật 3D (Octane Render)</option><option value="anime">🌸 Hoạt hình Anime (Studio Ghibli)</option><option value="painting">🖌️ Tranh sơn dầu (Digital Art)</option></select></label>
-        <label>Kích thước: <select id="image-size" style="padding:2px 8px;border-radius:6px;border:1px solid #cbd5e1;font-size:12px"><option value="512x512" selected>512 × 512 (Vuông)</option><option value="768x512">768 × 512 (Ngang)</option><option value="512x768">512 × 768 (Dọc)</option><option value="1024x1024">1024 × 1024 (HD)</option></select></label>
-        <span style="font-size:11px;color:#64748b">⚡ Mô hình FLUX siêu nét · 100% Miễn phí</span>
+      <!-- Active Pill indicator when AI Image mode is ON -->
+      <div id="image-active-pill" class="image-mode-active-pill">
+        <span id="image-pill-text">🎨 Đang bật Tạo ảnh AI: Chân thực · 512×512</span>
+        <button type="button" onclick="disableImageMode()" title="Tắt chế độ tạo ảnh">✕</button>
       </div>
+
       <style>.bubble-box img[src^="/api/images/"] {max-width:100%;height:auto;border-radius:12px;margin:10px 0}</style>
-      <div class="input-form-container">
+      <div class="input-form-container" style="position: relative;">
+        <!-- NÚT MENU DẤU CỘNG (+) TIỆN ÍCH -->
+        <button id="plus-menu-button" type="button" title="Mở menu tiện ích & Tạo ảnh AI" onclick="togglePlusMenu(event)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+          </svg>
+        </button>
+
+        <!-- MENU POPOVER TIỆN ÍCH (+) -->
+        <div id="plus-menu-popover" class="plus-menu-popover" onclick="event.stopPropagation()">
+          <div class="popover-header">
+            <span>✨ Tiện ích Mở rộng</span>
+            <button type="button" onclick="togglePlusMenu(event)" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:16px;line-height:1">✕</button>
+          </div>
+
+          <div class="popover-feature-card">
+            <label class="popover-feature-row">
+              <span style="display:flex;align-items:center;gap:6px">🎨 <strong>Tạo ảnh AI (FLUX.1)</strong></span>
+              <input type="checkbox" id="image-mode" onchange="syncImageModeUI()">
+            </label>
+
+            <div id="popover-image-controls" class="popover-select-group" style="display:none">
+              <div>
+                <span style="display:block;margin-bottom:2px">📸 Phong cách:</span>
+                <select id="image-style" onchange="syncImageModeUI()">
+                  <option value="photorealistic" selected>📸 Chân thực (Photorealistic)</option>
+                  <option value="3d">🧊 Nghệ thuật 3D (Octane Render)</option>
+                  <option value="anime">🌸 Hoạt hình Anime (Studio Ghibli)</option>
+                  <option value="painting">🖌️ Tranh sơn dầu (Digital Art)</option>
+                </select>
+              </div>
+
+              <div>
+                <span style="display:block;margin-bottom:2px">📐 Kích thước:</span>
+                <select id="image-size" onchange="syncImageModeUI()">
+                  <option value="512x512" selected>512 × 512 (Vuông)</option>
+                  <option value="768x512">768 × 512 (Ngang)</option>
+                  <option value="512x768">512 × 768 (Dọc)</option>
+                  <option value="1024x1024">1024 × 1024 (HD)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="popover-quick-label" style="margin-bottom:6px">💡 Gợi ý vẽ ảnh nhanh:</div>
+            <div class="popover-quick-chips">
+              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ 1 chàng trai đẹp trai đeo kính')">🧑 Chàng trai</span>
+              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ nữ sinh HUIT duyên dáng mặc áo dài')">🌸 Nữ sinh áo dài</span>
+              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ chú cún con shiba lông xù siêu dễ thương')">🐶 Chú cún Shiba</span>
+              <span class="popover-chip" onclick="applyQuickArtPrompt('vẽ khuôn viên trường đại học HUIT tương lai hiện đại')">🏫 Trường HUIT</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Nút Micro thu âm Giọng nói Tiếng Việt STT -->
         <button id="mic-button" title="Hỏi bằng giọng nói Tiếng Việt">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1857,6 +2071,67 @@
   }
 
   const conversationHistory = [];
+
+  function togglePlusMenu(e) {
+    if (e) e.stopPropagation();
+    const popover = document.getElementById('plus-menu-popover');
+    const btn = document.getElementById('plus-menu-button');
+    if (!popover || !btn) return;
+    const isOpen = popover.classList.toggle('open');
+    btn.classList.toggle('active', isOpen);
+  }
+
+  function syncImageModeUI() {
+    const isChecked = document.getElementById('image-mode')?.checked || false;
+    const controls = document.getElementById('popover-image-controls');
+    const pill = document.getElementById('image-active-pill');
+    const pillText = document.getElementById('image-pill-text');
+    const plusBtn = document.getElementById('plus-menu-button');
+
+    if (controls) controls.style.display = isChecked ? 'flex' : 'none';
+    if (pill) pill.classList.toggle('visible', isChecked);
+    if (plusBtn) plusBtn.classList.toggle('has-active-mode', isChecked);
+
+    if (isChecked && pillText) {
+      const styleSelect = document.getElementById('image-style');
+      const styleText = styleSelect ? styleSelect.options[styleSelect.selectedIndex].text.split(' ')[1] : 'AI';
+      const sizeText = document.getElementById('image-size')?.value || '512×512';
+      pillText.textContent = `🎨 Đang bật Tạo ảnh AI: ${styleText} · ${sizeText}`;
+    }
+  }
+
+  function disableImageMode() {
+    const mode = document.getElementById('image-mode');
+    if (mode) mode.checked = false;
+    syncImageModeUI();
+  }
+
+  function applyQuickArtPrompt(promptText) {
+    const mode = document.getElementById('image-mode');
+    if (mode) mode.checked = true;
+    syncImageModeUI();
+    const popover = document.getElementById('plus-menu-popover');
+    if (popover) popover.classList.remove('open');
+    const plusBtn = document.getElementById('plus-menu-button');
+    if (plusBtn) plusBtn.classList.remove('active');
+
+    const input = document.getElementById('user-input');
+    if (input) {
+      input.value = promptText;
+      performSend();
+    }
+  }
+
+  document.addEventListener('click', (e) => {
+    const popover = document.getElementById('plus-menu-popover');
+    const plusBtn = document.getElementById('plus-menu-button');
+    if (popover && popover.classList.contains('open')) {
+      if (!popover.contains(e.target) && e.target !== plusBtn && !plusBtn.contains(e.target)) {
+        popover.classList.remove('open');
+        plusBtn.classList.remove('active');
+      }
+    }
+  });
 
   async function performSend() {
     const text = userInput.value.trim();
