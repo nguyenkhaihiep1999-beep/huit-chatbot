@@ -574,6 +574,14 @@
     padding: 12px 20px;
     border-radius: var(--radius-lg);
     box-shadow: 0 8px 24px rgba(0, 114, 206, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  /* Hiệu ứng nhận diện riêng khi Đang Tạo Ảnh AI */
+  .robot-thinking-card.image-mode {
+    border-color: #8b5cf6;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.05)), var(--card-bg);
+    box-shadow: 0 8px 28px rgba(139, 92, 246, 0.22);
   }
 
   .mascot-robot-thinking-img {
@@ -584,6 +592,18 @@
     border: 2px solid var(--brand-primary);
     animation: robotLiveMotion 2.8s infinite ease-in-out, robotGlowPulse 1.8s infinite ease-in-out;
     flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .robot-thinking-card.image-mode .mascot-robot-thinking-img {
+    border-color: #8b5cf6;
+    animation: robotLiveMotion 2.4s infinite ease-in-out, robotArtPulse 1.6s infinite ease-in-out;
+  }
+
+  .thinking-content-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
   }
 
   .thinking-label {
@@ -594,6 +614,32 @@
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+
+  .robot-thinking-card.image-mode .thinking-label {
+    color: #7c3aed;
+  }
+
+  [data-theme="dark"] .robot-thinking-card.image-mode .thinking-label {
+    color: #c084fc;
+  }
+
+  .thinking-type-icon {
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    animation: iconBounce 1.5s infinite ease-in-out;
+  }
+
+  @keyframes iconBounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-3px) scale(1.15); }
+  }
+
+  .thinking-subtext {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: 500;
   }
 
   .thinking-bouncing-dots {
@@ -611,8 +657,21 @@
     animation: dotsBounce 1.4s infinite ease-in-out both;
   }
 
+  .robot-thinking-card.image-mode .thinking-bouncing-dots span {
+    background: #8b5cf6;
+  }
+
   .thinking-bouncing-dots span:nth-child(2) { animation-delay: 0.2s; }
   .thinking-bouncing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes robotArtPulse {
+    0%, 100% {
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.35), 0 0 0 0 rgba(168, 85, 247, 0.4);
+    }
+    50% {
+      box-shadow: 0 10px 28px rgba(236, 72, 153, 0.55), 0 0 0 8px rgba(236, 72, 153, 0);
+    }
+  }
 
   /* Industrial Data Ticket Citations (BẤM TRỰC TIẾP VÀO THẺ ĐỂ MỞ LINK CỔNG TRƯỜNG HUIT) */
   .citation-section {
@@ -1765,21 +1824,32 @@
   });
 
   // CUTE 3D MASCOT ROBOT HUIT THINKING ROW
-  function showRobotThinkingRow() {
+  function showRobotThinkingRow(type = 'chat') {
     if (welcomeCard && welcomeCard.parentNode === viewport) {
       welcomeCard.remove();
     }
+    const isImage = (type === 'image');
     const row = document.createElement('div');
     row.className = 'msg-row bot';
     row.id = 'robot-thinking-indicator';
+
+    const mainText = isImage ? 'HUIT Robot đang tạo ảnh...' : 'HUIT Robot đang tra cứu dữ liệu...';
+    const subText = isImage ? 'Mô hình AI FLUX.1 đang vẽ tranh nghệ thuật theo yêu cầu' : 'Đang tìm kiếm thông tin từ cơ sở dữ liệu tuyển sinh HUIT';
+    const cardClass = isImage ? 'robot-thinking-card image-mode' : 'robot-thinking-card';
+    const icon = isImage ? '🎨' : '🔍';
+
     row.innerHTML = `
-      <div class="robot-thinking-card">
+      <div class="${cardClass}">
         <img src="/static/robot_huit.png" alt="HUIT Mascot Robot" class="mascot-robot-thinking-img" onerror="this.src='https://ts.huit.edu.vn/images/logo.png'">
-        <div class="thinking-label">
-          <span>HUIT Robot đang tra cứu dữ liệu</span>
-          <div class="thinking-bouncing-dots">
-            <span></span><span></span><span></span>
+        <div class="thinking-content-wrap">
+          <div class="thinking-label">
+            <span class="thinking-type-icon">${icon}</span>
+            <span>${mainText}</span>
+            <div class="thinking-bouncing-dots">
+              <span></span><span></span><span></span>
+            </div>
           </div>
+          <div class="thinking-subtext">${subText}</div>
         </div>
       </div>
     `;
@@ -2145,7 +2215,7 @@
     
     currentAbortController = new AbortController();
     setButtonState(true);
-    showRobotThinkingRow();
+    showRobotThinkingRow(wantsImage ? 'image' : 'chat');
 
     try {
       if (wantsImage) {
