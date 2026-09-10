@@ -80,19 +80,94 @@ def collection():
     return _mongo[rag_core.DB]["generated_images"]
 
 
+def translate_prompt_to_english(prompt: str) -> str:
+    p = prompt.strip()
+    p_lower = p.lower()
+
+    p_clean = re.sub(
+        r"^(?:tạo|vẽ|sinh|cho\s+(?:tôi|mình|em)?\s*(?:xem|xin)?)\s+(?:cho\s+(?:tôi|mình|em)?\s*)?(?:1\s+|một\s+)?(?:ảnh|hình|bức\s+ảnh|bức\s+hình)?\s*",
+        "",
+        p_lower,
+        flags=re.I,
+    ).strip()
+    if not p_clean:
+        p_clean = p_lower
+
+    is_male = any(
+        re.search(r"\b" + re.escape(w) + r"\b", p_clean)
+        for w in [
+            "chàng trai", "con trai", "nam giới", "đàn ông", "nam sinh",
+            "bạn nam", "anh chàng", "trai đẹp", "soái ca", "chàng", "trai", "nam", "cậu bé"
+        ]
+    )
+    is_female = any(
+        re.search(r"\b" + re.escape(w) + r"\b", p_clean)
+        for w in [
+            "cô gái", "con gái", "nữ giới", "phụ nữ", "nữ sinh",
+            "bạn nữ", "cô nàng", "thiếu nữ", "gái xinh", "hotgirl", "nàng", "gái", "nữ", "cô bé"
+        ]
+    )
+
+    replacements = [
+        (r"\b(chàng trai|con trai|nam sinh|bạn nam|anh chàng|trai đẹp|soái ca)\b", "1 handsome young man, 1boy, handsome Asian male, masculine, short hair"),
+        (r"\b(đàn ông|nam giới)\b", "handsome mature Asian man, masculine"),
+        (r"\b(cô gái|con gái|nữ sinh|bạn nữ|cô nàng|thiếu nữ|gái xinh|hotgirl)\b", "1 beautiful young woman, 1girl, attractive Asian female"),
+        (r"\b(phụ nữ|nữ giới)\b", "elegant beautiful Asian woman"),
+        (r"\b(chó con|chó cún|cún con|cún)\b", "adorable fluffy cute puppy dog"),
+        (r"\b(chó)\b", "cute dog"),
+        (r"\b(mèo con|mèo)\b", "adorable fluffy cute kitten cat"),
+        (r"\b(hổ|cọp)\b", "majestic tiger"),
+        (r"\b(rồng)\b", "majestic fantasy dragon"),
+        (r"\b(ngựa)\b", "majestic horse"),
+        (r"\b(chim)\b", "beautiful colorful bird"),
+        (r"\b(áo dài)\b", "traditional Vietnamese Ao Dai dress"),
+        (r"\b(áo sơ mi trắng)\b", "crisp white button-down shirt"),
+        (r"\b(áo sơ mi)\b", "button-down shirt"),
+        (r"\b(áo thun|áo phông)\b", "casual t-shirt"),
+        (r"\b(vest|com lê)\b", "tailored formal suit"),
+        (r"\b(đeo kính|mắt kính)\b", "wearing stylish eyeglasses"),
+        (r"\b(dễ thương|đáng yêu)\b", "cute, adorable"),
+        (r"\b(đẹp trai)\b", "handsome, good-looking"),
+        (r"\b(xinh đẹp|xinh gái)\b", "gorgeous, beautiful"),
+        (r"\b(ngầu)\b", "cool, charismatic"),
+        (r"\b(trường đại học công thương|trường huit|huit)\b", "modern university campus, HUIT university in Vietnam"),
+        (r"\b(trường học|trường đại học|khuôn viên)\b", "modern university campus, academic setting"),
+        (r"\b(bãi cỏ|đồng cỏ)\b", "green sunny meadow grass"),
+        (r"\b(công viên)\b", "city park with lush green trees and flowers"),
+        (r"\b(quán cà phê|quán cafe)\b", "cozy modern cafe coffee shop"),
+        (r"\b(đường phố|phố)\b", "vibrant city street"),
+        (r"\b(hoàng hôn)\b", "golden hour sunset glow"),
+        (r"\b(bình minh)\b", "soft morning sunrise light"),
+        (r"\b(ban đêm)\b", "night scene, cinematic city lights"),
+        (r"\b(robot|người máy)\b", "futuristic sleek humanoid AI robot"),
+    ]
+
+    translated = p_clean
+    for pat, rep in replacements:
+        translated = re.sub(pat, rep, translated, flags=re.I)
+
+    if is_male and not any(k in translated.lower() for k in ["man", "boy", "male"]):
+        translated = f"1 handsome young man, 1boy, handsome Asian male, masculine, {translated}"
+    elif is_female and not any(k in translated.lower() for k in ["woman", "girl", "female"]):
+        translated = f"1 beautiful young woman, 1girl, attractive Asian female, {translated}"
+
+    return translated.strip(", ")
+
+
 def generate_flux_image(req):
     import urllib.request
     import urllib.parse
     import random
-    prompt = req.prompt.strip()
+    raw_prompt = req.prompt.strip()
+    translated_prompt = translate_prompt_to_english(raw_prompt)
     style_prompts = {
-        "photorealistic": f"{prompt}, photorealistic, 8k resolution, highly detailed, sharp focus, professional photography, realistic lighting",
-        "3d": f"{prompt}, 3d render, octane render, unreal engine 5, volumetric lighting, masterpiece, clean 3d model",
-        "anime": f"{prompt}, beautiful anime art style, studio ghibli, Makoto Shinkai, vibrant colors, detailed illustration",
-        "painting": f"{prompt}, fine art painting, oil on canvas, digital masterpiece, rich vibrant colors, expressive strokes"
+        "photorealistic": f"{translated_prompt}, photorealistic, 8k resolution, highly detailed, sharp focus, professional photography, realistic lighting",
+        "3d": f"{translated_prompt}, 3d render, octane render, unreal engine 5, volumetric lighting, masterpiece, clean 3d model",
+        "anime": f"{translated_prompt}, beautiful anime art style, studio ghibli, Makoto Shinkai, vibrant colors, detailed illustration",
+        "painting": f"{translated_prompt}, fine art painting, oil on canvas, digital masterpiece, rich vibrant colors, expressive strokes"
     }
     style = getattr(req, "style", "photorealistic") or "photorealistic"
-    enhanced_prompt = style_prompts.get(style, prompt)
+    enhanced_prompt = style_prompts.get(style, translated_prompt)
     seed = random.randint(1000, 9999999)
     encoded = urllib.parse.quote(enhanced_prompt)
     url = f"https://image.pollinations.ai/prompt/{encoded}?width={req.width}&height={req.height}&model=flux&nologo=true&seed={seed}"
@@ -177,6 +252,7 @@ def create_image(req):
             "svg_url": f"/api/images/{image_id}/svg",
             "json_url": f"/api/images/{image_id}",
             "image_bytes": len(image_bytes),
+            "scene_bytes": len(image_bytes),
             "width": req.width,
             "height": req.height,
             "model": "FLUX.1-schnell",
