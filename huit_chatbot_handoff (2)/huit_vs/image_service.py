@@ -124,15 +124,28 @@ def translate_prompt_to_english(prompt: str) -> str:
         (r"\b(lễ tốt nghiệp|buổi lễ tốt nghiệp|tốt nghiệp đại học)\b", "joyful university graduation ceremony, commencement celebration, flying confetti"),
         (r"\b(kỷ yếu|kỉ yếu)\b", "graduation yearbook photo session, cherished memories"),
 
-        # Con người & Sinh viên
-        (r"\b(sinh viên đại học|sinh viên huit|sinh viên)\b", "Vietnamese university college students, cheerful youth"),
-        (r"\b(chàng trai|con trai|nam sinh viên|nam sinh|bạn nam|anh chàng|trai đẹp|soái ca)\b", "1 handsome young Vietnamese man, 1boy, handsome Asian male student, masculine, styled short hair, attractive face"),
+        # Con người & Quốc gia
+        (r"\b(gái nhật|cô gái nhật|nữ sinh nhật|nữ sinh nhật bản)\b", "1 beautiful young Japanese woman, 1girl, attractive Japanese female student, expressive lovely eyes, natural beauty"),
+        (r"\b(gái hàn|cô gái hàn|nữ sinh hàn|nữ sinh hàn quốc)\b", "1 beautiful young Korean woman, 1girl, attractive Korean female student, radiant natural beauty"),
+        (r"\b(gái việt nam|gái việt|cô gái việt|nữ sinh việt)\b", "1 beautiful young Vietnamese woman, 1girl, charming Vietnamese female student, graceful gentle beauty"),
+        (r"\b(gái trung quốc|gái trung|cô gái trung)\b", "1 beautiful young Chinese woman, 1girl, attractive Chinese female"),
+        (r"\b(gái tây|cô gái tây)\b", "1 beautiful young Western woman, 1girl, attractive Caucasian female"),
+        (r"\b(trai nhật|chàng trai nhật|nam sinh nhật)\b", "1 handsome young Japanese man, 1boy, handsome Japanese male"),
+        (r"\b(trai hàn|chàng trai hàn|nam sinh hàn)\b", "1 handsome young Korean man, 1boy, handsome Korean male"),
+        (r"\b(trai việt|chàng trai việt|nam sinh việt)\b", "1 handsome young Vietnamese man, 1boy, handsome Vietnamese male"),
+        (r"\b(trai tây|chàng trai tây)\b", "1 handsome young Western Caucasian man, 1boy"),
+        (r"\b(gái xinh|gái đẹp|hotgirl)\b", "1 gorgeous beautiful attractive young woman, 1girl, radiant smile"),
+        (r"\b(cô gái|con gái|nữ sinh viên|nữ sinh|bạn nữ|cô nàng|thiếu nữ|nàng|gái|nữ)\b", "1 beautiful young woman, 1girl, charming Asian female, expressive lovely eyes, radiant gentle smile"),
+        (r"\b(chàng trai|con trai|nam sinh viên|nam sinh|bạn nam|anh chàng|trai đẹp|soái ca|trai|nam)\b", "1 handsome young man, 1boy, handsome Asian male, masculine, styled short hair, attractive face"),
         (r"\b(đàn ông|nam giới)\b", "handsome mature Asian gentleman, masculine, refined"),
-        (r"\b(cô gái|con gái|nữ sinh viên|nữ sinh|bạn nữ|cô nàng|thiếu nữ|gái xinh|hotgirl)\b", "1 beautiful young Vietnamese woman, 1girl, charming Asian female student, expressive lovely eyes, radiant gentle smile"),
-        (r"\b(phụ nữ|nữ giới)\b", "elegant beautiful Vietnamese woman, graceful"),
+        (r"\b(phụ nữ|nữ giới)\b", "elegant beautiful Asian woman, graceful"),
+        (r"\b(sinh viên đại học|sinh viên huit|sinh viên)\b", "Vietnamese university college students, cheerful youth"),
         (r"\b(thầy cô|giảng viên|thầy giáo|cô giáo)\b", "inspiring university professor, intellectual Asian educator"),
         (r"\b(bác bảo vệ)\b", "kind-hearted campus security guard in uniform"),
         (r"\b(nhóm bạn|bạn bè)\b", "group of happy Asian college friends enjoying student life"),
+        (r"\b(nhật bản|nước nhật|nhật)\b", "Japan, Japanese aesthetic"),
+        (r"\b(hàn quốc|nước hàn|hàn)\b", "Korea, Korean aesthetic"),
+        (r"\b(việt nam|nước việt)\b", "Vietnam, Vietnamese aesthetic"),
 
         # Trang phục & Phụ kiện
         (r"\b(áo dài trắng|áo dài)\b", "traditional flowing white Vietnamese Ao Dai dress, graceful and elegant"),
@@ -274,8 +287,8 @@ def generate_flux_image(req):
     seed = random.randint(1000, 9999999)
     encoded = urllib.parse.quote(enhanced_prompt)
 
-    # Multi-model fallback: Thử FLUX chính -> nếu timeout/lỗi mạng thì thử FLUX-Realism -> Turbo
-    models_to_try = ["flux", "flux-realism", "turbo"]
+    # Multi-model fallback: Thử FLUX chính -> nếu lỗi mạng thì thử FLUX-Realism (tuyệt đối không dùng model turbo vì tạo mặt biến dạng)
+    models_to_try = ["flux", "flux-realism"]
     last_err = None
 
     headers = {
@@ -284,7 +297,8 @@ def generate_flux_image(req):
     }
 
     for model_name in models_to_try:
-        url = f"https://image.pollinations.ai/prompt/{encoded}?width={req.width}&height={req.height}&model={model_name}&nologo=true&seed={seed}&safe=true"
+        # Lưu ý: Tuyệt đối không thêm &safe=true vì bộ lọc Pollinations sẽ nhận diện nhầm ảnh chân dung thành phòng tối / hành lang song sắt
+        url = f"https://image.pollinations.ai/prompt/{encoded}?width={req.width}&height={req.height}&model={model_name}&nologo=true&seed={seed}"
         for attempt in range(2):
             try:
                 req_obj = urllib.request.Request(url, headers=headers)
