@@ -214,7 +214,8 @@ def chat_stream_post(req: ChatRequest, request: Request):
 def save_generated_image(req):
     try:
         return image_service.create_image(req)
-    except Exception:
+    except Exception as e:
+        print("save_generated_image error:", type(e).__name__, str(e))
         raise HTTPException(status_code=503, detail="Chưa tạo được ảnh: kiểm tra MongoDB, API key OpenRouter hoặc hạn mức miễn phí. AI cũng có thể trả JSON không hợp lệ hoặc vượt dung lượng. Không chuyển sang model tính phí.") from None
 
 

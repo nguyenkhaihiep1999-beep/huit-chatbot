@@ -104,9 +104,17 @@ def generate_scene(req):
     if len(raw.encode("utf-8")) > 100000:
         raise ValueError("AI response too large")
     raw = raw.strip()
-    if raw.startswith("```"):
-        raw = re.sub(r"^```(?:json)?\s*\n([\s\S]*?)\n```$", r"\1", raw)
-    scene = Scene.model_validate_json(raw)
+    code_match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", raw)
+    if code_match:
+        raw_json = code_match.group(1).strip()
+    else:
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            raw_json = raw[start:end+1].strip()
+        else:
+            raw_json = raw
+    scene = Scene.model_validate_json(raw_json)
     size = len(scene.model_dump_json().encode("utf-8"))
     if size > req.max_json_kb * 1024:
         raise ValueError("Scene exceeds requested size")
@@ -156,5 +164,13 @@ def render_svg(doc):
 
 
 def image_prompt(question):
-    match = re.match(r"^\s*(?:/anh\b|(?:tạo|vẽ|sinh)\s+(?:ảnh|hình)(?:\s+ảnh)?)(?:\s*[:：]\s*|\s+)(.+)$", question, re.I | re.S)
-    return match.group(1).strip() if match else None
+    patterns = [
+        r"^\s*(?:/anh\b|(?:tạo|sinh)\s+(?:ảnh|hình)(?:\s+ảnh)?)(?:\s*[:：]\s*|\s+)(.+)$",
+        r"^\s*(?:vẽ|vẽ\s+giúp|vẽ\s+cho\s+(?:tôi|mình|em)?)(?:\s+(?:ảnh|hình\s*ảnh|hình))?(?:\s*[:：]\s*|\s+)(.+)$",
+        r"^\s*(?:cho\s+(?:tôi|mình|em)?\s*(?:xem|xin)?\s*(?:ảnh|hình\s*ảnh|hình))\s*(?:[:：]\s*|\s+)(.+)$",
+    ]
+    for p in patterns:
+        match = re.match(p, question, re.I | re.S)
+        if match:
+            return match.group(1).strip()
+    return None
