@@ -3,3 +3,7 @@
 !.env.example
 __pycache__/
 *.pyc
+.testdeps/
+upscale_lab/
+.docx_work/
+.venv/

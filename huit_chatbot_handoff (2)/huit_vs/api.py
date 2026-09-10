@@ -13,6 +13,7 @@ import os
 import sys
 import hmac
 import time
+import json
 from collections import defaultdict, deque
 from datetime import datetime, timedelta, timezone
 
@@ -22,11 +23,12 @@ if HERE not in sys.path:
 
 from fastapi import FastAPI, Header, HTTPException, Request, status
 from fastapi.openapi.docs import get_swagger_ui_html
-from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 import rag_core
+import image_service
 
 app = FastAPI(title="HUIT Chatbot API", version="1.0", docs_url=None, redoc_url=None)
 
@@ -160,6 +162,8 @@ def chat(req: ChatRequest, request: Request):
     q = (req.question or "").strip()
     if not q:
         raise HTTPException(status_code=422, detail="Vui lòng nhập câu hỏi.")
+    if image_service.image_prompt(q):
+        return image_chat(q)
     history = req.history or []
     # Auto sliding-window: trim history to latest 10 messages (5 QA turns) to prevent payload bloat
     if len(history) > 10:
@@ -188,6 +192,8 @@ def chat_stream(question: str, request: Request):
             yield '{"type": "token", "token": "Vui lòng nhập câu hỏi."}\n'
         return StreamingResponse(empty_gen(), media_type="application/x-ndjson")
     
+    if image_service.image_prompt(q):
+        return image_chat_stream(q)
     return StreamingResponse(rag_core.stream_answer(q), media_type="application/x-ndjson")
 
 
@@ -197,10 +203,68 @@ def chat_stream_post(req: ChatRequest, request: Request):
     q = (req.question or "").strip()
     if not q:
         raise HTTPException(status_code=422, detail="Vui lòng nhập câu hỏi.")
+    if image_service.image_prompt(q):
+        return image_chat_stream(q)
     history = req.history or []
     if len(history) > 10:
         history = history[-10:]
     return StreamingResponse(rag_core.stream_answer(q, chat_history=history), media_type="application/x-ndjson")
+
+
+def save_generated_image(req):
+    try:
+        return image_service.create_image(req)
+    except Exception:
+        raise HTTPException(status_code=503, detail="Chưa tạo được ảnh: kiểm tra MongoDB, API key OpenRouter hoặc hạn mức miễn phí. AI cũng có thể trả JSON không hợp lệ hoặc vượt dung lượng. Không chuyển sang model tính phí.") from None
+
+
+def image_chat(question):
+    result = save_generated_image(image_service.ImageRequest(prompt=image_service.image_prompt(question)))
+    return {"answer": f"Ảnh minh họa đã lưu MongoDB ({result['scene_bytes']} byte JSON).\n\n![Ảnh minh họa]({result['url']})\n\n[Tải SVG miễn phí]({result['url']}?download=true) · [Xem JSON]({result['json_url']})", "sources": [], "image": result}
+
+
+def image_chat_stream(question):
+    result = image_chat(question)
+    events = [
+        {"type": "meta", "sources": [], "trace": [
+            {"step": 1, "name": "Sinh JSON miễn phí", "detail": "OpenRouter free → kiểm tra dung lượng", "status": "success"},
+            {"step": 2, "name": "Lưu ảnh MongoDB", "detail": "Đọc JSON → dựng SVG", "status": "success"},
+        ]},
+        {"type": "token", "token": result["answer"]},
+    ]
+    return StreamingResponse(iter([json.dumps(event, ensure_ascii=False) + "\n" for event in events]), media_type="application/x-ndjson")
+
+
+@app.post("/api/images")
+def generate_image(req: image_service.ImageRequest, request: Request):
+    enforce_rate_limit(request)
+    return save_generated_image(req)
+
+
+def load_generated_image(image_id):
+    try:
+        doc = image_service.get_image(image_id)
+    except Exception:
+        raise HTTPException(status_code=503, detail="Không thể đọc ảnh từ MongoDB.") from None
+    if doc is None:
+        raise HTTPException(status_code=404, detail="Không tìm thấy ảnh.")
+    return doc
+
+
+@app.get("/api/images/{image_id}")
+def image_json(image_id: str):
+    doc = load_generated_image(image_id)
+    return {"id": doc["_id"], "width": doc["width"], "height": doc["height"], "scene_bytes": doc["scene_bytes"], "scene": doc["scene"]}
+
+
+@app.get("/api/images/{image_id}/svg")
+def image_svg(image_id: str, download: bool = False):
+    doc = load_generated_image(image_id)
+    return Response(image_service.render_svg(doc), media_type="image/svg+xml", headers={
+        "Content-Security-Policy": "default-src 'none'; sandbox",
+        "Content-Disposition": f"{'attachment' if download else 'inline'}; filename=illustration-{image_id}.svg",
+        "Cache-Control": "private, max-age=3600",
+    })
 
 
 @app.post("/api/clear-cache")

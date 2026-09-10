@@ -1330,6 +1330,13 @@
         </button>
       </div>
 
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:8px 0;font-size:13px">
+        <label><input type="checkbox" id="image-mode"> Tạo ảnh minh họa miễn phí</label>
+        <label>Kích thước <select id="image-size"><option value="512x512">512 × 512</option><option value="768x512">768 × 512</option><option value="512x768">512 × 768</option><option value="1024x1024">1024 × 1024</option></select></label>
+        <label>JSON tối đa <select id="image-budget"><option value="4">4 KB</option><option value="8">8 KB</option><option value="12" selected>12 KB</option><option value="24">24 KB</option></select></label>
+        <span>JSON → MongoDB → SVG · Xem trước rồi tải miễn phí</span>
+      </div>
+      <style>.bubble-box img[src^="/api/images/"] {max-width:100%;height:auto;border-radius:12px;margin:10px 0}</style>
       <div class="input-form-container">
         <!-- Nút Micro thu âm Giọng nói Tiếng Việt STT -->
         <button id="mic-button" title="Hỏi bằng giọng nói Tiếng Việt">
@@ -1851,6 +1858,8 @@
   async function performSend() {
     const text = userInput.value.trim();
     if (!text) return;
+    const imageCommand = text.match(/^\s*(?:\/anh\b|(?:tạo|vẽ|sinh)\s+(?:ảnh|hình)(?:\s+ảnh)?)(?:\s*[:：]\s*|\s+)(.+)$/is);
+    const wantsImage = document.getElementById('image-mode').checked || !!imageCommand;
 
     appendMsgRow('user', text);
     addHistoryItem(text);
@@ -1861,6 +1870,24 @@
     showRobotThinkingRow();
 
     try {
+      if (wantsImage) {
+        const [width, height] = document.getElementById('image-size').value.split('x').map(Number);
+        const response = await fetch('/api/images', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({prompt: imageCommand ? imageCommand[1] : text, width, height,
+            max_json_kb: Number(document.getElementById('image-budget').value)}),
+          signal: currentAbortController.signal
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(typeof data.detail === 'string' ? data.detail : 'Yêu cầu tạo ảnh không hợp lệ.');
+        removeRobotThinkingRow();
+        const answer = `Ảnh minh họa đã lưu MongoDB · ${data.width} × ${data.height} · ${(data.scene_bytes / 1024).toFixed(1)} KB JSON\n\n![Ảnh minh họa](${data.url})\n\n[Xem JSON](${data.json_url}) · [Ưng ý? Tải SVG miễn phí](${data.url}?download=true)`;
+        appendMsgRow('bot', answer, [], [
+          {step: 1, name: 'Sinh JSON', detail: 'OpenRouter free · không dùng model cục bộ', status: 'success'},
+          {step: 2, name: 'Lưu và đọc ảnh', detail: 'MongoDB → SVG', status: 'success'}
+        ]);
+        return;
+      }
       if (conversationHistory.length > 10) {
         conversationHistory.splice(0, conversationHistory.length - 10);
       }
