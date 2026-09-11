@@ -98,10 +98,48 @@ def get_visual_by_id(visual_id: str) -> Optional[Dict[str, Any]]:
                 doc.pop("_id", None)
                 doc["visual_id"] = visual_id
                 _in_memory_visual_cache[visual_id] = doc
-                return doc
         except Exception as e:
-            print(f"[WARN] Failed to read visual from Mongo: {e}")
+            pass
     return None
+
+
+def list_all_visuals(category: str = "", search: str = "") -> list:
+    """Lấy danh sách toàn bộ các bản ghi Visual JSON (39 ngành + các bảng tra cứu)."""
+    coll = visual_collection()
+    if coll is not None:
+        try:
+            q = {}
+            if category and category != "all":
+                q["category"] = category
+            if search.strip():
+                reg = re.escape(search.strip())
+                q["$or"] = [
+                    {"title": {"$regex": reg, "$options": "i"}},
+                    {"major_code": {"$regex": reg, "$options": "i"}},
+                    {"visual_id": {"$regex": reg, "$options": "i"}},
+                ]
+            docs = list(coll.find(q, {"_id": 0}).sort("major_code", 1))
+            if docs:
+                return docs
+        except Exception as e:
+            print(f"[WARN] Failed to query visuals list from Mongo: {e}")
+
+    # Fallback to local bundle
+    bundle_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "admission_visuals_bundle.json")
+    if os.path.exists(bundle_path):
+        try:
+            with open(bundle_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if category and category != "all":
+                    data = [d for d in data if d.get("category") == category]
+                if search.strip():
+                    s_lower = search.strip().lower()
+                    data = [d for d in data if s_lower in str(d.get("title", "")).lower() or s_lower in str(d.get("major_code", "")).lower() or s_lower in str(d.get("visual_id", "")).lower()]
+                return data
+        except Exception:
+            pass
+    return list(_in_memory_visual_cache.values())
+
 
 
 def _normalize_text(text: str) -> str:

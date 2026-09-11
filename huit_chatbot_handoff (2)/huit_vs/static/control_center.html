@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUIT AI Command Center — Trung Tâm Điều Hành & Quản Trị Tuyển Sinh HUIT</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #030712;
+      --bg-card: rgba(15, 23, 42, 0.78);
+      --bg-card-hover: rgba(30, 41, 59, 0.88);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(0, 102, 196, 0.35);
+
+      --brand-primary: #0066c4;
+      --brand-light: #e0f2fe;
+      --cyan: #00f2fe;
+      --purple: #a855f7;
+      --pink: #ec4899;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #ef4444;
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-sub: #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Particle Canvas Background */
+    #nexusCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Top Command Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(24px);
+      background: rgba(3, 7, 18, 0.85);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .portal-orb {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #00f2fe, #0066c4, #a855f7);
+      box-shadow: 0 0 25px rgba(0, 102, 196, 0.7), inset 0 0 10px #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: #fff;
+      animation: orbSpin 12s linear infinite;
+    }
+
+    @keyframes orbSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .brand-title-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .version-badge {
+      background: rgba(0, 102, 196, 0.2);
+      border: 1px solid rgba(0, 102, 196, 0.4);
+      color: #93c5fd;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    /* Header Controls */
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .live-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseGlow 1.6s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(0.8); opacity: 0.4; }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid var(--border-color);
+      background: rgba(30, 41, 59, 0.65);
+      color: var(--text-main);
+    }
+
+    .btn:hover {
+      background: rgba(51, 65, 85, 0.85);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--brand-primary), #0284c7);
+      border-color: #38bdf8;
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(0, 102, 196, 0.4);
+    }
+
+    .btn.primary:hover {
+      box-shadow: 0 0 20px rgba(0, 102, 196, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* Tab Switcher Navigation */
+    .tab-navigation {
+      position: sticky;
+      top: 65px;
+      z-index: 90;
+      background: rgba(7, 11, 22, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 2rem;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 14px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .nav-tab-btn:hover {
+      color: #fff;
+    }
+
+    .nav-tab-btn.active {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .nav-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 12px;
+      right: 12px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--brand-primary), var(--purple));
+      border-radius: 3px 3px 0 0;
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    /* Main Content */
+    .content-area {
+      position: relative;
+      z-index: 10;
+      max-width: 1360px;
+      margin: 1.8rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      animation: tabSlideIn 0.3s ease forwards;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes tabSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards & Grids */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px;
+      backdrop-filter: blur(16px);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .card.accent-top::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--brand-primary));
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--cyan);
+    }
+
+    .card-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .card-unit {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tag.green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .tag.blue { background: rgba(0, 102, 196, 0.2); color: #60a5fa; }
+    .tag.purple { background: rgba(168, 85, 247, 0.18); color: #c084fc; }
+    .tag.amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
+    /* Collections Grid */
+    .colls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .coll-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .coll-box:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--brand-primary);
+      transform: translateY(-2px);
+    }
+
+    .coll-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #93c5fd;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .coll-count {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .coll-desc {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }
+
+    .data-table tr:hover td {
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    /* Vector Search Benchmark Tester */
+    .test-box {
+      display: flex;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .input-cyber {
+      flex: 1;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      transition: all 0.2s ease;
+    }
+
+    .input-cyber:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+    }
+
+    /* Pipeline Hologram */
+    .pipeline-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .pipeline-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .pipeline-step:hover, .pipeline-step.active {
+      border-color: var(--cyan);
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
+      transform: translateX(6px);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--purple));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      box-shadow: 0 0 15px var(--border-glow);
+    }
+
+    .step-body { flex: 1; }
+    .step-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; }
+    .step-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* Visual Studio Cards */
+    .visuals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .vis-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .vis-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .vis-thumb {
+      width: 100%;
+      height: 150px;
+      background: #004c99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .vis-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .vis-card:hover .vis-thumb img {
+      transform: scale(1.05);
+    }
+
+    .vis-info {
+      padding: 14px;
+    }
+
+    .vis-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      margin-bottom: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .vis-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Modal Viewer */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(16px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal-content {
+      background: #090f1d;
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      box-shadow: 0 0 50px rgba(0, 242, 254, 0.25);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--cyan);
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Particle Animation -->
+  <canvas id="nexusCanvas"></canvas>
+
+  <!-- Top Command Header -->
+  <header>
+    <div class="brand-group">
+      <div class="portal-orb">H</div>
+      <div class="brand-title-wrap">
+        <div class="brand-title">HUIT AI COMMAND CENTER</div>
+        <div class="brand-subtitle">
+          <span>Trung Tâm Điều Hành & Giám Sát Tuyển Sinh HUIT</span>
+          <span class="version-badge">v2.6 Enterprise</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <div id="live-status-pill" class="live-status-pill">
+        <span class="pulse-dot"></span>
+        <span id="live-status-text">ONLINE · ATLAS LIVE</span>
+      </div>
+      <button class="btn" onclick="fetchTelemetry(false)">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        Làm mới (<span id="countdown-sec">3</span>s)
+      </button>
+      <a href="/" class="btn primary" title="Về trang giao diện hỏi đáp Chatbot">
+        💬 Chatbot HUIT
+      </a>
+    </div>
+  </header>
+
+  <!-- Tab Switcher Navigation -->
+  <nav class="tab-navigation">
+    <button class="nav-tab-btn active" onclick="switchTab('tab-telemetry', this)">
+      📊 Giám Sát & Sức Khỏe
+    </button>
+    <button class="nav-tab-btn" onclick="switchTab('tab-knowledge', this)">
+      📚 Kho Tri Thức & Vector
+    </button>
+    <button class="nav-tab-btn" onclick="switchTab('tab-visuals', this)">
+      🖼️ Studio Đồ Họa Tuyển Sinh
+    </button>
+    <button class="nav-tab-btn" onclick="switchTab('tab-pipeline', this)">
+      ⚡ Sơ Đồ Kiến Trúc RAG
+    </button>
+    <button class="nav-tab-btn" onclick="switchTab('tab-logs', this)">
+      📝 Nhật Ký & Chẩn Đoán
+    </button>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="content-area">
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: GIÁM SÁT & SỨC KHỎE (TELEMETRY) -->
+    <!-- ========================================================================= -->
+    <div id="tab-telemetry" class="tab-pane active">
+      
+      <!-- Top 4 KPI Cards -->
+      <div class="kpi-grid">
+        <div class="card accent-top">
+          <div class="card-header">
+            <span class="card-title">MongoDB Atlas Latency</span>
+            <div class="card-icon">⚡</div>
+          </div>
+          <div class="card-val" id="kpi-latency">-- <span class="card-unit">ms</span></div>
+          <div style="font-size:0.78rem; color:var(--text-sub); display:flex; align-items:center; gap:6px;">
+            <span id="kpi-latency-tag" class="tag green">PING OK</span>
+            <span>cluster0.hyj8rab.mongodb.net</span>
+          </div>
+        </div>
+
+        <div class="card accent-top">
+          <div class="card-header">
+            <span class="card-title">Lõi RAG & Vector Model</span>
+            <div class="card-icon">🧠</div>
+          </div>
+          <div class="card-val" style="font-size:1.5rem;" id="kpi-embedder">1024D E5 Large</div>
+          <div style="font-size:0.78rem; color:var(--text-sub); display:flex; align-items:center; gap:6px;">
+            <span class="tag blue">FastEmbed</span>
+            <span id="kpi-llm">gemini-2.0-flash</span>
+          </div>
+        </div>
+
+        <div class="card accent-top">
+          <div class="card-header">
+            <span class="card-title">Bộ Nhớ Đệm (Cache)</span>
+            <div class="card-icon">💾</div>
+          </div>
+          <div class="card-val" id="kpi-cache">-- <span class="card-unit">mục</span></div>
+          <div style="font-size:0.78rem; color:var(--text-sub); display:flex; align-items:center; gap:6px;">
+            <span class="tag purple">RAM + Atlas</span>
+            <span id="kpi-cache-sub">TTL 24 giờ tự động</span>
+          </div>
+        </div>
+
+        <div class="card accent-top">
+          <div class="card-header">
+            <span class="card-title">Tài Nguyên Máy Chủ</span>
+            <div class="card-icon">💻</div>
+          </div>
+          <div class="card-val" style="font-size:1.55rem;" id="kpi-uptime">--</div>
+          <div style="font-size:0.78rem; color:var(--text-sub); display:flex; align-items:center; gap:6px;">
+            <span class="tag green" id="kpi-cpu-tag">CPU: 0%</span>
+            <span id="kpi-ram-tag">RAM: 0 MB</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Database Collections Breakdown -->
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <div style="font-family:'Outfit', sans-serif; font-size:1.15rem; font-weight:700; color:#fff;">
+            📂 Thống Kê Cơ Sở Dữ Liệu MongoDB Atlas (`huit_chatbot`)
+          </div>
+          <span class="tag blue">6 Collections Chính</span>
+        </div>
+        <div class="colls-grid" id="colls-container">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- Live Request Stream Table -->
+      <div class="card">
+        <div class="card-header">
+          <div style="font-family:'Outfit', sans-serif; font-size:1.15rem; font-weight:700; color:#fff;">
+            ⚡ Nhật Ký Truy Vấn Thời Gian Thực (`rag_events`)
+          </div>
+          <span class="tag green">10 Lượt Gần Nhất</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Thời gian</th>
+                <th>Câu hỏi thí sinh</th>
+                <th>Intent NLU</th>
+                <th>Độ trễ</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="telemetry-events-tbody">
+              <tr><td colspan="5" style="text-align:center; color:var(--text-sub); padding:20px;">Đang nạp dữ liệu...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: KHO TRI THỨC & VECTOR (KNOWLEDGE BASE) -->
+    <!-- ========================================================================= -->
+    <div id="tab-knowledge" class="tab-pane">
+      
+      <!-- Interactive Vector Search Tester -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header">
+          <div style="font-family:'Outfit', sans-serif; font-size:1.15rem; font-weight:700; color:#fff;">
+            🔍 Công Cụ Kiểm Tra Vector Search Trực Tiếp (Vector Benchmark)
+          </div>
+          <span class="tag blue">Atlas Vector Search 1024D</span>
+        </div>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">
+          Gõ thử một câu hỏi để kiểm tra thuật toán nhúng vector (FastEmbed E5) và tìm kiếm Cosine Similarity trên MongoDB Atlas:
+        </p>
+        <div class="test-box">
+          <input type="text" id="vector-test-input" class="input-cyber" placeholder="Ví dụ: Điểm chuẩn ngành Công nghệ thông tin 2026..." value="Điểm chuẩn và học phí ngành Công nghệ thông tin">
+          <select id="vector-test-topk" class="input-cyber" style="flex:0 0 110px;">
+            <option value="3">Top 3 Chunks</option>
+            <option value="5" selected>Top 5 Chunks</option>
+            <option value="8">Top 8 Chunks</option>
+          </select>
+          <button class="btn primary" onclick="runVectorSearchTest()">
+            ⚡ Chạy Test Vector
+          </button>
+        </div>
+
+        <div id="vector-results-container" style="display:none; margin-top:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:0.82rem; font-weight:700; color:var(--cyan);" id="vector-results-summary">Kết quả tìm kiếm:</span>
+            <span class="tag green" id="vector-results-latency">Độ trễ: -- ms</span>
+          </div>
+          <div id="vector-results-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+        </div>
+      </div>
+
+      <!-- Knowledge Base Table -->
+      <div class="card">
+        <div class="card-header">
+          <div style="font-family:'Outfit', sans-serif; font-size:1.15rem; font-weight:700; color:#fff;">
+            📚 Danh Mục Chunks Tri Thức Chuẩn (`huit_kb`)
+          </div>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="kb-search-input" class="input-cyber" placeholder="Lọc theo tên ngành / từ khóa..." oninput="filterKbList()" style="padding:4px 10px; font-size:0.8rem; width:220px;">
+            <button class="btn" onclick="loadKbList()">Tải lại</button>
+          </div>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tiêu đề tài liệu</th>
+                <th>Mã ngành</th>
+                <th>Chủ đề</th>
+                <th>Năm</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="kb-table-tbody">
+              <tr><td colspan="6" style="text-align:center; color:var(--text-sub); padding:20px;">Đang tải danh sách tri thức...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- TAB 3: STUDIO ĐỒ HỌA TUYỂN SINH (VISUAL JSON) -->
+    <!-- ========================================================================= -->
+    <div id="tab-visuals" class="tab-pane">
+      
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header">
+          <div>
+            <div style="font-family:'Outfit', sans-serif; font-size:1.2rem; font-weight:700; color:#fff;">
+              🖼️ Studio Đồ Họa Tuyển Sinh HUIT (43 Visual JSON Cards)
+            </div>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;">
+              Toàn bộ đồ họa tuyển sinh đã được tạo sẵn dạng JSON, dựng vector SVG và xuất PNG sắc nét (< 0.03ms):
+            </p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn" onclick="filterVisuals('all')">Tất cả (43)</button>
+            <button class="btn" onclick="filterVisuals('major')">39 Ngành</button>
+            <button class="btn" onclick="filterVisuals('table')">Bảng Tra Cứu</button>
+            <button class="btn" onclick="filterVisuals('roadmap')">Lộ Trình</button>
+          </div>
+        </div>
+
+        <div class="visuals-grid" id="visuals-grid">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- TAB 4: SƠ ĐỒ KIẾN TRÚC RAG (PIPELINE NEXUS) -->
+    <!-- ========================================================================= -->
+    <div id="tab-pipeline" class="tab-pane">
+      
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header">
+          <div>
+            <div style="font-family:'Outfit', sans-serif; font-size:1.2rem; font-weight:700; color:#fff;">
+              ⚡ Sơ Đồ Luồng Pipeline Xử Lý RAG 7 Bước
+            </div>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;">
+              Nhấp vào từng nút để xem chi tiết kiến trúc xử lý thời gian thực:
+            </p>
+          </div>
+          <span class="tag blue">Real-Time Streaming Engine</span>
+        </div>
+
+        <div class="pipeline-container">
+          <div class="pipeline-step active" onclick="showPipelineDetail(1)">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Nhận Diện Ý Định & Chuẩn Hóa NLU</div>
+              <div class="step-desc">Phân loại câu hỏi thành các intent: Điểm chuẩn, Học phí, Mã ngành, Phương thức, hoặc Chung.</div>
+            </div>
+            <span class="tag green">1 - 2 ms</span>
+          </div>
+
+          <div class="pipeline-step" onclick="showPipelineDetail(2)">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Tạo Vector Embedding Đa Ngôn Ngữ</div>
+              <div class="step-desc">Chuyển đổi câu hỏi thành vector 1024 chiều qua mô hình FastEmbed `multilingual-e5-large`.</div>
+            </div>
+            <span class="tag blue">15 - 25 ms</span>
+          </div>
+
+          <div class="pipeline-step" onclick="showPipelineDetail(3)">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">MongoDB Atlas Vector & Hybrid Search</div>
+              <div class="step-desc">Tìm kiếm vector kết hợp đối sánh từ khóa trên cụm Atlas Cluster0, trích xuất các chunk sát nghĩa nhất.</div>
+            </div>
+            <span class="tag purple">40 - 70 ms</span>
+          </div>
+
+          <div class="pipeline-step" onclick="showPipelineDetail(4)">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Xếp Hạng & Khớp Thẻ Đồ Họa Tuyển Sinh</div>
+              <div class="step-desc">Trích xuất tự động `visual_id` từ `admission_visuals` tương ứng với ngành học hoặc chủ đề.</div>
+            </div>
+            <span class="tag green">0.023 ms</span>
+          </div>
+
+          <div class="pipeline-step" onclick="showPipelineDetail(5)">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <div class="step-title">Gửi Sự Kiện Đầu Tiên Kèm Infographic (SSE)</div>
+              <div class="step-desc">Gửi ngay chunk `meta` chứa ảnh đồ họa tới client trong 150ms đầu tiên, trước khi LLM bắt đầu gõ chữ.</div>
+            </div>
+            <span class="tag green">< 150 ms</span>
+          </div>
+
+          <div class="pipeline-step" onclick="showPipelineDetail(6)">
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <div class="step-title">Sinh Văn Bản Trả Lời Qua Mô Hình Ngôn Ngữ</div>
+              <div class="step-desc">Gemini 2.0 Flash / GPT sinh câu trả lời giải thích chi tiết dựa trên ngữ cảnh đã xác thực (Zero-Hallucination).</div>
+            </div>
+            <span class="tag blue">Token Stream</span>
+          </div>
+
+          <div class="pipeline-step" onclick="showPipelineDetail(7)">
+            <div class="step-num">7</div>
+            <div class="step-body">
+              <div class="step-title">Lưu Trữ Sự Kiện & Bộ Nhớ Đệm Tự Hủy</div>
+              <div class="step-desc">Lưu câu trả lời vào `query_cache` (TTL 24h) và ghi nhật ký giám sát vào `rag_events`.</div>
+            </div>
+            <span class="tag purple">Background</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- TAB 5: NHẬT KÝ & CHẨN ĐOÁN (LOGS & DIAGNOSTICS) -->
+    <!-- ========================================================================= -->
+    <div id="tab-logs" class="tab-pane">
+      
+      <!-- Action Toolbar -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header">
+          <div style="font-family:'Outfit', sans-serif; font-size:1.15rem; font-weight:700; color:#fff;">
+            🛠️ Tiện Ích Chẩn Đoán & Thao Tác Hệ Thống
+          </div>
+          <span class="tag green">Admin Utilities</span>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <button class="btn primary" onclick="clearSystemCache()">
+            🧹 Làm Sạch Bộ Nhớ Đệm RAM Cache
+          </button>
+          <button class="btn" onclick="pingAtlasDirect()">
+            🌐 Kiểm Tra Kết Nối MongoDB Atlas
+          </button>
+          <button class="btn" onclick="downloadHealthReport()">
+            📥 Xuất Báo Cáo JSON Hệ Thống
+          </button>
+          <button class="btn" onclick="openTokenModal()">
+            🔑 Cấu Hình Admin Token
+          </button>
+        </div>
+      </div>
+
+      <!-- Logs Viewer Table -->
+      <div class="card">
+        <div class="card-header">
+          <div style="font-family:'Outfit', sans-serif; font-size:1.15rem; font-weight:700; color:#fff;">
+            📋 Nhật Ký Hoạt Động Chi Tiết (`rag_events`)
+          </div>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="log-search-input" class="input-cyber" placeholder="Tìm kiếm trong log..." oninput="filterLogList()" style="padding:4px 10px; font-size:0.8rem; width:220px;">
+            <button class="btn" onclick="loadDetailedLogs()">Làm mới</button>
+          </div>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Thời gian</th>
+                <th>Câu hỏi người dùng</th>
+                <th>Intent</th>
+                <th>Thời gian (ms)</th>
+                <th>Cache</th>
+                <th>Fallback</th>
+                <th>Độ dài câu trả lời</th>
+              </tr>
+            </thead>
+            <tbody id="full-logs-tbody">
+              <tr><td colspan="7" style="text-align:center; color:var(--text-sub); padding:20px;">Đang tải nhật ký...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Visual Card Preview Modal -->
+  <div id="visual-preview-modal" class="modal-overlay" onclick="closeVisualPreviewModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div style="font-family:'Outfit', sans-serif; font-weight:700; font-size:1.1rem; color:#fff;" id="modal-vis-title">
+          Xem trước Đồ Họa Tuyển Sinh
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="btn" onclick="downloadCurrentVisual('png')">📥 Tải PNG sắc nét</button>
+          <button class="btn" onclick="downloadCurrentVisual('svg')">📄 Tải SVG</button>
+          <button class="btn" onclick="closeVisualPreviewModal()">✕ Đóng</button>
+        </div>
+      </div>
+      <div class="modal-body" style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+        <div style="width:100%; max-height:480px; display:flex; justify-content:center; background:#020617; border-radius:12px; padding:12px;">
+          <img id="modal-vis-img" src="" alt="Visual Card" style="max-width:100%; max-height:450px; border-radius:8px; box-shadow:0 8px 30px rgba(0,0,0,0.6);" />
+        </div>
+        <div style="width:100%;">
+          <div style="font-size:0.82rem; font-weight:700; color:var(--cyan); margin-bottom:6px;">Dữ liệu JSON Gốc (Từ MongoDB Atlas):</div>
+          <pre id="modal-vis-json" style="background:#020617; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:#93c5fd; max-height:180px; overflow-y:auto;"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">Thao tác thành công!</span>
+  </div>
+
+  <script>
+    // Global State
+    let countdown = 3;
+    let activeVisualId = null;
+    let allVisualsList = [];
+    let allKbDocs = [];
+    let allDetailedLogs = [];
+    let adminToken = localStorage.getItem('huit_admin_token') || 'huit_admin_2026';
+
+    function showToast(msg, isSuccess = true) {
+      const toast = document.getElementById('toast');
+      const icon = document.getElementById('toast-icon');
+      const text = document.getElementById('toast-msg');
+      if (!toast) return;
+      icon.textContent = isSuccess ? '✓' : '⚠️';
+      icon.style.color = isSuccess ? '#34d399' : '#fbbf24';
+      text.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
+      
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
+
+      if (tabId === 'tab-knowledge' && allKbDocs.length === 0) loadKbList();
+      if (tabId === 'tab-visuals' && allVisualsList.length === 0) loadVisualsList();
+      if (tabId === 'tab-logs' && allDetailedLogs.length === 0) loadDetailedLogs();
+    }
+
+    // 1. Telemetry Data Loop
+    async function fetchTelemetry(isAuto = true) {
+      try {
+        const res = await fetch('/api/system/status');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        updateTelemetryUI(data);
+      } catch (err) {
+        console.warn('Telemetry error:', err);
+        const pill = document.getElementById('live-status-pill');
+        const text = document.getElementById('live-status-text');
+        if (pill) {
+          pill.style.borderColor = '#ef4444';
+          pill.style.color = '#f87171';
+          text.textContent = 'MẤT KẾT NỐI SERVER';
+        }
+      }
+    }
+
+    function updateTelemetryUI(data) {
+      // Status Pill
+      const pill = document.getElementById('live-status-pill');
+      const text = document.getElementById('live-status-text');
+      if (data.status === 'healthy') {
+        pill.style.borderColor = 'rgba(16, 185, 129, 0.35)';
+        pill.style.color = '#34d399';
+        text.textContent = `ONLINE · PING ${data.database?.latency_ms || 60}ms`;
+      } else {
+        pill.style.borderColor = 'rgba(245, 158, 11, 0.35)';
+        pill.style.color = '#fbbf24';
+        text.textContent = 'CẢNH BÁO HỆ THỐNG';
+      }
+
+      // KPI 1
+      const lat = data.database?.latency_ms || 0;
+      document.getElementById('kpi-latency').innerHTML = `${lat} <span class="card-unit">ms</span>`;
+      const tag = document.getElementById('kpi-latency-tag');
+      tag.textContent = lat < 120 ? 'PING TỐI ƯU' : 'CHẬM';
+      tag.className = lat < 120 ? 'tag green' : 'tag amber';
+
+      // KPI 2
+      document.getElementById('kpi-embedder').textContent = `${data.ai_engine?.embedder?.dimensions || 1024}D Vector E5`;
+      document.getElementById('kpi-llm').textContent = data.ai_engine?.llm?.model || 'Gemini 2.0';
+
+      // KPI 3
+      const cache = data.ai_engine?.cache || {};
+      const totalCache = (cache.ram_entries || 0) + (cache.mongo_entries || 0);
+      document.getElementById('kpi-cache').innerHTML = `${totalCache} <span class="card-unit">mục</span>`;
+      document.getElementById('kpi-cache-sub').textContent = `RAM: ${cache.ram_entries || 0} | Mongo: ${cache.mongo_entries || 0}`;
+
+      // KPI 4
+      document.getElementById('kpi-uptime').textContent = data.uptime?.human || '--';
+      const cpu = data.system?.cpu_percent || 0;
+      const ram = data.system?.ram_used_mb || 0;
+      document.getElementById('kpi-cpu-tag').textContent = `CPU: ${cpu}%`;
+      document.getElementById('kpi-ram-tag').textContent = `RAM: ${ram} MB`;
+
+      // Collections
+      const colls = data.database?.collections || {};
+      const container = document.getElementById('colls-container');
+      if (container) {
+        const descMap = {
+          admission_visuals: '39 Thẻ Ngành & Bảng Tra Cứu',
+          huit_kb: 'Chunks RAG kèm Vector 1024D',
+          test_rag_chunks: '1,454 phân đoạn văn bản',
+          rag_events: 'Nhật ký truy vấn thời gian thực',
+          query_cache: 'Bộ đệm phản hồi có TTL',
+          generated_images: 'Ảnh nghệ thuật AI (FLUX)'
+        };
+        let h = '';
+        for (const [k, v] of Object.entries(colls)) {
+          h += `
+            <div class="coll-box">
+              <div class="coll-name">${k}</div>
+              <div class="coll-count">${v.toLocaleString()}</div>
+              <div class="coll-desc">${descMap[k] || 'Cơ sở dữ liệu'}</div>
+            </div>
+          `;
+        }
+        container.innerHTML = h;
+      }
+
+      // Recent events
+      const evs = data.recent_traffic || [];
+      const tbody = document.getElementById('telemetry-events-tbody');
+      if (tbody && evs.length > 0) {
+        tbody.innerHTML = evs.map(e => `
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace; color:var(--text-muted); font-size:0.75rem;">${e.created_at || '--'}</td>
+            <td style="font-weight:600; max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${e.question || '(Trống)'}</td>
+            <td><span class="tag green">${e.intent || 'general'}</span></td>
+            <td style="font-family:'JetBrains Mono',monospace;">${e.elapsed_ms || 0} ms</td>
+            <td>${e.cached ? '<span class="tag purple">⚡ Cache Hit</span>' : '<span class="tag blue">RAG Flow</span>'}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // 2. Vector Search Benchmark
+    async function runVectorSearchTest() {
+      const q = document.getElementById('vector-test-input').value.trim();
+      const topK = parseInt(document.getElementById('vector-test-topk').value) || 5;
+      if (!q) return alert('Vui lòng nhập câu hỏi cần test!');
+
+      const cont = document.getElementById('vector-results-container');
+      const list = document.getElementById('vector-results-list');
+      const latEl = document.getElementById('vector-results-latency');
+      const sumEl = document.getElementById('vector-results-summary');
+
+      cont.style.display = 'block';
+      list.innerHTML = '<div style="color:var(--text-muted); font-size:0.85rem; padding:12px;">Đang tính toán vector và tìm kiếm trên MongoDB Atlas...</div>';
+
+      try {
+        const res = await fetch('/api/admin/test-vector-search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-token': adminToken
+          },
+          body: JSON.stringify({ query: q, top_k: topK })
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        latEl.textContent = `Độ trễ: ${data.elapsed_ms} ms`;
+        sumEl.textContent = `Tìm thấy ${data.retrieved_count} chunks phù hợp nhất:`;
+
+        list.innerHTML = data.results.map((r, idx) => `
+          <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-color); border-radius:8px; padding:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-weight:700; color:#fff; font-size:0.9rem;">#${idx+1}. ${r.title || 'Tài liệu HUIT'}</span>
+              <span class="tag green">Cosine: ${r.score}</span>
+            </div>
+            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.4;">${r.text}</div>
+          </div>
+        `).join('');
+
+        showToast(`Tìm kiếm Vector thành công trong ${data.elapsed_ms}ms!`);
+      } catch (err) {
+        list.innerHTML = `<div style="color:#ef4444; font-size:0.85rem;">Lỗi: ${err.message}. Kiểm tra lại Admin Token!</div>`;
+      }
+    }
+
+    // 3. Knowledge Base List
+    async function loadKbList() {
+      const tbody = document.getElementById('kb-table-tbody');
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:20px;">Đang tải tri thức...</td></tr>`;
+      try {
+        const res = await fetch('/api/admin/kb-list?limit=100', {
+          headers: { 'x-admin-token': adminToken }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        allKbDocs = data.documents || [];
+        renderKbTable(allKbDocs);
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#ef4444; padding:20px;">Lỗi: ${err.message}. Kiểm tra Admin Token!</td></tr>`;
+      }
+    }
+
+    function renderKbTable(docs) {
+      const tbody = document.getElementById('kb-table-tbody');
+      if (docs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-sub); padding:20px;">Không có tài liệu nào khớp.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = docs.map((d, i) => `
+        <tr>
+          <td style="font-family:'JetBrains Mono', monospace; color:var(--text-muted);">${i+1}</td>
+          <td style="font-weight:600; color:#fff;">${d.title || '(Không có tiêu đề)'}</td>
+          <td><span class="tag blue">${d.major_code || '--'}</span></td>
+          <td><span class="tag purple">${d.category || 'general'}</span></td>
+          <td>${d.year || 2026}</td>
+          <td>
+            <a href="${d.source_url || d.url || 'https://ts.huit.edu.vn'}" target="_blank" class="btn" style="padding:3px 8px; font-size:0.75rem;">Mở nguồn ↗</a>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterKbList() {
+      const val = document.getElementById('kb-search-input').value.toLowerCase().trim();
+      if (!val) return renderKbTable(allKbDocs);
+      const filtered = allKbDocs.filter(d => 
+        (d.title && d.title.toLowerCase().includes(val)) ||
+        (d.major_code && d.major_code.toLowerCase().includes(val)) ||
+        (d.category && d.category.toLowerCase().includes(val))
+      );
+      renderKbTable(filtered);
+    }
+
+    // 4. Visual Studio List
+    async function loadVisualsList() {
+      const grid = document.getElementById('visuals-grid');
+      grid.innerHTML = '<div style="color:var(--text-muted); padding:20px;">Đang tải danh sách đồ họa tuyển sinh...</div>';
+      try {
+        const res = await fetch('/api/admission-visuals');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        allVisualsList = data.items || [];
+        renderVisualsGrid(allVisualsList);
+      } catch (err) {
+        grid.innerHTML = `<div style="color:#ef4444; padding:20px;">Lỗi tải đồ họa: ${err.message}</div>`;
+      }
+    }
+
+    function renderVisualsGrid(items) {
+      const grid = document.getElementById('visuals-grid');
+      if (items.length === 0) {
+        grid.innerHTML = '<div style="color:var(--text-sub); padding:20px;">Không tìm thấy đồ họa phù hợp.</div>';
+        return;
+      }
+      grid.innerHTML = items.map(v => `
+        <div class="vis-card" onclick="openVisualPreviewModal('${v.visual_id}')">
+          <div class="vis-thumb">
+            <img src="/api/admission-visuals/${v.visual_id}/render?scale=1" alt="${v.title}" loading="lazy" />
+          </div>
+          <div class="vis-info">
+            <div class="vis-title">${v.title || 'Đồ họa HUIT'}</div>
+            <div class="vis-meta">
+              <span class="tag blue">${v.major_code || v.category || 'HUIT'}</span>
+              <span style="font-size:0.72rem; color:var(--cyan);">🔍 Xem chi tiết</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterVisuals(cat) {
+      if (cat === 'all') return renderVisualsGrid(allVisualsList);
+      if (cat === 'major') return renderVisualsGrid(allVisualsList.filter(v => v.type === 'major_card'));
+      if (cat === 'table') return renderVisualsGrid(allVisualsList.filter(v => v.type === 'excel_table'));
+      if (cat === 'roadmap') return renderVisualsGrid(allVisualsList.filter(v => v.type === 'roadmap'));
+    }
+
+    async function openVisualPreviewModal(visId) {
+      activeVisualId = visId;
+      const modal = document.getElementById('visual-preview-modal');
+      const title = document.getElementById('modal-vis-title');
+      const img = document.getElementById('modal-vis-img');
+      const jsonEl = document.getElementById('modal-vis-json');
+
+      title.textContent = `Xem Trước Đồ Họa Tuyển Sinh: ${visId}`;
+      img.src = `/api/admission-visuals/${visId}/render?scale=2`;
+      jsonEl.textContent = 'Đang đọc dữ liệu JSON...';
+      modal.classList.add('active');
+
+      try {
+        const res = await fetch(`/api/admission-visuals/${visId}`);
+        const data = await res.json();
+        jsonEl.textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        jsonEl.textContent = 'Lỗi tải JSON: ' + e.message;
+      }
+    }
+
+    function closeVisualPreviewModal() {
+      const modal = document.getElementById('visual-preview-modal');
+      modal.classList.remove('active');
+    }
+
+    function downloadCurrentVisual(fmt) {
+      if (!activeVisualId) return;
+      const url = `/api/admission-visuals/${activeVisualId}/render?format=${fmt}&scale=2&download=true`;
+      window.open(url, '_blank');
+      showToast(`Đang tải đồ họa ${fmt.toUpperCase()}...`);
+    }
+
+    // 5. Detailed Logs
+    async function loadDetailedLogs() {
+      const tbody = document.getElementById('full-logs-tbody');
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:20px;">Đang tải nhật ký...</td></tr>`;
+      try {
+        const res = await fetch('/api/admin/logs?limit=50', {
+          headers: { 'x-admin-token': adminToken }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        allDetailedLogs = data.logs || [];
+        renderDetailedLogs(allDetailedLogs);
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#ef4444; padding:20px;">Lỗi: ${err.message}. Kiểm tra Admin Token!</td></tr>`;
+      }
+    }
+
+    function renderDetailedLogs(logs) {
+      const tbody = document.getElementById('full-logs-tbody');
+      if (logs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-sub); padding:20px;">Không có sự kiện nào.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = logs.map(l => `
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace; color:var(--text-muted); font-size:0.75rem;">${l.created_at || '--'}</td>
+          <td style="font-weight:600; max-width:240px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${l.question}">${l.question || '(Trống)'}</td>
+          <td><span class="tag green">${l.intent || 'general'}</span></td>
+          <td style="font-family:'JetBrains Mono',monospace;">${l.elapsed_ms || 0} ms</td>
+          <td>${l.cached ? '<span class="tag purple">⚡ Cache Hit</span>' : '<span class="tag blue">Miss</span>'}</td>
+          <td>${l.fallback ? '<span class="tag amber">Fallback</span>' : '✓ Normal'}</td>
+          <td>${l.answer_length || 0} ký tự</td>
+        </tr>
+      `).join('');
+    }
+
+    function filterLogList() {
+      const val = document.getElementById('log-search-input').value.toLowerCase().trim();
+      if (!val) return renderDetailedLogs(allDetailedLogs);
+      const filtered = allDetailedLogs.filter(l => 
+        (l.question && l.question.toLowerCase().includes(val)) ||
+        (l.intent && l.intent.toLowerCase().includes(val))
+      );
+      renderDetailedLogs(filtered);
+    }
+
+    // 6. Diagnostics Actions
+    async function clearSystemCache() {
+      if (!confirm('Bạn có chắc chắn muốn làm sạch toàn bộ Cache RAM?')) return;
+      try {
+        const res = await fetch('/api/clear-cache', {
+          method: 'POST',
+          headers: { 'x-admin-token': adminToken }
+        });
+        showToast('Đã xóa sạch bộ nhớ đệm RAM thành công!');
+        fetchTelemetry(false);
+      } catch (err) {
+        alert('Lỗi: ' + err.message);
+      }
+    }
+
+    async function pingAtlasDirect() {
+      showToast('Đang ping MongoDB Atlas...');
+      await fetchTelemetry(false);
+      showToast('Ping thành công! Độ trễ cập nhật ở tab Giám Sát.');
+    }
+
+    function downloadHealthReport() {
+      window.open('/api/system/status', '_blank');
+    }
+
+    function openTokenModal() {
+      const token = prompt('Nhập Token Quản Trị (Mặc định: huit_admin_2026):', adminToken);
+      if (token !== null) {
+        adminToken = token.trim();
+        localStorage.setItem('huit_admin_token', adminToken);
+        showToast('Đã lưu Admin Token!');
+      }
+    }
+
+    function showPipelineDetail(step) {
+      showToast(`Bước ${step}: Nhấp để xem thông số kỹ thuật thời gian thực!`);
+    }
+
+    // 7. Particle Constellation Simulation
+    (function initConstellation() {
+      const canvas = document.getElementById('nexusCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      const pCount = Math.min(50, Math.floor(w / 30));
+      for (let i = 0; i < pCount; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          r: Math.random() * 2 + 1,
+          color: Math.random() > 0.5 ? '#00f2fe' : '#a855f7'
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = p.color;
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+            if (dist < 110) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 110 * 0.8})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // Auto-refresh countdown
+    setInterval(() => {
+      countdown -= 1;
+      const el = document.getElementById('countdown-sec');
+      if (el) el.textContent = countdown;
+      if (countdown <= 0) {
+        countdown = 3;
+        fetchTelemetry(true);
+      }
+    }, 1000);
+
+    // Initial Load
+    fetchTelemetry(false);
+  </script>
+</body>
+</html>

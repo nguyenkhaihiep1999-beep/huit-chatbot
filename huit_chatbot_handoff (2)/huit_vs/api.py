@@ -305,6 +305,11 @@ def image_svg(image_id: str, download: bool = False):
     })
 
 
+@app.get("/api/admission-visuals")
+def list_admission_visuals(category: str = "", search: str = ""):
+    return {"total": len(avs.list_all_visuals(category, search)), "items": avs.list_all_visuals(category, search)}
+
+
 @app.get("/api/admission-visuals/{visual_id}")
 def get_admission_visual_json(visual_id: str):
     data = avs.get_visual_by_id(visual_id)
@@ -539,20 +544,17 @@ def system_telemetry():
     return health_service.get_system_health(quick=False)
 
 
-@app.get("/status")
-@app.get("/health/dashboard")
-def status_dashboard():
-    return FileResponse(os.path.join(HERE, "static", "health.html"))
-
-
 @app.get("/admin")
-def admin_page():
-    return FileResponse(os.path.join(HERE, "static", "admin.html"))
+@app.get("/status")
+@app.get("/command-center")
+@app.get("/health/dashboard")
+def command_center():
+    return FileResponse(os.path.join(HERE, "static", "control_center.html"))
 
 
 @app.get("/workflow")
 def workflow_page():
-    return FileResponse(os.path.join(HERE, "static", "workflow.html"))
+    return FileResponse(os.path.join(HERE, "static", "control_center.html"))
 
 
 @app.get("/")
