@@ -30,6 +30,7 @@ from pydantic import BaseModel, Field
 import rag_core
 import image_service
 import admission_visuals_service as avs
+import health_service
 
 app = FastAPI(title="HUIT Chatbot API", version="1.0", docs_url=None, redoc_url=None)
 
@@ -113,35 +114,11 @@ def _warmup():
 
 
 @app.get("/health")
-def health():
-    checks = {
-        "mongodb": False,
-        "knowledge_base": False,
-        "openrouter": bool(
-            os.environ.get("HUIT_OPENROUTER_KEY")
-            or os.environ.get("OPENROUTER_API_KEY")
-        ),
-    }
-    kb_documents = 0
-    try:
-        rag_core._init()
-        rag_core._mongo.admin.command("ping")
-        checks["mongodb"] = True
-        kb_documents = rag_core._mongo[rag_core.DB][rag_core.COLL].estimated_document_count()
-        checks["knowledge_base"] = kb_documents > 0
-    except Exception:
-        pass
-    healthy = all(checks.values())
-    return JSONResponse(
-        {
-            "status": "ok" if healthy else "degraded",
-            "checks": checks,
-            "kb_documents": kb_documents,
-            "kb_version": rag_core.KB_VERSION,
-            "model": rag_core.LLM_MODEL,
-        },
-        status_code=200 if healthy else 503,
-    )
+@app.get("/api/health")
+def health(quick: bool = True):
+    data = health_service.get_system_health(quick=quick)
+    status_code = 200 if data.get("status") == "healthy" else 503
+    return JSONResponse(data, status_code=status_code)
 
 
 @app.get("/api/suggested-questions")
@@ -555,6 +532,17 @@ async def custom_swagger_ui_html():
         swagger_js_url="/static/swagger-ui/swagger-ui-bundle.js",
         swagger_css_url="/static/swagger-ui/swagger-ui.css",
     )
+
+
+@app.get("/api/system/status")
+def system_telemetry():
+    return health_service.get_system_health(quick=False)
+
+
+@app.get("/status")
+@app.get("/health/dashboard")
+def status_dashboard():
+    return FileResponse(os.path.join(HERE, "static", "health.html"))
 
 
 @app.get("/admin")

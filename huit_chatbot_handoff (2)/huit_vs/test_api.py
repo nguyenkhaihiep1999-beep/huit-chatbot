@@ -69,5 +69,24 @@ class ApiSecurityTests(unittest.TestCase):
         self.assertEqual(response.status_code, 429)
 
 
+    def test_health_endpoints(self):
+        res_probe = self.client.get("/api/health")
+        self.assertEqual(res_probe.status_code, 200)
+        data_probe = res_probe.json()
+        self.assertIn(data_probe.get("status"), ["healthy", "degraded"])
+        self.assertIn("db_status", data_probe)
+
+        res_telemetry = self.client.get("/api/system/status")
+        self.assertEqual(res_telemetry.status_code, 200)
+        data_tel = res_telemetry.json()
+        self.assertIn("database", data_tel)
+        self.assertIn("ai_engine", data_tel)
+        self.assertIn("system", data_tel)
+
+        res_page = self.client.get("/status")
+        self.assertEqual(res_page.status_code, 200)
+        self.assertIn("text/html", res_page.headers.get("content-type", ""))
+
+
 if __name__ == "__main__":
     unittest.main()
