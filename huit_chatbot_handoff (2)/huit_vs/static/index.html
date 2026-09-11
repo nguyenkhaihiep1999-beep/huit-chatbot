@@ -765,6 +765,210 @@
 
   .tool-btn svg { width: 14px; height: 14px; }
 
+  /* ADMISSION PRE-GENERATED VISUAL CARD & FAST UPSCALE */
+  .admission-visual-card {
+    margin-top: 14px;
+    margin-bottom: 8px;
+    background: #ffffff;
+    border: 1.5px solid #bfdbfe;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 102, 196, 0.12);
+    transition: var(--transition);
+  }
+  [data-theme="dark"] .admission-visual-card {
+    background: #0f2747;
+    border-color: #1e3a5f;
+  }
+  .admission-visual-card:hover {
+    box-shadow: 0 12px 32px rgba(0, 102, 196, 0.18);
+    border-color: var(--brand-primary);
+  }
+  .visual-card-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+    border-bottom: 1px solid #bfdbfe;
+  }
+  [data-theme="dark"] .visual-card-topbar {
+    background: #0b1e38;
+    border-bottom-color: #1e3a5f;
+  }
+  .visual-badge-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--brand-primary);
+  }
+  .visual-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .visual-action-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #ffffff;
+    border: 1px solid #93c5fd;
+    color: #0284c7;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .visual-action-chip:hover {
+    background: #0284c7;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(2, 132, 199, 0.25);
+  }
+  .visual-action-chip.primary {
+    background: var(--brand-primary);
+    color: #ffffff;
+    border-color: var(--brand-primary);
+  }
+  .visual-action-chip.primary:hover {
+    background: #004c99;
+  }
+  .visual-card-preview {
+    position: relative;
+    cursor: pointer;
+    background: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+  [data-theme="dark"] .visual-card-preview {
+    background: #061325;
+  }
+  .visual-card-img {
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.25s ease;
+    display: block;
+  }
+  .visual-card-preview:hover .visual-card-img {
+    transform: scale(1.01);
+  }
+  .visual-overlay-badge {
+    position: absolute;
+    bottom: 16px;
+    right: 18px;
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    pointer-events: none;
+  }
+
+  /* LIGHTBOX MODAL FOR UPSCALE & FULLSCREEN */
+  .visual-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 99999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .visual-modal-overlay.active {
+    display: flex;
+  }
+  .visual-modal-box {
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    max-width: 1100px;
+    width: 95vw;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    border: 1.5px solid var(--border-color);
+  }
+  .visual-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: var(--sidebar-bg);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .visual-modal-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--brand-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .visual-modal-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .upscale-zoom-btn {
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .upscale-zoom-btn.active {
+    background: var(--brand-primary);
+    color: #ffffff;
+    border-color: var(--brand-primary);
+  }
+  .visual-modal-body {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0b1e38;
+  }
+  .modal-rendered-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: width 0.2s ease;
+  }
+  .visual-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: var(--sidebar-bg);
+    border-top: 1px solid var(--border-color);
+  }
+
   /* CHAT FOOTER & INPUT BAR */
   .chat-footer {
     padding: 16px 28px 20px;
@@ -1881,7 +2085,89 @@
     historyList.prepend(item);
   }
 
-  function appendMsgRow(role, text, sources = [], trace = []) {
+  let activeLightboxVisualId = null;
+  let activeLightboxScale = 2;
+
+  function createAdmissionVisualCard(visual) {
+    const card = document.createElement('div');
+    card.className = 'admission-visual-card';
+    card.id = `vis-${visual.visual_id}`;
+    
+    const svgUrl = visual.svg_url || `/api/admission-visuals/${visual.visual_id}/render`;
+    const title = visual.title || 'Đồ họa tuyển sinh HUIT';
+    
+    card.innerHTML = `
+      <div class="visual-card-topbar">
+        <div class="visual-badge-pill">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>ĐỒ HỌA TUYỂN SINH HUIT 2026</span>
+        </div>
+        <div class="visual-top-actions">
+          <button class="visual-action-chip" onclick="openVisualLightbox('${visual.visual_id}', 2)" title="Phóng to HD xem rõ số liệu">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+            Phóng to HD (2x)
+          </button>
+          <a href="/api/admission-visuals/${visual.visual_id}/render?format=png&scale=2&download=true" class="visual-action-chip primary" title="Tải ảnh PNG về máy">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Tải ảnh PNG
+          </a>
+        </div>
+      </div>
+      <div class="visual-card-preview" onclick="openVisualLightbox('${visual.visual_id}', 2)">
+        <img src="${svgUrl}" alt="${title}" class="visual-card-img" loading="eager" />
+        <div class="visual-overlay-badge">🔍 Nhấp để phóng to / Upscale HD</div>
+      </div>
+    `;
+    return card;
+  }
+
+  function openVisualLightbox(visualId, scale = 2) {
+    activeLightboxVisualId = visualId;
+    activeLightboxScale = scale;
+    const modal = document.getElementById('visual-lightbox-modal');
+    const img = document.getElementById('lightbox-img');
+    const dlPng = document.getElementById('lightbox-download-png');
+    const dlSvg = document.getElementById('lightbox-download-svg');
+    const titleEl = document.getElementById('lightbox-title');
+
+    if (!modal || !img) return;
+
+    titleEl.textContent = `Đồ họa tuyển sinh HUIT (${visualId})`;
+    img.src = `/api/admission-visuals/${visualId}/render?scale=${scale}`;
+    if (dlPng) dlPng.href = `/api/admission-visuals/${visualId}/render?format=png&scale=2&download=true`;
+    if (dlSvg) dlSvg.href = `/api/admission-visuals/${visualId}/render?format=svg&scale=2&download=true`;
+
+    updateLightboxZoomButtons(scale);
+    modal.classList.add('active');
+  }
+
+  function setLightboxScale(scale) {
+    if (!activeLightboxVisualId) return;
+    activeLightboxScale = scale;
+    const img = document.getElementById('lightbox-img');
+    if (img) {
+      img.src = `/api/admission-visuals/${activeLightboxVisualId}/render?scale=${scale}&t=${Date.now()}`;
+    }
+    updateLightboxZoomButtons(scale);
+  }
+
+  function updateLightboxZoomButtons(scale) {
+    const btns = document.querySelectorAll('.upscale-zoom-btn');
+    btns.forEach(b => {
+      const isMatch = b.textContent.includes(`${scale}x`) || (scale === 4 && b.textContent.includes('4K'));
+      b.classList.toggle('active', isMatch);
+    });
+  }
+
+  function closeVisualLightbox(e) {
+    if (e && e.target && !e.target.classList.contains('visual-modal-overlay') && e.type === 'click') {
+      if (e.target.tagName !== 'BUTTON' && !e.target.closest('button')) return;
+    }
+    const modal = document.getElementById('visual-lightbox-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  function appendMsgRow(role, text, sources = [], trace = [], visual = null) {
     if (welcomeCard && welcomeCard.parentNode === viewport) {
       welcomeCard.remove();
     }
@@ -1907,6 +2193,12 @@
         bubble.innerHTML = DOMPurify.sanitize(rendered, { SAFE_FOR_TEMPLATES: true });
       } catch (e) {
         bubble.textContent = text;
+      }
+
+      // Visual Infographic Card
+      if (visual) {
+        const visualCard = createAdmissionVisualCard(visual);
+        bubble.appendChild(visualCard);
       }
 
       // Citation Sources (BẤM TRỰC TIẾP VÀO THẺ ĐỂ MỞ LINK CỔNG TRƯỜNG HUIT)
@@ -2040,16 +2332,24 @@
     viewport.appendChild(row);
     viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
 
-    return { row, wrapper, bubble };
+    return { row, wrapper, bubble, visualCard: null };
   }
 
-  function updateStreamingBotBubble(botObj, text, sources = [], trace = [], isFinal = false) {
+  function updateStreamingBotBubble(botObj, text, sources = [], trace = [], visual = null, isFinal = false) {
     const { bubble, wrapper } = botObj;
     try {
       const rendered = marked.parse(text);
       bubble.innerHTML = DOMPurify.sanitize(rendered, { SAFE_FOR_TEMPLATES: true });
     } catch (e) {
       bubble.textContent = text;
+    }
+
+    // Hiển thị Thẻ Đồ Họa Tuyển Sinh Trực Quan Ngay Lập Tức
+    if (visual && !botObj.visualCard) {
+      botObj.visualCard = createAdmissionVisualCard(visual);
+      bubble.appendChild(botObj.visualCard);
+    } else if (visual && botObj.visualCard && !bubble.contains(botObj.visualCard)) {
+      bubble.appendChild(botObj.visualCard);
     }
 
     if (isFinal) {
@@ -2280,6 +2580,7 @@
       let accumulatedText = '';
       let sources = [];
       let trace = [];
+      let currentVisual = null;
       let botObj = null;
 
       while (true) {
@@ -2297,13 +2598,24 @@
             if (data.type === 'sources' || data.type === 'meta') {
               sources = data.sources || [];
               trace = data.trace || [];
+              if (data.visual) {
+                currentVisual = data.visual;
+                if (botObj && !botObj.visualCard) {
+                  botObj.visualCard = createAdmissionVisualCard(currentVisual);
+                  botObj.bubble.appendChild(botObj.visualCard);
+                }
+              }
             } else if (data.type === 'token') {
               if (!botObj) {
                 removeRobotThinkingRow();
                 botObj = createStreamingBotRow();
+                if (currentVisual && !botObj.visualCard) {
+                  botObj.visualCard = createAdmissionVisualCard(currentVisual);
+                  botObj.bubble.appendChild(botObj.visualCard);
+                }
               }
               accumulatedText += data.token;
-              updateStreamingBotBubble(botObj, accumulatedText, sources, trace, false);
+              updateStreamingBotBubble(botObj, accumulatedText, sources, trace, currentVisual, false);
             }
           } catch (err) {
             console.warn('NDJSON chunk parse error:', err);
@@ -2325,7 +2637,7 @@
         if (!botObj) {
           botObj = createStreamingBotRow();
         }
-        updateStreamingBotBubble(botObj, accumulatedText, sources, trace, true);
+        updateStreamingBotBubble(botObj, accumulatedText, sources, trace, currentVisual, true);
         conversationHistory.push({ role: 'user', content: text });
         conversationHistory.push({ role: 'assistant', content: accumulatedText });
         if (conversationHistory.length > 10) {
@@ -2445,6 +2757,35 @@
     </div>
     <div class="workflow-modal-body">
       <iframe src="/static/workflow.html?v=20260729_v2" class="workflow-iframe" title="Sơ đồ luồng RAG Nexus"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX MODAL CHO PHÓNG TO HD & UPSCALE 2X/4X -->
+<div id="visual-lightbox-modal" class="visual-modal-overlay" onclick="closeVisualLightbox(event)">
+  <div class="visual-modal-box" onclick="event.stopPropagation()">
+    <div class="visual-modal-header">
+      <div class="visual-modal-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <span id="lightbox-title">Đồ họa tuyển sinh HUIT</span>
+      </div>
+      <div class="visual-modal-controls">
+        <span style="font-size:12px; font-weight:600; color:var(--text-subtle);">Độ phân giải:</span>
+        <button class="upscale-zoom-btn" onclick="setLightboxScale(1)">Chuẩn 1x</button>
+        <button class="upscale-zoom-btn active" onclick="setLightboxScale(2)">Upscale HD 2x</button>
+        <button class="upscale-zoom-btn" onclick="setLightboxScale(4)">Siêu nét 4K</button>
+        <button class="tool-btn" style="font-size:18px; padding:2px 8px;" onclick="closeVisualLightbox()">✕</button>
+      </div>
+    </div>
+    <div class="visual-modal-body">
+      <img id="lightbox-img" class="modal-rendered-img" src="" alt="Admission Graphic" />
+    </div>
+    <div class="visual-modal-footer">
+      <span style="font-size:12px; color:var(--text-subtle);">✓ Dữ liệu trích xuất từ MongoDB Atlas & Cổng tuyển sinh HUIT ts.huit.edu.vn</span>
+      <div style="display:flex; gap:10px;">
+        <a id="lightbox-download-png" href="#" download class="visual-action-chip primary">📥 Tải PNG sắc nét</a>
+        <a id="lightbox-download-svg" href="#" download class="visual-action-chip">📄 Tải SVG Vector</a>
+      </div>
     </div>
   </div>
 </div>

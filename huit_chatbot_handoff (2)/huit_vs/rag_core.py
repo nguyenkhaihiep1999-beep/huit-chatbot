@@ -948,6 +948,10 @@ def get_cached_response(question, chat_history=None):
         res = copy.deepcopy(_ram_cache[ckey])
         res["cached"] = True
         res["meta"]["ram_cached"] = True
+        if not res.get("visual"):
+            res["visual"] = res.get("meta", {}).get("visual") or _resolve_visual_for_query(classify_intent(question), question)
+            if res.get("visual"):
+                res["meta"]["visual"] = res["visual"]
         return res
 
     # 2. Fallback sang MongoDB Cache nếu RAM cache lỡ miss
@@ -959,12 +963,17 @@ def get_cached_response(question, chat_history=None):
                 "expires_at": {"$gt": now},
             })
             if cached:
+                vis = cached.get("visual") or cached.get("meta", {}).get("visual") or _resolve_visual_for_query(classify_intent(question), question)
+                meta_obj = cached.get("meta", {})
+                if vis:
+                    meta_obj["visual"] = vis
                 res = {
                     "answer": cached["answer"],
                     "sources": cached.get("sources", []),
                     "trace": cached.get("trace", []),
+                    "visual": vis,
                     "cached": True,
-                    "meta": cached.get("meta", {}),
+                    "meta": meta_obj,
                 }
                 # Pre-fill RAM cache
                 _ram_cache[ckey] = res
@@ -1134,6 +1143,34 @@ def _fallback_answer(question, docs):
     )
 
 
+def _resolve_visual_for_query(intent: str, question: str, docs: list = None):
+    """Tìm kiếm Visual Card/Table tuyển sinh phù hợp từ MongoDB hoặc bộ đệm."""
+    try:
+        import admission_visuals_service as avs
+        primary_code = None
+        if docs:
+            for d in docs:
+                code = d.get("major_code")
+                if code:
+                    primary_code = str(code)
+                    break
+        matched = avs.find_visual_by_context(intent, question, major_code=primary_code)
+        if matched:
+            v_id = matched.get("visual_id")
+            return {
+                "visual_id": v_id,
+                "type": matched.get("type", "major_card"),
+                "title": matched.get("title", ""),
+                "svg_url": f"/api/admission-visuals/{v_id}/render",
+                "png_url": f"/api/admission-visuals/{v_id}/render?format=png&scale=2",
+                "json_url": f"/api/admission-visuals/{v_id}",
+                "raw": matched
+            }
+    except Exception as e:
+        print("[WARN] Error resolving visual for query:", e)
+    return None
+
+
 def answer(question, chat_history=None, use_cache=True):
     started = time.perf_counter()
     _init()
@@ -1149,6 +1186,7 @@ def answer(question, chat_history=None, use_cache=True):
     if _is_major_catalog_question(question):
         catalog_res = _major_catalog_response()
         if catalog_res:
+            catalog_res["visual"] = _resolve_visual_for_query("catalog", question, [])
             log_event(
                 question,
                 catalog_res,
@@ -1226,10 +1264,13 @@ def answer(question, chat_history=None, use_cache=True):
         {"step": 4, "name": "Tổng hợp qua LLM", "detail": f"Mô hình: {LLM_MODEL} ({'Chế độ fallback' if used_fallback else 'Hoàn tất'})", "status": "warning" if used_fallback else "success"}
     ]
 
+    visual_meta = _resolve_visual_for_query(intent, question, docs)
+
     res = {
         "answer": text,
         "sources": sources,
         "trace": trace,
+        "visual": visual_meta,
         "meta": {
             "intent": intent,
             "fallback": used_fallback,
@@ -1237,6 +1278,7 @@ def answer(question, chat_history=None, use_cache=True):
             "kb_version": KB_VERSION,
             "rag_version": RAG_VERSION,
             "latency_ms": elapsed_ms,
+            "visual": visual_meta,
         },
     }
     if use_cache:
@@ -1274,7 +1316,8 @@ def stream_answer(question, chat_history=None, use_cache=True):
             answer_text = catalog_res.get("answer", "")
             sources = catalog_res.get("sources", [])
             trace = catalog_res.get("trace", [])
-            yield json.dumps({"type": "meta", "sources": sources, "trace": trace}, ensure_ascii=False) + "\n"
+            catalog_visual = _resolve_visual_for_query("catalog", question, [])
+            yield json.dumps({"type": "meta", "sources": sources, "trace": trace, "visual": catalog_visual}, ensure_ascii=False) + "\n"
             for word in re.findall(r'\S+|\s+', answer_text):
                 yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
             log_event(question, catalog_res, int((time.perf_counter() - started) * 1000), intent)
@@ -1286,7 +1329,8 @@ def stream_answer(question, chat_history=None, use_cache=True):
         answer_text = cached_res.get("answer", "")
         sources = cached_res.get("sources", [])
         trace = cached_res.get("trace", [])
-        yield json.dumps({"type": "meta", "sources": sources, "trace": trace}, ensure_ascii=False) + "\n"
+        visual_meta = cached_res.get("visual") or cached_res.get("meta", {}).get("visual")
+        yield json.dumps({"type": "meta", "sources": sources, "trace": trace, "visual": visual_meta}, ensure_ascii=False) + "\n"
         for word in re.findall(r'\S+|\s+', answer_text):
             yield json.dumps({"type": "token", "token": word}, ensure_ascii=False) + "\n"
         log_event(question, cached_res, int((time.perf_counter() - started) * 1000), intent, cached=True)
@@ -1306,7 +1350,7 @@ def stream_answer(question, chat_history=None, use_cache=True):
     docs = retrieve(retrieval_query, _rag_cfg.get("top_k", 3))
     if not docs:
         res = {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
-        yield json.dumps({"type": "meta", "sources": [], "trace": []}, ensure_ascii=False) + "\n"
+        yield json.dumps({"type": "meta", "sources": [], "trace": [], "visual": None}, ensure_ascii=False) + "\n"
         yield json.dumps({"type": "token", "token": res["answer"]}, ensure_ascii=False) + "\n"
         return
 
@@ -1340,8 +1384,10 @@ def stream_answer(question, chat_history=None, use_cache=True):
         {"step": 4, "name": "Tổng hợp qua LLM", "detail": f"Mô hình: {LLM_MODEL} (Phát luồng thời gian thực)", "status": "success"}
     ]
 
-    # Send metadata to client immediately after retrieval (~200ms)
-    yield json.dumps({"type": "meta", "sources": sources, "trace": trace}, ensure_ascii=False) + "\n"
+    visual_meta = _resolve_visual_for_query(intent, question, docs)
+
+    # Send metadata + visual to client immediately after retrieval (~200ms)
+    yield json.dumps({"type": "meta", "sources": sources, "trace": trace, "visual": visual_meta}, ensure_ascii=False) + "\n"
 
     # 5. Stream Real LLM Tokens
     user_prompt = f"{history_str}{_rag_cfg['answer_template'].format(context=context, question=question)}"
@@ -1370,6 +1416,7 @@ def stream_answer(question, chat_history=None, use_cache=True):
         "answer": accumulated_text,
         "sources": sources,
         "trace": trace,
+        "visual": visual_meta,
         "meta": {
             "intent": intent,
             "fallback": used_fallback,
@@ -1377,6 +1424,7 @@ def stream_answer(question, chat_history=None, use_cache=True):
             "kb_version": KB_VERSION,
             "rag_version": RAG_VERSION,
             "latency_ms": elapsed_ms,
+            "visual": visual_meta,
         }
     }
     if use_cache and accumulated_text:

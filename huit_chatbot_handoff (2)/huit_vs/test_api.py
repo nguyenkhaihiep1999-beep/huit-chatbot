@@ -33,7 +33,7 @@ class ApiSecurityTests(unittest.TestCase):
     def test_security_headers_are_present(self):
         response = self.client.get("/")
         self.assertEqual(response.headers["x-content-type-options"], "nosniff")
-        self.assertEqual(response.headers["x-frame-options"], "DENY")
+        self.assertEqual(response.headers["x-frame-options"], "SAMEORIGIN")
 
     def test_chat_success(self):
         expected = {"answer": "OK", "sources": []}

@@ -29,6 +29,7 @@ from pydantic import BaseModel, Field
 
 import rag_core
 import image_service
+import admission_visuals_service as avs
 
 app = FastAPI(title="HUIT Chatbot API", version="1.0", docs_url=None, redoc_url=None)
 
@@ -325,6 +326,44 @@ def image_svg(image_id: str, download: bool = False):
         "Content-Disposition": f"{'attachment' if download else 'inline'}; filename=illustration-{image_id}.svg",
         "Cache-Control": "private, max-age=3600",
     })
+
+
+@app.get("/api/admission-visuals/{visual_id}")
+def get_admission_visual_json(visual_id: str):
+    data = avs.get_visual_by_id(visual_id)
+    if not data:
+        raise HTTPException(status_code=404, detail="Không tìm thấy visual JSON.")
+    return data
+
+
+@app.get("/api/admission-visuals/{visual_id}/render")
+def render_admission_visual(visual_id: str, scale: int = 1, format: str = "svg", download: bool = False):
+    data = avs.get_visual_by_id(visual_id)
+    if not data:
+        raise HTTPException(status_code=404, detail="Không tìm thấy visual JSON.")
+
+    scale = max(1, min(int(scale), 4))
+    if str(format).lower() == "png":
+        png_bytes = avs.render_png_visual_fallback(data, scale=scale)
+        return Response(
+            png_bytes,
+            media_type="image/png",
+            headers={
+                "Content-Disposition": f"{'attachment' if download else 'inline'}; filename={visual_id}@{scale}x.png",
+                "Cache-Control": "public, max-age=86400",
+            }
+        )
+
+    svg_content = avs.render_svg_visual(data, scale=scale)
+    return Response(
+        svg_content,
+        media_type="image/svg+xml",
+        headers={
+            "Content-Security-Policy": "default-src 'none'; sandbox",
+            "Content-Disposition": f"{'attachment' if download else 'inline'}; filename={visual_id}@{scale}x.svg",
+            "Cache-Control": "public, max-age=86400",
+        }
+    )
 
 
 @app.post("/api/clear-cache")
