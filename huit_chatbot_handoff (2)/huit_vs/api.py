@@ -357,6 +357,24 @@ def render_admission_visual(visual_id: str, scale: int = 1, format: str = "svg",
     )
 
 
+@app.get("/api/admission-visuals/{visual_id}/export-excel")
+def export_admission_visual_excel(visual_id: str):
+    data = avs.get_visual_by_id(visual_id)
+    if not data:
+        raise HTTPException(status_code=404, detail="Không tìm thấy visual để xuất Excel.")
+
+    excel_buf = avs.export_visual_to_excel(data)
+    safe_filename = f"{visual_id}_HUIT_2026.xlsx"
+    return Response(
+        excel_buf.getvalue(),
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={
+            "Content-Disposition": f"attachment; filename={safe_filename}",
+            "Cache-Control": "no-cache",
+        }
+    )
+
+
 @app.post("/api/clear-cache")
 def clear_cache(x_admin_token: str = Header(default="")):
     require_admin(x_admin_token)

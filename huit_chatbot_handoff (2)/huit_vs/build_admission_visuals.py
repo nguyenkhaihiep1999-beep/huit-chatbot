@@ -267,11 +267,11 @@ def build_all_visuals():
         "title": "BẢNG ĐIỂM CHUẨN TRÚNG TUYỂN ĐẠI HỌC CHÍNH QUY HUIT NĂM 2026",
         "subtitle": "Công bố chính thức ngày 09/08/2026 của Trường Đại học Công Thương TP.HCM",
         "headers": ["Mã ngành", "Tên ngành đào tạo", "Tổ hợp môn", "Điểm THPT 2026", "Học bạ 2026", "ĐGNL ĐHQG 2026"],
-        "rows": table_cutoff_rows[:15],
+        "rows": table_cutoff_rows,
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     all_visual_docs.append(table_cutoff_doc)
-    print("[2/4] Đã tạo Bảng Tra Cứu Điểm Sàn (table_cutoff_2026).")
+    print("[2/4] Đã tạo Bảng Tra Cứu Điểm Sàn & Điểm Chuẩn (table_cutoff_2026).")
 
     # 3. Tạo Bảng Học Phí & Bảng Học Bổng 50% (table_tuition_2026 & table_scholarships_2026)
     table_tuition_doc = {
@@ -281,7 +281,7 @@ def build_all_visuals():
         "title": "BẢNG ĐỊNH MỨC HỌC PHÍ HUIT NĂM HỌC 2026 - 2027",
         "subtitle": "Công bố chính thức cho khóa K26 - Không tăng học phí đột biến",
         "headers": ["Mã ngành", "Ngành đào tạo", "Tín chỉ Lý thuyết", "Tín chỉ Thực hành", "Học phí HK1 (dự kiến)"],
-        "rows": table_tuition_rows[:10],
+        "rows": table_tuition_rows,
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     all_visual_docs.append(table_tuition_doc)

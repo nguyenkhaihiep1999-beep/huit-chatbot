@@ -838,6 +838,89 @@
   .visual-action-chip.primary:hover {
     background: #004c99;
   }
+  .visual-action-chip.excel-chip {
+    background: #107c41;
+    color: #ffffff;
+    border-color: #107c41;
+  }
+  .visual-action-chip.excel-chip:hover {
+    background: #0b5c30;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 124, 65, 0.35);
+  }
+  .visual-scale-toolbar {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(6px);
+    padding: 3px 8px;
+    border-radius: 20px;
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .scale-toolbar-label {
+    font-size: 10px;
+    color: #94a3b8;
+    font-weight: 600;
+    margin-right: 2px;
+  }
+  .scale-quick-btn {
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .scale-quick-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .scale-quick-btn.active {
+    background: var(--brand-primary);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 102, 196, 0.4);
+  }
+  .upscale-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: rgba(2, 132, 199, 0.12);
+    color: #0284c7;
+    margin-left: 6px;
+    transition: all 0.3s ease;
+  }
+  .upscale-status-badge.hd {
+    background: rgba(16, 185, 129, 0.14);
+    color: #059669;
+  }
+  .pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0284c7;
+    animation: pulseDot 1.2s infinite ease-in-out;
+  }
+  .upscale-status-badge.hd .pulse-dot {
+    background: #059669;
+    animation: none;
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
   .visual-card-preview {
     position: relative;
     cursor: pointer;
@@ -2164,32 +2247,112 @@
     card.className = 'admission-visual-card';
     card.id = `vis-${visual.visual_id}`;
     
-    const svgUrl = visual.svg_url || `/api/admission-visuals/${visual.visual_id}/render`;
     const title = visual.title || 'Đồ họa tuyển sinh HUIT';
+    const visualId = visual.visual_id;
+    const isTable = (visual.type === 'excel_table' || (visualId && visualId.includes('table_')));
+    
+    // Giai đoạn 1: Bắt đầu tải bản xem trước phân giải thấp (scale=1) siêu tốc < 15ms
+    const lowResUrl = `/api/admission-visuals/${visualId}/render?scale=1`;
+    const excelExportUrl = `/api/admission-visuals/${visualId}/export-excel`;
     
     card.innerHTML = `
       <div class="visual-card-topbar">
         <div class="visual-badge-pill">
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           <span>ĐỒ HỌA TUYỂN SINH HUIT 2026</span>
+          <div class="upscale-status-badge" id="badge-${visualId}">
+            <span class="pulse-dot"></span> <span class="badge-txt">⚡ Xem trước 1x</span>
+          </div>
         </div>
         <div class="visual-top-actions">
-          <button class="visual-action-chip" onclick="openVisualLightbox('${visual.visual_id}', 2)" title="Phóng to HD xem rõ số liệu">
+          <a href="${excelExportUrl}" class="visual-action-chip excel-chip" title="Tải bảng số liệu Microsoft Excel (.xlsx) chuẩn nhận diện HUIT" download>
+            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6zm4.5-5.5l1.8 3h1.8l-2.7-4.2 2.6-3.8h-1.8l-1.7 2.8-1.7-2.8H8.5l2.6 3.8-2.7 4.2h1.8l1.8-3z"/></svg>
+            Tải Excel (.xlsx)
+          </a>
+          <button class="visual-action-chip" onclick="openVisualLightbox('${visualId}', 2)" title="Phóng to HD xem rõ số liệu">
             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-            Phóng to HD (2x)
+            Phóng to (2x)
           </button>
-          <button class="visual-action-chip primary" onclick="downloadVisualAsPng('${visual.visual_id}', 2)" title="Tải ảnh PNG sắc nét về máy" style="cursor:pointer; border:none;">
+          <button class="visual-action-chip primary" onclick="downloadVisualAsPng('${visualId}', 2)" title="Tải ảnh PNG sắc nét về máy" style="cursor:pointer; border:none;">
             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            Tải ảnh PNG
+            Tải PNG
           </button>
         </div>
       </div>
-      <div class="visual-card-preview" onclick="openVisualLightbox('${visual.visual_id}', 2)">
-        <img src="${svgUrl}" alt="${title}" class="visual-card-img" loading="eager" />
-        <div class="visual-overlay-badge">🔍 Nhấp để phóng to / Upscale HD</div>
+      <div class="visual-card-preview" onclick="openVisualLightbox('${visualId}', 2)">
+        <div class="visual-scale-toolbar">
+          <span class="scale-toolbar-label">Độ nét:</span>
+          <button class="scale-quick-btn active" id="btn-scale-1-${visualId}" onclick="event.stopPropagation(); setCardScale('${visualId}', 1, this)">1x</button>
+          <button class="scale-quick-btn" id="btn-scale-2-${visualId}" onclick="event.stopPropagation(); setCardScale('${visualId}', 2, this)">2x HD</button>
+          <button class="scale-quick-btn" id="btn-scale-4-${visualId}" onclick="event.stopPropagation(); setCardScale('${visualId}', 4, this)">4K</button>
+        </div>
+        <img src="${lowResUrl}" alt="${title}" class="visual-card-img" data-scale="1" loading="eager" />
+        <div class="visual-overlay-badge">🔍 Nhấp để phóng to / Xem chi tiết</div>
       </div>
     `;
+
+    // Giai đoạn 2: Tự động Progressive Upscaling trong nền lên 2x HD
+    setTimeout(() => {
+      progressiveUpscaleVisual(visualId, card);
+    }, 250);
+
     return card;
+  }
+
+  function progressiveUpscaleVisual(visualId, card) {
+    const hdUrl = `/api/admission-visuals/${visualId}/render?scale=2`;
+    const hdImg = new Image();
+    hdImg.src = hdUrl;
+    hdImg.onload = () => {
+      const mainImg = card.querySelector('.visual-card-img');
+      const badge = card.querySelector(`#badge-${visualId}`);
+      const btn1 = card.querySelector(`#btn-scale-1-${visualId}`);
+      const btn2 = card.querySelector(`#btn-scale-2-${visualId}`);
+      if (mainImg && mainImg.dataset.scale === '1') {
+        mainImg.style.opacity = '0.65';
+        setTimeout(() => {
+          mainImg.src = hdUrl;
+          mainImg.dataset.scale = '2';
+          mainImg.style.opacity = '1';
+          if (btn1) btn1.classList.remove('active');
+          if (btn2) btn2.classList.add('active');
+          if (badge) {
+            badge.classList.add('hd');
+            badge.innerHTML = '<span class="pulse-dot"></span> <span class="badge-txt">✨ Đã upscale HD 2x</span>';
+          }
+        }, 120);
+      }
+    };
+  }
+
+  function setCardScale(visualId, scale, btn) {
+    const card = document.getElementById(`vis-${visualId}`);
+    if (!card) return;
+    const img = card.querySelector('.visual-card-img');
+    const badge = card.querySelector(`#badge-${visualId}`);
+    const btns = card.querySelectorAll('.scale-quick-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    if (img) {
+      img.style.opacity = '0.55';
+      img.dataset.scale = String(scale);
+      const targetUrl = `/api/admission-visuals/${visualId}/render?scale=${scale}&t=${Date.now()}`;
+      const temp = new Image();
+      temp.src = targetUrl;
+      temp.onload = () => {
+        img.src = targetUrl;
+        img.style.opacity = '1';
+        if (badge) {
+          if (scale > 1) {
+            badge.classList.add('hd');
+            badge.innerHTML = `<span class="pulse-dot"></span> <span class="badge-txt">✨ Đã upscale ${scale === 4 ? '4K Siêu Nét' : 'HD 2x'}</span>`;
+          } else {
+            badge.classList.remove('hd');
+            badge.innerHTML = '<span class="pulse-dot"></span> <span class="badge-txt">⚡ Chuẩn 1x</span>';
+          }
+        }
+      };
+    }
   }
 
   function openVisualLightbox(visualId, scale = 2) {
@@ -2199,12 +2362,16 @@
     const img = document.getElementById('lightbox-img');
     const dlPng = document.getElementById('lightbox-download-png');
     const dlSvg = document.getElementById('lightbox-download-svg');
+    const dlExcel = document.getElementById('lightbox-download-excel');
     const titleEl = document.getElementById('lightbox-title');
 
     if (!modal || !img) return;
 
     titleEl.textContent = `Đồ họa tuyển sinh HUIT (${visualId})`;
     img.src = `/api/admission-visuals/${visualId}/render?scale=${scale}`;
+    if (dlExcel) {
+      dlExcel.href = `/api/admission-visuals/${visualId}/export-excel`;
+    }
     if (dlPng) {
       dlPng.onclick = (e) => {
         e.preventDefault();
@@ -2866,8 +3033,9 @@
       <img id="lightbox-img" class="modal-rendered-img" src="" alt="Admission Graphic" />
     </div>
     <div class="visual-modal-footer">
-      <span style="font-size:12px; color:var(--text-subtle);">✓ Dữ liệu trích xuất từ MongoDB Atlas & Cổng tuyển sinh HUIT ts.huit.edu.vn</span>
-      <div style="display:flex; gap:10px;">
+      <span style="font-size:12px; color:var(--text-subtle);">✓ Dữ liệu chính thức từ Cổng tuyển sinh HUIT ts.huit.edu.vn</span>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a id="lightbox-download-excel" href="#" download class="visual-action-chip excel-chip" style="display:inline-flex;">📊 Tải Excel (.xlsx)</a>
         <a id="lightbox-download-png" href="#" download class="visual-action-chip primary">📥 Tải PNG sắc nét</a>
         <a id="lightbox-download-svg" href="#" download class="visual-action-chip">📄 Tải SVG Vector</a>
       </div>

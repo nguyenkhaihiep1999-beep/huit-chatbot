@@ -777,3 +777,165 @@ def render_png_visual_fallback(data: Dict[str, Any], scale: int = 2) -> bytes:
     img.save(buf, format="PNG", optimize=True)
     return buf.getvalue()
 
+
+def export_visual_to_excel(data: Dict[str, Any]) -> io.BytesIO:
+    """
+    Xuất dữ liệu Visual (Bảng điểm chuẩn, Bảng học phí, Danh mục ngành, v.v.)
+    sang file Microsoft Excel (.xlsx) chuẩn nhận diện thương hiệu HUIT.
+    Đầy đủ định dạng: tiêu đề, cột, màu sắc, viền, tự căn độ rộng cột.
+    """
+    import openpyxl
+    from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
+    from openpyxl.utils import get_column_letter
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "HUIT Tuyển Sinh 2026"
+    ws.sheet_properties.tabColor = "0066C4"
+
+    # Màu sắc chủ đạo HUIT
+    huit_blue_fill = PatternFill(start_color="0066C4", end_color="0066C4", fill_type="solid")
+    header_font = Font(name="Calibri", size=11, bold=True, color="FFFFFF")
+    title_font = Font(name="Calibri", size=15, bold=True, color="004C99")
+    sub_font = Font(name="Calibri", size=10.5, italic=True, color="475569")
+    bold_cell_font = Font(name="Calibri", size=11, bold=True, color="0F172A")
+    normal_font = Font(name="Calibri", size=11, color="1E293B")
+    footer_font = Font(name="Calibri", size=9.5, italic=True, color="64748B")
+
+    thin_border_side = Side(border_style="thin", color="CBD5E1")
+    grid_border = Border(left=thin_border_side, right=thin_border_side, top=thin_border_side, bottom=thin_border_side)
+
+    zebra_fill = PatternFill(start_color="F8FAFC", end_color="F8FAFC", fill_type="solid")
+    white_fill = PatternFill(start_color="FFFFFF", end_color="FFFFFF", fill_type="solid")
+
+    align_center = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    align_left = Alignment(horizontal="left", vertical="center", wrap_text=True)
+
+    title = data.get("title") or "BẢNG DỮ LIỆU TUYỂN SINH TRƯỜNG ĐẠI HỌC CÔNG THƯƠNG TP.HCM (HUIT)"
+    subtitle = data.get("subtitle") or "Cổng thông tin tuyển sinh chính thức: https://ts.huit.edu.vn"
+
+    v_type = data.get("type", "excel_table")
+
+    # Dòng 1: Tiêu đề trường
+    ws.merge_cells("A1:F1")
+    ws["A1"] = "TRƯỜNG ĐẠI HỌC CÔNG THƯƠNG TP. HỒ CHÍ MINH (HUIT)"
+    ws["A1"].font = Font(name="Calibri", size=12, bold=True, color="0066C4")
+    ws["A1"].alignment = align_left
+    ws.row_dimensions[1].height = 24
+
+    # Dòng 2: Tiêu đề bảng
+    ws.merge_cells("A2:F2")
+    ws["A2"] = title
+    ws["A2"].font = title_font
+    ws["A2"].alignment = align_left
+    ws.row_dimensions[2].height = 28
+
+    # Dòng 3: Phụ đề
+    ws.merge_cells("A3:F3")
+    ws["A3"] = f"{subtitle} • Xuất từ HUIT AI Assistant: {datetime.now().strftime('%d/%m/%Y %H:%M')}"
+    ws["A3"].font = sub_font
+    ws["A3"].alignment = align_left
+    ws.row_dimensions[3].height = 20
+
+    start_row = 5
+    last_row = start_row
+
+    if v_type == "excel_table" or ("headers" in data and "rows" in data):
+        headers = data.get("headers", [])
+        rows = data.get("rows", [])
+
+        # Ghi Header
+        ws.row_dimensions[start_row].height = 28
+        for col_idx, h_text in enumerate(headers, 1):
+            cell = ws.cell(row=start_row, column=col_idx, value=h_text)
+            cell.font = header_font
+            cell.fill = huit_blue_fill
+            cell.alignment = align_center
+            cell.border = grid_border
+
+        # Ghi các dòng dữ liệu
+        for row_idx, r_data in enumerate(rows, start=start_row + 1):
+            ws.row_dimensions[row_idx].height = 22
+            is_zebra = (row_idx % 2 == 0)
+            cur_fill = zebra_fill if is_zebra else white_fill
+
+            for col_idx, val in enumerate(r_data, 1):
+                cell = ws.cell(row=row_idx, column=col_idx, value=val)
+                cell.font = normal_font
+                cell.fill = cur_fill
+                cell.border = grid_border
+                
+                val_str = str(val).strip()
+                if col_idx == 1 or re.match(r"^\d+(\.\d+)?$", val_str) or val_str.isdigit():
+                    cell.alignment = align_center
+                    if col_idx >= 4 and any(c.isdigit() for c in val_str):
+                        cell.font = bold_cell_font
+                elif "đ" in val_str or "triệu" in val_str:
+                    cell.alignment = align_center
+                else:
+                    cell.alignment = align_left
+        last_row = start_row + len(rows)
+
+    elif v_type == "major_card":
+        ws.row_dimensions[start_row].height = 26
+        ws.merge_cells(f"A{start_row}:B{start_row}")
+        ws[f"A{start_row}"] = "THÔNG TIN CHI TIẾT NGÀNH ĐÀO TẠO"
+        ws[f"A{start_row}"].font = header_font
+        ws[f"A{start_row}"].fill = huit_blue_fill
+        ws[f"A{start_row}"].alignment = align_center
+
+        info_items = [
+            ("Mã ngành", data.get("major_code", "")),
+            ("Tên ngành đào tạo", data.get("major_name", "")),
+            ("Khoa chuyên môn", data.get("faculty", "")),
+            ("Thời gian đào tạo", data.get("duration", "")),
+            ("Định mức học phí", data.get("tuition", "")),
+            ("Tổ hợp môn xét tuyển", ", ".join(data.get("subject_combinations", []))),
+            ("Điểm chuẩn THPT 2026 (Chính thức)", data.get("cutoff_boxes", {}).get("2026", "")),
+            ("Điểm chuẩn Học bạ 2026", data.get("cutoff_boxes", {}).get("2026_hocba", "20.00 - 25.63")),
+            ("Điểm ĐGNL ĐHQG-HCM 2026", data.get("cutoff_boxes", {}).get("2026_dgnl", "600 - 825")),
+            ("Chính sách học bổng", data.get("scholarship_highlight", "")),
+            ("Cơ hội nghề nghiệp tiêu biểu", ", ".join(data.get("career_highlights", []))),
+        ]
+
+        cur_row = start_row + 1
+        for label, val in info_items:
+            ws.row_dimensions[cur_row].height = 24
+            c1 = ws.cell(row=cur_row, column=1, value=label)
+            c2 = ws.cell(row=cur_row, column=2, value=str(val))
+            c1.font = bold_cell_font
+            c1.fill = zebra_fill
+            c1.border = grid_border
+            c1.alignment = align_left
+            c2.font = normal_font
+            c2.border = grid_border
+            c2.alignment = align_left
+            cur_row += 1
+        last_row = cur_row - 1
+
+    # Ghi chú chân trang
+    note_row = last_row + 2
+    ws.merge_cells(f"A{note_row}:F{note_row}")
+    ws[f"A{note_row}"] = "📌 Dữ liệu chính thức được cung cấp bởi Hội đồng Tuyển sinh Trường Đại học Công Thương TP.HCM (HUIT). Thí sinh tra cứu kết quả tại: https://tuyensinh.huit.edu.vn"
+    ws[f"A{note_row}"].font = footer_font
+    ws[f"A{note_row}"].alignment = align_left
+
+    # Tự động căn chỉnh độ rộng các cột
+    for col in ws.columns:
+        max_len = 0
+        col_letter = get_column_letter(col[0].column)
+        for cell in col:
+            if cell.row < start_row or cell.row > last_row:
+                continue
+            if cell.value:
+                val_len = len(str(cell.value).split("\n")[0])
+                if val_len > max_len:
+                    max_len = val_len
+        ws.column_dimensions[col_letter].width = max(max_len + 4, 14)
+
+    buf = io.BytesIO()
+    wb.save(buf)
+    buf.seek(0)
+    return buf
+
+
