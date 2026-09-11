@@ -2088,6 +2088,73 @@
   let activeLightboxVisualId = null;
   let activeLightboxScale = 2;
 
+  async function downloadVisualAsPng(visualId, scale = 2) {
+    scale = scale || activeLightboxScale || 2;
+    const fallbackUrl = `/api/admission-visuals/${visualId}/render?format=png&scale=${scale}&download=true`;
+    try {
+      const res = await fetch(`/api/admission-visuals/${visualId}/render?scale=${scale}&format=svg`);
+      if (!res.ok) {
+        window.location.href = fallbackUrl;
+        return;
+      }
+      const svgText = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(svgText, 'image/svg+xml');
+      const svgEl = doc.querySelector('svg');
+      if (!svgEl) {
+        window.location.href = fallbackUrl;
+        return;
+      }
+
+      const svgW = parseFloat(svgEl.getAttribute('width')) || (760 * scale);
+      const svgH = parseFloat(svgEl.getAttribute('height')) || (480 * scale);
+
+      const blob = new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
+
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = svgW;
+          canvas.height = svgH;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(url);
+
+          canvas.toBlob((pngBlob) => {
+            if (!pngBlob) {
+              window.location.href = fallbackUrl;
+              return;
+            }
+            const a = document.createElement('a');
+            a.download = `${visualId}@${scale}x.png`;
+            a.href = URL.createObjectURL(pngBlob);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+          }, 'image/png', 0.95);
+        } catch (cErr) {
+          console.warn('Canvas rasterization error, using direct download:', cErr);
+          window.location.href = fallbackUrl;
+        }
+      };
+
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        window.location.href = fallbackUrl;
+      };
+
+      img.src = url;
+    } catch (e) {
+      console.warn('downloadVisualAsPng error, fallback to server:', e);
+      window.location.href = fallbackUrl;
+    }
+  }
+
   function createAdmissionVisualCard(visual) {
     const card = document.createElement('div');
     card.className = 'admission-visual-card';
@@ -2107,10 +2174,10 @@
             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
             Phóng to HD (2x)
           </button>
-          <a href="/api/admission-visuals/${visual.visual_id}/render?format=png&scale=2&download=true" class="visual-action-chip primary" title="Tải ảnh PNG về máy">
+          <button class="visual-action-chip primary" onclick="downloadVisualAsPng('${visual.visual_id}', 2)" title="Tải ảnh PNG sắc nét về máy" style="cursor:pointer; border:none;">
             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
             Tải ảnh PNG
-          </a>
+          </button>
         </div>
       </div>
       <div class="visual-card-preview" onclick="openVisualLightbox('${visual.visual_id}', 2)">
@@ -2134,8 +2201,14 @@
 
     titleEl.textContent = `Đồ họa tuyển sinh HUIT (${visualId})`;
     img.src = `/api/admission-visuals/${visualId}/render?scale=${scale}`;
-    if (dlPng) dlPng.href = `/api/admission-visuals/${visualId}/render?format=png&scale=2&download=true`;
-    if (dlSvg) dlSvg.href = `/api/admission-visuals/${visualId}/render?format=svg&scale=2&download=true`;
+    if (dlPng) {
+      dlPng.onclick = (e) => {
+        e.preventDefault();
+        downloadVisualAsPng(visualId, activeLightboxScale);
+      };
+      dlPng.href = `/api/admission-visuals/${visualId}/render?format=png&scale=${scale}&download=true`;
+    }
+    if (dlSvg) dlSvg.href = `/api/admission-visuals/${visualId}/render?format=svg&scale=${scale}&download=true`;
 
     updateLightboxZoomButtons(scale);
     modal.classList.add('active');
@@ -2145,8 +2218,16 @@
     if (!activeLightboxVisualId) return;
     activeLightboxScale = scale;
     const img = document.getElementById('lightbox-img');
+    const dlPng = document.getElementById('lightbox-download-png');
+    const dlSvg = document.getElementById('lightbox-download-svg');
     if (img) {
       img.src = `/api/admission-visuals/${activeLightboxVisualId}/render?scale=${scale}&t=${Date.now()}`;
+    }
+    if (dlPng) {
+      dlPng.href = `/api/admission-visuals/${activeLightboxVisualId}/render?format=png&scale=${scale}&download=true`;
+    }
+    if (dlSvg) {
+      dlSvg.href = `/api/admission-visuals/${activeLightboxVisualId}/render?format=svg&scale=${scale}&download=true`;
     }
     updateLightboxZoomButtons(scale);
   }

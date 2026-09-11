@@ -464,29 +464,272 @@ def _render_roadmap_svg(data: Dict[str, Any], scale: int = 1) -> str:
 # 3. FALLBACK RASTER UPSCALE (NẾU CẦN XUẤT RA DẠNG PNG)
 # ==============================================================================
 
-def render_png_visual_fallback(data: Dict[str, Any], scale: int = 2) -> bytes:
-    """
-    Tạo ảnh raster PNG độ phân giải cao bằng Pillow (PIL) thuần nếu client không thể render SVG.
-    Không dùng GPU, không sinh chữ ảo, tốc độ < 40ms.
-    """
-    from PIL import Image, ImageDraw
+def _clean_render_text(text: Any) -> str:
+    """Loại bỏ ký tự markdown (*, #) và chuẩn hóa chuỗi để vẽ lên ảnh."""
+    return re.sub(r"[\*\_#`]+", "", str(text or "")).strip()
 
-    scale = max(1, min(scale, 4))
-    width, height = 800 * scale, 500 * scale
-    img = Image.new("RGB", (width, height), color=(255, 255, 255))
+
+def _get_pil_font(size: int, bold: bool = False):
+    """Tìm font TrueType hỗ trợ đầy đủ tiếng Việt Unicode."""
+    from PIL import ImageFont
+    here = os.path.dirname(os.path.abspath(__file__))
+    candidates = []
+    if bold:
+        candidates.extend([
+            os.path.join(here, "fonts", "arialbd.ttf"),
+            os.path.join(here, "fonts", "arial.ttf"),
+            "C:/Windows/Fonts/arialbd.ttf",
+            "C:/Windows/Fonts/segoeuib.ttf",
+            "C:/Windows/Fonts/tahomabd.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+            "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+        ])
+    else:
+        candidates.extend([
+            os.path.join(here, "fonts", "arial.ttf"),
+            "C:/Windows/Fonts/arial.ttf",
+            "C:/Windows/Fonts/segoeui.ttf",
+            "C:/Windows/Fonts/tahoma.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+            "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+        ])
+    for p in candidates:
+        if os.path.exists(p):
+            try:
+                return ImageFont.truetype(p, int(size))
+            except Exception:
+                pass
+    return ImageFont.load_default()
+
+
+def _render_major_card_png(data: Dict[str, Any], scale: int = 2):
+    from PIL import Image, ImageDraw
+    bw, bh = 760, 480
+    w, h = bw * scale, bh * scale
+    img = Image.new("RGB", (w, h), (255, 255, 255))
     draw = ImageDraw.Draw(img)
 
-    # Header
-    header_h = 80 * scale
-    draw.rectangle([0, 0, width, header_h], fill=(0, 102, 196))
-    
-    title = data.get("title", "THÔNG TIN TUYỂN SINH HUIT")
-    draw.text((20 * scale, 24 * scale), title, fill=(255, 255, 255))
-    draw.text((20 * scale, 52 * scale), "Cổng thông tin tuyển sinh HUIT 2026", fill=(200, 230, 255))
+    # Khung viền ngoài
+    draw.rounded_rectangle([4*scale, 4*scale, w - 4*scale, h - 4*scale], radius=14*scale, fill=(255, 255, 255), outline=(204, 227, 253), width=2*scale)
 
-    # Khung nội dung
-    draw.rectangle([15 * scale, header_h + 15 * scale, width - 15 * scale, height - 15 * scale], outline=(200, 220, 240), width=2 * scale)
+    # Header thương hiệu HUIT
+    hh = 80 * scale
+    draw.rounded_rectangle([4*scale, 4*scale, w - 4*scale, hh], radius=14*scale, fill=(0, 102, 196))
+    draw.rectangle([4*scale, hh - 14*scale, w - 4*scale, hh], fill=(0, 102, 196))
+
+    # Logo HUIT Badge
+    lx, ly, lr = 44 * scale, 42 * scale, 22 * scale
+    draw.ellipse([lx - lr, ly - lr, lx + lr, ly + lr], fill=(255, 255, 255), outline=(224, 242, 254), width=2*scale)
+    draw.text((lx, ly), "HUIT", fill=(0, 102, 196), font=_get_pil_font(13*scale, True), anchor="mm")
+
+    # Header text
+    title = _clean_render_text(data.get("title", "NGÀNH ĐÀO TẠO ĐẠI HỌC CHÍNH QUY"))
+    faculty = _clean_render_text(data.get("faculty", "Khoa Đào tạo HUIT"))
+    major_code = _clean_render_text(data.get("major_code", "7XXXXXX"))
+    duration = _clean_render_text(data.get("duration", "3.5 - 4 năm (150 tín chỉ)"))
+    sub = f"Mã ngành: {major_code} · {faculty} · {duration}"
+    draw.text((76*scale, 24*scale), title, fill=(255, 255, 255), font=_get_pil_font(16*scale, True))
+    draw.text((76*scale, 50*scale), sub, fill=(224, 242, 254), font=_get_pil_font(11*scale, False))
+
+    # Cutoff boxes
+    boxes = data.get("cutoff_boxes", [
+        {"label": "Điểm sàn THPT 2026", "value": "16.00 điểm", "badge": "Chính thức"},
+        {"label": "Điểm sàn ĐGNL ĐHQG", "value": "600 điểm", "badge": "ĐGNL"},
+        {"label": "Điểm chuẩn THPT 2024", "value": "22.50 điểm", "badge": "Tham khảo"}
+    ])
+    bx_y = 96 * scale
+    bx_h = 92 * scale
+    total_bx_w = w - 40 * scale
+    bx_w = (total_bx_w - (len(boxes) - 1) * 12 * scale) / max(1, len(boxes))
+
+    for i, box in enumerate(boxes):
+        cur_x = 20 * scale + i * (bx_w + 12 * scale)
+        draw.rounded_rectangle([cur_x, bx_y, cur_x + bx_w, bx_y + bx_h], radius=10*scale, fill=(240, 247, 255), outline=(186, 230, 253), width=int(1.5*scale))
+        
+        badge = _clean_render_text(box.get("badge", ""))
+        if badge:
+            draw.rounded_rectangle([cur_x + bx_w - 74*scale, bx_y + 8*scale, cur_x + bx_w - 8*scale, bx_y + 24*scale], radius=4*scale, fill=(0, 102, 196))
+            draw.text((cur_x + bx_w - 41*scale, bx_y + 16*scale), badge, fill=(255, 255, 255), font=_get_pil_font(9*scale, True), anchor="mm")
+            
+        draw.text((cur_x + 12*scale, bx_y + 16*scale), _clean_render_text(box.get("label", "")), fill=(71, 85, 105), font=_get_pil_font(10*scale, False))
+        draw.text((cur_x + 12*scale, bx_y + 44*scale), _clean_render_text(box.get("value", "")), fill=(0, 102, 196), font=_get_pil_font(18*scale, True))
+        draw.text((cur_x + 12*scale, bx_y + 72*scale), "Theo công bố HUIT 2026", fill=(148, 163, 184), font=_get_pil_font(9*scale, False))
+
+    # Khung tổ hợp môn xét tuyển
+    comb_y = 204 * scale
+    comb_h = 88 * scale
+    draw.rounded_rectangle([20*scale, comb_y, w - 20*scale, comb_y + comb_h], radius=10*scale, fill=(248, 250, 252), outline=(226, 232, 240), width=scale)
+    draw.text((34*scale, comb_y + 12*scale), "TỔ HỢP MÔN XÉT TUYỂN 2026 (THPT & HỌC BẠ):", fill=(0, 76, 153), font=_get_pil_font(11*scale, True))
+
+    combs = data.get("subject_combinations", ["A00 (Toán, Lý, Hóa)", "D01 (Toán, Văn, Anh)"])
+    chip_x = 34 * scale
+    for c in combs:
+        c_str = _clean_render_text(c)
+        chip_w = (len(c_str) * 7.5 + 24) * scale
+        draw.rounded_rectangle([chip_x, comb_y + 40*scale, chip_x + chip_w, comb_y + 72*scale], radius=6*scale, fill=(255, 255, 255), outline=(0, 102, 196), width=scale)
+        draw.text((chip_x + chip_w / 2, comb_y + 56*scale), c_str, fill=(0, 102, 196), font=_get_pil_font(10*scale, True), anchor="mm")
+        chip_x += chip_w + 10 * scale
+
+    # Khung học phí & việc làm
+    extra_y = 308 * scale
+    extra_h = 126 * scale
+    draw.rounded_rectangle([20*scale, extra_y, w - 20*scale, extra_y + extra_h], radius=10*scale, fill=(255, 255, 255), outline=(226, 232, 240), width=scale)
+    draw.text((34*scale, extra_y + 12*scale), "THÔNG TIN HỌC PHÍ & NGHỀ NGHIỆP:", fill=(0, 76, 153), font=_get_pil_font(11*scale, True))
+
+    tui = f"• Học phí tham khảo: {_clean_render_text(data.get('tuition', '14 - 16 triệu đồng/học kỳ'))}"
+    draw.text((34*scale, extra_y + 36*scale), tui, fill=(51, 65, 85), font=_get_pil_font(10.5*scale, False))
+
+    careers = "  •  ".join(_clean_render_text(item) for item in data.get("career_highlights", [])[:3])
+    if careers:
+        draw.text((34*scale, extra_y + 58*scale), f"• Vị trí việc làm: {careers}", fill=(51, 65, 85), font=_get_pil_font(10.5*scale, False))
+
+    # Thanh học bổng nổi bật
+    sch_y = extra_y + 84 * scale
+    sch_text = _clean_render_text(data.get("scholarship_highlight", "Học bổng khuyến khích học tập & Hỗ trợ sinh viên HUIT"))
+    draw.rounded_rectangle([32*scale, sch_y, w - 32*scale, sch_y + 28*scale], radius=6*scale, fill=(236, 253, 245), outline=(167, 243, 208), width=scale)
+    draw.text((44*scale, sch_y + 14*scale), f"HỌC BỔNG HUIT: {sch_text}", fill=(4, 120, 87), font=_get_pil_font(10*scale, True), anchor="lm")
+
+    # Watermark
+    draw.text((w - 24*scale, h - 16*scale), "CỔNG THÔNG TIN TUYỂN SINH HUIT - TS.HUIT.EDU.VN", fill=(148, 163, 184), font=_get_pil_font(9*scale, True), anchor="rm")
+    return img
+
+
+def _render_excel_table_png(data: Dict[str, Any], scale: int = 2):
+    from PIL import Image, ImageDraw
+    rows = data.get("rows", [])
+    row_h = int(32 * scale)
+    header_h = int(42 * scale)
+    table_top = int(100 * scale)
+    base_h = table_top + header_h + (len(rows) * row_h) + int(50 * scale)
+    base_w = 820
+    w = int(base_w * scale)
+    h = base_h
+
+    img = Image.new("RGB", (w, h), (255, 255, 255))
+    draw = ImageDraw.Draw(img)
+
+    # Khung ngoài
+    draw.rounded_rectangle([4*scale, 4*scale, w - 4*scale, h - 4*scale], radius=14*scale, fill=(255, 255, 255), outline=(203, 213, 225), width=int(1.5*scale))
+
+    # Header xanh
+    draw.rounded_rectangle([4*scale, 4*scale, w - 4*scale, int(80*scale)], radius=14*scale, fill=(0, 102, 196))
+    draw.rectangle([4*scale, int(66*scale), w - 4*scale, int(80*scale)], fill=(0, 102, 196))
+
+    title = _clean_render_text(data.get("title", "BẢNG TRA CỨU TUYỂN SINH HUIT"))
+    subtitle = _clean_render_text(data.get("subtitle", "Trường Đại học Công Thương TP.HCM"))
+    draw.text((24*scale, 22*scale), title, fill=(255, 255, 255), font=_get_pil_font(17*scale, True))
+    draw.text((24*scale, 48*scale), f"{subtitle} | Dữ liệu chính thức chuẩn hóa", fill=(224, 242, 254), font=_get_pil_font(11*scale, False))
+
+    headers = data.get("headers", ["Mã ngành", "Tên ngành", "Tổ hợp xét", "Điểm sàn 2026", "Điểm chuẩn 2024"])
+    col_widths = [int(cw * scale) for cw in [90, 260, 190, 120, 120]]
+
+    # Header bảng
+    tbl_x = int(18 * scale)
+    tbl_w = w - 2 * tbl_x
+    draw.rounded_rectangle([tbl_x, table_top, tbl_x + tbl_w, table_top + header_h], radius=6*scale, fill=(30, 41, 59))
+    
+    cur_x = tbl_x
+    for idx, head in enumerate(headers):
+        cw = col_widths[idx] if idx < len(col_widths) else int(100 * scale)
+        align_center = idx in [0, 3, 4]
+        tx = cur_x + cw // 2 if align_center else cur_x + int(12 * scale)
+        anchor = "mm" if align_center else "lm"
+        draw.text((tx, table_top + header_h // 2), _clean_render_text(head), fill=(255, 255, 255), font=_get_pil_font(11*scale, True), anchor=anchor)
+        cur_x += cw
+
+    # Các dòng dữ liệu
+    for r_idx, r in enumerate(rows):
+        ry = table_top + header_h + (r_idx * row_h)
+        bg = (248, 250, 252) if r_idx % 2 == 1 else (255, 255, 255)
+        draw.rectangle([tbl_x, ry, tbl_x + tbl_w, ry + row_h], fill=bg, outline=(226, 232, 240), width=1)
+
+        cur_x = tbl_x
+        for c_idx, cell in enumerate(r):
+            cw = col_widths[c_idx] if c_idx < len(col_widths) else int(100 * scale)
+            align_center = c_idx in [0, 3, 4]
+            tx = cur_x + cw // 2 if align_center else cur_x + int(12 * scale)
+            anchor = "mm" if align_center else "lm"
+            cell_str = _clean_render_text(str(cell))
+            is_bold = c_idx in [0, 3]
+            color = (0, 102, 196) if c_idx == 0 else ((220, 38, 38) if c_idx == 3 else (30, 41, 59))
+            draw.text((tx, ry + row_h // 2), cell_str, fill=color, font=_get_pil_font(11*scale, is_bold), anchor=anchor)
+            cur_x += cw
+
+    # Ghi chú footer
+    draw.text((24*scale, h - int(20*scale)), "Lưu ý: Bảng biểu tổng hợp từ Đề án Tuyển sinh HUIT 2026. Truy cập ts.huit.edu.vn để tra cứu chi tiết.", fill=(100, 116, 139), font=_get_pil_font(9.5*scale, False))
+    return img
+
+
+def _render_roadmap_png(data: Dict[str, Any], scale: int = 2):
+    from PIL import Image, ImageDraw
+    steps = data.get("steps", [])
+    step_h = int(80 * scale)
+    base_h = int(100 * scale) + (len(steps) * step_h) + int(40 * scale)
+    base_w = 780
+    w = int(base_w * scale)
+    h = base_h
+
+    img = Image.new("RGB", (w, h), (255, 255, 255))
+    draw = ImageDraw.Draw(img)
+
+    # Khung ngoài
+    draw.rounded_rectangle([4*scale, 4*scale, w - 4*scale, h - 4*scale], radius=14*scale, fill=(255, 255, 255), outline=(204, 227, 253), width=2*scale)
+
+    # Header
+    draw.rounded_rectangle([4*scale, 4*scale, w - 4*scale, int(76*scale)], radius=14*scale, fill=(0, 102, 196))
+    draw.rectangle([4*scale, int(62*scale), w - 4*scale, int(76*scale)], fill=(0, 102, 196))
+
+    title = _clean_render_text(data.get("title", "5 PHƯƠNG THỨC XÉT TUYỂN HUIT 2026"))
+    draw.text((24*scale, 20*scale), title, fill=(255, 255, 255), font=_get_pil_font(17*scale, True))
+    draw.text((24*scale, 46*scale), "Trường Đại học Công Thương TP.HCM (HUIT) - Cổng Tuyển Sinh Chính Thức", fill=(224, 242, 254), font=_get_pil_font(11*scale, False))
+
+    # Đường nối dọc
+    line_x = int(56 * scale)
+    draw.line([line_x, int(110*scale), line_x, h - int(60*scale)], fill=(147, 197, 253), width=int(3*scale))
+
+    start_y = int(96 * scale)
+    for idx, s in enumerate(steps):
+        sy = start_y + idx * step_h
+        s_num = idx + 1
+        s_title = _clean_render_text(s.get("title", f"Phương thức {s_num}"))
+        s_name = _clean_render_text(s.get("name", ""))
+        s_desc = _clean_render_text(s.get("desc", ""))
+
+        # Vòng tròn số
+        cx, cy, cr = line_x, sy + int(28 * scale), int(18 * scale)
+        draw.ellipse([cx - cr, cy - cr, cx + cr, cy + cr], fill=(0, 102, 196), outline=(255, 255, 255), width=int(2.5*scale))
+        draw.text((cx, cy), str(s_num), fill=(255, 255, 255), font=_get_pil_font(12*scale, True), anchor="mm")
+
+        # Card nội dung
+        bx = int(94 * scale)
+        bw = w - bx - int(24 * scale)
+        bh = int(60 * scale)
+        draw.rounded_rectangle([bx, sy + int(2*scale), bx + bw, sy + int(2*scale) + bh], radius=8*scale, fill=(248, 250, 252), outline=(226, 232, 240), width=scale)
+        draw.text((bx + int(14*scale), sy + int(18*scale)), f"{s_title} ({s_name})", fill=(0, 76, 153), font=_get_pil_font(11.5*scale, True))
+        draw.text((bx + int(14*scale), sy + int(38*scale)), s_desc, fill=(71, 85, 105), font=_get_pil_font(10*scale, False))
+
+    # Watermark
+    draw.text((w - int(24*scale), h - int(16*scale)), "CẬP NHẬT THEO QUY CHẾ TUYỂN SINH MỚI NHẤT 2026", fill=(148, 163, 184), font=_get_pil_font(9*scale, True), anchor="rm")
+    return img
+
+
+def render_png_visual_fallback(data: Dict[str, Any], scale: int = 2) -> bytes:
+    """
+    Tạo ảnh raster PNG độ nét cao (HD 2x / 4K) bằng Pillow (PIL) chuẩn hóa.
+    Vẽ đầy đủ thông tin: mã ngành, điểm sàn 3 năm, tổ hợp môn, học phí, học bổng hoặc bảng tra cứu / lộ trình.
+    Không dùng GPU, không sinh chữ ảo, tốc độ < 40ms.
+    """
+    scale = max(1, min(int(scale), 4))
+    v_type = data.get("type", "major_card")
+
+    if v_type == "excel_table":
+        img = _render_excel_table_png(data, scale=scale)
+    elif v_type == "roadmap":
+        img = _render_roadmap_png(data, scale=scale)
+    else:
+        img = _render_major_card_png(data, scale=scale)
 
     buf = io.BytesIO()
-    img.save(buf, format="PNG")
+    img.save(buf, format="PNG", optimize=True)
     return buf.getvalue()
+

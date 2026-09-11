@@ -73,12 +73,26 @@ class AdmissionVisualsTests(unittest.TestCase):
         self.assertIn("height=\"1920\"", svg_4x)
 
     def test_png_fallback_rendering(self):
-        v = avs.get_visual_by_id("table_cutoff_2026")
-        self.assertIsNotNone(v)
-        png_bytes = avs.render_png_visual_fallback(v, scale=2)
-        self.assertIsInstance(png_bytes, bytes)
-        self.assertTrue(len(png_bytes) > 500)
-        self.assertEqual(png_bytes[:8], b"\x89PNG\r\n\x1a\n")
+        # 1. Major card
+        v_card = avs.get_visual_by_id("major_7480201")
+        self.assertIsNotNone(v_card)
+        png_card = avs.render_png_visual_fallback(v_card, scale=2)
+        self.assertEqual(png_card[:8], b"\x89PNG\r\n\x1a\n")
+        self.assertGreater(len(png_card), 20000, "Major card PNG must have full content (>20KB)")
+
+        # 2. Table
+        v_table = avs.get_visual_by_id("table_cutoff_2026")
+        self.assertIsNotNone(v_table)
+        png_table = avs.render_png_visual_fallback(v_table, scale=2)
+        self.assertEqual(png_table[:8], b"\x89PNG\r\n\x1a\n")
+        self.assertGreater(len(png_table), 20000, "Table PNG must have full content (>20KB)")
+
+        # 3. Roadmap
+        v_road = avs.get_visual_by_id("roadmap_admissions_2026")
+        self.assertIsNotNone(v_road)
+        png_road = avs.render_png_visual_fallback(v_road, scale=2)
+        self.assertEqual(png_road[:8], b"\x89PNG\r\n\x1a\n")
+        self.assertGreater(len(png_road), 20000, "Roadmap PNG must have full content (>20KB)")
 
     def test_api_endpoints(self):
         # 1. JSON endpoint
