@@ -968,13 +968,18 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(8px);
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(10px);
     z-index: 99999;
     display: none;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    animation: modalFadeIn 0.2s ease-out;
+  }
+  @keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   .visual-modal-overlay.active {
     display: flex;
@@ -982,22 +987,24 @@
   .visual-modal-box {
     background: var(--card-bg);
     border-radius: var(--radius-xl);
-    max-width: 1100px;
+    max-width: 1180px;
     width: 95vw;
+    height: 90vh;
     max-height: 92vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
     border: 1.5px solid var(--border-color);
   }
   .visual-modal-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 20px;
+    padding: 12px 20px;
     background: var(--sidebar-bg);
     border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
   }
   .visual-modal-title {
     font-size: 15px;
@@ -1006,42 +1013,132 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
+  }
+  .upscale-dim-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #0284c7;
+    background: rgba(2, 132, 199, 0.12);
+    border: 1px solid rgba(2, 132, 199, 0.25);
+    padding: 2px 8px;
+    border-radius: 12px;
   }
   .visual-modal-controls {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
+  }
+  .scale-btn-group {
+    display: inline-flex;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2px;
   }
   .upscale-zoom-btn {
-    padding: 5px 12px;
+    padding: 4px 10px;
     border-radius: 6px;
-    border: 1px solid var(--border-color);
-    background: var(--card-bg);
-    color: var(--text-main);
-    font-size: 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-subtle);
+    font-size: 11.5px;
     font-weight: 700;
     cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .upscale-zoom-btn:hover {
+    color: var(--text-main);
   }
   .upscale-zoom-btn.active {
     background: var(--brand-primary);
     color: #ffffff;
-    border-color: var(--brand-primary);
+    box-shadow: 0 2px 6px rgba(0, 102, 196, 0.35);
+  }
+  .zoom-stepper-group {
+    display: inline-flex;
+    align-items: center;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2px 4px;
+    gap: 2px;
+  }
+  .zoom-step-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 13px;
+    font-weight: 700;
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .zoom-step-btn:hover {
+    background: var(--brand-light);
+    color: var(--brand-primary);
+  }
+  .zoom-step-btn.reset-btn {
+    width: auto;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+  .zoom-val-indicator {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-subtle);
+    min-width: 42px;
+    text-align: center;
   }
   .visual-modal-body {
     flex: 1;
-    overflow: auto;
-    padding: 20px;
+    overflow: hidden;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #0b1e38;
+    background: #081528;
+    user-select: none;
+  }
+  .modal-pan-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center center;
+    transition: transform 0.05s linear;
+    cursor: grab;
+  }
+  .modal-pan-container.grabbing {
+    cursor: grabbing;
   }
   .modal-rendered-img {
-    max-width: 100%;
-    height: auto;
+    max-width: 92%;
+    max-height: 72vh;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: width 0.2s ease;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+    pointer-events: none;
+  }
+  .pan-hint-tooltip {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.85);
+    color: #cbd5e1;
+    font-size: 11px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    pointer-events: none;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: opacity 0.4s ease;
   }
   .visual-modal-footer {
     display: flex;
@@ -1050,6 +1147,59 @@
     padding: 12px 20px;
     background: var(--sidebar-bg);
     border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+  .visual-action-chip.copy-chip {
+    background: #4f46e5;
+    color: #ffffff;
+    border-color: #4f46e5;
+  }
+  .visual-action-chip.copy-chip:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+  }
+  .visual-action-chip.webp-chip {
+    background: #0284c7;
+    color: #ffffff;
+    border-color: #0284c7;
+  }
+  .visual-action-chip.webp-chip:hover {
+    background: #0369a1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+  }
+  /* TOAST NOTIFICATION */
+  .toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .huit-toast {
+    pointer-events: auto;
+    background: #0f172a;
+    color: #ffffff;
+    border: 1px solid #334155;
+    border-left: 4px solid #10b981;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: toastSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s ease;
+  }
+  @keyframes toastSlideIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   /* CHAT FOOTER & INPUT BAR */
@@ -2265,9 +2415,13 @@
           </div>
         </div>
         <div class="visual-top-actions">
+          <button class="visual-action-chip copy-chip" onclick="copyVisualFromCard('${visualId}', 2)" title="Sao chép ảnh HD vào clipboard">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Copy
+          </button>
           <a href="${excelExportUrl}" class="visual-action-chip excel-chip" title="Tải bảng số liệu Microsoft Excel (.xlsx) chuẩn nhận diện HUIT" download>
             <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6zm4.5-5.5l1.8 3h1.8l-2.7-4.2 2.6-3.8h-1.8l-1.7 2.8-1.7-2.8H8.5l2.6 3.8-2.7 4.2h1.8l1.8-3z"/></svg>
-            Tải Excel (.xlsx)
+            Tải Excel
           </a>
           <button class="visual-action-chip" onclick="openVisualLightbox('${visualId}', 2)" title="Phóng to HD xem rõ số liệu">
             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
@@ -2355,22 +2509,63 @@
     }
   }
 
+  // BIẾN QUẢN LÝ PAN & ZOOM CHO LIGHTBOX
+  let lbZoom = 1.0;
+  let lbPanX = 0, lbPanY = 0;
+  let lbIsDragging = false, lbStartX = 0, lbStartY = 0;
+
+  function applyLightboxTransform() {
+    const panBox = document.getElementById('lightbox-pan-container');
+    const zoomVal = document.getElementById('lightbox-zoom-val');
+    if (panBox) {
+      panBox.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbZoom})`;
+    }
+    if (zoomVal) {
+      zoomVal.textContent = `${Math.round(lbZoom * 100)}%`;
+    }
+  }
+
+  function zoomLightboxStep(delta) {
+    lbZoom = Math.max(0.5, Math.min(5.0, lbZoom + delta));
+    applyLightboxTransform();
+  }
+
+  function resetLightboxZoom() {
+    lbZoom = 1.0;
+    lbPanX = 0;
+    lbPanY = 0;
+    applyLightboxTransform();
+  }
+
   function openVisualLightbox(visualId, scale = 2) {
     activeLightboxVisualId = visualId;
     activeLightboxScale = scale;
+    resetLightboxZoom();
+
     const modal = document.getElementById('visual-lightbox-modal');
     const img = document.getElementById('lightbox-img');
     const dlPng = document.getElementById('lightbox-download-png');
+    const dlWebp = document.getElementById('lightbox-download-webp');
     const dlSvg = document.getElementById('lightbox-download-svg');
     const dlExcel = document.getElementById('lightbox-download-excel');
     const titleEl = document.getElementById('lightbox-title');
+    const dimTag = document.getElementById('lightbox-dim-tag');
 
     if (!modal || !img) return;
 
     titleEl.textContent = `Đồ họa tuyển sinh HUIT (${visualId})`;
     img.src = `/api/admission-visuals/${visualId}/render?scale=${scale}`;
+
+    if (dimTag) {
+      const tagText = scale === 1 ? 'Chuẩn 1x (760x480)' : (scale === 2 ? 'HD 2x (1520x960)' : '4K Siêu Nét (3040x1920)');
+      dimTag.textContent = `${tagText} · Vector Lossless`;
+    }
+
     if (dlExcel) {
       dlExcel.href = `/api/admission-visuals/${visualId}/export-excel`;
+    }
+    if (dlWebp) {
+      dlWebp.href = `/api/admission-visuals/${visualId}/render?format=webp&scale=${scale}&download=true`;
     }
     if (dlPng) {
       dlPng.onclick = (e) => {
@@ -2379,10 +2574,14 @@
       };
       dlPng.href = `/api/admission-visuals/${visualId}/render?format=png&scale=${scale}&download=true`;
     }
-    if (dlSvg) dlSvg.href = `/api/admission-visuals/${visualId}/render?format=svg&scale=${scale}&download=true`;
+    if (dlSvg) {
+      dlSvg.href = `/api/admission-visuals/${visualId}/render?format=svg&scale=${scale}&download=true`;
+    }
 
     updateLightboxZoomButtons(scale);
     modal.classList.add('active');
+
+    setupLightboxPanAndZoom();
   }
 
   function setLightboxScale(scale) {
@@ -2390,9 +2589,20 @@
     activeLightboxScale = scale;
     const img = document.getElementById('lightbox-img');
     const dlPng = document.getElementById('lightbox-download-png');
+    const dlWebp = document.getElementById('lightbox-download-webp');
     const dlSvg = document.getElementById('lightbox-download-svg');
+    const dimTag = document.getElementById('lightbox-dim-tag');
+
+    if (dimTag) {
+      const tagText = scale === 1 ? 'Chuẩn 1x (760x480)' : (scale === 2 ? 'HD 2x (1520x960)' : '4K Siêu Nét (3040x1920)');
+      dimTag.textContent = `${tagText} · Vector Lossless`;
+    }
+
     if (img) {
       img.src = `/api/admission-visuals/${activeLightboxVisualId}/render?scale=${scale}&t=${Date.now()}`;
+    }
+    if (dlWebp) {
+      dlWebp.href = `/api/admission-visuals/${activeLightboxVisualId}/render?format=webp&scale=${scale}&download=true`;
     }
     if (dlPng) {
       dlPng.href = `/api/admission-visuals/${activeLightboxVisualId}/render?format=png&scale=${scale}&download=true`;
@@ -2409,6 +2619,100 @@
       const isMatch = b.textContent.includes(`${scale}x`) || (scale === 4 && b.textContent.includes('4K'));
       b.classList.toggle('active', isMatch);
     });
+  }
+
+  let panZoomListenersAttached = false;
+  function setupLightboxPanAndZoom() {
+    const viewport = document.getElementById('lightbox-viewport');
+    const panBox = document.getElementById('lightbox-pan-container');
+    if (!viewport || !panBox || panZoomListenersAttached) return;
+    panZoomListenersAttached = true;
+
+    // Cuộn chuột để zoom in/out
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? 0.15 : -0.15;
+      zoomLightboxStep(delta);
+    }, { passive: false });
+
+    // Kéo rê (pan)
+    viewport.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      lbIsDragging = true;
+      lbStartX = e.clientX - lbPanX;
+      lbStartY = e.clientY - lbPanY;
+      panBox.classList.add('grabbing');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!lbIsDragging) return;
+      lbPanX = e.clientX - lbStartX;
+      lbPanY = e.clientY - lbStartY;
+      applyLightboxTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (lbIsDragging) {
+        lbIsDragging = false;
+        panBox.classList.remove('grabbing');
+      }
+    });
+  }
+
+  async function copyLightboxImageToClipboard() {
+    if (!activeLightboxVisualId) return;
+    showToast('⏳ Đang tạo bản sao chép ảnh siêu nét...');
+    try {
+      const scale = Math.max(2, activeLightboxScale);
+      const url = `/api/admission-visuals/${activeLightboxVisualId}/render?format=png&scale=${scale}`;
+      const res = await fetch(url);
+      const blob = await res.blob();
+
+      if (navigator.clipboard && window.ClipboardItem) {
+        await navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]);
+        showToast('✅ Đã sao chép ảnh vào bộ nhớ tạm! Dán (Ctrl+V) ngay vào Zalo, Word, Chat...');
+      } else {
+        showToast('ℹ️ Trình duyệt chưa cấp quyền sao chép tự động. Hãy chuột phải vào ảnh chọn "Sao chép hình ảnh".');
+      }
+    } catch (err) {
+      console.warn('Clipboard copy error:', err);
+      showToast('⚠️ Không thể tự động sao chép. Vui lòng chuột phải vào ảnh chọn "Sao chép hình ảnh".');
+    }
+  }
+
+  async function copyVisualFromCard(visualId, scale = 2) {
+    showToast('⏳ Đang sao chép ảnh HD...');
+    try {
+      const url = `/api/admission-visuals/${visualId}/render?format=png&scale=${scale}`;
+      const res = await fetch(url);
+      const blob = await res.blob();
+      if (navigator.clipboard && window.ClipboardItem) {
+        await navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]);
+        showToast('✅ Đã sao chép ảnh vào bộ nhớ tạm! Dán (Ctrl+V) ngay.');
+      } else {
+        showToast('ℹ️ Hãy mở ảnh phóng to hoặc nhấp chuột phải chọn "Sao chép hình ảnh".');
+      }
+    } catch (e) {
+      showToast('⚠️ Sao chép không thành công.');
+    }
+  }
+
+  function showToast(msg, duration = 3500) {
+    const container = document.getElementById('huit-toast-container');
+    if (!container) return;
+    const toast = document.createElement('div');
+    toast.className = 'huit-toast';
+    toast.innerHTML = `<span>${msg}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(15px)';
+      setTimeout(() => toast.remove(), 280);
+    }, duration);
   }
 
   function closeVisualLightbox(e) {
@@ -3020,27 +3324,49 @@
       <div class="visual-modal-title">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         <span id="lightbox-title">Đồ họa tuyển sinh HUIT</span>
+        <span id="lightbox-dim-tag" class="upscale-dim-tag">HD 2x (1520x960) · Vector Lossless</span>
       </div>
       <div class="visual-modal-controls">
-        <span style="font-size:12px; font-weight:600; color:var(--text-subtle);">Độ phân giải:</span>
-        <button class="upscale-zoom-btn" onclick="setLightboxScale(1)">Chuẩn 1x</button>
-        <button class="upscale-zoom-btn active" onclick="setLightboxScale(2)">Upscale HD 2x</button>
-        <button class="upscale-zoom-btn" onclick="setLightboxScale(4)">Siêu nét 4K</button>
-        <button class="tool-btn" style="font-size:18px; padding:2px 8px;" onclick="closeVisualLightbox()">✕</button>
+        <!-- Scale Selector -->
+        <div class="scale-btn-group">
+          <button class="upscale-zoom-btn" onclick="setLightboxScale(1)">1x</button>
+          <button class="upscale-zoom-btn active" onclick="setLightboxScale(2)">2x HD</button>
+          <button class="upscale-zoom-btn" onclick="setLightboxScale(4)">4K</button>
+        </div>
+
+        <!-- Zoom Stepper Controls -->
+        <div class="zoom-stepper-group">
+          <button class="zoom-step-btn" onclick="zoomLightboxStep(-0.25)" title="Thu nhỏ (Cuộn chuột xuống)">−</button>
+          <span id="lightbox-zoom-val" class="zoom-val-indicator">100%</span>
+          <button class="zoom-step-btn" onclick="zoomLightboxStep(0.25)" title="Phóng to (Cuộn chuột lên)">+</button>
+          <button class="zoom-step-btn reset-btn" onclick="resetLightboxZoom()" title="Đặt lại kích thước ban đầu">⟲ Fit</button>
+        </div>
+
+        <button class="tool-btn" style="font-size:18px; padding:2px 8px;" onclick="closeVisualLightbox()" title="Đóng (ESC)">✕</button>
       </div>
     </div>
-    <div class="visual-modal-body">
-      <img id="lightbox-img" class="modal-rendered-img" src="" alt="Admission Graphic" />
+    <div class="visual-modal-body" id="lightbox-viewport">
+      <div class="modal-pan-container" id="lightbox-pan-container">
+        <img id="lightbox-img" class="modal-rendered-img" src="" alt="Admission Graphic" draggable="false" />
+      </div>
+      <div class="pan-hint-tooltip" id="pan-hint">💡 Kéo chuột để di chuyển góc nhìn · Lăn chuột để zoom</div>
     </div>
     <div class="visual-modal-footer">
-      <span style="font-size:12px; color:var(--text-subtle);">✓ Dữ liệu chính thức từ Cổng tuyển sinh HUIT ts.huit.edu.vn</span>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <span style="font-size:12px; color:var(--text-subtle);">✓ Dữ liệu chính thức chuẩn hóa từ Cổng tuyển sinh HUIT ts.huit.edu.vn</span>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+        <button id="lightbox-copy-btn" class="visual-action-chip copy-chip" onclick="copyLightboxImageToClipboard()" title="Sao chép ảnh vào clipboard để dán (Ctrl+V) vào Zalo, Word...">
+          📋 Sao chép ảnh
+        </button>
         <a id="lightbox-download-excel" href="#" download class="visual-action-chip excel-chip" style="display:inline-flex;">📊 Tải Excel (.xlsx)</a>
+        <a id="lightbox-download-webp" href="#" download class="visual-action-chip webp-chip" style="display:inline-flex;">⚡ Tải WebP (Siêu nhẹ)</a>
         <a id="lightbox-download-png" href="#" download class="visual-action-chip primary">📥 Tải PNG sắc nét</a>
         <a id="lightbox-download-svg" href="#" download class="visual-action-chip">📄 Tải SVG Vector</a>
       </div>
     </div>
   </div>
 </div>
+
+<!-- TOAST NOTIFICATION CONTAINER -->
+<div id="huit-toast-container" class="toast-container"></div>
 </body>
 </html>

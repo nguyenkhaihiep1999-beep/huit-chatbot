@@ -334,8 +334,21 @@ def render_admission_visual(visual_id: str, scale: int = 1, format: str = "svg",
         raise HTTPException(status_code=404, detail="Không tìm thấy visual JSON.")
 
     scale = max(1, min(int(scale), 4))
-    if str(format).lower() == "png":
-        png_bytes = avs.render_png_visual_fallback(data, scale=scale)
+    fmt = str(format or "svg").lower().strip()
+
+    if fmt == "webp":
+        webp_bytes = avs.render_raster_visual(data, scale=scale, format="webp")
+        return Response(
+            webp_bytes,
+            media_type="image/webp",
+            headers={
+                "Content-Disposition": f"{'attachment' if download else 'inline'}; filename={visual_id}@{scale}x.webp",
+                "Cache-Control": "public, max-age=86400",
+            }
+        )
+
+    if fmt == "png":
+        png_bytes = avs.render_raster_visual(data, scale=scale, format="png")
         return Response(
             png_bytes,
             media_type="image/png",

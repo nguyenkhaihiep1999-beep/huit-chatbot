@@ -757,11 +757,10 @@ def _render_roadmap_png(data: Dict[str, Any], scale: int = 2):
     return img
 
 
-def render_png_visual_fallback(data: Dict[str, Any], scale: int = 2) -> bytes:
+def render_raster_visual(data: Dict[str, Any], scale: int = 2, format: str = "webp") -> bytes:
     """
-    Tạo ảnh raster PNG độ nét cao (HD 2x / 4K) bằng Pillow (PIL) chuẩn hóa.
-    Vẽ đầy đủ thông tin: mã ngành, điểm sàn 3 năm, tổ hợp môn, học phí, học bổng hoặc bảng tra cứu / lộ trình.
-    Không dùng GPU, không sinh chữ ảo, tốc độ < 40ms.
+    Tạo ảnh raster (WebP siêu nhẹ hoặc PNG chất lượng cao) với độ nét cao (HD 2x / 4K).
+    Dùng Pillow (PIL) chuẩn hóa, font chữ sắc nét, độ tương phản cao.
     """
     scale = max(1, min(int(scale), 4))
     v_type = data.get("type", "major_card")
@@ -773,9 +772,18 @@ def render_png_visual_fallback(data: Dict[str, Any], scale: int = 2) -> bytes:
     else:
         img = _render_major_card_png(data, scale=scale)
 
+    fmt = str(format or "webp").lower().strip()
     buf = io.BytesIO()
-    img.save(buf, format="PNG", optimize=True)
+    if fmt == "webp":
+        img.save(buf, format="WEBP", quality=95, method=6)
+    else:
+        img.save(buf, format="PNG", optimize=True)
     return buf.getvalue()
+
+
+def render_png_visual_fallback(data: Dict[str, Any], scale: int = 2) -> bytes:
+    """Wrapper tương thích ngược xuất PNG chất lượng cao."""
+    return render_raster_visual(data, scale=scale, format="png")
 
 
 def export_visual_to_excel(data: Dict[str, Any]) -> io.BytesIO:
@@ -884,16 +892,29 @@ def export_visual_to_excel(data: Dict[str, Any]) -> io.BytesIO:
         ws[f"A{start_row}"].fill = huit_blue_fill
         ws[f"A{start_row}"].alignment = align_center
 
+        # Trích xuất điểm từ cutoff_boxes (hỗ trợ cả list và dict)
+        cutoff_2026 = ""
+        cutoff_boxes_raw = data.get("cutoff_boxes", [])
+        if isinstance(cutoff_boxes_raw, list):
+            for b in cutoff_boxes_raw:
+                lbl = str(b.get("label", ""))
+                val = str(b.get("value", ""))
+                if "2026" in lbl or "Chính thức" in str(b.get("badge", "")):
+                    cutoff_2026 = val
+                    break
+            if not cutoff_2026 and cutoff_boxes_raw:
+                cutoff_2026 = str(cutoff_boxes_raw[0].get("value", ""))
+        elif isinstance(cutoff_boxes_raw, dict):
+            cutoff_2026 = str(cutoff_boxes_raw.get("2026", ""))
+
         info_items = [
             ("Mã ngành", data.get("major_code", "")),
-            ("Tên ngành đào tạo", data.get("major_name", "")),
+            ("Tên ngành đào tạo", data.get("major_name", data.get("title", ""))),
             ("Khoa chuyên môn", data.get("faculty", "")),
             ("Thời gian đào tạo", data.get("duration", "")),
             ("Định mức học phí", data.get("tuition", "")),
             ("Tổ hợp môn xét tuyển", ", ".join(data.get("subject_combinations", []))),
-            ("Điểm chuẩn THPT 2026 (Chính thức)", data.get("cutoff_boxes", {}).get("2026", "")),
-            ("Điểm chuẩn Học bạ 2026", data.get("cutoff_boxes", {}).get("2026_hocba", "20.00 - 25.63")),
-            ("Điểm ĐGNL ĐHQG-HCM 2026", data.get("cutoff_boxes", {}).get("2026_dgnl", "600 - 825")),
+            ("Điểm chuẩn THPT 2026 (Chính thức)", cutoff_2026 or "Đang cập nhật"),
             ("Chính sách học bổng", data.get("scholarship_highlight", "")),
             ("Cơ hội nghề nghiệp tiêu biểu", ", ".join(data.get("career_highlights", []))),
         ]
