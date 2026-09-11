@@ -98,6 +98,7 @@ def get_visual_by_id(visual_id: str) -> Optional[Dict[str, Any]]:
                 doc.pop("_id", None)
                 doc["visual_id"] = visual_id
                 _in_memory_visual_cache[visual_id] = doc
+                return doc
         except Exception as e:
             pass
     return None
@@ -208,7 +209,12 @@ def find_visual_by_context(intent: str, query_text: str = "", major_code: Option
                 return v
 
     # 4. Tìm theo Intent hoặc chủ đề chung
-    if intent == "cutoff" or any(k in q_norm for k in ["diem san", "diem chuan", "diem trung tuyen"]):
+    if intent == "admission_procedure" or any(k in q_norm for k in ["nhap hoc", "thu tuc nhap hoc", "ho so nhap hoc", "xac nhan nhap hoc", "lich nhap hoc"]):
+        v = get_visual_by_id("roadmap_nhaphoc_2026")
+        if v:
+            return v
+
+    if intent in ("cutoff", "floor_score") or any(k in q_norm for k in ["diem san", "diem chuan", "diem trung tuyen"]):
         return get_visual_by_id("table_cutoff_2026")
     
     if intent == "tuition" or any(k in q_norm for k in ["hoc phi", "tin chi", "tien hoc", "chi phi"]):

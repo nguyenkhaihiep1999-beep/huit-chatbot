@@ -30,6 +30,48 @@ if HERE not in sys.path:
 
 import admission_visuals_service as avs
 
+OFFICIAL_CUTOFFS_2026 = {
+    "7220201": {"thpt": "22.50", "hocba": "25.25", "dgnl": "800", "dhsp": "24.13"},
+    "7220204": {"thpt": "22.50", "hocba": "25.25", "dgnl": "800", "dhsp": "24.13"},
+    "7340101": {"thpt": "20.50", "hocba": "23.75", "dgnl": "725", "dhsp": "23.00"},
+    "7340115": {"thpt": "21.75", "hocba": "24.69", "dgnl": "762.5", "dhsp": "23.66"},
+    "7340120": {"thpt": "21.50", "hocba": "24.50", "dgnl": "750", "dhsp": "23.50"},
+    "7340122": {"thpt": "21.75", "hocba": "24.69", "dgnl": "762.5", "dhsp": "23.66"},
+    "7340123": {"thpt": "18.00", "hocba": "21.50", "dgnl": "650", "dhsp": "20.75"},
+    "7340129": {"thpt": "19.00", "hocba": "22.50", "dgnl": "683.33", "dhsp": "21.92"},
+    "7340201": {"thpt": "21.00", "hocba": "24.13", "dgnl": "737.5", "dhsp": "23.25"},
+    "7340205": {"thpt": "19.50", "hocba": "23.00", "dgnl": "700", "dhsp": "22.50"},
+    "7340301": {"thpt": "21.00", "hocba": "24.13", "dgnl": "737.5", "dhsp": "23.25"},
+    "7380101": {"thpt": "21.25", "hocba": "24.31", "dgnl": "743.75", "dhsp": "23.38"},
+    "7380107": {"thpt": "21.75", "hocba": "24.69", "dgnl": "762.5", "dhsp": "23.66"},
+    "7420201": {"thpt": "19.50", "hocba": "23.00", "dgnl": "700", "dhsp": "22.50"},
+    "7460108": {"thpt": "19.00", "hocba": "22.50", "dgnl": "683.33", "dhsp": "21.92"},
+    "7480107": {"thpt": "20.50", "hocba": "23.75", "dgnl": "725", "dhsp": "23.00"},
+    "7480201": {"thpt": "20.00", "hocba": "23.38", "dgnl": "712.5", "dhsp": "22.75"},
+    "7480202": {"thpt": "19.50", "hocba": "23.00", "dgnl": "700", "dhsp": "22.50"},
+    "7510202": {"thpt": "20.50", "hocba": "23.75", "dgnl": "725", "dhsp": "23.00"},
+    "7510203": {"thpt": "22.00", "hocba": "24.88", "dgnl": "775", "dhsp": "23.81"},
+    "7510301": {"thpt": "22.00", "hocba": "24.88", "dgnl": "775", "dhsp": "23.81"},
+    "7510303": {"thpt": "23.00", "hocba": "25.63", "dgnl": "825", "dhsp": "24.44"},
+    "7510401": {"thpt": "20.25", "hocba": "23.56", "dgnl": "718.75", "dhsp": "22.88"},
+    "7510402": {"thpt": "19.00", "hocba": "22.50", "dgnl": "683.33", "dhsp": "21.92"},
+    "7510406": {"thpt": "18.50", "hocba": "22.00", "dgnl": "666.67", "dhsp": "21.33"},
+    "7510601": {"thpt": "20.50", "hocba": "23.75", "dgnl": "725", "dhsp": "23.00"},
+    "7510605": {"thpt": "22.50", "hocba": "25.25", "dgnl": "800", "dhsp": "24.13"},
+    "7520115": {"thpt": "21.25", "hocba": "24.31", "dgnl": "743.75", "dhsp": "23.38"},
+    "7540101": {"thpt": "22.00", "hocba": "24.88", "dgnl": "775", "dhsp": "23.81"},
+    "7540105": {"thpt": "16.00", "hocba": "20.00", "dgnl": "600", "dhsp": "20.00"},
+    "7540106": {"thpt": "18.00", "hocba": "21.50", "dgnl": "650", "dhsp": "20.75"},
+    "7540204": {"thpt": "18.00", "hocba": "21.50", "dgnl": "650", "dhsp": "20.75"},
+    "7810101": {"thpt": "21.75", "hocba": "24.69", "dgnl": "762.5", "dhsp": "23.66"},
+    "7810103": {"thpt": "21.75", "hocba": "24.69", "dgnl": "762.5", "dhsp": "23.66"},
+    "7810201": {"thpt": "21.50", "hocba": "24.50", "dgnl": "750", "dhsp": "23.50"},
+    "7810202": {"thpt": "21.00", "hocba": "24.13", "dgnl": "737.5", "dhsp": "23.25"},
+    "7819009": {"thpt": "19.50", "hocba": "23.00", "dgnl": "700", "dhsp": "22.50"},
+    "7819010": {"thpt": "19.50", "hocba": "23.00", "dgnl": "700", "dhsp": "22.50"},
+    "7850101": {"thpt": "18.00", "hocba": "21.50", "dgnl": "650", "dhsp": "20.75"},
+}
+
 
 def extract_major_info_from_markdown(md_text: str, title: str) -> dict:
     """Trích xuất cấu trúc dữ liệu từ nội dung Markdown của trang ngành HUIT."""
@@ -78,31 +120,38 @@ def extract_major_info_from_markdown(md_text: str, title: str) -> dict:
     if not to_hop:
         to_hop = ["A00 (Toán, Lý, Hóa)", "A01 (Toán, Lý, Anh)", "D01 (Toán, Văn, Anh)", "D07 (Toán, Hóa, Anh)"]
 
-    # Điểm sàn & Điểm chuẩn
-    cutoff_boxes = []
-    diem_san_thpt = "16.00 điểm"
-    diem_san_dgnl = "600 điểm"
-    diem_chuan_2024 = "21.00 - 23.00 điểm"
+    # Điểm sàn & Điểm chuẩn 2026 chính thức
+    if major_code and major_code in OFFICIAL_CUTOFFS_2026:
+        c26 = OFFICIAL_CUTOFFS_2026[major_code]
+        cutoff_boxes = [
+            {"label": "Điểm chuẩn THPT 2026", "value": f"{c26['thpt']} điểm", "badge": "Chính thức 2026"},
+            {"label": "Điểm chuẩn Học bạ 2026", "value": f"{c26['hocba']} điểm", "badge": "Học bạ"},
+            {"label": "Điểm ĐGNL ĐHQG 2026", "value": f"{c26['dgnl']} điểm", "badge": "ĐGNL"}
+        ]
+    else:
+        diem_san_thpt = "16.00 điểm"
+        diem_san_dgnl = "600 điểm"
+        diem_chuan_2024 = "21.00 - 23.00 điểm"
 
-    m_san = re.search(r"Điểm sàn xét tuyển THPT[^\n:]*:\s*[`'\"]*([0-9.]+)[`'\"]*", md_text, re.I)
-    if m_san:
-        diem_san_thpt = f"{m_san.group(1)} điểm"
+        m_san = re.search(r"Điểm sàn xét tuyển THPT[^\n:]*:\s*[`'\"]*([0-9.]+)[`'\"]*", md_text, re.I)
+        if m_san:
+            diem_san_thpt = f"{m_san.group(1)} điểm"
 
-    m_dgnl = re.search(r"Đánh giá năng lực[^\n:]*:\s*[`'\"]*([0-9.]+)[`'\"]*", md_text, re.I)
-    if m_dgnl:
-        diem_san_dgnl = f"{m_dgnl.group(1)} điểm"
+        m_dgnl = re.search(r"Đánh giá năng lực[^\n:]*:\s*[`'\"]*([0-9.]+)[`'\"]*", md_text, re.I)
+        if m_dgnl:
+            diem_san_dgnl = f"{m_dgnl.group(1)} điểm"
 
-    m_2024 = re.search(r"Điểm trúng tuyển THPT năm 2024:\s*[`'\"]*([0-9.]+)[`'\"]*", md_text, re.I)
-    if m_2024:
-        diem_chuan_2024 = f"{m_2024.group(1)} điểm"
-    elif "MỚI MỞ" in md_text or "chưa có điểm" in md_text.lower():
-        diem_chuan_2024 = "Ngành mới mở"
+        m_2024 = re.search(r"Điểm trúng tuyển THPT năm 2024:\s*[`'\"]*([0-9.]+)[`'\"]*", md_text, re.I)
+        if m_2024:
+            diem_chuan_2024 = f"{m_2024.group(1)} điểm"
+        elif "MỚI MỞ" in md_text or "chưa có điểm" in md_text.lower():
+            diem_chuan_2024 = "Ngành mới mở"
 
-    cutoff_boxes = [
-        {"label": "Điểm sàn THPT 2026", "value": diem_san_thpt, "badge": "Chính thức"},
-        {"label": "Điểm sàn ĐGNL ĐHQG", "value": diem_san_dgnl, "badge": "ĐGNL"},
-        {"label": "Điểm trúng tuyển 2024", "value": diem_chuan_2024, "badge": "Tham khảo"}
-    ]
+        cutoff_boxes = [
+            {"label": "Điểm sàn THPT 2026", "value": diem_san_thpt, "badge": "Chính thức"},
+            {"label": "Điểm sàn ĐGNL ĐHQG", "value": diem_san_dgnl, "badge": "ĐGNL"},
+            {"label": "Điểm trúng tuyển 2024", "value": diem_chuan_2024, "badge": "Tham khảo"}
+        ]
 
     # Cơ hội việc làm
     careers = []
@@ -189,11 +238,18 @@ def build_all_visuals():
         }
         all_visual_docs.append(visual_card)
 
-        # Thu thập hàng cho Bảng Tra Cứu Toàn Trường
+        # Thu thập hàng cho Bảng Tra Cứu Toàn Trường 2026
         to_hop_short = ", ".join([th.split("(")[0].strip() for th in info["to_hop"]])
-        san_val = info["cutoff_boxes"][0]["value"].replace(" điểm", "")
-        chuan_val = info["cutoff_boxes"][2]["value"].replace(" điểm", "")
-        table_cutoff_rows.append([code, info["major_name"], to_hop_short, san_val, chuan_val])
+        if code in OFFICIAL_CUTOFFS_2026:
+            c26 = OFFICIAL_CUTOFFS_2026[code]
+            thpt_2026 = c26["thpt"]
+            hocba_2026 = c26["hocba"]
+            dgnl_2026 = c26["dgnl"]
+        else:
+            thpt_2026 = "16.00"
+            hocba_2026 = "20.00"
+            dgnl_2026 = "600"
+        table_cutoff_rows.append([code, info["major_name"], to_hop_short, thpt_2026, hocba_2026, dgnl_2026])
 
         # Bảng học phí
         table_tuition_rows.append([code, info["major_name"], "1.100.000 đ", "1.350.000 đ", "14–16 triệu đ"])
@@ -208,10 +264,10 @@ def build_all_visuals():
         "visual_id": "table_cutoff_2026",
         "type": "excel_table",
         "category": "cutoff",
-        "title": "BẢNG TRA CỨU ĐIỂM SÀN & ĐIỂM CHUẨN ĐẠI HỌC CHÍNH QUY HUIT 2026",
-        "subtitle": "Trường Đại học Công Thương TP.HCM (Áp dụng cho 39 ngành đào tạo)",
-        "headers": ["Mã ngành", "Tên ngành đào tạo", "Tổ hợp xét tuyển", "Điểm sàn 2026", "Điểm chuẩn 2024"],
-        "rows": table_cutoff_rows[:12],  # Lấy 12 ngành nổi bật tiêu biểu cho bảng hiển thị đẹp
+        "title": "BẢNG ĐIỂM CHUẨN TRÚNG TUYỂN ĐẠI HỌC CHÍNH QUY HUIT NĂM 2026",
+        "subtitle": "Công bố chính thức ngày 09/08/2026 của Trường Đại học Công Thương TP.HCM",
+        "headers": ["Mã ngành", "Tên ngành đào tạo", "Tổ hợp môn", "Điểm THPT 2026", "Học bạ 2026", "ĐGNL ĐHQG 2026"],
+        "rows": table_cutoff_rows[:15],
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     all_visual_docs.append(table_cutoff_doc)
@@ -265,6 +321,23 @@ def build_all_visuals():
     }
     all_visual_docs.append(roadmap_doc)
     print("[4/4] Đã tạo Sơ Đồ Lộ Trình Tuyển Sinh (roadmap_admissions_2026).")
+
+    # 5. Tạo Sơ Đồ Quy Trình Nhập Học Tân Sinh Viên 2026 (roadmap_nhaphoc_2026)
+    roadmap_nhaphoc_doc = {
+        "visual_id": "roadmap_nhaphoc_2026",
+        "type": "roadmap",
+        "category": "admission_procedure",
+        "title": "QUY TRÌNH & THỜI HẠN NHẬP HỌC TÂN SINH VIÊN K2026",
+        "steps": [
+            {"step": 1, "name": "BƯỚC 1", "title": "Xác nhận nhập học Bộ GD&ĐT", "desc": "Thực hiện trực tuyến tại https://thisinh.thitotnghiepthpt.edu.vn trước 17h00 ngày 21/08/2026."},
+            {"step": 2, "name": "BƯỚC 2", "title": "Đăng nhập Cổng HUIT", "desc": "Truy cập https://nhaphoc.huit.edu.vn bằng Mã hồ sơ/CCCD/SĐT nhận qua SMS và Email."},
+            {"step": 3, "name": "BƯỚC 3", "title": "Nộp học phí trực tuyến", "desc": "Nộp học phí và lệ phí nhập học qua cổng thanh toán ngân hàng trực tuyến an toàn."},
+            {"step": 4, "name": "BƯỚC 4", "title": "Nhận Giấy báo & Sinh hoạt đầu khóa", "desc": "Nhận tài khoản sinh viên, theo dõi thời khóa biểu và sinh hoạt đầu khóa từ 24/08/2026."}
+        ],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    all_visual_docs.append(roadmap_nhaphoc_doc)
+    print("[5/5] Đã tạo Sơ Đồ Quy Trình Nhập Học (roadmap_nhaphoc_2026).")
 
     # Lưu bản sao ra file JSON cục bộ
     bundle_file = os.path.join(HERE, "admission_visuals_bundle.json")

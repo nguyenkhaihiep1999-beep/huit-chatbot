@@ -1,110 +1,28 @@
 [
   {
-    "visual_id": "major_7480107",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7480107",
-    "title": "NGÀNH TRÍ TUỆ NHÂN TẠO",
-    "faculty": "** Khoa Công nghệ thông tin",
-    "duration": "** 3.5 năm (153 tín chỉ - Cử nhân / Kỹ sư)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (540.000đ - 700.000đ/tín chỉ)",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "Ngành mới mở",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "C01 (Văn, Toán, Lý)",
-      "D01 (Toán, Văn, Anh)",
-      "X26 (Toán, Anh, Tin)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư phát triển ứng dụng Trí tuệ nhân tạo (AI Engineer)",
-      "Chuyên viên Phân tích và Xử lý Dữ liệu (Data Analyst / Data Scientist)"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-tri-tue-nhan-tao",
-    "created_at": "2026-09-11T02:55:14.783856+00:00"
-  },
-  {
-    "visual_id": "major_7480201",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7480201",
-    "title": "NGÀNH CÔNG NGHỆ THÔNG TIN",
-    "faculty": "** Khoa Công nghệ thông tin",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "22.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D07 (Toán, Hóa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Lập trình viên Software / Web / Mobile Developer",
-      "Kỹ sư Điện toán đám mây & DevOps"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thong-tin",
-    "created_at": "2026-09-11T02:55:14.783856+00:00"
-  },
-  {
     "visual_id": "major_7480202",
     "type": "major_card",
     "category": "major",
     "major_code": "7480202",
     "title": "NGÀNH AN TOÀN THÔNG TIN",
-    "faculty": "** Khoa Công nghệ thông tin",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
     "cutoff_boxes": [
       {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "19.50 điểm",
+        "badge": "Chính thức 2026"
       },
       {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.00 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "700 điểm",
         "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.50 điểm",
-        "badge": "Tham khảo"
       }
     ],
     "subject_combinations": [
@@ -114,530 +32,38 @@
       "D07 (Toán, Hóa, Anh)"
     ],
     "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Bảo mật Hệ thống (Cyber Security Specialist)",
-      "Chuyên viên Kiểm thử Xâm nhập (Pentester / Ethical Hacker)"
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
     ],
     "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
     "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-an-toan-thong-tin",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
+    "created_at": "2026-09-11T11:39:18.573712+00:00"
   },
   {
-    "visual_id": "major_7460108",
+    "visual_id": "major_7340129",
     "type": "major_card",
     "category": "major",
-    "major_code": "7460108",
-    "title": "NGÀNH KHOA HỌC DỮ LIỆU",
-    "faculty": "** Khoa Công nghệ thông tin",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D07 (Toán, Hóa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Dữ liệu (Data Scientist)",
-      "Kỹ sư Dữ liệu (Data Engineer)"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-du-lieu",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7540101",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7540101",
-    "title": "NGÀNH CÔNG NGHỆ THỰC PHẨM",
-    "faculty": "** Khoa Công nghệ thực phẩm (Thế mạnh cốt lõi số 1 của HUIT)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "22.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Nghiên cứu và Phát triển Sản phẩm Thực phẩm (R&D)",
-      "Kỹ sư Quản lý Chất lượng Thực phẩm (QA/QC)"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thuc-pham",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7540106",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7540106",
-    "title": "NGÀNH ĐẢM BẢO CHẤT LƯỢNG VÀ AN TOÀN THỰC PHẨM",
-    "faculty": "** Khoa Công nghệ thực phẩm",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "20.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Đảm bảo Chất lượng QA/QC Thực phẩm",
-      "Chuyên viên Đánh giá Tiêu chuẩn An toàn Thực phẩm"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-dam-bao-chat-luong-va-an-toan-thuc-pham",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7540105",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7540105",
+    "major_code": "7340129",
     "title": "NGÀNH CÔNG NGHỆ CHẾ BIẾN THỦY SẢN",
-    "faculty": "** Khoa Thủy sản (Được hưởng Học bổng 50% HP HK1)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.     --- Để biết thêm thông tin tuyển sinh, liên hệ ngay:  Điện thoại: (028) 6270 6275  Hotline: 096 205 1080  Website: http://ts.huit.edu.vn",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
     "cutoff_boxes": [
       {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "17.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Công nghệ Chế biến Thủy sản",
-      "Chuyên viên Quản lý Chất lượng Xuất khẩu Thủy sản"
-    ],
-    "scholarship_highlight": "GIẢM 50% HỌC PHÍ HỌC KỲ 1 (Ngành trọng điểm ưu tiên tuyển sinh)",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-che-bien-thuy-san",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7540107",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7540107",
-    "title": "NGÀNH KHOA HỌC DINH DƯỠNG VÀ ẨM THỰC",
-    "faculty": "** Khoa Công nghệ thực phẩm (Học bổng 50% HP HK1)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
+        "label": "Điểm chuẩn THPT 2026",
         "value": "19.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Tư vấn Dinh dưỡng tại trung tâm y tế / spa / thể thao",
-      "Kỹ sư Phát triển Thực phẩm Dinh dưỡng và Dược phẩm"
-    ],
-    "scholarship_highlight": "GIẢM 50% HỌC PHÍ HỌC KỲ 1 (Ngành trọng điểm ưu tiên tuyển sinh)",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-dinh-duong-va-am-thuc",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7810203",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7810203",
-    "title": "NGÀNH KHOA HỌC CHẾ BIẾN MÓN ĂN",
-    "faculty": "** Khoa Dịch vụ du lịch & Ẩm thực (Học bổng 50% HP HK1)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
+        "badge": "Chính thức 2026"
       },
       {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "18.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Bếp trưởng / Quản lý Bếp tại Khách sạn 5 sao & Nhà hàng Quốc tế",
-      "Chuyên gia Sáng tạo Ẩm thực (Culinary Director)"
-    ],
-    "scholarship_highlight": "GIẢM 50% HỌC PHÍ HỌC KỲ 1 (Ngành trọng điểm ưu tiên tuyển sinh)",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-che-bien-mon-an",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7340115",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7340115",
-    "title": "NGÀNH MARKETING",
-    "faculty": "** Khoa Quản trị kinh doanh (Ngành có điểm trúng tuyển TOP đầu HUIT)",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "23.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Digital Marketing & SEO/SEM",
-      "Chuyên viên Sáng tạo Nội dung (Content Creator / Copywriter)"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-marketing",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7340120",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7340120",
-    "title": "NGÀNH KINH DOANH QUỐC TẾ",
-    "faculty": "** Khoa Quản trị kinh doanh",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "22.75 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Xuất Nhập Khẩu (Import-Export Specialist)",
-      "Chuyên viên Thanh toán Quốc tế tại Ngân hàng"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-kinh-doanh-quoc-te",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7510605",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7510605",
-    "title": "NGÀNH LOGISTICS VÀ QUẢN LÝ CHUỖI CUNG ỨNG",
-    "faculty": "** Khoa Quản lý công nghiệp & Logistics",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
+        "label": "Điểm chuẩn Học bạ 2026",
         "value": "22.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Điều phối Logistics & Vận tải",
-      "Quản trị Kho hàng & Giao nhận (Warehouse Manager)"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-logistic-va-quan-ly-chuoi-cung-ung",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7340101",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7340101",
-    "title": "NGÀNH QUẢN TRỊ KINH DOANH",
-    "faculty": "** Khoa Quản trị kinh doanh",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
+        "badge": "Học bạ"
       },
       {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "683.33 điểm",
         "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.75 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Khởi nghiệp & Điều hành Doanh nghiệp",
-      "Chuyên viên Phát triển Dự án Kinh doanh"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-kinh-doanh",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7340122",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7340122",
-    "title": "NGÀNH THƯƠNG MẠI ĐIỆN TỬ",
-    "faculty": "** Khoa Quản trị kinh doanh",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "22.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Vận hành Sàn Thương mại Điện tử (E-commerce Operation)",
-      "Quản lý Gian hàng Số & TikTok Shop / Shopee / Lazada"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-thuong-mai-dien-tu",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7340201",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7340201",
-    "title": "NGÀNH TÀI CHÍNH NGÂN HÀNG",
-    "faculty": "** Khoa Tài chính - Kế toán",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Quan hệ Khách hàng Ngân hàng (RM)",
-      "Chuyên viên Phân tích Đầu tư Chứng khoán"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-tai-chinh-ngan-hang",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7340205",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7340205",
-    "title": "NGÀNH CÔNG NGHỆ TÀI CHÍNH",
-    "faculty": "** Khoa Tài chính - Kế toán",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.00 điểm",
-        "badge": "Tham khảo"
       }
     ],
     "subject_combinations": [
@@ -647,541 +73,13 @@
       "D07 (Toán, Hóa, Anh)"
     ],
     "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Phát triển Sản phẩm Fintech (Product Owner)",
-      "Chuyên viên Phân tích Dữ liệu Tài chính (Financial Data Analyst)"
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
     ],
     "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-tai-chinh-fintech",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7340301",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7340301",
-    "title": "NGÀNH KẾ TOÁN",
-    "faculty": "** Khoa Tài chính - Kế toán",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.25 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kế toán viên Tổng hợp / Kế toán Thuế",
-      "Chuyên viên Phân tích Tài chính Doanh nghiệp"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-ke-toan",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7380107",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7380107",
-    "title": "NGÀNH LUẬT KINH TẾ",
-    "faculty": "** Khoa Luật",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "720 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "22.25 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "C00 (Văn, Sử, Địa)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Pháp chế Doanh nghiệp (Legal Officer)",
-      "Chuyên viên Tư vấn Hợp đồng và M&A tại Công ty Luật"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-luat-kinh-te",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7380101",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7380101",
-    "title": "NGÀNH LUẬT",
-    "faculty": "** Khoa Luật",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "720 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "C00 (Văn, Sử, Địa)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Tư vấn Pháp lý",
-      "Trợ lý Luật sư / Công chứng viên / Đấu giá viên"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-luat",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7220201",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7220201",
-    "title": "NGÀNH NGÔN NGỮ ANH",
-    "faculty": "** Khoa Ngoại ngữ",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Biên - Phiên dịch viên Tiếng Anh Thương mại",
-      "Chuyên viên Quan hệ Quốc tế & Đối ngoại"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-anh-dh",
-    "created_at": "2026-09-11T02:55:14.784973+00:00"
-  },
-  {
-    "visual_id": "major_7220204",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7220204",
-    "title": "NGÀNH NGÔN NGỮ TRUNG QUỐC",
-    "faculty": "** Khoa Ngoại ngữ (Ngành tuyển sinh rất HOT tại HUIT)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "22.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "D01 (Toán, Văn, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Biên - Phiên dịch viên Tiếng Trung Quốc",
-      "Chuyên viên Xuất Nhập Khẩu với Thị trường Trung Quốc / Đài Loan"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-trung-quoc",
-    "created_at": "2026-09-11T02:55:14.785970+00:00"
-  },
-  {
-    "visual_id": "major_7810201",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7810201",
-    "title": "NGÀNH QUẢN TRỊ KHÁCH SẠN",
-    "faculty": "** Khoa Dịch vụ du lịch & Ẩm thực",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "20.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Quản lý / Giám sát Bộ phận Khách sạn 4-5 sao (Front Office / F&B)",
-      "Chuyên viên Tổ chức Sự kiện & Hội nghị"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-khach-san",
-    "created_at": "2026-09-11T02:55:14.785970+00:00"
-  },
-  {
-    "visual_id": "major_7810202",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7810202",
-    "title": "NGÀNH QUẢN TRỊ NHÀ HÀNG VÀ DỊCH VỤ ĂN UỐNG",
-    "faculty": "** Khoa Dịch vụ du lịch & Ẩm thực",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "20.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Quản lý Chuỗi Nhà hàng / Quản lý F&B Khách sạn",
-      "Chuyên viên Điều hành Dịch vụ Tiệc & Catering"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-nha-hang-va-dich-vu-an-uong",
-    "created_at": "2026-09-11T02:55:14.785970+00:00"
-  },
-  {
-    "visual_id": "major_7810101",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7810101",
-    "title": "NGÀNH QUẢN TRỊ DỊCH VỤ DU LỊCH VÀ LỮ HÀNH",
-    "faculty": "** Khoa Dịch vụ du lịch & Ẩm thực",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "20.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Điều hành Tour Du lịch Quốc tế và Nội địa",
-      "Hướng dẫn viên Du lịch Quốc tế"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-dich-vu-du-lich-va-lu-hanh",
-    "created_at": "2026-09-11T02:55:14.785970+00:00"
-  },
-  {
-    "visual_id": "major_7810103",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7810103",
-    "title": "NGÀNH DU LỊCH",
-    "faculty": "** Khoa Dịch vụ du lịch & Ẩm thực",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "19.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Phát triển Sản phẩm Du lịch Sinh thái",
-      "Chuyên viên Quảng bá & Truyền thông Điểm đến Du lịch"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
-    "created_at": "2026-09-11T02:55:14.785970+00:00"
-  },
-  {
-    "visual_id": "major_7510303",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7510303",
-    "title": "NGÀNH CÔNG NGHỆ KỸ THUẬT ĐIỀU KHIỂN VÀ TỰ ĐỘNG HÓA",
-    "faculty": "** Khoa Điện - Điện tử",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D07 (Toán, Hóa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Lập trình Tự động hóa & PLC",
-      "Kỹ sư Vận hành và Bảo trì Robot Công nghiệp"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-dieu-khien-va-tu-dong-hoa",
-    "created_at": "2026-09-11T02:55:14.785970+00:00"
-  },
-  {
-    "visual_id": "major_7510301",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7510301",
-    "title": "NGÀNH CÔNG NGHỆ KỸ THUẬT ĐIỆN – ĐIỆN TỬ",
-    "faculty": "** Khoa Điện - Điện tử",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "20.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D07 (Toán, Hóa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Thiết kế Mạch Điện tử & Hệ thống Nhúng",
-      "Kỹ sư Điện Tòa nhà & Công nghiệp (M&E Engineer)"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-dien-%E2%80%93-dien-tu",
-    "created_at": "2026-09-11T02:55:14.785970+00:00"
-  },
-  {
-    "visual_id": "major_7520115",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7520115",
-    "title": "NGÀNH KỸ THUẬT NHIỆT",
-    "faculty": "** Khoa Cơ khí (Được hưởng Học bổng 50% HP HK1)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "17.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D07 (Toán, Hóa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Thiết kế & Thi công Hệ thống Điều hòa HVAC",
-      "Kỹ sư Năng lượng Nhiệt & Lò hơi Nhà máy"
-    ],
-    "scholarship_highlight": "GIẢM 50% HỌC PHÍ HỌC KỲ 1 (Ngành trọng điểm ưu tiên tuyển sinh)",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-ky-thuat-nhiet",
-    "created_at": "2026-09-11T02:55:14.785970+00:00"
-  },
-  {
-    "visual_id": "major_7510203",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7510203",
-    "title": "NGÀNH CÔNG NGHỆ KỸ THUẬT CƠ ĐIỆN TỬ",
-    "faculty": "** Khoa Cơ khí",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "20.75 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D01 (Toán, Văn, Anh)",
-      "D07 (Toán, Hóa, Anh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Thiết kế Sản phẩm Cơ điện tử & Robot",
-      "Kỹ sư Vận hành Dây chuyền Máy Sản xuất Thông minh"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-co-dien-tu",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-che-bien-thuy-san",
+    "created_at": "2026-09-11T11:39:18.574727+00:00"
   },
   {
     "visual_id": "major_7510202",
@@ -1189,24 +87,24 @@
     "category": "major",
     "major_code": "7510202",
     "title": "NGÀNH CÔNG NGHỆ CHẾ TẠO MÁY",
-    "faculty": "** Khoa Cơ khí",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
     "cutoff_boxes": [
       {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "20.50 điểm",
+        "badge": "Chính thức 2026"
       },
       {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.75 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "725 điểm",
         "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "20.00 điểm",
-        "badge": "Tham khảo"
       }
     ],
     "subject_combinations": [
@@ -1216,13 +114,13 @@
       "D07 (Toán, Hóa, Anh)"
     ],
     "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Lập trình & Vận hành Máy Gia công CNC",
-      "Kỹ sư Thiết kế Cơ khí & Khuôn mẫu (CAD/CAM)"
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
     ],
     "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
     "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-che-tao-may",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "created_at": "2026-09-11T11:39:18.575737+00:00"
   },
   {
     "visual_id": "major_7540204",
@@ -1230,24 +128,24 @@
     "category": "major",
     "major_code": "7540204",
     "title": "NGÀNH CÔNG NGHỆ DỆT, MAY",
-    "faculty": "** Khoa May - Thời trang (Học bổng 50% HP HK1)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3.5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
     "cutoff_boxes": [
       {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
+        "label": "Điểm chuẩn THPT 2026",
         "value": "18.00 điểm",
-        "badge": "Tham khảo"
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "21.50 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "650 điểm",
+        "badge": "ĐGNL"
       }
     ],
     "subject_combinations": [
@@ -1257,54 +155,136 @@
       "D07 (Toán, Hóa, Anh)"
     ],
     "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Quản lý Dây chuyền Sản xuất May xuất khẩu",
-      "Chuyên viên Thiết kế Rập & Nhảy Size Tự động"
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
     ],
-    "scholarship_highlight": "GIẢM 50% HỌC PHÍ HỌC KỲ 1 (Ngành trọng điểm ưu tiên tuyển sinh)",
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
     "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-det-may",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "created_at": "2026-09-11T11:39:18.575737+00:00"
   },
   {
-    "visual_id": "major_7340123",
+    "visual_id": "major_7510203",
     "type": "major_card",
     "category": "major",
-    "major_code": "7340123",
-    "title": "NGÀNH KINH DOANH THỜI TRANG VÀ DỆT MAY",
-    "faculty": "** Khoa May - Thời trang (Học bổng 50% HP HK1)",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)",
+    "major_code": "7510203",
+    "title": "NGÀNH CÔNG NGHỆ KỸ THUẬT CƠ ĐIỆN TỬ",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
     "cutoff_boxes": [
       {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "22.00 điểm",
+        "badge": "Chính thức 2026"
       },
       {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.88 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "775 điểm",
         "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "19.00 điểm",
-        "badge": "Tham khảo"
       }
     ],
     "subject_combinations": [
       "A00 (Toán, Lý, Hóa)",
       "A01 (Toán, Lý, Anh)",
       "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
+      "D07 (Toán, Hóa, Anh)"
     ],
     "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Quản lý Chuỗi Cung ứng Thời trang",
-      "Chuyên viên Phát triển Thương hiệu Thời trang"
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
     ],
-    "scholarship_highlight": "GIẢM 50% HỌC PHÍ HỌC KỲ 1 (Ngành trọng điểm ưu tiên tuyển sinh)",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-kinh-doanh-thoi-trang-va-det-may",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-co-dien-tu",
+    "created_at": "2026-09-11T11:39:18.575737+00:00"
+  },
+  {
+    "visual_id": "major_7510301",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7510301",
+    "title": "NGÀNH CÔNG NGHỆ KỸ THUẬT ĐIỆN – ĐIỆN TỬ",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "22.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.88 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "775 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-dien-–-dien-tu",
+    "created_at": "2026-09-11T11:39:18.576813+00:00"
+  },
+  {
+    "visual_id": "major_7510303",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7510303",
+    "title": "NGÀNH CÔNG NGHỆ KỸ THUẬT ĐIỀU KHIỂN VÀ TỰ ĐỘNG HÓA",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "23.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "25.63 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "825 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-dieu-khien-va-tu-dong-hoa",
+    "created_at": "2026-09-11T11:39:18.576813+00:00"
   },
   {
     "visual_id": "major_7510401",
@@ -1312,229 +292,24 @@
     "category": "major",
     "major_code": "7510401",
     "title": "NGÀNH CÔNG NGHỆ KỸ THUẬT HÓA HỌC",
-    "faculty": "** Khoa Công nghệ Hóa học",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
     "cutoff_boxes": [
       {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "20.25 điểm",
+        "badge": "Chính thức 2026"
       },
       {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.56 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "718.75 điểm",
         "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "19.50 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Nghiên cứu Công thức Hóa Mỹ phẩm (R&D Cosmetics)",
-      "Kỹ sư Vận hành Nhà máy Sản xuất Hóa chất & Dược phẩm"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-hoa-hoc",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
-  },
-  {
-    "visual_id": "major_7420201",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7420201",
-    "title": "NGÀNH CÔNG NGHỆ SINH HỌC",
-    "faculty": "** Khoa Sinh học & Môi trường",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "19.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Công nghệ Sinh học Thực phẩm & Dược phẩm",
-      "Chuyên viên Nuôi cấy Mô & Nông nghiệp Công nghệ cao"
-    ],
-    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-sinh-hoc",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
-  },
-  {
-    "visual_id": "major_7510406",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7510406",
-    "title": "NGÀNH CÔNG NGHỆ KỸ THUẬT MÔI TRƯỜNG",
-    "faculty": "** Khoa Biến đổi khí hậu & TNMT (Học bổng 50% HP HK1)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "17.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Thiết kế & Thi công Trạm Xử lý Nước thải / Khí thải",
-      "Chuyên viên Quản lý Môi trường Doanh nghiệp (EHS Specialist)"
-    ],
-    "scholarship_highlight": "GIẢM 50% HỌC PHÍ HỌC KỲ 1 (Ngành trọng điểm ưu tiên tuyển sinh)",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-moi-truong",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
-  },
-  {
-    "visual_id": "major_7850101",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7850101",
-    "title": "NGÀNH QUẢN LÝ TÀI NGUYÊN VÀ MÔI TRƯỜNG",
-    "faculty": "** Khoa Biến đổi khí hậu & TNMT (Học bổng 50% HP HK1)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "17.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Quản lý Tài nguyên Đất & Nước tại Sở TNMT",
-      "Kỹ sư Ứng dụng Bản đồ Hệ thống Thông tin Địa lý (GIS Specialist)"
-    ],
-    "scholarship_highlight": "GIẢM 50% HỌC PHÍ HỌC KỲ 1 (Ngành trọng điểm ưu tiên tuyển sinh)",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-ly-tai-nguyen-va-moi-truong",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
-  },
-  {
-    "visual_id": "major_7510402",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7510402",
-    "title": "NGÀNH CÔNG NGHỆ VẬT LIỆU",
-    "faculty": "** Khoa Công nghệ Hóa học (Học bổng 50% HP HK1)",
-    "duration": "** 3.5 - 4 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ (Học bổng 50% học kỳ 1)",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "17.00 điểm",
-        "badge": "Tham khảo"
-      }
-    ],
-    "subject_combinations": [
-      "A00 (Toán, Lý, Hóa)",
-      "A01 (Toán, Lý, Anh)",
-      "D07 (Toán, Hóa, Anh)",
-      "B00 (Toán, Hóa, Sinh)"
-    ],
-    "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Kỹ sư Chế tạo Vật liệu Mới & Polymer Composite",
-      "Chuyên viên Kiểm định Chất lượng Vật liệu"
-    ],
-    "scholarship_highlight": "GIẢM 50% HỌC PHÍ HỌC KỲ 1 (Ngành trọng điểm ưu tiên tuyển sinh)",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-vat-lieu",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
-  },
-  {
-    "visual_id": "major_7510601",
-    "type": "major_card",
-    "category": "major",
-    "major_code": "7510601",
-    "title": "NGÀNH QUẢN LÝ CÔNG NGHIỆP",
-    "faculty": "** Khoa Quản lý công nghiệp & Logistics",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
-    "cutoff_boxes": [
-      {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
-      },
-      {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
-        "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "20.50 điểm",
-        "badge": "Tham khảo"
       }
     ],
     "subject_combinations": [
@@ -1544,155 +319,1340 @@
       "D07 (Toán, Hóa, Anh)"
     ],
     "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Chuyên viên Quản lý Sản xuất & Điều độ Nhà máy",
-      "Chuyên viên Cải tiến Năng suất Lean / Six Sigma"
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
     ],
     "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-ly-cong-nghiep",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-hoa-hoc",
+    "created_at": "2026-09-11T11:39:18.576813+00:00"
   },
   {
-    "visual_id": "major_7340129",
+    "visual_id": "major_7510406",
     "type": "major_card",
     "category": "major",
-    "major_code": "7340129",
-    "title": "NGÀNH QUẢN TRỊ KINH DOANH THỰC PHẨM",
-    "faculty": "** Khoa Quản trị kinh doanh",
-    "duration": "** 3.5 năm (150 tín chỉ)",
-    "tuition": "** 14 - 16 triệu đồng/học kỳ",
+    "major_code": "7510406",
+    "title": "NGÀNH CÔNG NGHỆ KỸ THUẬT MÔI TRƯỜNG",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
     "cutoff_boxes": [
       {
-        "label": "Điểm sàn THPT 2026",
-        "value": "16.00 điểm",
-        "badge": "Chính thức"
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "18.50 điểm",
+        "badge": "Chính thức 2026"
       },
       {
-        "label": "Điểm sàn ĐGNL ĐHQG",
-        "value": "600 điểm",
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "22.00 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "666.67 điểm",
         "badge": "ĐGNL"
-      },
-      {
-        "label": "Điểm trúng tuyển 2024",
-        "value": "21.00 điểm",
-        "badge": "Tham khảo"
       }
     ],
     "subject_combinations": [
       "A00 (Toán, Lý, Hóa)",
       "A01 (Toán, Lý, Anh)",
       "D01 (Toán, Văn, Anh)",
-      "D10 (Toán, Địa, Anh)"
+      "D07 (Toán, Hóa, Anh)"
     ],
     "career_highlights": [
-      "VÀ VỊ TRÍ LÀM VIỆC SAU TỐT NGHIỆP",
-      "Quản lý Kinh doanh Ngành hàng Thực phẩm (FMCG Manager)",
-      "Chuyên viên Phát triển Thị trường Nông sản & Thực phẩm"
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
     ],
     "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
-    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-kinh-doanh-thuc-pham",
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-ky-thuat-moi-truong",
+    "created_at": "2026-09-11T11:39:18.577973+00:00"
+  },
+  {
+    "visual_id": "major_7420201",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7420201",
+    "title": "NGÀNH CÔNG NGHỆ SINH HỌC",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3.5 - 4 năm (150 tín chỉ)",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "19.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.00 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "700 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-sinh-hoc",
+    "created_at": "2026-09-11T11:39:18.577973+00:00"
+  },
+  {
+    "visual_id": "major_7340205",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7340205",
+    "title": "NGÀNH CÔNG NGHỆ TÀI CHÍNH",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm. Để biết thêm thông tin tuyển sinh, liên hệ ngay:  Điện thoại: (028) 6270 6275  Hotline: 096 205 1080  Website: http://ts.huit.edu.vn",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "19.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.00 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "700 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-tai-chinh-fintech",
+    "created_at": "2026-09-11T11:39:18.577973+00:00"
+  },
+  {
+    "visual_id": "major_7480201",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7480201",
+    "title": "NGÀNH CÔNG NGHỆ THÔNG TIN",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "20.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.38 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "712.5 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thong-tin",
+    "created_at": "2026-09-11T11:39:18.579063+00:00"
+  },
+  {
+    "visual_id": "major_7540101",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7540101",
+    "title": "NGÀNH CÔNG NGHỆ THỰC PHẨM",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "22.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.88 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "775 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-thuc-pham",
+    "created_at": "2026-09-11T11:39:18.579063+00:00"
+  },
+  {
+    "visual_id": "major_7510402",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7510402",
+    "title": "NGÀNH CÔNG NGHỆ VẬT LIỆU",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "19.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "22.50 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "683.33 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-cong-nghe-vat-lieu",
+    "created_at": "2026-09-11T11:39:18.579063+00:00"
+  },
+  {
+    "visual_id": "major_7540106",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7540106",
+    "title": "NGÀNH ĐẢM BẢO CHẤT LƯỢNG VÀ AN TOÀN THỰC PHẨM",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "18.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "21.50 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "650 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-dam-bao-chat-luong-va-an-toan-thuc-pham",
+    "created_at": "2026-09-11T11:39:18.580043+00:00"
+  },
+  {
+    "visual_id": "major_7810101",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7810101",
+    "title": "NGÀNH DU LỊCH",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3.5 - 4 năm (150 tín chỉ)",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.75 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.69 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "762.5 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-du-lich",
+    "created_at": "2026-09-11T11:39:18.580043+00:00"
+  },
+  {
+    "visual_id": "major_7340301",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7340301",
+    "title": "NGÀNH KẾ TOÁN",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.13 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "737.5 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-ke-toan",
+    "created_at": "2026-09-11T11:39:18.580043+00:00"
+  },
+  {
+    "visual_id": "major_7819010",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7819010",
+    "title": "NGÀNH KHOA HỌC CHẾ BIẾN MÓN ĂN",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3.5 - 4 năm (150 tín chỉ)",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "19.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.00 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "700 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-che-bien-mon-an",
+    "created_at": "2026-09-11T11:39:18.580043+00:00"
+  },
+  {
+    "visual_id": "major_7819009",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7819009",
+    "title": "NGÀNH KHOA HỌC DINH DƯỠNG VÀ ẨM THỰC",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3.5 - 4 năm (150 tín chỉ)",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "19.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.00 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "700 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-khoa-hoc-dinh-duong-va-am-thuc",
+    "created_at": "2026-09-11T11:39:18.581045+00:00"
+  },
+  {
+    "visual_id": "major_7340120",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7340120",
+    "title": "NGÀNH KINH DOANH QUỐC TẾ",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.50 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "750 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-kinh-doanh-quoc-te",
+    "created_at": "2026-09-11T11:39:18.582043+00:00"
+  },
+  {
+    "visual_id": "major_7340123",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7340123",
+    "title": "NGÀNH KINH DOANH THỜI TRANG VÀ DỆT MAY",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3.5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "18.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "21.50 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "650 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-kinh-doanh-thoi-trang-va-det-may",
+    "created_at": "2026-09-11T11:39:18.582043+00:00"
+  },
+  {
+    "visual_id": "major_7520115",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7520115",
+    "title": "NGÀNH KỸ THUẬT NHIỆT",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 - 4 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.25 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.31 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "743.75 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-ky-thuat-nhiet",
+    "created_at": "2026-09-11T11:39:18.582043+00:00"
+  },
+  {
+    "visual_id": "major_7510605",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7510605",
+    "title": "NGÀNH LOGISTIC VÀ QUẢN LÝ CHUỖI CUNG ỨNG",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "22.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "25.25 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "800 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-logistic-va-quan-ly-chuoi-cung-ung",
+    "created_at": "2026-09-11T11:39:18.582043+00:00"
+  },
+  {
+    "visual_id": "major_7380101",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7380101",
+    "title": "NGÀNH LUẬT",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.25 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.31 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "743.75 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-luat",
+    "created_at": "2026-09-11T11:39:18.583077+00:00"
+  },
+  {
+    "visual_id": "major_7380107",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7380107",
+    "title": "NGÀNH LUẬT KINH TẾ",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.75 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.69 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "762.5 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-luat-kinh-te",
+    "created_at": "2026-09-11T11:39:18.583077+00:00"
+  },
+  {
+    "visual_id": "major_7340115",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7340115",
+    "title": "NGÀNH MARKETING",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.75 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.69 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "762.5 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-marketing",
+    "created_at": "2026-09-11T11:39:18.583601+00:00"
+  },
+  {
+    "visual_id": "major_7220201",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7220201",
+    "title": "NGÀNH NGÔN NGỮ ANH",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "22.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "25.25 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "800 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-anh-dh",
+    "created_at": "2026-09-11T11:39:18.584148+00:00"
+  },
+  {
+    "visual_id": "major_7220204",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7220204",
+    "title": "NGÀNH NGÔN NGỮ TRUNG QUỐC",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "22.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "25.25 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "800 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-ngon-ngu-trung-quoc",
+    "created_at": "2026-09-11T11:39:18.584148+00:00"
+  },
+  {
+    "visual_id": "major_7510601",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7510601",
+    "title": "NGÀNH QUẢN LÝ CÔNG NGHIỆP",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "20.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.75 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "725 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-ly-cong-nghiep",
+    "created_at": "2026-09-11T11:39:18.584148+00:00"
+  },
+  {
+    "visual_id": "major_7850101",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7850101",
+    "title": "NGÀNH QUẢN LÝ TÀI NGUYÊN VÀ MÔI TRƯỜNG",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "4,0 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "18.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "21.50 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "650 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-ly-tai-nguyen-va-moi-truong",
+    "created_at": "2026-09-11T11:39:18.584148+00:00"
+  },
+  {
+    "visual_id": "major_7810103",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7810103",
+    "title": "NGÀNH QUẢN TRỊ DỊCH VỤ DU LỊCH VÀ LỮ HÀNH",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3.5 - 4 năm (150 tín chỉ)",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.75 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.69 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "762.5 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-dich-vu-du-lich-va-lu-hanh",
+    "created_at": "2026-09-11T11:39:18.585206+00:00"
+  },
+  {
+    "visual_id": "major_7810201",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7810201",
+    "title": "NGÀNH QUẢN TRỊ KHÁCH SẠN",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.50 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "750 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-khach-san",
+    "created_at": "2026-09-11T11:39:18.585206+00:00"
+  },
+  {
+    "visual_id": "major_7340101",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7340101",
+    "title": "NGÀNH QUẢN TRỊ KINH DOANH",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "20.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.75 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "725 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-kinh-doanh",
+    "created_at": "2026-09-11T11:39:18.585206+00:00"
+  },
+  {
+    "visual_id": "major_7810202",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7810202",
+    "title": "NGÀNH QUẢN TRỊ NHÀ HÀNG VÀ DỊCH VỤ ĂN UỐNG",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.13 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "737.5 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-quan-tri-nha-hang-va-dich-vu-an-uong",
+    "created_at": "2026-09-11T11:39:18.586202+00:00"
+  },
+  {
+    "visual_id": "major_7340201",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7340201",
+    "title": "NGÀNH TÀI CHÍNH NGÂN HÀNG",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.00 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.13 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "737.5 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-tai-chinh-ngan-hang",
+    "created_at": "2026-09-11T11:39:18.586202+00:00"
+  },
+  {
+    "visual_id": "major_7340122",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7340122",
+    "title": "NGÀNH THƯƠNG MẠI ĐIỆN TỬ",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3,5 năm.",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "21.75 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "24.69 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "762.5 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-thuong-mai-dien-tu",
+    "created_at": "2026-09-11T11:39:18.586202+00:00"
+  },
+  {
+    "visual_id": "major_7480107",
+    "type": "major_card",
+    "category": "major",
+    "major_code": "7480107",
+    "title": "NGÀNH TRÍ TUỆ NHÂN TẠO",
+    "faculty": "Trường Đại học Công Thương TP.HCM",
+    "duration": "3.5 - 4 năm (150 tín chỉ)",
+    "tuition": "14 - 16 triệu đồng/học kỳ (1.100.000đ/tín chỉ)",
+    "cutoff_boxes": [
+      {
+        "label": "Điểm chuẩn THPT 2026",
+        "value": "20.50 điểm",
+        "badge": "Chính thức 2026"
+      },
+      {
+        "label": "Điểm chuẩn Học bạ 2026",
+        "value": "23.75 điểm",
+        "badge": "Học bạ"
+      },
+      {
+        "label": "Điểm ĐGNL ĐHQG 2026",
+        "value": "725 điểm",
+        "badge": "ĐGNL"
+      }
+    ],
+    "subject_combinations": [
+      "A00 (Toán, Lý, Hóa)",
+      "A01 (Toán, Lý, Anh)",
+      "D01 (Toán, Văn, Anh)",
+      "D07 (Toán, Hóa, Anh)"
+    ],
+    "career_highlights": [
+      "Chuyên viên kỹ thuật giải pháp",
+      "Kỹ sư phát triển hệ thống",
+      "Quản trị viên chuyên môn"
+    ],
+    "scholarship_highlight": "Học bổng khuyến khích học tập toàn khóa & Hỗ trợ sinh viên HUIT",
+    "source_url": "https://ts.huit.edu.vn/nganh-dh/nganh-tri-tue-nhan-tao",
+    "created_at": "2026-09-11T11:39:18.586202+00:00"
   },
   {
     "visual_id": "table_cutoff_2026",
     "type": "excel_table",
     "category": "cutoff",
-    "title": "BẢNG TRA CỨU ĐIỂM SÀN & ĐIỂM CHUẨN ĐẠI HỌC CHÍNH QUY HUIT 2026",
-    "subtitle": "Trường Đại học Công Thương TP.HCM (Áp dụng cho 39 ngành đào tạo)",
+    "title": "BẢNG ĐIỂM CHUẨN TRÚNG TUYỂN ĐẠI HỌC CHÍNH QUY HUIT NĂM 2026",
+    "subtitle": "Công bố chính thức ngày 09/08/2026 của Trường Đại học Công Thương TP.HCM",
     "headers": [
       "Mã ngành",
       "Tên ngành đào tạo",
-      "Tổ hợp xét tuyển",
-      "Điểm sàn 2026",
-      "Điểm chuẩn 2024"
+      "Tổ hợp môn",
+      "Điểm THPT 2026",
+      "Học bạ 2026",
+      "ĐGNL ĐHQG 2026"
     ],
     "rows": [
       [
-        "7480107",
-        "Trí tuệ nhân tạo",
-        "A00, C01, D01, X26",
-        "16.00",
-        "Ngành mới mở"
+        "7480202",
+        "An toàn thông tin",
+        "A00, A01, D01, D07",
+        "19.50",
+        "23.00",
+        "700"
+      ],
+      [
+        "7340129",
+        "Công nghệ chế biến thủy sản",
+        "A00, A01, D01, D07",
+        "19.00",
+        "22.50",
+        "683.33"
+      ],
+      [
+        "7510202",
+        "Công nghệ chế tạo máy",
+        "A00, A01, D01, D07",
+        "20.50",
+        "23.75",
+        "725"
+      ],
+      [
+        "7540204",
+        "Công nghệ dệt, may",
+        "A00, A01, D01, D07",
+        "18.00",
+        "21.50",
+        "650"
+      ],
+      [
+        "7510203",
+        "Công nghệ kỹ thuật cơ điện tử",
+        "A00, A01, D01, D07",
+        "22.00",
+        "24.88",
+        "775"
+      ],
+      [
+        "7510301",
+        "Công nghệ kỹ thuật điện – điện tử",
+        "A00, A01, D01, D07",
+        "22.00",
+        "24.88",
+        "775"
+      ],
+      [
+        "7510303",
+        "Công nghệ kỹ thuật điều khiển và tự động hóa",
+        "A00, A01, D01, D07",
+        "23.00",
+        "25.63",
+        "825"
+      ],
+      [
+        "7510401",
+        "Công nghệ kỹ thuật Hóa học",
+        "A00, A01, D01, D07",
+        "20.25",
+        "23.56",
+        "718.75"
+      ],
+      [
+        "7510406",
+        "Công nghệ kỹ thuật môi trường",
+        "A00, A01, D01, D07",
+        "18.50",
+        "22.00",
+        "666.67"
+      ],
+      [
+        "7420201",
+        "Công nghệ sinh học",
+        "A00, A01, D01, D07",
+        "19.50",
+        "23.00",
+        "700"
+      ],
+      [
+        "7340205",
+        "Công nghệ Tài Chính",
+        "A00, A01, D01, D07",
+        "19.50",
+        "23.00",
+        "700"
       ],
       [
         "7480201",
         "Công nghệ thông tin",
         "A00, A01, D01, D07",
-        "16.00",
-        "22.50"
-      ],
-      [
-        "7480202",
-        "An toàn thông tin",
-        "A00, A01, D01, D07",
-        "16.00",
-        "21.50"
-      ],
-      [
-        "7460108",
-        "Khoa học dữ liệu",
-        "A00, A01, D01, D07",
-        "16.00",
-        "21.00"
+        "20.00",
+        "23.38",
+        "712.5"
       ],
       [
         "7540101",
-        "Công nghệ thực phẩm",
-        "A00, A01, D07, B00",
-        "16.00",
-        "22.50"
+        "Công nghệ Thực phẩm",
+        "A00, A01, D01, D07",
+        "22.00",
+        "24.88",
+        "775"
+      ],
+      [
+        "7510402",
+        "Công nghệ vật liệu",
+        "A00, A01, D01, D07",
+        "19.00",
+        "22.50",
+        "683.33"
       ],
       [
         "7540106",
         "Đảm bảo chất lượng và an toàn thực phẩm",
-        "A00, A01, D07, B00",
-        "16.00",
-        "20.50"
-      ],
-      [
-        "7540105",
-        "Công nghệ chế biến thủy sản",
-        "A00, A01, D07, B00",
-        "16.00",
-        "17.00"
-      ],
-      [
-        "7540107",
-        "Khoa học dinh dưỡng và ẩm thực",
-        "A00, A01, D07, B00",
-        "16.00",
-        "19.00"
-      ],
-      [
-        "7810203",
-        "Khoa học chế biến món ăn",
-        "A00, A01, D07, B00",
-        "16.00",
-        "18.00"
-      ],
-      [
-        "7340115",
-        "Marketing",
-        "A00, A01, D01, D10",
-        "16.00",
-        "23.00"
-      ],
-      [
-        "7340120",
-        "Kinh doanh quốc tế",
-        "A00, A01, D01, D10",
-        "16.00",
-        "22.75"
-      ],
-      [
-        "7510605",
-        "Logistics và quản lý chuỗi cung ứng",
-        "A00, A01, D01, D10",
-        "16.00",
-        "22.50"
+        "A00, A01, D01, D07",
+        "18.00",
+        "21.50",
+        "650"
       ]
     ],
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "created_at": "2026-09-11T11:39:18.586202+00:00"
   },
   {
     "visual_id": "table_tuition_2026",
@@ -1709,20 +1669,6 @@
     ],
     "rows": [
       [
-        "7480107",
-        "Trí tuệ nhân tạo",
-        "1.100.000 đ",
-        "1.350.000 đ",
-        "14–16 triệu đ"
-      ],
-      [
-        "7480201",
-        "Công nghệ thông tin",
-        "1.100.000 đ",
-        "1.350.000 đ",
-        "14–16 triệu đ"
-      ],
-      [
         "7480202",
         "An toàn thông tin",
         "1.100.000 đ",
@@ -1730,56 +1676,70 @@
         "14–16 triệu đ"
       ],
       [
-        "7460108",
-        "Khoa học dữ liệu",
-        "1.100.000 đ",
-        "1.350.000 đ",
-        "14–16 triệu đ"
-      ],
-      [
-        "7540101",
-        "Công nghệ thực phẩm",
-        "1.100.000 đ",
-        "1.350.000 đ",
-        "14–16 triệu đ"
-      ],
-      [
-        "7540106",
-        "Đảm bảo chất lượng và an toàn thực phẩm",
-        "1.100.000 đ",
-        "1.350.000 đ",
-        "14–16 triệu đ"
-      ],
-      [
-        "7540105",
+        "7340129",
         "Công nghệ chế biến thủy sản",
         "1.100.000 đ",
         "1.350.000 đ",
         "14–16 triệu đ"
       ],
       [
-        "7540107",
-        "Khoa học dinh dưỡng và ẩm thực",
+        "7510202",
+        "Công nghệ chế tạo máy",
         "1.100.000 đ",
         "1.350.000 đ",
         "14–16 triệu đ"
       ],
       [
-        "7810203",
-        "Khoa học chế biến món ăn",
+        "7540204",
+        "Công nghệ dệt, may",
         "1.100.000 đ",
         "1.350.000 đ",
         "14–16 triệu đ"
       ],
       [
-        "7340115",
-        "Marketing",
+        "7510203",
+        "Công nghệ kỹ thuật cơ điện tử",
+        "1.100.000 đ",
+        "1.350.000 đ",
+        "14–16 triệu đ"
+      ],
+      [
+        "7510301",
+        "Công nghệ kỹ thuật điện – điện tử",
+        "1.100.000 đ",
+        "1.350.000 đ",
+        "14–16 triệu đ"
+      ],
+      [
+        "7510303",
+        "Công nghệ kỹ thuật điều khiển và tự động hóa",
+        "1.100.000 đ",
+        "1.350.000 đ",
+        "14–16 triệu đ"
+      ],
+      [
+        "7510401",
+        "Công nghệ kỹ thuật Hóa học",
+        "1.100.000 đ",
+        "1.350.000 đ",
+        "14–16 triệu đ"
+      ],
+      [
+        "7510406",
+        "Công nghệ kỹ thuật môi trường",
+        "1.100.000 đ",
+        "1.350.000 đ",
+        "14–16 triệu đ"
+      ],
+      [
+        "7420201",
+        "Công nghệ sinh học",
         "1.100.000 đ",
         "1.350.000 đ",
         "14–16 triệu đ"
       ]
     ],
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "created_at": "2026-09-11T11:39:18.586202+00:00"
   },
   {
     "visual_id": "table_scholarships_2026",
@@ -1797,59 +1757,29 @@
       [
         "7540105",
         "Công nghệ chế biến thủy sản",
-        "Giảm 50% HK1",
-        "Toàn bộ tân sinh viên"
-      ],
-      [
-        "7540107",
-        "Khoa học dinh dưỡng và ẩm thực",
-        "Giảm 50% HK1",
-        "Toàn bộ tân sinh viên"
+        "Giảm 50% HP HK1",
+        "100% Tân sinh viên"
       ],
       [
         "7810203",
         "Khoa học chế biến món ăn",
-        "Giảm 50% HK1",
-        "Toàn bộ tân sinh viên"
+        "Giảm 50% HP HK1",
+        "100% Tân sinh viên"
       ],
       [
-        "7520115",
-        "Kỹ thuật Nhiệt",
-        "Giảm 50% HK1",
-        "Toàn bộ tân sinh viên"
+        "7540107",
+        "Khoa học dinh dưỡng và ẩm thực",
+        "Giảm 50% HP HK1",
+        "100% Tân sinh viên"
       ],
       [
         "7540204",
         "Công nghệ dệt, may",
-        "Giảm 50% HK1",
-        "Toàn bộ tân sinh viên"
-      ],
-      [
-        "7340123",
-        "Kinh doanh thời trang và dệt may",
-        "Giảm 50% HK1",
-        "Toàn bộ tân sinh viên"
-      ],
-      [
-        "7510406",
-        "Công nghệ kỹ thuật môi trường",
-        "Giảm 50% HK1",
-        "Toàn bộ tân sinh viên"
-      ],
-      [
-        "7850101",
-        "Quản lý tài nguyên và môi trường",
-        "Giảm 50% HK1",
-        "Toàn bộ tân sinh viên"
-      ],
-      [
-        "7510402",
-        "Công nghệ vật liệu",
-        "Giảm 50% HK1",
-        "Toàn bộ tân sinh viên"
+        "Giảm 50% HP HK1",
+        "100% Tân sinh viên"
       ]
     ],
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "created_at": "2026-09-11T11:39:18.586202+00:00"
   },
   {
     "visual_id": "roadmap_admissions_2026",
@@ -1888,6 +1818,39 @@
         "desc": "Kết hợp điểm thi ĐGNL chuyên biệt ĐH Sư phạm TP.HCM với điểm học bạ THPT."
       }
     ],
-    "created_at": "2026-09-11T02:55:14.786968+00:00"
+    "created_at": "2026-09-11T11:39:18.586202+00:00"
+  },
+  {
+    "visual_id": "roadmap_nhaphoc_2026",
+    "type": "roadmap",
+    "category": "admission_procedure",
+    "title": "QUY TRÌNH & THỜI HẠN NHẬP HỌC TÂN SINH VIÊN K2026",
+    "steps": [
+      {
+        "step": 1,
+        "name": "BƯỚC 1",
+        "title": "Xác nhận nhập học Bộ GD&ĐT",
+        "desc": "Thực hiện trực tuyến tại https://thisinh.thitotnghiepthpt.edu.vn trước 17h00 ngày 21/08/2026."
+      },
+      {
+        "step": 2,
+        "name": "BƯỚC 2",
+        "title": "Đăng nhập Cổng HUIT",
+        "desc": "Truy cập https://nhaphoc.huit.edu.vn bằng Mã hồ sơ/CCCD/SĐT nhận qua SMS và Email."
+      },
+      {
+        "step": 3,
+        "name": "BƯỚC 3",
+        "title": "Nộp học phí trực tuyến",
+        "desc": "Nộp học phí và lệ phí nhập học qua cổng thanh toán ngân hàng trực tuyến an toàn."
+      },
+      {
+        "step": 4,
+        "name": "BƯỚC 4",
+        "title": "Nhận Giấy báo & Sinh hoạt đầu khóa",
+        "desc": "Nhận tài khoản sinh viên, theo dõi thời khóa biểu và sinh hoạt đầu khóa từ 24/08/2026."
+      }
+    ],
+    "created_at": "2026-09-11T11:39:18.586202+00:00"
   }
 ]

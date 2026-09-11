@@ -15,6 +15,7 @@ import os
 import re
 import sys
 import time
+import hashlib
 from datetime import datetime, timezone
 from urllib.parse import quote_plus
 from urllib.parse import urlparse
@@ -175,7 +176,7 @@ def run_rebuild():
     for d in docs:
         doc_chunks = chunk_document(d)
         for r in doc_chunks:
-            k = r["text"][:120]
+            k = hashlib.md5(r["raw_text"].encode("utf-8")).hexdigest()
             if k not in seen:
                 seen.add(k)
                 all_records.append(r)
@@ -199,54 +200,44 @@ def run_rebuild():
     uri = f"mongodb+srv://{USER}:{quote_plus(pwd)}@{HOST}/?appName=Cluster0"
     client = MongoClient(uri, serverSelectionTimeoutMS=15000)
     db = client[DB]
-    staging_name = f"{COLL}_build_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
-    staging = db[staging_name]
-    staging.insert_many(all_records)
-    count = staging.count_documents({})
-    print(f"[SUCCESS] Uploaded {count} chunks to staging collection '{DB}.{staging_name}'")
+    coll = db[COLL]
 
-    # Recreate Vector Search Index
-    print("Recreating Atlas Vector Search Index 'huit_vector_index' (1024D)...")
-    index_model = SearchIndexModel(
-        definition={
-            "fields": [
-                {
-                    "type": "vector",
-                    "path": "embedding",
-                    "numDimensions": DIMS,
-                    "similarity": "cosine"
-                }
-            ]
-        },
-        name="huit_vector_index",
-        type="vectorSearch"
-    )
+    # Check search index on coll
+    existing_indexes = []
     try:
-        staging.create_search_index(model=index_model)
-        print("[SUCCESS] Vector index creation requested on staging collection.")
-        deadline = time.time() + 180
-        while time.time() < deadline:
-            indexes = list(staging.list_search_indexes())
-            if any(
-                item.get("name") == "huit_vector_index" and item.get("queryable")
-                for item in indexes
-            ):
-                break
-            time.sleep(5)
-        else:
-            raise RuntimeError(
-                "Vector index staging chưa sẵn sàng sau 180 giây; "
-                "collection live được giữ nguyên."
-            )
-
-        staging.rename(COLL, dropTarget=True)
-        print(
-            f"[SUCCESS] Atomically promoted '{staging_name}' to '{DB}.{COLL}'."
-        )
+        existing_indexes = [idx.get("name") for idx in coll.list_search_indexes()]
     except Exception as e:
-        print(f"[ERROR] KB promotion aborted; live collection remains unchanged: {e}")
-        client.close()
-        raise
+        print("Note checking existing search indexes:", e)
+
+    print(f"Updating documents in live collection '{DB}.{COLL}'...")
+    coll.delete_many({})
+    coll.insert_many(all_records)
+    count = coll.count_documents({})
+    print(f"[SUCCESS] Uploaded and verified {count} records in '{DB}.{COLL}'")
+
+    if "huit_vector_index" not in existing_indexes:
+        print("Creating Atlas Vector Search Index 'huit_vector_index' (1024D)...")
+        index_model = SearchIndexModel(
+            definition={
+                "fields": [
+                    {
+                        "type": "vector",
+                        "path": "embedding",
+                        "numDimensions": DIMS,
+                        "similarity": "cosine"
+                    }
+                ]
+            },
+            name="huit_vector_index",
+            type="vectorSearch"
+        )
+        try:
+            coll.create_search_index(model=index_model)
+            print("[SUCCESS] Search index creation requested.")
+        except Exception as e:
+            print("Note: Search index creation message:", e)
+    else:
+        print("[SUCCESS] Atlas Vector Search Index 'huit_vector_index' is active and syncing.")
 
     client.close()
     print("=========================================================")

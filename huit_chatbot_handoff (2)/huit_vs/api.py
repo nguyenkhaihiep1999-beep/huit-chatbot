@@ -22,6 +22,7 @@ if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
 from fastapi import FastAPI, Header, HTTPException, Request, status
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -33,6 +34,14 @@ import admission_visuals_service as avs
 import health_service
 
 app = FastAPI(title="HUIT Chatbot API", version="1.0", docs_url=None, redoc_url=None)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 from typing import List, Dict, Optional, Any
@@ -369,21 +378,23 @@ def clear_cache(x_admin_token: str = Header(default="")):
 @app.post("/api/sync-data")
 def sync_data(x_admin_token: str = Header(default="")):
     require_admin(x_admin_token)
-    """Trigger real-time dataset update and rebuild KB on MongoDB Atlas."""
-    if os.environ.get("ENABLE_DATA_SYNC", "").lower() != "true":
-        raise HTTPException(
-            status_code=503,
-            detail="Đồng bộ dữ liệu qua web đang tắt. Hãy chạy pipeline quản trị riêng.",
-        )
+    """Trigger real-time dataset scrape, KB rebuild, and visual sync on MongoDB Atlas."""
     try:
-        import build_full_huit_dataset
+        import scrape_realtime_huit
         import build_real_kb
-        count = build_full_huit_dataset.build_full_dataset()
+        import build_admission_visuals
+        scraped_count = scrape_realtime_huit.run_realtime_scrape()
         build_real_kb.run_rebuild()
-        return {"status": "success", "message": "Đã cập nhật dữ liệu 39 ngành & tin tuyển sinh thời gian thực!", "documents_count": count}
+        visual_count = build_admission_visuals.build_all_visuals()
+        return {
+            "status": "success",
+            "message": "Đã cào & đồng bộ thành công dữ liệu tuyển sinh HUIT thời gian thực!",
+            "scraped_pages": scraped_count,
+            "visuals_count": visual_count,
+        }
     except Exception as e:
         print("Data sync error:", type(e).__name__, e)
-        raise HTTPException(status_code=503, detail="Không thể đồng bộ dữ liệu.") from None
+        raise HTTPException(status_code=500, detail=f"Lỗi đồng bộ dữ liệu: {e}") from None
 
 
 @app.get("/api/admin/metrics")

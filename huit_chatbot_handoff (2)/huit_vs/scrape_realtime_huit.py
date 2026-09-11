@@ -33,10 +33,14 @@ HEADERS = {
 CURATED_OFFICIAL_URLS = [
     "https://ts.huit.edu.vn/nganh-dao-tao/dai-hoc",
     "https://ts.huit.edu.vn/thong-bao/danh-muc-nganh-dao-tao-trinh-do-dai-hoc",
-    "https://ts.huit.edu.vn/tuyen-sinh/chuong-trinh-dao-tao-dai-hoc-chinh-quy-khoa-17-nam-2026",
+    "https://ts.huit.edu.vn/tin-tuyen-sinh/diem-chuan-truong-dai-hoc-cong-thuong-tp-hcm-nam-2026",
+    "https://ts.huit.edu.vn/tin-tuyen-sinh/thong-bao-nhap-hoc-doi-voi-tan-sinh-vien-khoa-2026",
+    "https://ts.huit.edu.vn/tin-tuyen-sinh/thong-tin-tuyen-sinh-dai-hoc-nam-2026",
+    "https://ts.huit.edu.vn/tin-tuyen-sinh/huit-tiep-tuc-nhan-ho-so-xet-tuyen-80-chi-tieu-o-cac-chuong-trinh-lien-ket-quoc-te-va-nganh-cong-nghe-che-bien-thuy-san",
     "https://ts.huit.edu.vn/47159/hoc-phi-huit-nam-2026-minh-bach-thong-tin-dong-hanh-cung-nguoi-hoc",
     "https://ts.huit.edu.vn/thong-bao/huit-du-kien-hoc-phi-khoa-2026-2030-khoang-tu-140-trieu-170-trieu-dong-tang-theo-lo-trinh-va-di-kem-nhieu-chinh-sach-ho-tro-iem",
     "https://ts.huit.edu.vn/tuyen-sinh/co-hoi-nhan-hoc-bong-len-den-100-hoc-phi-cua-vien-quoc-te-huit-tu-diem-hoc-ba",
+    "https://ts.huit.edu.vn/tuyen-sinh/chuong-trinh-dao-tao-dai-hoc-chinh-quy-khoa-17-nam-2026",
     "https://ts.huit.edu.vn/khoa-hoc-cong-nghe/thong-tin-tuyen-sinh-dai-hoc-nam-2025",
 ]
 
@@ -111,11 +115,11 @@ def get_admission_notices_urls():
                     full_url = urljoin(BASE_URL, href)
                     anchor = a.get_text(" ", strip=True).lower()
                     relevant = any(term in anchor for term in [
-                        "tuyển sinh", "xét tuyển", "điểm", "học phí",
+                        "tuyển sinh", "xét tuyển", "điểm chuẩn", "điểm sàn", "trúng tuyển", "học phí",
                         "học bổng", "ngành đào tạo", "chương trình đào tạo",
                         "nhập học", "hồ sơ",
                     ])
-                    current = "2026" in anchor or "2025" in anchor
+                    current = "2026" in anchor or "2025" in anchor or "mới" in anchor
                     if is_official_url(full_url) and relevant and current:
                         notice_urls.add(full_url.split("#", 1)[0])
     return sorted(list(notice_urls))
@@ -162,16 +166,31 @@ def html_to_clean_markdown(soup, url):
                 if t:
                     lines.append(f"- {t}")
         elif elem.name == "table":
-            # Simple markdown table conversion
-            rows = []
+            raw_rows = []
+            max_cols = 0
             for tr in elem.find_all("tr"):
                 cells = [td.text.strip().replace("\n", " ") for td in tr.find_all(["td", "th"])]
                 if cells:
-                    rows.append("| " + " | ".join(cells) + " |")
-            if len(rows) > 1:
-                header = rows[0]
-                sep = "| " + " | ".join(["---"] * len(rows[0].split("|")[1:-1])) + " |"
-                lines.extend(["", header, sep] + rows[1:] + [""])
+                    raw_rows.append(cells)
+                    if len(cells) > max_cols:
+                        max_cols = len(cells)
+            if max_cols > 0 and len(raw_rows) > 1:
+                header_cells = raw_rows[0]
+                if len(header_cells) < max_cols and len(raw_rows) > 1 and len(raw_rows[1]) == 4:
+                    header_cells = ["STT", "Mã ngành", "Tên ngành đào tạo", "Điểm thi THPT 2026", "Học bạ THPT", "ĐGNL ĐHQG-HCM", "ĐHSP TPHCM"]
+                while len(header_cells) < max_cols:
+                    header_cells.append(f"Cột {len(header_cells) + 1}")
+                lines.append("")
+                lines.append("| " + " | ".join(header_cells) + " |")
+                lines.append("| " + " | ".join(["---"] * len(header_cells)) + " |")
+                for r in raw_rows[1:]:
+                    if any("học bạ" in c.lower() for c in r) and len(r) < max_cols:
+                        continue
+                    padded = list(r)
+                    while len(padded) < len(header_cells):
+                        padded.append("-")
+                    lines.append("| " + " | ".join(padded[:len(header_cells)]) + " |")
+                lines.append("")
 
     markdown_text = "\n".join(lines)
     # Basic clean-up of excess blank lines

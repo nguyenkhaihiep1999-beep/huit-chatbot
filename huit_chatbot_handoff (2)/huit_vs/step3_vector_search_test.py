@@ -18,7 +18,15 @@ HOST = "cluster0.hyj8rab.mongodb.net"
 DB = "huit_chatbot"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-pwd = os.environ.get("MONGODB_PASSWORD")
+pwd = os.environ.get("MONGODB_PASSWORD", "").strip()
+if not pwd:
+    env_file = os.path.join(HERE, ".env")
+    if os.path.exists(env_file):
+        with open(env_file, encoding="utf-8") as handle:
+            for line in handle:
+                if line.startswith("MONGODB_PASSWORD="):
+                    pwd = line.split("=", 1)[1].strip().strip("\"'")
+                    break
 if not pwd:
     raise RuntimeError("MONGODB_PASSWORD chưa được cấu hình.")
 
@@ -85,7 +93,8 @@ print("[OK] STEP 3 SUCCESS: Saved module 'huit_semantic_search' to collection 'c
 # 2. RUN MODULE TEST: Execute `$vectorSearch` from `code_modules` and output test results to `test_search_results`
 from fastembed import TextEmbedding
 
-model = TextEmbedding("sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+MODEL_NAME = "intfloat/multilingual-e5-large"
+model = TextEmbedding(MODEL_NAME)
 
 test_questions = [
     "Mã ngành và tổ hợp xét tuyển ngành Trí tuệ nhân tạo HUIT?",
@@ -103,7 +112,8 @@ test_out_coll.drop()
 
 test_logs = []
 for q in test_questions:
-    qv = list(model.embed([q]))[0].tolist()
+    query_input = f"query: {q}"
+    qv = list(model.embed([query_input]))[0].tolist()
     pipe = copy.deepcopy(base_pipeline)
     pipe[0]["$vectorSearch"]["queryVector"] = qv
     

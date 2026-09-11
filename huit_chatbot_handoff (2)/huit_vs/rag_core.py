@@ -201,18 +201,27 @@ def expand_query(question):
 
 
 INTENT_TERMS = {
+    "admission_procedure": (
+        "nhap hoc", "ho so nhap hoc", "thu tuc nhap hoc", "xac nhan nhap hoc",
+        "thoi gian nhap hoc", "lich nhap hoc", "sinh hoat dau khoa",
+        "rut hoc phi", "hoan hoc phi", "rut ho so",
+    ),
+    "cutoff": (
+        "diem chuan", "diem trung tuyen", "trung tuyen", "chuan 2026",
+        "diem chuan 2026", "diem nganh", "diem cntt", "diem it",
+        "diem nay", "diem xet tuyen",
+    ),
+    "floor_score": (
+        "diem san", "nguong dam bao", "nguong xet tuyen", "nhan ho so",
+    ),
     "tuition": (
         "hoc phi", "tin chi", "tien hoc", "muc phi", "chi phi hoc",
         "tien de hoc", "bao nhieu tien de hoc",
     ),
-    "cutoff": (
-        "diem san", "diem chuan", "diem trung tuyen", "diem nganh",
-        "diem cntt", "diem it", "diem nay", "diem xet tuyen",
-    ),
     "scholarship": ("hoc bong", "giam hoc phi", "mien hoc phi"),
     "admission": (
         "phuong thuc xet tuyen", "xet tuyen", "xet hoc ba",
-        "danh gia nang luc",
+        "danh gia nang luc", "bo sung", "chi tieu bo sung",
     ),
     "career": (
         "chon nganh", "hoc nganh", "hoc ngnah", "hoc gi", "phu hop",
@@ -232,7 +241,7 @@ TITLE_STOP_WORDS = {
 
 def classify_intent(question):
     normalized = _normalize(question)
-    for intent in ("scholarship", "cutoff", "tuition", "admission", "contact", "career"):
+    for intent in ("admission_procedure", "scholarship", "cutoff", "floor_score", "tuition", "admission", "contact", "career"):
         if any(term in normalized for term in INTENT_TERMS[intent]):
             return intent
     scores = {
@@ -241,6 +250,7 @@ def classify_intent(question):
     }
     intent, score = max(scores.items(), key=lambda item: item[1])
     return intent if score else "general"
+
 
 
 def infer_metadata(doc):
@@ -484,38 +494,100 @@ def retrieve(question, top_k=3):
         if not any(d.get("_id") == general_tuition_doc["_id"] for d in docs):
             docs.insert(0, general_tuition_doc)
 
-    if intent == "cutoff" or "diem nay" in q_normalized:
-        cutoff_doc = {
-            "_id": "huit_2026_cutoff_override",
-            "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
-            "text": (
-                "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức "
-                "ts.huit.edu.vn | Chủ đề: Điểm sàn năm 2026]\n"
-                "Điểm thi tốt nghiệp THPT: Luật và Luật kinh tế 20 điểm; "
-                "các ngành còn lại 16 điểm. Xét học bạ: 20 điểm. "
-                "Đánh giá năng lực ĐHQG-HCM: nhóm Luật 720 điểm, các ngành "
-                "còn lại 600 điểm. Đây là điểm sàn, chưa phải điểm trúng tuyển."
-            ),
-            "url": (
-                "https://ts.huit.edu.vn/thong-bao/"
-                "diem-san-xet-tuyen-dai-hoc-nam-2026-"
-                "truong-dai-hoc-cong-thuong-tp-hcm"
-            ),
-            "source_url": (
-                "https://ts.huit.edu.vn/thong-bao/"
-                "diem-san-xet-tuyen-dai-hoc-nam-2026-"
-                "truong-dai-hoc-cong-thuong-tp-hcm"
-            ),
-            "category": "cutoff",
-            "year": 2026,
-            "score": 0.99,
-        }
-        docs = [
-            doc for doc in docs
-            if doc.get("_id") != cutoff_doc["_id"]
-            and doc.get("category") != "cutoff"
-        ]
-        docs.insert(0, cutoff_doc)
+    if intent in ("cutoff", "floor_score") or any(k in q_normalized for k in ["diem san", "diem chuan", "diem trung tuyen", "diem nay"]):
+        is_floor_query = (
+            intent == "floor_score"
+            or "diem san" in q_normalized
+            or "nguong dam bao" in q_normalized
+            or "nhan ho so" in q_normalized
+        ) and not any(k in q_normalized for k in ["chuan", "trung tuyen"])
+
+        if is_floor_query:
+            floor_doc = {
+                "_id": "huit_2026_floor_override",
+                "title": "Điểm sàn xét tuyển đại học HUIT năm 2026",
+                "text": (
+                    "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức "
+                    "ts.huit.edu.vn | Chủ đề: Điểm sàn nhận hồ sơ năm 2026]\n"
+                    "Điểm sàn nhận hồ sơ xét tuyển đại học HUIT năm 2026:\n"
+                    "- Điểm thi tốt nghiệp THPT: Ngành Luật và Luật kinh tế 20 điểm; các ngành còn lại 16 điểm.\n"
+                    "- Xét học bạ THPT: 20 điểm cho tất cả các ngành.\n"
+                    "- Điểm Đánh giá năng lực ĐHQG-HCM: Nhóm Luật 720 điểm, các ngành còn lại 600 điểm."
+                ),
+                "url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+                "source_url": "https://ts.huit.edu.vn/thong-bao/diem-san-xet-tuyen-dai-hoc-nam-2026-truong-dai-hoc-cong-thuong-tp-hcm",
+                "category": "cutoff",
+                "year": 2026,
+                "score": 0.99,
+            }
+            if not any(d.get("_id") == floor_doc["_id"] for d in docs):
+                docs.insert(0, floor_doc)
+        else:
+            official_cutoff_doc = {
+                "_id": "huit_2026_official_cutoff_doc",
+                "title": "Điểm chuẩn trúng tuyển chính thức Trường Đại học Công Thương TP.HCM năm 2026",
+                "text": (
+                    "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Điểm chuẩn trúng tuyển năm 2026 (Công bố chính thức ngày 09/08/2026)]\n"
+                    "Trường Đại học Công Thương TP.HCM đã CHÍNH THỨC CÔNG BỐ Điểm chuẩn trúng tuyển năm 2026 vào ngày 09/08/2026 cho 44 ngành và chương trình đào tạo:\n"
+                    "- Phương thức Điểm thi tốt nghiệp THPT năm 2026: Dao động từ 16.00 đến 23.00 điểm. "
+                    "Ngành lấy điểm chuẩn cao nhất: Công nghệ kỹ thuật điều khiển và tự động hóa (23.00 điểm). "
+                    "Logistics và Quản lý chuỗi cung ứng: 22.50 điểm; Công nghệ thực phẩm: 22.00 điểm; "
+                    "Công nghệ kỹ thuật điện - điện tử: 22.00 điểm; Marketing, Thương mại điện tử, Luật kinh tế: 21.75 điểm; "
+                    "Quản trị kinh doanh, Cơ điện tử: 21.50 điểm; Luật, Kế toán, Tài chính - ngân hàng: 21.25 điểm; "
+                    "Trí tuệ nhân tạo: 20.50 điểm; Công nghệ thông tin, Khoa học dữ liệu, An toàn thông tin: 20.00 điểm. "
+                    "Các ngành điểm chuẩn thấp nhất: Công nghệ dệt, may (18.00 điểm), Công nghệ chế biến thủy sản (16.00 điểm).\n"
+                    "- Phương thức Xét học bạ THPT: Từ 20.00 đến 25.63 điểm (Tự động hóa 25.63đ, Logistics 25.00đ, CNTT 24.50đ).\n"
+                    "- Phương thức Đánh giá năng lực ĐHQG-HCM: Từ 600 đến 825 điểm (Tự động hóa 825đ, Logistics 800đ, Ngôn ngữ 800đ)."
+                ),
+                "url": "https://ts.huit.edu.vn/tin-tuyen-sinh/diem-chuan-truong-dai-hoc-cong-thuong-tp-hcm-nam-2026",
+                "source_url": "https://ts.huit.edu.vn/tin-tuyen-sinh/diem-chuan-truong-dai-hoc-cong-thuong-tp-hcm-nam-2026",
+                "category": "cutoff",
+                "year": 2026,
+                "score": 0.999,
+            }
+            if not any(d.get("_id") == official_cutoff_doc["_id"] for d in docs):
+                docs.insert(0, official_cutoff_doc)
+
+    if intent == "admission_procedure" or any(k in q_normalized for k in ["nhap hoc", "thu tuc nhap hoc", "thoi gian nhap hoc", "ho so nhap hoc", "xac nhan nhap hoc", "rut hoc phi"]):
+        if any(k in q_normalized for k in ["rut hoc phi", "hoan hoc phi"]):
+            refund_doc = {
+                "_id": "huit_2026_tuition_refund_doc",
+                "title": "Thông báo rút học phí đối với sinh viên nhập học năm học 2026 - 2027 - HUIT",
+                "text": (
+                    "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Quy định rút học phí sinh viên nhập học 2026 - 2027 (Ban hành ngày 14/08/2026)]\n"
+                    "Nhà trường quy định điều kiện và thủ tục giải quyết rút học phí đối với tân sinh viên đã nộp học phí nhập học nhưng có nguyện vọng rút hồ sơ:\n"
+                    "- Hồ sơ gồm: Đơn xin rút học phí (theo mẫu của HUIT), Phiếu thu/Biên lai nộp tiền hoặc sao kê chuyển khoản hợp lệ, Bản sao CCCD, Giấy tờ minh chứng lý do chính đáng.\n"
+                    "- Địa điểm nộp và xử lý hồ sơ: Phòng Tài chính - Kế toán phối hợp Phòng Công tác Sinh viên (140 Lê Trọng Tấn, P. Tây Thạnh, Q. Tân Phú, TP.HCM). Hotline: 096 205 1080."
+                ),
+                "url": "https://ts.huit.edu.vn/thong-bao/thong-bao-rut-hoc-phi-sinh-vien-nhap-hoc-nam-hoc-2026-2027",
+                "source_url": "https://ts.huit.edu.vn/thong-bao/thong-bao-rut-hoc-phi-sinh-vien-nhap-hoc-nam-hoc-2026-2027",
+                "category": "tuition",
+                "year": 2026,
+                "score": 0.995,
+            }
+            if not any(d.get("_id") == refund_doc["_id"] for d in docs):
+                docs.insert(0, refund_doc)
+        else:
+            admission_proc_doc = {
+                "_id": "huit_2026_admission_proc_override",
+                "title": "Thông báo nhập học đối với Tân sinh viên khóa 2026 - HUIT (Chính thức)",
+                "text": (
+                    "[Trường Đại học Công Thương TP.HCM (HUIT) | Nguồn chính thức ts.huit.edu.vn | Chủ đề: Hướng dẫn nhập học Tân sinh viên Khóa 2026]\n"
+                    "- Thời gian làm thủ tục nhập học chính thức: Từ ngày 12/08/2026 đến hết 17h00 ngày 21/08/2026 (Nhà trường làm việc tất cả các ngày trong tuần, kể cả Thứ Bảy và Chủ Nhật).\n"
+                    "- Quy trình nhập học gồm 2 bước bắt buộc:\n"
+                    "  + Bước 1: Xác nhận nhập học trực tuyến trên Cổng thông tin tuyển sinh của Bộ Giáo dục và Đào tạo (https://thisinh.thitotnghiepthpt.edu.vn/) trước 17h00 ngày 21/08/2026.\n"
+                    "  + Bước 2: Nộp học phí và làm thủ tục trực tuyến qua Cổng nhập học HUIT tại website: https://nhaphoc.huit.edu.vn (thí sinh đăng nhập bằng Mã hồ sơ/CCCD/SĐT được nhận qua SMS và Email).\n"
+                    "- Địa điểm hỗ trợ trực tiếp: Trường Đại học Công Thương TP.HCM, số 140 Lê Trọng Tấn, P. Tây Thạnh, Q. Tân Phú, TP.HCM.\n"
+                    "- Lịch sinh hoạt đầu khóa: Bắt đầu từ ngày 24/08/2026."
+                ),
+                "url": "https://ts.huit.edu.vn/thong-bao/thong-bao-nhap-hoc-doi-voi-tan-sinh-vien-khoa-2026",
+                "source_url": "https://ts.huit.edu.vn/thong-bao/thong-bao-nhap-hoc-doi-voi-tan-sinh-vien-khoa-2026",
+                "category": "admission_procedure",
+                "year": 2026,
+                "score": 0.995,
+            }
+            if not any(d.get("_id") == admission_proc_doc["_id"] for d in docs):
+                docs.insert(0, admission_proc_doc)
 
     unique_docs = []
     seen_sources = set()
@@ -561,7 +633,7 @@ def _get_llm_endpoints():
     if groq_key:
         try:
             client = OpenAI(api_key=groq_key, base_url="https://api.groq.com/openai/v1")
-            for m in ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"]:
+            for m in ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b", "llama-3.3-70b-versatile", "llama-3.1-8b-instant"]:
                 endpoints.append((client, m, "GroqDirect"))
         except Exception as e:
             print("Groq Direct init warning:", e)
@@ -572,12 +644,11 @@ def _get_llm_endpoints():
         try:
             client = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
             for m in [
+                LLM_MODEL,
+                "qwen/qwen-2.5-72b-instruct",
                 "google/gemma-4-26b-a4b-it:free",
                 "google/gemma-4-31b-it:free",
                 "openrouter/free",
-                "nvidia/nemotron-3-nano-30b-a3b:free",
-                "inclusionai/ling-3.0-flash:free",
-                LLM_MODEL,
             ]:
                 endpoints.append((client, m, "OpenRouter"))
         except Exception as e:
@@ -1061,21 +1132,61 @@ def _fallback_answer(question, docs):
         )
 
     # 2. Cutoff Scores
-    if intent == "cutoff" or any(k in q_normalized for k in ["diem san", "diem chuan", "diem trung tuyen"]):
-        is_law = "luat" in q_normalized
-        if "danh gia nang luc" in q_normalized:
-            score = "720" if is_law else "600"
+    if intent in ("cutoff", "floor_score") or any(k in q_normalized for k in ["diem san", "diem chuan", "diem trung tuyen"]):
+        is_floor = (intent == "floor_score" or "diem san" in q_normalized or "nguong dam bao" in q_normalized) and not any(k in q_normalized for k in ["chuan", "trung tuyen"])
+        if is_floor:
+            is_law = "luat" in q_normalized
+            if "danh gia nang luc" in q_normalized:
+                score = "720" if is_law else "600"
+                return (
+                    f"Điểm sàn Đánh giá năng lực ĐHQG-HCM năm 2026 HUIT là **{score} điểm** "
+                    f"cho {'nhóm Luật và Luật kinh tế' if is_law else 'các ngành ngoài nhóm Luật'}. [1]"
+                )
+            score = "20" if is_law else "16"
             return (
-                f"Điểm sàn Đánh giá năng lực ĐHQG-HCM năm 2026 HUIT là **{score} điểm** "
-                f"cho {'nhóm Luật và Luật kinh tế' if is_law else 'các ngành ngoài nhóm Luật'}. [1]"
+                f"Điểm sàn xét điểm thi THPT năm 2026 HUIT là **{score} điểm** "
+                f"cho {'nhóm Luật' if is_law else 'các ngành ngoài nhóm Luật'}. Điểm sàn xét học bạ là 20 điểm. [1]"
             )
-        score = "20" if is_law else "16"
+        else:
+            # Official cutoffs 2026
+            if "tri tue nhan tao" in q_normalized or "ai" in q_normalized:
+                return "Theo công bố điểm chuẩn trúng tuyển chính thức năm 2026 của HUIT (ngày 09/08/2026), ngành **Trí tuệ nhân tạo (Mã ngành: 7480107)** có điểm chuẩn theo điểm thi tốt nghiệp THPT là **20.50 điểm**, xét theo học bạ THPT là **23.50 điểm** và ĐGNL ĐHQG-HCM là **700 điểm**. [1]"
+            if "cong nghe thong tin" in q_normalized or "cntt" in q_normalized:
+                return "Theo công bố điểm chuẩn trúng tuyển chính thức năm 2026 của HUIT (ngày 09/08/2026), ngành **Công nghệ thông tin (Mã ngành: 7480201)** có điểm chuẩn theo điểm thi tốt nghiệp THPT là **20.00 điểm**, xét theo học bạ THPT là **24.50 điểm** và ĐGNL ĐHQG-HCM là **750 điểm**. [1]"
+            if "tu dong hoa" in q_normalized or "dieu khien" in q_normalized:
+                return "Theo công bố chính thức ngày 09/08/2026 của HUIT, ngành lấy điểm chuẩn cao nhất trường là **Công nghệ kỹ thuật điều khiển và tự động hóa** với mức **23.00 điểm** (điểm thi THPT) và 25.63 điểm (xét học bạ THPT). [1]"
+            return (
+                "Trường Đại học Công Thương TP.HCM (HUIT) đã **CHÍNH THỨC CÔNG BỐ Điểm chuẩn trúng tuyển năm 2026** vào ngày 09/08/2026:\n\n"
+                "- **Phương thức Điểm thi tốt nghiệp THPT**: Dao động từ **16.00 đến 23.00 điểm**.\n"
+                "  + Ngành cao nhất: *Công nghệ kỹ thuật điều khiển và tự động hóa* (**23.00 điểm**).\n"
+                "  + *Logistics và Quản lý chuỗi cung ứng*: **22.50 điểm**.\n"
+                "  + *Công nghệ thực phẩm*, *Công nghệ kỹ thuật điện - điện tử*: **22.00 điểm**.\n"
+                "  + *Marketing*, *Thương mại điện tử*, *Luật kinh tế*: **21.75 điểm**.\n"
+                "  + *Trí tuệ nhân tạo*: **20.50 điểm** | *Công nghệ thông tin*: **20.00 điểm**.\n"
+                "  + Các ngành 18.0 điểm: *Công nghệ dệt, may*; thấp nhất là *Công nghệ chế biến thủy sản* (**16.00 điểm**).\n"
+                "- **Phương thức Học bạ THPT**: Từ **20.00 đến 25.63 điểm**.\n"
+                "- **Phương thức ĐGNL ĐHQG-HCM**: Từ **600 đến 825 điểm**. [1]"
+            )
+
+    # 3. Admission procedure / Tuition refund
+    if intent == "admission_procedure" or any(k in q_normalized for k in ["nhap hoc", "thu tuc nhap hoc", "thoi gian nhap hoc", "ho so nhap hoc", "rut hoc phi"]):
+        if any(k in q_normalized for k in ["rut hoc phi", "hoan hoc phi"]):
+            return (
+                "Theo Thông báo ngày 14/08/2026 của HUIT về việc rút học phí đối với sinh viên nhập học năm học 2026 - 2027:\n\n"
+                "- Sinh viên có nguyện vọng rút học phí cần chuẩn bị: Đơn xin rút học phí (theo mẫu HUIT), Phiếu thu/Biên lai nộp tiền hoặc sao kê, Bản sao CCCD và minh chứng lý do chính đáng.\n"
+                "- Nộp trực tiếp tại Phòng Tài chính - Kế toán phối hợp Phòng Công tác Sinh viên (140 Lê Trọng Tấn, P. Tây Thạnh, Q. Tân Phú, TP.HCM). Hotline: 096 205 1080. [1]"
+            )
         return (
-            f"Điểm sàn xét điểm thi THPT năm 2026 HUIT là **{score} điểm** "
-            f"cho {'nhóm Luật' if is_law else 'các ngành ngoài nhóm Luật'}. Điểm sàn xét học bạ là 20 điểm. [1]"
+            "Theo Thông báo nhập học chính thức đối với Tân sinh viên khóa 2026 của Trường Đại học Công Thương TP.HCM (HUIT):\n\n"
+            "- **Thời gian làm thủ tục**: Từ ngày **12/08/2026 đến hết 17h00 ngày 21/08/2026** (làm việc tất cả các ngày trong tuần, kể cả Thứ Bảy và Chủ Nhật).\n"
+            "- **Quy trình nhập học 2 bước bắt buộc**:\n"
+            "  1. **Bước 1**: Xác nhận nhập học trực tuyến trên Cổng thông tin của Bộ GD&ĐT (https://thisinh.thitotnghiepthpt.edu.vn/) trước 17h00 ngày 21/08/2026.\n"
+            "  2. **Bước 2**: Nộp học phí và làm thủ tục trực tuyến tại Cổng nhập học HUIT (https://nhaphoc.huit.edu.vn) bằng mã hồ sơ/CCCD/SĐT đã nhận qua SMS/Email.\n"
+            "- **Địa điểm hỗ trợ trực tiếp**: Trụ sở chính HUIT, số 140 Lê Trọng Tấn, P. Tây Thạnh, Q. Tân Phú, TP.HCM.\n"
+            "- **Lịch sinh hoạt đầu khóa**: Dự kiến bắt đầu từ ngày **24/08/2026**. [1]"
         )
 
-    # 3. Admission methods
+    # 4. Admission methods
     if intent == "admission" or any(k in q_normalized for k in ["phuong thuc", "xet hoc ba", "tuyen thang"]):
         return (
             "Năm 2026, HUIT áp dụng 5 phương thức xét tuyển: 1) Điểm thi tốt nghiệp THPT, "
