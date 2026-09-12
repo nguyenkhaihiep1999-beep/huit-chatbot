@@ -94,9 +94,11 @@ def enforce_login_rate_limit(request: Request):
 
 
 def require_admin(x_admin_token: str = Header(default="")):
-    expected = (os.environ.get("ADMIN_TOKEN", "") or "huit_admin_2026").strip()
-    if not hmac.compare_digest(x_admin_token, expected):
-        raise HTTPException(status_code=401, detail="Token quản trị không đúng. Vui lòng thử lại.")
+    expected_token = (os.environ.get("ADMIN_TOKEN", "") or "huit_admin_2026").strip()
+    expected_pass = (os.environ.get("ADMIN_PASSWORD", "") or "123").strip()
+    candidate = str(x_admin_token or "").strip()
+    if not (hmac.compare_digest(candidate, expected_token) or hmac.compare_digest(candidate, expected_pass)):
+        raise HTTPException(status_code=401, detail="Token quản trị không đúng hoặc phiên làm việc đã hết hạn.")
 
 
 
@@ -461,22 +463,25 @@ class VectorSearchTestRequest(BaseModel):
 @app.post("/api/admin/login")
 def admin_login(req: LoginRequest, request: Request):
     expected_token = (os.environ.get("ADMIN_TOKEN", "") or "huit_admin_2026").strip()
-    expected_user = (os.environ.get("ADMIN_USERNAME", "") or "admin").strip()
+    expected_user = (os.environ.get("ADMIN_USERNAME", "") or "khaihiep").strip()
+    expected_pass = (os.environ.get("ADMIN_PASSWORD", "") or "123").strip()
 
     token_candidate = None
     if req.admin_token and req.admin_token.strip():
-        token_candidate = req.admin_token.strip()
+        t = req.admin_token.strip()
+        if hmac.compare_digest(t, expected_token) or hmac.compare_digest(t, expected_pass):
+            token_candidate = expected_token
     elif req.username and req.password:
         u = req.username.strip()
         p = req.password.strip()
-        if hmac.compare_digest(u, expected_user) and hmac.compare_digest(p, expected_token):
+        if hmac.compare_digest(u, expected_user) and hmac.compare_digest(p, expected_pass):
             token_candidate = expected_token
 
-    if not token_candidate or not hmac.compare_digest(token_candidate, expected_token):
+    if not token_candidate:
         enforce_login_rate_limit(request)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Tài khoản, mật khẩu hoặc Admin Token không chính xác.",
+            detail="Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại.",
         )
 
     return {
@@ -490,7 +495,7 @@ def admin_login(req: LoginRequest, request: Request):
 @app.post("/api/admin/verify-token")
 def verify_admin_token(x_admin_token: str = Header(default="")):
     require_admin(x_admin_token)
-    expected_user = (os.environ.get("ADMIN_USERNAME", "") or "admin").strip()
+    expected_user = (os.environ.get("ADMIN_USERNAME", "") or "khaihiep").strip()
     return {"status": "success", "message": "Token quản trị hợp lệ.", "username": expected_user}
 
 
@@ -592,6 +597,12 @@ def system_telemetry():
 @app.get("/health/dashboard")
 def command_center():
     return FileResponse(os.path.join(HERE, "static", "control_center.html"))
+
+
+@app.get("/admin-portal")
+@app.get("/admin-classic")
+def admin_portal_page():
+    return FileResponse(os.path.join(HERE, "static", "admin.html"))
 
 
 @app.get("/workflow")

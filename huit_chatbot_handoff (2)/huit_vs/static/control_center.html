@@ -667,6 +667,10 @@
         <span class="pulse-dot"></span>
         <span id="live-status-text">ONLINE · ATLAS LIVE</span>
       </div>
+      <div id="admin-user-pill" style="display:none; align-items:center; gap:8px; background:rgba(0, 102, 196, 0.2); border:1px solid var(--border-glow); padding:5px 12px; border-radius:20px; font-size:0.8rem; color:#93c5fd;">
+        <span>👤 <strong id="admin-user-name">khaihiep</strong></span>
+        <button onclick="logoutAdmin()" style="background:none; border:none; color:#f87171; cursor:pointer; font-size:0.75rem; font-weight:700; margin-left:4px;" title="Đăng xuất quản trị">✕ Đăng xuất</button>
+      </div>
       <button class="btn" onclick="fetchTelemetry(false)">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         Làm mới (<span id="countdown-sec">3</span>s)
@@ -1049,6 +1053,47 @@
 
   </main>
 
+  <!-- Admin Authentication Modal (Blocks page until login) -->
+  <div id="authModal" class="modal-overlay" style="z-index: 9999;">
+    <div class="modal-content" style="max-width: 440px; border: 1px solid var(--border-glow); box-shadow: 0 0 50px rgba(0, 102, 196, 0.45); background: rgba(15, 23, 42, 0.96); border-radius: 16px;">
+      <div class="modal-header" style="border-bottom: 1px solid var(--border-color); display:flex; align-items:center; gap:12px; padding: 18px 22px;">
+        <div class="portal-orb" style="width:38px; height:38px; font-size:1.05rem;">H</div>
+        <div>
+          <div style="font-family:'Outfit', sans-serif; font-size:1.2rem; font-weight:800; color:#fff;">Xác Thực Quản Trị HUIT</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Trung Tâm Điều Hành HUIT AI</div>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 22px;">
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:18px; line-height:1.5;">
+          Vui lòng nhập tài khoản và mật khẩu quản trị để truy cập dữ liệu và điều khiển hệ thống HUIT Chatbot.
+        </p>
+        <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+          <div style="margin-bottom:14px;">
+            <label style="display:block; font-size:0.8rem; font-weight:600; color:var(--text-main); margin-bottom:6px;">Tài Khoản (Username)</label>
+            <input type="text" id="loginUsername" required autocomplete="username" placeholder="Nhập tài khoản (khaihiep)..." value="khaihiep" style="width:100%; background:rgba(3,7,18,0.75); border:1px solid var(--border-color); border-radius:8px; padding:10px 14px; color:#fff; font-size:0.9rem; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='var(--border-color)'" />
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block; font-size:0.8rem; font-weight:600; color:var(--text-main); margin-bottom:6px;">Mật Khẩu (Password)</label>
+            <div style="position:relative;">
+              <input type="password" id="loginPassword" required autocomplete="current-password" placeholder="Nhập mật khẩu (123)..." value="123" style="width:100%; background:rgba(3,7,18,0.75); border:1px solid var(--border-color); border-radius:8px; padding:10px 42px 10px 14px; color:#fff; font-size:0.9rem; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='var(--border-color)'" />
+              <button type="button" onclick="togglePassVisibility()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.1rem;">👁️</button>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:0.8rem; color:var(--text-muted);">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="rememberAdmin" checked style="accent-color:var(--brand-primary);" /> Ghi nhớ phiên đăng nhập
+            </label>
+            <span style="font-size:0.75rem; color:var(--cyan);">HUIT 2026</span>
+          </div>
+          <div id="loginErrorMsg" style="display:none; color:var(--rose); background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); padding:8px 12px; border-radius:6px; font-size:0.8rem; margin-bottom:14px;"></div>
+          <button type="submit" id="loginSubmitBtn" class="btn primary" style="width:100%; justify-content:center; padding:11px; font-size:0.95rem; font-weight:700;">
+            🚀 Đăng Nhập Quản Trị
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Visual Card Preview Modal -->
   <div id="visual-preview-modal" class="modal-overlay" onclick="closeVisualPreviewModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
@@ -1087,7 +1132,7 @@
     let allVisualsList = [];
     let allKbDocs = [];
     let allDetailedLogs = [];
-    let adminToken = localStorage.getItem('huit_admin_token') || 'huit_admin_2026';
+    let adminToken = localStorage.getItem('huit_admin_token') || sessionStorage.getItem('huit_admin_token') || '';
 
     function showToast(msg, isSuccess = true) {
       const toast = document.getElementById('toast');
@@ -1453,13 +1498,132 @@
       window.open('/api/system/status', '_blank');
     }
 
-    function openTokenModal() {
-      const token = prompt('Nhập Token Quản Trị (Mặc định: huit_admin_2026):', adminToken);
-      if (token !== null) {
-        adminToken = token.trim();
-        localStorage.setItem('huit_admin_token', adminToken);
-        showToast('Đã lưu Admin Token!');
+    async function checkAuthOnStartup() {
+      const modal = document.getElementById('authModal');
+      if (!adminToken) {
+        if (modal) modal.classList.add('active');
+        return;
       }
+      try {
+        const res = await fetch('/api/admin/verify-token', {
+          method: 'POST',
+          headers: { 'x-admin-token': adminToken }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (modal) modal.classList.remove('active');
+          const savedUser = localStorage.getItem('huit_admin_user') || sessionStorage.getItem('huit_admin_user') || data.username || 'khaihiep';
+          updateAdminHeader(savedUser);
+          fetchTelemetry(false);
+        } else {
+          adminToken = '';
+          localStorage.removeItem('huit_admin_token');
+          sessionStorage.removeItem('huit_admin_token');
+          if (modal) modal.classList.add('active');
+          showLoginError('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+        }
+      } catch (e) {
+        // Network warning or offline
+        if (modal) modal.classList.remove('active');
+        fetchTelemetry(false);
+      }
+    }
+
+    async function handleAdminLogin(e) {
+      if (e) e.preventDefault();
+      const u = document.getElementById('loginUsername').value.trim();
+      const p = document.getElementById('loginPassword').value.trim();
+      const btn = document.getElementById('loginSubmitBtn');
+      const remember = document.getElementById('rememberAdmin').checked;
+
+      if (!u || !p) {
+        showLoginError('Vui lòng nhập đầy đủ tài khoản và mật khẩu.');
+        return;
+      }
+
+      const errBox = document.getElementById('loginErrorMsg');
+      if (errBox) errBox.style.display = 'none';
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Đang xác thực...';
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: u, password: p })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          adminToken = data.token;
+          const userStr = data.username || u;
+          if (remember) {
+            localStorage.setItem('huit_admin_token', adminToken);
+            localStorage.setItem('huit_admin_user', userStr);
+          } else {
+            sessionStorage.setItem('huit_admin_token', adminToken);
+            sessionStorage.setItem('huit_admin_user', userStr);
+          }
+          document.getElementById('authModal').classList.remove('active');
+          updateAdminHeader(userStr);
+          showToast(`Đăng nhập thành công! Xin chào ${userStr}`);
+          fetchTelemetry(false);
+        } else {
+          showLoginError(data.detail || 'Tài khoản hoặc mật khẩu không chính xác.');
+        }
+      } catch (err) {
+        showLoginError('Lỗi kết nối tới Server API: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '🚀 Đăng Nhập Quản Trị';
+      }
+    }
+
+    function showLoginError(msg) {
+      const errBox = document.getElementById('loginErrorMsg');
+      if (errBox) {
+        errBox.textContent = msg;
+        errBox.style.display = 'block';
+      }
+    }
+
+    function togglePassVisibility() {
+      const p = document.getElementById('loginPassword');
+      if (p) p.type = p.type === 'password' ? 'text' : 'password';
+    }
+
+    function updateAdminHeader(user) {
+      const pill = document.getElementById('admin-user-pill');
+      const nameEl = document.getElementById('admin-user-name');
+      if (pill && nameEl) {
+        nameEl.textContent = user;
+        pill.style.display = 'inline-flex';
+      }
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem('huit_admin_token');
+      localStorage.removeItem('huit_admin_user');
+      sessionStorage.removeItem('huit_admin_token');
+      sessionStorage.removeItem('huit_admin_user');
+      adminToken = '';
+      const modal = document.getElementById('authModal');
+      if (modal) {
+        const passInput = document.getElementById('loginPassword');
+        if (passInput) passInput.value = '';
+        modal.classList.add('active');
+      }
+      const pill = document.getElementById('admin-user-pill');
+      if (pill) pill.style.display = 'none';
+      showToast('Đã đăng xuất khỏi phiên quản trị.');
+    }
+
+    function openLoginModalManually() {
+      const modal = document.getElementById('authModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function openTokenModal() {
+      openLoginModalManually();
     }
 
     function showPipelineDetail(step) {
@@ -1537,8 +1701,8 @@
       }
     }, 1000);
 
-    // Initial Load
-    fetchTelemetry(false);
+    // Initial Load - Authenticate first
+    checkAuthOnStartup();
   </script>
 </body>
 </html>
