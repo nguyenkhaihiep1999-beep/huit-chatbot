@@ -16,7 +16,7 @@ export const App: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const { sessions, saveSession, deleteSession, clearAllSessions } = useChatHistory();
   const { activeVisual, openLightbox, closeLightbox } = useVisualLightbox();
-  useSessionBootstrap();
+  const { isReady: isSessionReady, isLoading: isSessionLoading, error: sessionError, retry: retrySession } = useSessionBootstrap();
 
   const [currentPath, setCurrentPath] = useState<string>(() =>
     typeof window !== 'undefined' ? window.location.pathname : '/'
@@ -112,6 +112,10 @@ export const App: React.FC = () => {
           initialMessages={sessionMessages}
           onOpenLightbox={openLightbox}
           onSaveSession={saveSession}
+          isSessionReady={isSessionReady}
+          isSessionLoading={isSessionLoading}
+          sessionError={sessionError}
+          onRetrySession={retrySession}
         />
       </main>
 

@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   Cpu,
-  Layers,
   Activity,
   CheckCircle2,
   AlertTriangle,
   Clock,
   RefreshCw,
-  Server,
-  Zap,
 } from 'lucide-react';
 import { AdminWorkerItem, AdminQueueStatsResponse } from '../types/admin.types';
 import { useAdminOps } from '../hooks/useAdminOps';
@@ -35,12 +32,17 @@ export const AdminWorkersPanel: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [fetchAdminQueueStats, fetchAdminWorkers]);
 
   useEffect(() => {
-    loadData();
+    const initialTimer = window.setTimeout(() => {
+      void loadData();
+    }, 0);
     const timer = setInterval(loadData, 15000); // Tự động làm mới mỗi 15s
-    return () => clearInterval(timer);
+    return () => {
+      window.clearTimeout(initialTimer);
+      clearInterval(timer);
+    };
   }, [loadData]);
 
   return (

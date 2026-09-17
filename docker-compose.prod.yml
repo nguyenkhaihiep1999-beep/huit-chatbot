@@ -73,20 +73,37 @@ services:
       - backend_net
     environment:
       - APP_ENV=production
+      - PORT=8000
       # Production bat buoc su dung MongoDB Atlas cluster co xac thuc va TLS
       - MONGODB_URI=${MONGODB_URI:?MONGODB_URI must be configured for MongoDB Atlas with TLS (e.g. mongodb+srv://...)}
       - MONGODB_DB=${MONGODB_DB:-huit_chatbot}
+      - MONGODB_COLL=${MONGODB_COLL:-huit_kb}
       # Redis bat buoc co mat khau xac thuc va nam trong internal network
       - REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/0
       - RATE_LIMIT_REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/0
       - STREAM_RESUME_REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/1
       # Storage ben vung (Object Storage S3 hoac durable shared volume)
-      - STORAGE_BACKEND=${STORAGE_BACKEND:-local}
+      - STORAGE_BACKEND=${STORAGE_BACKEND:-s3}
       - STORAGE_ROOT=/app/data/artifacts_store
       - STORAGE_ENDPOINT=${STORAGE_ENDPOINT:-}
       - STORAGE_ACCESS_KEY=${STORAGE_ACCESS_KEY:-}
       - STORAGE_SECRET_KEY=${STORAGE_SECRET_KEY:-}
       - STORAGE_BUCKET=${STORAGE_BUCKET:-huit-chatbot-artifacts}
+      - STORAGE_REGION=${STORAGE_REGION:-auto}
+      - STORAGE_USE_SSL=${STORAGE_USE_SSL:-true}
+      # LLM providers: chỉ cần cấu hình ít nhất một provider dùng trong staging.
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - HUIT_OPENROUTER_KEY=${HUIT_OPENROUTER_KEY:-}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - OPENROUTER_MODEL=${OPENROUTER_MODEL:-google/gemini-2.0-flash-exp:free}
+      - TOP_K=${TOP_K:-3}
+      - LLM_MAX_TOKENS=${LLM_MAX_TOKENS:-750}
+      - QUEUE_PROVIDER=${QUEUE_PROVIDER:-mongo}
+      - QUEUE_LEASE_SECONDS=${QUEUE_LEASE_SECONDS:-120}
+      - RATE_LIMIT_PER_MINUTE=${RATE_LIMIT_PER_MINUTE:-20}
+      - CACHE_TTL_HOURS=${CACHE_TTL_HOURS:-24}
       - ADMIN_USERNAME=${ADMIN_USERNAME:?ADMIN_USERNAME must be set}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:?ADMIN_PASSWORD must be set}
       - ADMIN_TOKEN=${ADMIN_TOKEN:?ADMIN_TOKEN must be set}
@@ -98,7 +115,7 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/ready"]
       interval: 30s
       timeout: 5s
       start_period: 15s
@@ -138,15 +155,28 @@ services:
       - APP_ENV=production
       - MONGODB_URI=${MONGODB_URI:?MONGODB_URI must be configured for MongoDB Atlas with TLS (e.g. mongodb+srv://...)}
       - MONGODB_DB=${MONGODB_DB:-huit_chatbot}
+      - MONGODB_COLL=${MONGODB_COLL:-huit_kb}
       - REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/0
       - RATE_LIMIT_REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/0
       - STREAM_RESUME_REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/1
-      - STORAGE_BACKEND=${STORAGE_BACKEND:-local}
+      - STORAGE_BACKEND=${STORAGE_BACKEND:-s3}
       - STORAGE_ROOT=/app/data/artifacts_store
       - STORAGE_ENDPOINT=${STORAGE_ENDPOINT:-}
       - STORAGE_ACCESS_KEY=${STORAGE_ACCESS_KEY:-}
       - STORAGE_SECRET_KEY=${STORAGE_SECRET_KEY:-}
       - STORAGE_BUCKET=${STORAGE_BUCKET:-huit-chatbot-artifacts}
+      - STORAGE_REGION=${STORAGE_REGION:-auto}
+      - STORAGE_USE_SSL=${STORAGE_USE_SSL:-true}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - HUIT_OPENROUTER_KEY=${HUIT_OPENROUTER_KEY:-}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - OPENROUTER_MODEL=${OPENROUTER_MODEL:-google/gemini-2.0-flash-exp:free}
+      - TOP_K=${TOP_K:-3}
+      - LLM_MAX_TOKENS=${LLM_MAX_TOKENS:-750}
+      - QUEUE_PROVIDER=${QUEUE_PROVIDER:-mongo}
+      - QUEUE_LEASE_SECONDS=${QUEUE_LEASE_SECONDS:-120}
       - ADMIN_USERNAME=${ADMIN_USERNAME:?ADMIN_USERNAME must be set}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:?ADMIN_PASSWORD must be set}
       - ADMIN_TOKEN=${ADMIN_TOKEN:?ADMIN_TOKEN must be set}

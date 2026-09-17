@@ -91,6 +91,16 @@ export function mapApiError(error: unknown, defaultMessage = 'Hệ thống tư v
   // Xử lý các mã lỗi cụ thể qua từ khóa (Error Code Mapping)
   const lower = errorMsg.toLowerCase();
 
+  if (lower.includes('session_bootstrap') || lower.includes('session bootstrap') || (error && typeof error === 'object' && (error as any).name === 'SessionBootstrapError')) {
+    const bootstrapErr = error as any;
+    return {
+      code: bootstrapErr?.code || 'SESSION_BOOTSTRAP_FAILED',
+      status: bootstrapErr?.status || 500,
+      message: bootstrapErr?.userFriendlyMessage || 'Không thể khởi tạo phiên làm việc. Vui lòng thử lại.',
+      canRetry: true,
+    };
+  }
+
   if (lower.includes('stream interrupted') || lower.includes('premature eof') || lower.includes('mất kết nối') || lower.includes('failed to fetch') || lower.includes('network error')) {
     return {
       code: 'STREAM_INTERRUPTED',

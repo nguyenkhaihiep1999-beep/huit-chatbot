@@ -64,19 +64,7 @@ export const ChatMessageItem: React.FC<ChatMessageItemProps> = React.memo(
           {isUser ? (
             <User size={18} />
           ) : (
-            <picture>
-              <source srcSet="/robot_huit.webp" type="image/webp" />
-              <img
-                src="/robot_huit.png"
-                alt=""
-                width={28}
-                height={28}
-                style={{ width: '28px', height: '28px', objectFit: 'contain' }}
-                onError={(e) => {
-                  (e.currentTarget as HTMLElement).style.display = 'none';
-                }}
-              />
-            </picture>
+            <img src="/huit-ai-mark.svg" alt="" width={30} height={30} className="message-brand-mark" />
           )}
         </div>
 

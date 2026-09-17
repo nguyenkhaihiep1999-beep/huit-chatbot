@@ -48,7 +48,29 @@ function createSlowNDJSONStream(initialTokens: string[]): {
 describe('App Component (Direct End-to-End Application Flow Tests)', () => {
   beforeEach(() => {
     localStorage.clear();
+    sessionStorage.clear();
     vi.restoreAllMocks();
+    vi.stubGlobal('fetch', vi.fn().mockImplementation((url: any) => {
+      const urlStr = typeof url === 'string' ? url : url?.url || String(url);
+      if (urlStr.includes('/api/auth/session')) {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              session_id: 'session-app-test',
+              csrf_token: 'csrf-app-test',
+              issued_at: 1000,
+              expires_at: 2000,
+              ttl_seconds: 1000,
+            }),
+            {
+              status: 200,
+              headers: { 'Content-Type': 'application/json', 'X-Request-ID': 'req-app-test' },
+            }
+          )
+        );
+      }
+      return Promise.resolve(new Response(JSON.stringify({}), { status: 200 }));
+    }));
   });
 
   it('1. Bắt đầu stream và Tạo chat mới khi đang stream: request cũ bị abort, session cũ lưu đủ, session mới sạch', async () => {
@@ -64,10 +86,16 @@ describe('App Component (Direct End-to-End Application Flow Tests)', () => {
 
     render(<App />);
 
+    // Chờ session bootstrap sẵn sàng (input textarea không còn bị disabled)
+    const input = screen.getByPlaceholderText(/Đặt câu hỏi/i) as HTMLTextAreaElement;
+    await waitFor(() => {
+      expect(input.disabled).toBe(false);
+    });
+
     // 1. Nhập câu hỏi và bấm gửi
-    const input = screen.getByPlaceholderText(/Đặt câu hỏi/i);
     fireEvent.change(input, { target: { value: 'Hỏi câu 1' } });
-    const sendBtn = screen.getByTitle('Gửi câu hỏi');
+    const sendBtn = screen.getByTitle('Gửi câu hỏi') as HTMLButtonElement;
+    expect(sendBtn.disabled).toBe(false);
     fireEvent.click(sendBtn);
 
     // Chờ tin nhắn người dùng và token xuất hiện
@@ -94,7 +122,7 @@ describe('App Component (Direct End-to-End Application Flow Tests)', () => {
     await waitFor(() => {
       expect(screen.queryByText(/Token rò rỉ/i)).toBeNull();
       // Session mới hiển thị màn hình chào mừng
-      expect(screen.getByText(/Chào mừng bạn đến với HUIT/i)).toBeDefined();
+      expect(screen.getByText(/Hỏi đúng\. Hiểu rõ\. Chọn ngành tự tin\./i)).toBeDefined();
     });
 
     // 6. Kiểm tra localStorage: session cũ đã lưu đủ câu hỏi và phần câu trả lời đã nhận
@@ -134,10 +162,17 @@ describe('App Component (Direct End-to-End Application Flow Tests)', () => {
 
     render(<App />);
 
+    // Chờ session bootstrap sẵn sàng (input textarea không còn bị disabled)
+    const input = screen.getByPlaceholderText(/Đặt câu hỏi/i) as HTMLTextAreaElement;
+    await waitFor(() => {
+      expect(input.disabled).toBe(false);
+    });
+
     // Bắt đầu một câu hỏi ở session hiện tại
-    const input = screen.getByPlaceholderText(/Đặt câu hỏi/i);
     fireEvent.change(input, { target: { value: 'Câu hỏi đang hỏi' } });
-    fireEvent.click(screen.getByTitle('Gửi câu hỏi'));
+    const sendBtn = screen.getByTitle('Gửi câu hỏi') as HTMLButtonElement;
+    expect(sendBtn.disabled).toBe(false);
+    fireEvent.click(sendBtn);
 
     await waitFor(() => {
       expect(screen.getByText('Câu hỏi đang hỏi')).toBeDefined();

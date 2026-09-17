@@ -1,0 +1,11 @@
+# .vercelignore
+# Chỉ tải lên và biên dịch thư mục frontend/ cho Vercel SPA
+backend/
+scripts/
+docker-compose*.yml
+Dockerfile*
+requirements.txt
+tests/
+audit_outputs/
+backups/
+docs/

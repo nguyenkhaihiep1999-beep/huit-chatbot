@@ -26,6 +26,7 @@ RUN groupadd -r appgroup && useradd -r -g appgroup -d /app appuser
 # Copy mã nguồn
 COPY backend /app/backend
 COPY scripts /app/scripts
+COPY data /app/data
 
 # Chuẩn bị thư mục dữ liệu và phân quyền
 RUN mkdir -p /app/data/artifacts_store && \

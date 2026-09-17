@@ -4,10 +4,7 @@ import {
   Search,
   ShieldCheck,
   RefreshCw,
-  Clock,
   Calendar,
-  Layers,
-  Activity,
 } from 'lucide-react';
 import { SanitizedErrorLogItem } from '../types/admin.types';
 import { useAdminOps } from '../hooks/useAdminOps';
@@ -36,10 +33,13 @@ export const AdminErrorLogsPanel: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [searchedRequestId, timeRange]);
+  }, [fetchAdminErrorLogs, searchedRequestId, timeRange]);
 
   useEffect(() => {
-    loadLogs();
+    const initialTimer = window.setTimeout(() => {
+      void loadLogs();
+    }, 0);
+    return () => window.clearTimeout(initialTimer);
   }, [loadLogs]);
 
   const handleSearch = (e: React.FormEvent) => {

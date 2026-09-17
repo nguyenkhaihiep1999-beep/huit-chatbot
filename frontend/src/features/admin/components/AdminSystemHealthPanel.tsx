@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  Database,
   Archive,
-  Shield,
-  ShieldCheck,
   AlertTriangle,
-  RefreshCw,
   CheckCircle2,
   FileCode,
   Lock,
@@ -23,11 +19,9 @@ export const AdminSystemHealthPanel: React.FC = () => {
   const [backups, setBackups] = useState<AdminBackupItem[]>([]);
   const [alertsSummary, setAlertsSummary] = useState<AdminAlertSummaryResponse | null>(null);
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const loadData = useCallback(async () => {
-    setIsLoading(true);
     setError(null);
     try {
       const [mRes, bRes, aRes] = await Promise.all([
@@ -40,13 +34,14 @@ export const AdminSystemHealthPanel: React.FC = () => {
       setAlertsSummary(aRes);
     } catch (err: any) {
       setError(err.message || 'Không thể tải dữ liệu hệ thống');
-    } finally {
-      setIsLoading(false);
     }
-  }, []);
+  }, [fetchAdminAlerts, fetchAdminBackups, fetchAdminMigrations]);
 
   useEffect(() => {
-    loadData();
+    const initialTimer = window.setTimeout(() => {
+      void loadData();
+    }, 0);
+    return () => window.clearTimeout(initialTimer);
   }, [loadData]);
 
   return (

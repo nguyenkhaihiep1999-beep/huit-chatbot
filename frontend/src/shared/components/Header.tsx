@@ -37,30 +37,18 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
 
         <div className="mascot-avatar-small" aria-hidden="true">
-          <picture>
-            <source srcSet="/robot_huit.webp" type="image/webp" />
-            <img
-              src="/robot_huit.png"
-              alt=""
-              width={28}
-              height={28}
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-              onError={(e) => {
-                (e.currentTarget as HTMLElement).style.display = 'none';
-              }}
-            />
-          </picture>
+          <img src="/huit-ai-mark.svg" alt="" width={40} height={40} className="brand-mark-image" />
         </div>
 
         <div className="header-titles-group">
           <div className="brand-title-row">
             <h1 className="brand-title">
-              <span className="brand-title-full">HUIT AI Tuyển Sinh</span>
+              <span className="brand-title-full">HUIT Tuyển sinh AI</span>
               <span className="brand-title-compact">HUIT AI</span>
             </h1>
-            <span className="brand-badge"><ShieldCheck size={12} /> Chính thức</span>
+            <span className="brand-badge"><ShieldCheck size={12} /> Đã xác thực</span>
           </div>
-          <span className="brand-subtitle">Trợ lý tuyển sinh và xuất bản tài liệu</span>
+          <span className="brand-subtitle">Thông tin tuyển sinh · Tài liệu trực quan</span>
         </div>
       </div>
 
@@ -78,11 +66,11 @@ export const Header: React.FC<HeaderProps> = ({
           type="button"
           onClick={onOpenImageModal}
           className="header-action-btn ai-image-btn"
-          title="Tạo ảnh AI Mascot HUIT"
-          aria-label="Tạo ảnh AI Mascot HUIT"
+          title="Tạo nội dung trực quan"
+          aria-label="Tạo nội dung trực quan"
         >
           <Sparkles size={14} />
-          <span className="btn-label-desktop">Tạo ảnh</span>
+          <span className="btn-label-desktop">Tạo trực quan</span>
         </button>
 
         {onNavigateAdmin && (

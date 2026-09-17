@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import {
   Sparkles,
-  GraduationCap,
   DollarSign,
   BookOpen,
   Award,
@@ -66,19 +65,19 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
         <div className="empty-state-content animate-fade-in">
           <div className="empty-state-hero">
             <div className="empty-state-icon-box" aria-hidden="true">
-              <GraduationCap size={30} />
+              <img src="/huit-ai-mark.svg" alt="" width={64} height={64} className="empty-state-brand-mark" />
             </div>
             <div className="empty-state-eyebrow">
               <span className="status-dot online" aria-hidden="true" />
-              Trợ lý tuyển sinh chính thức 2026
+              Dữ liệu tuyển sinh HUIT 2026
             </div>
 
             <h2 className="empty-state-title">
-              Chào mừng bạn đến với HUIT! <span aria-hidden="true">🎓</span>
+              Hỏi đúng. Hiểu rõ. Chọn ngành tự tin.
             </h2>
             <p className="empty-state-description">
-              Tra cứu thông tin tuyển sinh, so sánh ngành học và tạo tài liệu trực quan
-              từ nguồn dữ liệu của <strong>Trường Đại học Công Thương TP.HCM</strong>.
+              Tra cứu học phí, điểm chuẩn, ngành học và tạo tài liệu trực quan từ
+              nguồn dữ liệu của <strong>Trường Đại học Công Thương TP.HCM</strong>.
             </p>
           </div>
 

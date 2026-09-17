@@ -27,8 +27,8 @@ describe('Frontend Overhaul Requirements (Step 16)', () => {
       const onSelect = vi.fn();
       render(<ChatMessageList messages={[]} onSelectSuggestion={onSelect} />);
 
-      // Xác nhận tiêu đề chào mừng
-      expect(screen.getByText(/Chào mừng bạn đến với HUIT/i)).toBeDefined();
+      // Xác nhận thông điệp định vị chính
+      expect(screen.getByText(/Hỏi đúng\. Hiểu rõ\. Chọn ngành tự tin\./i)).toBeDefined();
 
       // Xác nhận 4 gợi ý cụ thể
       const q1 = screen.getByText('Học phí HUIT năm 2026 là bao nhiêu?');

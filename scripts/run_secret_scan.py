@@ -25,7 +25,18 @@ PATTERNS = {
     "PRIVATE_KEY": re.compile(r"-----BEGIN (?:RSA )?PRIVATE KEY-----"),
 }
 
-EXCLUDE_DIRS = {".git", "node_modules", ".venv", "__pycache__", "dist", "build", "coverage", ".pytest_cache"}
+EXCLUDE_DIRS = {
+    ".git",
+    "node_modules",
+    ".venv",
+    ".testdeps",
+    "__pycache__",
+    "dist",
+    "build",
+    "coverage",
+    ".pytest_cache",
+    ".pytest_temp",
+}
 EXCLUDE_FILES = {".env", "secret_scan_report.json"}
 PLACEHOLDER_SUBSTRINGS = ["<", ">", "your_", "example", "placeholder", "xxx", "change_this", "dummy_", "test_", "test_token", "secret_token_here"]
 

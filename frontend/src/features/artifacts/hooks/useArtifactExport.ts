@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   downloadArtifactExport,
-  requestArtifactExport,
   fetchJobStatus,
   cancelJob,
   triggerFileDownload,

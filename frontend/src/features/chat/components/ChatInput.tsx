@@ -85,7 +85,7 @@ export const ChatInput: React.FC<ChatInputProps> = React.memo(({
           placeholder={
             isListening
               ? '🎙️ Đang lắng nghe bạn nói...'
-              : 'Đặt câu hỏi về ngành học, học phí, điểm chuẩn HUIT 2026...'
+              : 'Đặt câu hỏi về ngành học, học phí hoặc điểm chuẩn HUIT 2026...'
           }
           className="chat-composer-textarea"
           rows={1}
@@ -133,7 +133,7 @@ export const ChatInput: React.FC<ChatInputProps> = React.memo(({
         </div>
       </div>
       <div className="composer-footer-hint">
-        <span>Enter để gửi · Shift + Enter để xuống dòng · Nội dung AI cần được đối chiếu nguồn</span>
+        <span>Enter để gửi · Shift + Enter để xuống dòng · Luôn kiểm tra nguồn trích dẫn</span>
       </div>
     </div>
   );

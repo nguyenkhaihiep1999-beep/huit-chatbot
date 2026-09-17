@@ -496,7 +496,7 @@ describe('Frontend LTX Hook Gate - Artifact Workflow & Architecture', () => {
         job_id: 'job-export-999',
       } as any);
 
-      const spyPoll = vi.spyOn(artifactApi, 'fetchJobStatus')
+      vi.spyOn(artifactApi, 'fetchJobStatus')
         .mockResolvedValueOnce({
           job_id: 'job-export-999',
           status: 'processing',
@@ -550,7 +550,7 @@ describe('Frontend LTX Hook Gate - Artifact Workflow & Architecture', () => {
         })
       );
 
-      const spyPoll = vi.spyOn(artifactApi, 'fetchJobStatus').mockResolvedValue({
+      vi.spyOn(artifactApi, 'fetchJobStatus').mockResolvedValue({
         job_id: 'job-reattach-111',
         status: 'completed',
         progress: 100,

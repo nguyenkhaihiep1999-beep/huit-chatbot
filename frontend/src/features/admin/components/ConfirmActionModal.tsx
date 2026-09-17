@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { AlertTriangle, AlertCircle, Info, X } from 'lucide-react';
+import { AlertTriangle, AlertCircle, X } from 'lucide-react';
 
 export interface ConfirmActionModalProps {
   isOpen: boolean;

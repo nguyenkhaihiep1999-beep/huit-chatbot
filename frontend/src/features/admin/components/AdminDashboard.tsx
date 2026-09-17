@@ -16,7 +16,6 @@ import {
   Layers,
   Zap,
   Activity,
-  ShieldCheck,
   FileText,
 } from 'lucide-react';
 import { SystemHealthData, AdminMetricsData, ClearCacheResult } from '../types/admin.types';
@@ -119,10 +118,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </button>
           <div className="admin-topbar-title">
             <div className="admin-logo-badge" aria-hidden="true">
-              <picture>
-                <source srcSet="/robot_huit.webp" type="image/webp" />
-                <img src="/robot_huit.png" alt="" width={24} height={24} />
-              </picture>
+              <img src="/huit-ai-mark.svg" alt="" width={28} height={28} />
             </div>
             <h2>Bảng Điều Khiển Quản Trị Hệ Thống HUIT AI</h2>
           </div>

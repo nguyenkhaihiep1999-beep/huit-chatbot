@@ -65,10 +65,13 @@ export const AdminJobsPanel: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [page, limit, statusFilter, actionFilter, timeRange]);
+  }, [actionFilter, fetchAdminJobs, limit, page, statusFilter, timeRange]);
 
   useEffect(() => {
-    loadJobs();
+    const initialTimer = window.setTimeout(() => {
+      void loadJobs();
+    }, 0);
+    return () => window.clearTimeout(initialTimer);
   }, [loadJobs]);
 
   const handleOpenDetail = async (jobId: string) => {

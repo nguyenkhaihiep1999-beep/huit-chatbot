@@ -38,18 +38,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({
 
         <div className="admin-login-header">
           <div className="admin-brand-icon" aria-hidden="true">
-            <picture>
-              <source srcSet="/robot_huit.webp" type="image/webp" />
-              <img
-                src="/robot_huit.png"
-                alt=""
-                width={36}
-                height={36}
-                onError={(e) => {
-                  (e.currentTarget as HTMLElement).style.display = 'none';
-                }}
-              />
-            </picture>
+            <img src="/huit-ai-mark.svg" alt="" width={44} height={44} />
           </div>
           <h1 id="admin-login-title" className="admin-login-title">Quản Trị Hệ Thống HUIT AI</h1>
           <p className="admin-login-desc">
