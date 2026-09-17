@@ -5,12 +5,8 @@
   "outputDirectory": "frontend/dist",
   "rewrites": [
     {
-      "source": "/api/chat-stream",
-      "destination": "https://api-staging.huit-chatbot.edu.vn/api/chat-stream"
-    },
-    {
       "source": "/api/(.*)",
-      "destination": "https://api-staging.huit-chatbot.edu.vn/api/$1"
+      "destination": "/api/index.py"
     },
     {
       "source": "/admin(.*)",
