@@ -1,0 +1,264 @@
+networks:
+  frontend_net:
+    driver: bridge
+  backend_net:
+    driver: bridge
+    internal: true
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: huit_chatbot_frontend_prod
+    restart: unless-stopped
+    user: "101:101"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/cache/nginx
+      - /var/run
+    ports:
+      # Gateway / Reverse Proxy duy nhat duoc phep publish cong ra ngoai host
+      - "${FRONTEND_PORT:-80}:8080"
+    networks:
+      - frontend_net
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/healthz"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.2'
+          memory: 128M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: huit_chatbot_backend_prod
+    restart: unless-stopped
+    user: "10001:10001"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.pytest_temp
+    # Tuyet doi khong publish host port ra Internet. Giao tiep qua gateway Nginx
+    expose:
+      - "8000"
+    networks:
+      - frontend_net
+      - backend_net
+    environment:
+      - APP_ENV=production
+      # Production bat buoc su dung MongoDB Atlas cluster co xac thuc va TLS
+      - MONGODB_URI=${MONGODB_URI:?MONGODB_URI must be configured for MongoDB Atlas with TLS (e.g. mongodb+srv://...)}
+      - MONGODB_DB=${MONGODB_DB:-huit_chatbot}
+      # Redis bat buoc co mat khau xac thuc va nam trong internal network
+      - REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/0
+      - RATE_LIMIT_REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/0
+      - STREAM_RESUME_REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/1
+      # Storage ben vung (Object Storage S3 hoac durable shared volume)
+      - STORAGE_BACKEND=${STORAGE_BACKEND:-local}
+      - STORAGE_ROOT=/app/data/artifacts_store
+      - STORAGE_ENDPOINT=${STORAGE_ENDPOINT:-}
+      - STORAGE_ACCESS_KEY=${STORAGE_ACCESS_KEY:-}
+      - STORAGE_SECRET_KEY=${STORAGE_SECRET_KEY:-}
+      - STORAGE_BUCKET=${STORAGE_BUCKET:-huit-chatbot-artifacts}
+      - ADMIN_USERNAME=${ADMIN_USERNAME:?ADMIN_USERNAME must be set}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:?ADMIN_PASSWORD must be set}
+      - ADMIN_TOKEN=${ADMIN_TOKEN:?ADMIN_TOKEN must be set}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:?CORS_ALLOWED_ORIGINS must be set in production}
+      - TRUSTED_PROXIES=${TRUSTED_PROXIES:-127.0.0.1/32,::1/128}
+    volumes:
+      - shared-storage:/app/data/artifacts_store
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: huit_chatbot_worker_prod
+    restart: unless-stopped
+    user: "10001:10001"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+    # Worker chay ngam, tuyet doi khong co public port
+    networks:
+      - backend_net
+    environment:
+      - APP_ENV=production
+      - MONGODB_URI=${MONGODB_URI:?MONGODB_URI must be configured for MongoDB Atlas with TLS (e.g. mongodb+srv://...)}
+      - MONGODB_DB=${MONGODB_DB:-huit_chatbot}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/0
+      - RATE_LIMIT_REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/0
+      - STREAM_RESUME_REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD is required}@redis:6379/1
+      - STORAGE_BACKEND=${STORAGE_BACKEND:-local}
+      - STORAGE_ROOT=/app/data/artifacts_store
+      - STORAGE_ENDPOINT=${STORAGE_ENDPOINT:-}
+      - STORAGE_ACCESS_KEY=${STORAGE_ACCESS_KEY:-}
+      - STORAGE_SECRET_KEY=${STORAGE_SECRET_KEY:-}
+      - STORAGE_BUCKET=${STORAGE_BUCKET:-huit-chatbot-artifacts}
+      - ADMIN_USERNAME=${ADMIN_USERNAME:?ADMIN_USERNAME must be set}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:?ADMIN_PASSWORD must be set}
+      - ADMIN_TOKEN=${ADMIN_TOKEN:?ADMIN_TOKEN must be set}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:?CORS_ALLOWED_ORIGINS must be set in production}
+    volumes:
+      - shared-storage:/app/data/artifacts_store
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os,time,sys; p='/tmp/huit_worker_heartbeat'; sys.exit(0 if os.path.exists(p) and time.time()-os.path.getmtime(p)<90 else 1)"]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  redis:
+    image: redis:7-alpine
+    container_name: huit_chatbot_redis_prod
+    restart: unless-stopped
+    # Bat ACL va password bat buoc, chan ket noi khong authenticated
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:?REDIS_PASSWORD is required}", "--appendonly", "yes", "--protected-mode", "yes"]
+    user: "999:999"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+    # Nam hoan toan trong mang noi bo backend_net
+    networks:
+      - backend_net
+    expose:
+      - "6379"
+    volumes:
+      - redis-data:/data
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?REDIS_PASSWORD is required}
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$REDIS_PASSWORD\" ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.2'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  # Local MongoDB duoc tach biet trong profile rieng (khong khoi dong mac dinh trong production Atlas)
+  mongo:
+    profiles:
+      - with-local-mongo
+    image: mongo:7.0
+    container_name: huit_chatbot_mongo_prod
+    restart: unless-stopped
+    user: "999:999"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    networks:
+      - backend_net
+    expose:
+      - "27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${LOCAL_MONGO_ROOT_USER:-mongo_admin}
+      - MONGO_INITDB_ROOT_PASSWORD=${LOCAL_MONGO_ROOT_PASSWORD:-change_this_password}
+    healthcheck:
+      test: ["CMD", "mongosh", "-u", "${LOCAL_MONGO_ROOT_USER:-mongo_admin}", "-p", "${LOCAL_MONGO_ROOT_PASSWORD:-change_this_password}", "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+volumes:
+  redis-data:
+  shared-storage:
+  mongo-data:

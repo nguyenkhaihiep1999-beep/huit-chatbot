@@ -1,0 +1,582 @@
+{
+  "script": "storage_reconciliation",
+  "started_at": "2026-09-15T08:54:58.949635+00:00",
+  "mode": "apply",
+  "storage_backend": "LocalStorageAdapter",
+  "storage_root": "D:\\chatbot2\\data\\artifacts_store",
+  "total_assets_scanned": 58,
+  "valid_assets_count": 0,
+  "repaired_svg_count": 6,
+  "repaired_excel_count": 1,
+  "unrendered_manifests_cleaned": 12,
+  "unavailable_marked_count": 0,
+  "checksum_corrected_count": 36,
+  "size_corrected_count": 0,
+  "dangling_logical_refs_count": 0,
+  "orphan_files_count": 9,
+  "errors": 0,
+  "backups": {
+    "assets": "assets_backup_20260915_085500",
+    "artifacts": "artifacts_backup_20260915_085501",
+    "generated_images": "generated_images_backup_20260915_085501"
+  },
+  "details": [
+    {
+      "asset_id": "art_private_123",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_e6b9281798ed98b02900",
+      "storage_key": "asset_art_e6b9281798ed98b02900.pdf",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "art_604b7ed3bbc195cbf648",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_e2b47c7f823749321226",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_feafdc56b4e580078b4e",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_upscaled_6f3521c0c5014ea4",
+      "storage_key": "asset_art_upscaled_6f3521c0c5014ea4.png",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "art_b51ddbd07fa723aac052",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_49f7f4858e10214116a2",
+      "storage_key": "asset_art_49f7f4858e10214116a2.xlsx",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "art_f14ccfbb572cc019",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_3d94cd75c749fdf1",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_upscaled_060837f595a12138",
+      "storage_key": "asset_art_upscaled_060837f595a12138.png",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "art_upscaled_d172fa61b2e4a760",
+      "storage_key": "asset_art_upscaled_d172fa61b2e4a760.png",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "art_upscaled_6e4aa8a85a04c06e",
+      "storage_key": "asset_art_upscaled_6e4aa8a85a04c06e.png",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "art_6bc9aad895c61996",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_ada124a417536719",
+      "action": "restore_excel_deterministic",
+      "storage_key": "asset_art_ada124a417536719.xlsx",
+      "size": 5502,
+      "sha256": "7c919561a54b918fb727857f212879206ee3151be76a639ba814750f015ca4b8"
+    },
+    {
+      "asset_id": "art_063890052156d6bb",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_b2fe5701804f3a3b",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_df2903a86f49b8d8",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "art_5d982cf8015e8448",
+      "action": "clean_unrendered_manifest",
+      "reason": "Artifact ở dạng JSON manifest sơ khởi, gán blob_id=null trong artifacts và gỡ bỏ asset placeholder rỗng"
+    },
+    {
+      "asset_id": "blob_img_010c7550e6dd76319defe8597a975a3a876ee0ccdc903309",
+      "action": "restore_svg_deterministic",
+      "storage_key": "svg_010c7550e6dd76319defe8597a975a3a876ee0ccdc903309.svg",
+      "size": 761,
+      "sha256": "1e46e1093350b032b034129b12462683c43bacc1869ff03392d27f2874e7da64"
+    },
+    {
+      "asset_id": "blob_img_042393fe976d448222ac711b536d9ec82ad144a3c5e67244",
+      "storage_key": "image_042393fe976d448222ac711b536d9ec82ad144a3c5e67244.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_0aa5e4b27fb8d775e3a48c0806dd4ffb2ef707a9c18dd88f",
+      "storage_key": "image_0aa5e4b27fb8d775e3a48c0806dd4ffb2ef707a9c18dd88f.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_1f7ce11e76042db5e4e7d9b44fc3d8a81565bc2c19ff9d21",
+      "storage_key": "image_1f7ce11e76042db5e4e7d9b44fc3d8a81565bc2c19ff9d21.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_203da2776ae2edf3b15cea3643ffcff007c3892218c7785b",
+      "storage_key": "image_203da2776ae2edf3b15cea3643ffcff007c3892218c7785b.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_2ba84ee21d40b0491fb9714bf625d8c3a877cc4a274653aa",
+      "storage_key": "image_2ba84ee21d40b0491fb9714bf625d8c3a877cc4a274653aa.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_3a3a0be9371fdec03622640d011fcc5653cd2e93128c86a4",
+      "storage_key": "image_3a3a0be9371fdec03622640d011fcc5653cd2e93128c86a4.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_59982750a5c82ce46339e6d4ba5bf6823f5122352ed51e31",
+      "storage_key": "image_59982750a5c82ce46339e6d4ba5bf6823f5122352ed51e31.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_5a12e4127483aaf51b24fd6666bc8228df461e4de3744a86",
+      "storage_key": "image_5a12e4127483aaf51b24fd6666bc8228df461e4de3744a86.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_67fa8cb1aa37326f3831c99c92e18671ae39cd1c25b3473c",
+      "action": "restore_svg_deterministic",
+      "storage_key": "svg_67fa8cb1aa37326f3831c99c92e18671ae39cd1c25b3473c.svg",
+      "size": 797,
+      "sha256": "bb765e54f557689934e47a1609c679a28563f0f06206f716c76f8d929d0b1df3"
+    },
+    {
+      "asset_id": "blob_img_69ae509328e5ddfa6abdeebeb43f41cc50021d1147286229",
+      "storage_key": "image_69ae509328e5ddfa6abdeebeb43f41cc50021d1147286229.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_6a3588c14b3e3fbed7f6df90f23b57009b068ec66cbb37f0",
+      "storage_key": "image_6a3588c14b3e3fbed7f6df90f23b57009b068ec66cbb37f0.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_70f0298e885a730b4eed0c1e99322cb812aaf21041850a06",
+      "storage_key": "image_70f0298e885a730b4eed0c1e99322cb812aaf21041850a06.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_710c755de10c2c2b4c6b8068392efedd33c63db5f947f05a",
+      "storage_key": "image_710c755de10c2c2b4c6b8068392efedd33c63db5f947f05a.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_73e49b750d1f3c266a913e95170b8d4275b41d06400f503d",
+      "storage_key": "image_73e49b750d1f3c266a913e95170b8d4275b41d06400f503d.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_78874523dc438146f769807be532c23a0999b5bf9d95e6d7",
+      "storage_key": "image_78874523dc438146f769807be532c23a0999b5bf9d95e6d7.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_7a7271d4caf15c2f0331b02f26e1136fa9cc61de2f4ecb5d",
+      "storage_key": "image_7a7271d4caf15c2f0331b02f26e1136fa9cc61de2f4ecb5d.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_869761f988dad6bccdb956c05907f611316ced14a9c13e62",
+      "storage_key": "image_869761f988dad6bccdb956c05907f611316ced14a9c13e62.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_902a501f26ac9719266006d6d9e09fbea0f16d353102357b",
+      "storage_key": "image_902a501f26ac9719266006d6d9e09fbea0f16d353102357b.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_9a4a456ccb6a530137ba73bb644683d2d3a086748929e13b",
+      "storage_key": "image_9a4a456ccb6a530137ba73bb644683d2d3a086748929e13b.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_a236bbb2b02fee932a13dc24065bfa7c0a2134a48561c857",
+      "action": "restore_svg_deterministic",
+      "storage_key": "svg_a236bbb2b02fee932a13dc24065bfa7c0a2134a48561c857.svg",
+      "size": 1277,
+      "sha256": "c8302d260b4792ab6cb5b0cf74abec9fec053e4bfc48a9eb5c97a00e4660782a"
+    },
+    {
+      "asset_id": "blob_img_a36fb8fa15811c5b4d0eb748ccf5063a393f5090c89324c5",
+      "storage_key": "image_a36fb8fa15811c5b4d0eb748ccf5063a393f5090c89324c5.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_a691862d39806f57140242a2f544facdd40052bfb314eb85",
+      "storage_key": "image_a691862d39806f57140242a2f544facdd40052bfb314eb85.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_b09a17dc713f7e4d1492184e11d6d0af4fee7910a975d155",
+      "storage_key": "image_b09a17dc713f7e4d1492184e11d6d0af4fee7910a975d155.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_b1336d49035be266155fba166f50b8a4d3dcbc95fac00383",
+      "storage_key": "image_b1336d49035be266155fba166f50b8a4d3dcbc95fac00383.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_b1a4e3f63fd31c3369eae995761ccd4784c5b6e7d4ed7d9c",
+      "storage_key": "image_b1a4e3f63fd31c3369eae995761ccd4784c5b6e7d4ed7d9c.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_b46df57e14e443d806a9a5fb8f31173693dedf0337dc4d5e",
+      "action": "restore_svg_deterministic",
+      "storage_key": "svg_b46df57e14e443d806a9a5fb8f31173693dedf0337dc4d5e.svg",
+      "size": 1034,
+      "sha256": "d4f89fd970e3f5e5d948af690ebdacf2f7f4d420a1041ed76c25c220df2e8db0"
+    },
+    {
+      "asset_id": "blob_img_bd200e5442f36026a98197abf5bd53ca5dd5b737d99745e1",
+      "storage_key": "image_bd200e5442f36026a98197abf5bd53ca5dd5b737d99745e1.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_cc9a8944ee513d474124ca3e8715f295532d755aacb8ed48",
+      "storage_key": "image_cc9a8944ee513d474124ca3e8715f295532d755aacb8ed48.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_d2054cf9700e9010102fcaafa4893f627c6428c56bfc95b7",
+      "storage_key": "image_d2054cf9700e9010102fcaafa4893f627c6428c56bfc95b7.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_dfdd2127b2fd64fdc02b5321fc829d94234500ebbf3cca31",
+      "storage_key": "image_dfdd2127b2fd64fdc02b5321fc829d94234500ebbf3cca31.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_e2c7b59b330920336b79455a37ac2c0d87cf81cfac15e956",
+      "storage_key": "image_e2c7b59b330920336b79455a37ac2c0d87cf81cfac15e956.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_eb47065356313ee5d48ad5767cf1d80992c38266c7e32653",
+      "storage_key": "image_eb47065356313ee5d48ad5767cf1d80992c38266c7e32653.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_ef8d00a67566d2ecbe7499e4657adf7524c7ca3702c2246c",
+      "storage_key": "image_ef8d00a67566d2ecbe7499e4657adf7524c7ca3702c2246c.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_ef98841cc6d4ef4d782d1f9912bef4d85c50e1aeb147177c",
+      "action": "restore_svg_deterministic",
+      "storage_key": "svg_ef98841cc6d4ef4d782d1f9912bef4d85c50e1aeb147177c.svg",
+      "size": 1385,
+      "sha256": "9d144042daba8a8fee5bbe75e1f143f1b87b39e4eb458dbd250643cd1a55ccff"
+    },
+    {
+      "asset_id": "blob_img_f6675ccdfda635ac5cc94d4e3e3d13237e23746f01ed7a7c",
+      "action": "restore_svg_deterministic",
+      "storage_key": "svg_f6675ccdfda635ac5cc94d4e3e3d13237e23746f01ed7a7c.svg",
+      "size": 773,
+      "sha256": "c41dc76c757add438c515986a2aaec4ec0de0d97292ddf55ea5660dc4da51c42"
+    },
+    {
+      "asset_id": "blob_img_fd948724c93a44d8790ccdc45713557a5208663708f7bb56",
+      "storage_key": "image_fd948724c93a44d8790ccdc45713557a5208663708f7bb56.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_fe58a65133f619927fb19352989a2592efccefc49ff94b39",
+      "storage_key": "image_fe58a65133f619927fb19352989a2592efccefc49ff94b39.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    },
+    {
+      "asset_id": "blob_img_fedf7706c67fbe6bb232c7e08cd3345cf0ffedc9050d9838",
+      "storage_key": "image_fedf7706c67fbe6bb232c7e08cd3345cf0ffedc9050d9838.jpg",
+      "action": "correct_metadata",
+      "corrected_fields": [
+        "checksum",
+        "status",
+        "corrupted"
+      ]
+    }
+  ],
+  "orphan_files": [
+    {
+      "name": "asset_art_7c58538a0be9f544.docx",
+      "size": 38253,
+      "sha256": "12ddf32710a341d932f0f2748f17cebe88d3d690b307226dd5f80d67f090cfbb"
+    },
+    {
+      "name": "asset_art_ae59d7573a0515cd4f66.xlsx",
+      "size": 6237,
+      "sha256": "b25cf1994ff2a7395f8547e0cba5bc505cb3c4c360e45a0505f7834f94a58b58"
+    },
+    {
+      "name": "asset_art_b29daa34b308333decae.pdf",
+      "size": 82878,
+      "sha256": "a43719b0152c07bfcbdff4ec838aa033df185faabf5c9d1feb8df53163675008"
+    },
+    {
+      "name": "asset_art_upscaled_5ce491506b95dcd6.png",
+      "size": 129695,
+      "sha256": "8c0e48990c123286d3874d1eba6efaf6330430af5053752c3b76b318a4ba0ba1"
+    },
+    {
+      "name": "image_1d0052a8402c37d407c7339ba786823de44e9beca1efa104.jpg",
+      "size": 24596,
+      "sha256": "8ba3f9989340fecc504f0acbb19d7e7686b638e6a038abdf78baf2645408b6e0"
+    },
+    {
+      "name": "image_3a933d5a53f832027b528a7840a677bc6975d4d2d3ae8cd4.jpg",
+      "size": 21786,
+      "sha256": "4749ef0c54c983a3651f41575950b72b9fd158dbfcb45bae3bdc4a275ef731bd"
+    },
+    {
+      "name": "image_8f245d2c67e47b2835ab7dd475d32cd84203e469ba99f701.jpg",
+      "size": 23822,
+      "sha256": "00792a51d6200d08a39ea881bd56b4f2af8394d7d8bdfffff533df73e4a90f49"
+    },
+    {
+      "name": "image_b4c315dc6801f0d218b9bdd454c03b2948eeff24efb066da.jpg",
+      "size": 20296,
+      "sha256": "65e6b4a6306a4b3ce9fe9d97a2f2c876570a888a73a1e0c8107e60e18d9742fb"
+    },
+    {
+      "name": "thumb_6a3588c14b3e3fbed7f6df90f23b57009b068ec66cbb37f0.webp",
+      "size": 6564,
+      "sha256": "810d26816b91e27f9fbb9be1c22070ba990267324d6df45279905507e832abb4"
+    }
+  ],
+  "planned_operations": {
+    "restorations": 7,
+    "placeholder_cleanups": 12,
+    "asset_updates": 39,
+    "artifact_updates": 0,
+    "image_updates": 0
+  },
+  "preflight_passed": true,
+  "post_apply": {
+    "assets_without_storage_key": 0,
+    "assets_missing_physical_object": 0,
+    "missing_physical_asset_ids": []
+  },
+  "completed_at": "2026-09-15T08:55:07.972422+00:00"
+}

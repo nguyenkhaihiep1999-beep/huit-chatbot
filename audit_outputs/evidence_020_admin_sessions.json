@@ -1,0 +1,55 @@
+{
+  "migration": "020_create_admin_sessions_collection",
+  "version": "020",
+  "mode": "APPLY (THỰC THI THẬT SỰ)",
+  "database": "huit_chatbot",
+  "started_at": "2026-09-17T01:53:43.394162+00:00",
+  "status": "SUCCESS",
+  "actions": [
+    "Apply strict validator to admin_sessions",
+    "Created backup admin_sessions_backup_pre_migration_020_20260917_015343 (2 docs)",
+    "Created indexes: ['uniq_session_hash', 'ttl_expires_at', 'idx_admin_revoked']"
+  ],
+  "errors": [],
+  "post_verification": {
+    "collection_exists": true,
+    "validator_strict": true,
+    "validator_action_error": true,
+    "indexes_verified": {
+      "uniq_session_hash": {
+        "key": [
+          [
+            "session_hash",
+            1
+          ]
+        ],
+        "unique": true
+      },
+      "ttl_expires_at": {
+        "key": [
+          [
+            "expires_at",
+            1
+          ]
+        ],
+        "expireAfterSeconds": 0
+      },
+      "idx_admin_revoked": {
+        "key": [
+          [
+            "admin_id",
+            1
+          ],
+          [
+            "revoked",
+            1
+          ]
+        ]
+      }
+    },
+    "functional_rejection_verified": true,
+    "validator_level": "strict",
+    "validator_action": "error"
+  },
+  "finished_at": "2026-09-17T01:53:44.583918+00:00"
+}

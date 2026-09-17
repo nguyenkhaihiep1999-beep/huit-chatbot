@@ -1,0 +1,29 @@
+{
+  "action": "quarantine_unreferenced_storage_files",
+  "performed_at": "2026-09-15T16:02:18+07:00",
+  "source": "D:\\chatbot2\\data\\artifacts_store",
+  "destination": "D:\\chatbot2\\data\\artifacts_quarantine\\20260915_160218",
+  "recoverable": true,
+  "files": [
+    {
+      "name": "asset_art_7c58538a0be9f544.docx",
+      "size": 38253,
+      "sha256": "12ddf32710a341d932f0f2748f17cebe88d3d690b307226dd5f80d67f090cfbb"
+    },
+    {
+      "name": "asset_art_ae59d7573a0515cd4f66.xlsx",
+      "size": 6237,
+      "sha256": "b25cf1994ff2a7395f8547e0cba5bc505cb3c4c360e45a0505f7834f94a58b58"
+    },
+    {
+      "name": "asset_art_b29daa34b308333decae.pdf",
+      "size": 82878,
+      "sha256": "a43719b0152c07bfcbdff4ec838aa033df185faabf5c9d1feb8df53163675008"
+    },
+    {
+      "name": "asset_art_upscaled_5ce491506b95dcd6.png",
+      "size": 129695,
+      "sha256": "8c0e48990c123286d3874d1eba6efaf6330430af5053752c3b76b318a4ba0ba1"
+    }
+  ]
+}

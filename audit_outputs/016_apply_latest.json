@@ -1,0 +1,16 @@
+{
+  "script": "016_remove_admission_visual_base64",
+  "mode": "apply",
+  "started_at": "2026-09-15T08:48:35.730996+00:00",
+  "documents_with_heavy_fields": 46,
+  "invalid_required_documents": 0,
+  "preflight_passed": true,
+  "updated": 46,
+  "remaining": 0,
+  "backups": {
+    "admission_visuals": "admission_visuals_backup_20260915_084835"
+  },
+  "errors": 0,
+  "validator_updated": true,
+  "completed_at": "2026-09-15T08:48:39.196164+00:00"
+}

@@ -1,0 +1,11 @@
+{
+  "script": "017_sync_assets_validator",
+  "mode": "apply",
+  "started_at": "2026-09-15T08:56:13.894606+00:00",
+  "total_assets": 46,
+  "invalid_required_documents": 0,
+  "preflight_passed": true,
+  "validator_updated": true,
+  "errors": 0,
+  "completed_at": "2026-09-15T08:56:14.022588+00:00"
+}

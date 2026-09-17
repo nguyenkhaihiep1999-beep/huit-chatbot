@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: huit_chatbot_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: huit_chatbot_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/huit_chatbot
+      - MONGODB_DB=huit_chatbot
+      - REDIS_URL=redis://redis:6379/0
+      - RATE_LIMIT_REDIS_URL=redis://redis:6379/0
+      - STREAM_RESUME_REDIS_URL=redis://redis:6379/1
+      - STORAGE_BACKEND=local
+      - STORAGE_ROOT=/app/data/artifacts_store
+      - ADMIN_USERNAME=${ADMIN_USERNAME:?ADMIN_USERNAME must be set}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:?ADMIN_PASSWORD must be set}
+      - ADMIN_TOKEN=${ADMIN_TOKEN:?ADMIN_TOKEN must be set}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+    volumes:
+      - shared-storage:/app/data/artifacts_store
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: huit_chatbot_worker
+    restart: unless-stopped
+    environment:
+      - APP_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/huit_chatbot
+      - MONGODB_DB=huit_chatbot
+      - REDIS_URL=redis://redis:6379/0
+      - RATE_LIMIT_REDIS_URL=redis://redis:6379/0
+      - STREAM_RESUME_REDIS_URL=redis://redis:6379/1
+      - STORAGE_BACKEND=local
+      - STORAGE_ROOT=/app/data/artifacts_store
+      - ADMIN_USERNAME=${ADMIN_USERNAME:?ADMIN_USERNAME must be set}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:?ADMIN_PASSWORD must be set}
+      - ADMIN_TOKEN=${ADMIN_TOKEN:?ADMIN_TOKEN must be set}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+    volumes:
+      - shared-storage:/app/data/artifacts_store
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  mongo:
+    image: mongo:7.0
+    container_name: huit_chatbot_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: huit_chatbot_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo-data:
+  redis-data:
+  shared-storage:

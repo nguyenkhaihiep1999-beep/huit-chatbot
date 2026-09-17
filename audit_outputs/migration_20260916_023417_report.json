@@ -1,0 +1,223 @@
+{
+  "migration": "019_upgrade_validators_to_strict",
+  "timestamp": "2026-09-16T02:33:00.099755+00:00",
+  "database": "huit_chatbot",
+  "mode": "apply",
+  "preflight": {
+    "assets": {
+      "exists": true,
+      "has_validator": true,
+      "current_level": "moderate",
+      "current_action": "error",
+      "total_docs": 53,
+      "valid_docs": 53,
+      "invalid_docs": 0,
+      "ready_for_strict": true
+    },
+    "artifacts": {
+      "exists": true,
+      "has_validator": true,
+      "current_level": "moderate",
+      "current_action": "error",
+      "total_docs": 24,
+      "valid_docs": 24,
+      "invalid_docs": 0,
+      "ready_for_strict": true
+    },
+    "jobs": {
+      "exists": true,
+      "has_validator": true,
+      "current_level": "moderate",
+      "current_action": "error",
+      "total_docs": 23,
+      "valid_docs": 23,
+      "invalid_docs": 0,
+      "ready_for_strict": true
+    },
+    "generated_images": {
+      "exists": true,
+      "has_validator": true,
+      "current_level": "moderate",
+      "current_action": "error",
+      "total_docs": 43,
+      "valid_docs": 43,
+      "invalid_docs": 0,
+      "ready_for_strict": true
+    },
+    "query_cache": {
+      "exists": true,
+      "has_validator": true,
+      "current_level": "moderate",
+      "current_action": "error",
+      "total_docs": 9,
+      "valid_docs": 9,
+      "invalid_docs": 0,
+      "ready_for_strict": true
+    },
+    "admission_visuals": {
+      "exists": true,
+      "has_validator": true,
+      "current_level": "moderate",
+      "current_action": "error",
+      "total_docs": 46,
+      "valid_docs": 46,
+      "invalid_docs": 0,
+      "ready_for_strict": true
+    },
+    "huit_kb": {
+      "exists": true,
+      "has_validator": true,
+      "current_level": "moderate",
+      "current_action": "error",
+      "total_docs": 399,
+      "valid_docs": 399,
+      "invalid_docs": 0,
+      "ready_for_strict": true
+    },
+    "operation_audit": {
+      "exists": true,
+      "has_validator": true,
+      "current_level": "moderate",
+      "current_action": "error",
+      "total_docs": 7,
+      "valid_docs": 7,
+      "invalid_docs": 0,
+      "ready_for_strict": true
+    },
+    "rag_events": {
+      "exists": true,
+      "has_validator": true,
+      "current_level": "moderate",
+      "current_action": "error",
+      "total_docs": 1491,
+      "valid_docs": 116,
+      "invalid_docs": 1375,
+      "ready_for_strict": true
+    }
+  },
+  "rag_events_backfill": {
+    "needed": true,
+    "backup_collection": "rag_events_backup_20260916_023301",
+    "rollback_manifest": "D:\\chatbot2\\audit_outputs\\rollback_manifest_019_20260916_023300.json",
+    "docs_updated": 1491
+  },
+  "validation_level_upgrades": {
+    "assets": {
+      "action": "upgraded_to_strict",
+      "applied": true
+    },
+    "artifacts": {
+      "action": "upgraded_to_strict",
+      "applied": true
+    },
+    "jobs": {
+      "action": "upgraded_to_strict",
+      "applied": true
+    },
+    "generated_images": {
+      "action": "upgraded_to_strict",
+      "applied": true
+    },
+    "query_cache": {
+      "action": "upgraded_to_strict",
+      "applied": true
+    },
+    "admission_visuals": {
+      "action": "upgraded_to_strict",
+      "applied": true
+    },
+    "huit_kb": {
+      "action": "upgraded_to_strict",
+      "applied": true
+    },
+    "operation_audit": {
+      "action": "upgraded_to_strict",
+      "applied": true
+    },
+    "rag_events": {
+      "action": "upgraded_to_strict",
+      "applied": true
+    }
+  },
+  "post_verification": {
+    "all_strict": true,
+    "all_error_action": true,
+    "indexes_intact": true,
+    "vector_search_ready": true,
+    "collections": {
+      "assets": {
+        "validation_level": "strict",
+        "validation_action": "error",
+        "index_count": 6,
+        "total_documents": 53,
+        "valid_documents": 53,
+        "is_strict": true
+      },
+      "artifacts": {
+        "validation_level": "strict",
+        "validation_action": "error",
+        "index_count": 7,
+        "total_documents": 24,
+        "valid_documents": 24,
+        "is_strict": true
+      },
+      "jobs": {
+        "validation_level": "strict",
+        "validation_action": "error",
+        "index_count": 8,
+        "total_documents": 23,
+        "valid_documents": 23,
+        "is_strict": true
+      },
+      "generated_images": {
+        "validation_level": "strict",
+        "validation_action": "error",
+        "index_count": 6,
+        "total_documents": 43,
+        "valid_documents": 43,
+        "is_strict": true
+      },
+      "query_cache": {
+        "validation_level": "strict",
+        "validation_action": "error",
+        "index_count": 4,
+        "total_documents": 9,
+        "valid_documents": 9,
+        "is_strict": true
+      },
+      "admission_visuals": {
+        "validation_level": "strict",
+        "validation_action": "error",
+        "index_count": 4,
+        "total_documents": 46,
+        "valid_documents": 46,
+        "is_strict": true
+      },
+      "huit_kb": {
+        "validation_level": "strict",
+        "validation_action": "error",
+        "index_count": 1,
+        "total_documents": 399,
+        "valid_documents": 399,
+        "is_strict": true
+      },
+      "operation_audit": {
+        "validation_level": "strict",
+        "validation_action": "error",
+        "index_count": 6,
+        "total_documents": 7,
+        "valid_documents": 7,
+        "is_strict": true
+      },
+      "rag_events": {
+        "validation_level": "strict",
+        "validation_action": "error",
+        "index_count": 5,
+        "total_documents": 1491,
+        "valid_documents": 1491,
+        "is_strict": true
+      }
+    }
+  },
+  "status": "success"
+}

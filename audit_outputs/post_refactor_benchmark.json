@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-09-12 20:43:52",
+  "model_warmup_ms": 9047.71,
+  "results": [
+    {
+      "query": "HUIT có những ngành đào tạo nào?",
+      "retrieval_ms": 3202.01,
+      "ttft_ms": 160.03,
+      "generation_ms": 241.3,
+      "total_ms": 241.3,
+      "cache_hit_ttft_ms": 152.53,
+      "docs_count": 3,
+      "answer_len": 2342,
+      "has_visual": false
+    },
+    {
+      "query": "Điểm chuẩn ngành Công nghệ thông tin năm 2024 là bao nhiêu?",
+      "retrieval_ms": 2173.53,
+      "ttft_ms": 3747.81,
+      "generation_ms": 4622.2,
+      "total_ms": 4622.2,
+      "cache_hit_ttft_ms": 1.07,
+      "docs_count": 2,
+      "answer_len": 1365,
+      "has_visual": true
+    },
+    {
+      "query": "Học phí trường Đại học Công Thương TP.HCM như thế nào?",
+      "retrieval_ms": 1720.52,
+      "ttft_ms": 2772.54,
+      "generation_ms": 4261.23,
+      "total_ms": 4261.23,
+      "cache_hit_ttft_ms": 1.28,
+      "docs_count": 1,
+      "answer_len": 1038,
+      "has_visual": true
+    },
+    {
+      "query": "Hồ sơ xét tuyển học bạ gồm những gì?",
+      "retrieval_ms": 1453.56,
+      "ttft_ms": 18766.61,
+      "generation_ms": 19465.33,
+      "total_ms": 19465.33,
+      "cache_hit_ttft_ms": 0.83,
+      "docs_count": 1,
+      "answer_len": 1029,
+      "has_visual": true
+    },
+    {
+      "query": "Hiệu trưởng trường Đại học Công Thương TP.HCM là ai?",
+      "retrieval_ms": 1779.11,
+      "ttft_ms": 3184.92,
+      "generation_ms": 3690.67,
+      "total_ms": 3690.67,
+      "cache_hit_ttft_ms": 1.05,
+      "docs_count": 2,
+      "answer_len": 742,
+      "has_visual": true
+    }
+  ]
+}

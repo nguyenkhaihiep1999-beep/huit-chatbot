@@ -1,0 +1,137 @@
+{
+  "timestamp": "2026-09-17T02:07:32.829104+00:00",
+  "target_url": "http://127.0.0.1:8000",
+  "concurrency": 5,
+  "overall_status": "PASSED",
+  "chat_stream_suite": {
+    "passed": true,
+    "concurrency": 5,
+    "successes": 5,
+    "total": 5,
+    "error_rate": 0.0,
+    "duration_metrics": {
+      "p50": 19.856,
+      "p95": 20.651,
+      "p99": 20.693,
+      "elapsed_total": 20.704
+    },
+    "ttft_metrics": {
+      "mean": 13.092,
+      "p50": 17.971,
+      "p95": 18.404,
+      "p99": 18.471
+    },
+    "results": [
+      {
+        "idx": 0,
+        "status": "COMPLETED",
+        "duration_sec": 4.214,
+        "ttft_sec": 3.04,
+        "token_count": 483,
+        "has_done_event": true,
+        "error": null
+      },
+      {
+        "idx": 1,
+        "status": "COMPLETED",
+        "duration_sec": 20.703,
+        "ttft_sec": 18.07,
+        "token_count": 521,
+        "has_done_event": true,
+        "error": null
+      },
+      {
+        "idx": 2,
+        "status": "COMPLETED",
+        "duration_sec": 20.445,
+        "ttft_sec": 18.488,
+        "token_count": 374,
+        "has_done_event": true,
+        "error": null
+      },
+      {
+        "idx": 3,
+        "status": "COMPLETED",
+        "duration_sec": 19.856,
+        "ttft_sec": 17.971,
+        "token_count": 325,
+        "has_done_event": true,
+        "error": null
+      },
+      {
+        "idx": 4,
+        "status": "COMPLETED",
+        "duration_sec": 8.613,
+        "ttft_sec": 7.89,
+        "token_count": 242,
+        "has_done_event": true,
+        "error": null
+      }
+    ]
+  },
+  "artifact_suite": {
+    "passed": true,
+    "concurrency": 5,
+    "successes": 5,
+    "error_rate": 0.0,
+    "duration_metrics": {
+      "p50": 0.417,
+      "p95": 0.417,
+      "elapsed_total": 0.419
+    },
+    "results": [
+      {
+        "idx": 0,
+        "status": "PLAN_CREATED",
+        "artifact_id": "art_8eabdaaf54c7e3f70f36",
+        "duration_sec": 0.415
+      },
+      {
+        "idx": 1,
+        "status": "PLAN_CREATED",
+        "artifact_id": "art_4dbc5c185f5c3923eb67",
+        "duration_sec": 0.416
+      },
+      {
+        "idx": 2,
+        "status": "PLAN_CREATED",
+        "artifact_id": "art_16083145cc72784ba129",
+        "duration_sec": 0.417
+      },
+      {
+        "idx": 3,
+        "status": "PLAN_CREATED",
+        "artifact_id": "art_27e3ec07bba74834544b",
+        "duration_sec": 0.417
+      },
+      {
+        "idx": 4,
+        "status": "PLAN_CREATED",
+        "artifact_id": "art_a1dd5db38e8f379e52ef",
+        "duration_sec": 0.417
+      }
+    ]
+  },
+  "rate_limiting_suite": {
+    "passed": true,
+    "rate_limit_active": true,
+    "count_401": 5,
+    "count_429": 7,
+    "total_requests": 12
+  },
+  "memory_metrics": {
+    "ram_before": {
+      "total_gb": 15.71,
+      "available_gb": 0.82,
+      "used_gb": 14.9,
+      "percent_used": 94.8
+    },
+    "ram_after": {
+      "total_gb": 15.71,
+      "available_gb": 0.88,
+      "used_gb": 14.83,
+      "percent_used": 94.4
+    },
+    "ram_delta_gb": -0.07
+  }
+}

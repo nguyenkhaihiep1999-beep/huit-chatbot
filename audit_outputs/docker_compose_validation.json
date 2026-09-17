@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-09-17T02:32:30.358527+00:00",
+  "workspace": "D:\\chatbot2",
+  "status": "PASSED",
+  "targets": {
+    "dev_compose": {
+      "file": "docker-compose.yml",
+      "exit_code": 0,
+      "passed": true,
+      "stdout_sample": "name: chatbot2\nservices:\n  backend:\n    build:\n      context: D:\\chatbot2\n      dockerfile: Dockerfile\n    container_name: huit_chatbot_backend\n    depends_on:\n      mongo:\n        condition: service_healthy\n        required: true\n      redis:\n        condition: service_healthy\n        required: true\n    environment:\n      ADMIN_PASSWORD: change_this_to_a_strong_password_in_production\n      ADMIN_TOKEN: change_this_to_a_long_random_secret_token_in_production\n      ADMIN_USERNAME: admin_huit\n    ",
+      "stderr": ""
+    },
+    "prod_compose": {
+      "file": "docker-compose.prod.yml",
+      "exit_code": 0,
+      "passed": true,
+      "stdout_sample": "name: chatbot2\nservices:\n  backend:\n    build:\n      context: D:\\chatbot2\n      dockerfile: Dockerfile\n    cap_drop:\n      - ALL\n    container_name: huit_chatbot_backend_prod\n    depends_on:\n      redis:\n        condition: service_healthy\n        required: true\n    deploy:\n      resources:\n        limits:\n          cpus: 2\n          memory: \"2147483648\"\n        reservations:\n          cpus: 0.5\n          memory: \"536870912\"\n    environment:\n      ADMIN_PASSWORD: test_admin_password_secure_123\n  ",
+      "stderr": ""
+    }
+  }
+}

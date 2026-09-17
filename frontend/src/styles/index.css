@@ -1,0 +1,335 @@
+/* ==============================================================================
+   DESIGN TOKENS - HUIT CHATBOT DESIGN SYSTEM
+   Được thiết kế hiện đại, tinh gọn, thân thiện cho sinh viên và phụ huynh.
+   ============================================================================== */
+
+:root {
+  /* Brand Colors */
+  --huit-blue: #0066c4;
+  --huit-blue-hover: #0052a3;
+  --huit-cyan: #0284c7;
+  --huit-gold: #f59e0b;
+
+  /* Semantic Colors */
+  --color-primary: var(--huit-blue);
+  --color-primary-hover: var(--huit-blue-hover);
+  --color-primary-subtle: rgba(0, 102, 196, 0.08);
+  --color-primary-glow: rgba(0, 102, 196, 0.2);
+
+  --color-success: #10b981;
+  --color-success-subtle: rgba(16, 185, 129, 0.1);
+  --color-warning: #f59e0b;
+  --color-warning-subtle: rgba(245, 158, 11, 0.1);
+  --color-danger: #ef4444;
+  --color-danger-subtle: rgba(239, 68, 68, 0.1);
+  --color-info: #0284c7;
+  --color-info-subtle: rgba(2, 132, 199, 0.1);
+
+  /* Light Theme Surfaces & Backgrounds */
+  --surface-canvas: #f5f7fb;
+  --surface-panel: #eef3f9;
+  --surface-card: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-overlay: rgba(15, 23, 42, 0.65);
+  --surface-hover: rgba(0, 102, 196, 0.04);
+  --surface-active: rgba(0, 102, 196, 0.08);
+
+  /* Light Theme Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+  --text-inverse: #ffffff;
+  --text-on-primary: #ffffff;
+
+  /* Light Theme Borders */
+  --border-subtle: #f1f5f9;
+  --border-default: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-focus: #0066c4;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.1), 0 4px 10px -3px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 20px 32px -6px rgba(15, 23, 42, 0.14), 0 8px 16px -4px rgba(15, 23, 42, 0.06);
+
+  /* Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: Inter, 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --font-xs: 0.75rem;     /* 12px */
+  --font-sm: 0.84rem;     /* 13.5px */
+  --font-base: 0.95rem;   /* 15.2px */
+  --font-md: 1.05rem;     /* 16.8px */
+  --font-lg: 1.25rem;     /* 20px */
+  --font-xl: 1.5rem;      /* 24px */
+  --font-2xl: 1.875rem;   /* 30px */
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* Transitions */
+  --transition-fast: 120ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 300ms ease;
+
+  /* Focus Ring */
+  --focus-ring: 0 0 0 2px var(--surface-canvas), 0 0 0 4px var(--border-focus);
+
+  /* Legacy variable bridges for backward compatibility */
+  --primary: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
+  --primary-light: var(--color-primary-subtle);
+  --primary-glow: var(--color-primary-glow);
+  --text-main: var(--text-primary);
+  --bg-main: var(--surface-canvas);
+  --bg-card: var(--surface-card);
+  --bg-card-glass: rgba(255, 255, 255, 0.9);
+  --bg-sidebar: var(--surface-panel);
+  --bg-input: var(--surface-card);
+  --border: var(--border-default);
+  --border-light: var(--border-subtle);
+  --danger: var(--color-danger);
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+}
+
+/* ==============================================================================
+   DARK THEME TOKENS
+   Độ tương phản cao, dịu mắt, tuân thủ WCAG AA.
+   ============================================================================== */
+[data-theme='dark'] {
+  --color-primary: #38bdf8;
+  --color-primary-hover: #0ea5e9;
+  --color-primary-subtle: rgba(56, 189, 248, 0.12);
+  --color-primary-glow: rgba(56, 189, 248, 0.3);
+
+  --color-success: #34d399;
+  --color-success-subtle: rgba(52, 211, 153, 0.15);
+  --color-warning: #fbbf24;
+  --color-warning-subtle: rgba(251, 191, 36, 0.15);
+  --color-danger: #f87171;
+  --color-danger-subtle: rgba(248, 113, 113, 0.15);
+  --color-info: #38bdf8;
+  --color-info-subtle: rgba(56, 189, 248, 0.15);
+
+  --surface-canvas: #0b0f19;
+  --surface-panel: #0f172a;
+  --surface-card: #111827;
+  --surface-elevated: #1e293b;
+  --surface-overlay: rgba(3, 7, 18, 0.8);
+  --surface-hover: rgba(255, 255, 255, 0.05);
+  --surface-active: rgba(255, 255, 255, 0.08);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  --text-inverse: #0b0f19;
+  --text-on-primary: #0b0f19;
+
+  --border-subtle: #172033;
+  --border-default: #1e293b;
+  --border-strong: #334155;
+  --border-focus: #38bdf8;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 32px -6px rgba(0, 0, 0, 0.7);
+
+  /* Bridges */
+  --primary: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
+  --primary-light: var(--color-primary-subtle);
+  --primary-glow: var(--color-primary-glow);
+  --text-main: var(--text-primary);
+  --bg-main: var(--surface-canvas);
+  --bg-card: var(--surface-card);
+  --bg-card-glass: rgba(17, 24, 39, 0.9);
+  --bg-sidebar: var(--surface-panel);
+  --bg-input: var(--surface-card);
+  --border: var(--border-default);
+  --border-light: var(--border-subtle);
+  --danger: var(--color-danger);
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+}
+
+/* ==============================================================================
+   RESET & BASE STYLES
+   ============================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+#root {
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-base);
+  line-height: 1.55;
+  color: var(--text-primary);
+  background-color: var(--surface-canvas);
+  background-image:
+    radial-gradient(circle at 12% 0%, rgba(0, 102, 196, 0.07), transparent 28rem),
+    radial-gradient(circle at 88% 100%, rgba(2, 132, 199, 0.05), transparent 24rem);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Accessibility Focus Outline */
+:focus-visible {
+  outline: 2px solid var(--border-focus) !important;
+  outline-offset: 2px !important;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
+}
+
+/* App Container */
+.app-container {
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header */
+.app-header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-5);
+  background: var(--surface-card);
+  border-bottom: 1px solid var(--border-default);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.app-header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: inherit;
+}
+
+.app-header-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.app-header-name {
+  font-weight: 700;
+  font-size: var(--font-md);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.app-header-badge {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-primary-subtle);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* Utility Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+.animate-pulse {
+  animation: pulseSlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

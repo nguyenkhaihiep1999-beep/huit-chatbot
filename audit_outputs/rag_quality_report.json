@@ -1,0 +1,158 @@
+{
+  "timestamp": "2026-09-17T02:06:20.451131+00:00",
+  "target_url": "http://127.0.0.1:8000",
+  "total_questions": 9,
+  "passed_questions": 9,
+  "failed_questions": 0,
+  "pass_rate_pct": 100.0,
+  "avg_latency_sec": 3.529,
+  "overall_status": "PASSED",
+  "benchmark_results": [
+    {
+      "category": "tuition",
+      "question": "Học phí ngành Công nghệ Thông tin trường HUIT năm học 2025 - 2026 là bao nhiêu?",
+      "passed": true,
+      "duration_sec": 9.925,
+      "is_out_of_domain": false,
+      "details": {
+        "matched_keywords": [
+          "học phí",
+          "triệu",
+          "tín chỉ",
+          "năm"
+        ],
+        "citations_count": 2,
+        "effective_date": "2025-2026",
+        "answer_snippet": "Chào bạn! 😊Theo thông tin chính thức từ Trường Đại học Công Thương TP.HCM (HUIT) về mức học phí năm học 2025‑2026, học p..."
+      }
+    },
+    {
+      "category": "tuition",
+      "question": "Mức học phí theo tín chỉ lý thuyết và thực hành của trường Đại học Công Thương TP.HCM?",
+      "passed": true,
+      "duration_sec": 3.655,
+      "is_out_of_domain": false,
+      "details": {
+        "matched_keywords": [
+          "tín chỉ",
+          "đồng",
+          "học phí"
+        ],
+        "citations_count": 2,
+        "effective_date": "2025-2026",
+        "answer_snippet": "Chào bạn! 🌟Mức học phí tính theo tín chỉ tại Trường Đại học Công Thương TP.HCM (HUIT) như sau:\n\n- **Tín chỉ lý thuyết:**..."
+      }
+    },
+    {
+      "category": "admission_cutoff",
+      "question": "Điểm chuẩn ngành Công nghệ Thực phẩm của HUIT qua các năm gần đây xét theo điểm thi THPT?",
+      "passed": true,
+      "duration_sec": 3.824,
+      "is_out_of_domain": false,
+      "details": {
+        "matched_keywords": [
+          "điểm",
+          "Công nghệ Thực phẩm",
+          "THPT"
+        ],
+        "citations_count": 2,
+        "effective_date": "2025-2026",
+        "answer_snippet": "Chào bạn! 🌟Theo **điểm chuẩn trúng tuyển năm 2026** của Trường Đại học Công Thương TP.HCM (HUIT), ngành **Công nghệ Thực..."
+      }
+    },
+    {
+      "category": "admission_cutoff",
+      "question": "Phương thức xét tuyển bằng học bạ THPT vào HUIT cần bao nhiêu điểm?",
+      "passed": true,
+      "duration_sec": 5.888,
+      "is_out_of_domain": false,
+      "details": {
+        "matched_keywords": [
+          "học bạ",
+          "điểm",
+          "xét tuyển"
+        ],
+        "citations_count": 2,
+        "effective_date": "2025-2026",
+        "answer_snippet": "Chào em, em quan tâm đến phương thức xét tuyển bằng học bạ THPT tại HUIT đúng không ạ?\n\nTheo thông tin tuyển sinh đại họ..."
+      }
+    },
+    {
+      "category": "majors_catalog",
+      "question": "Trường Đại học Công Thương TP.HCM đào tạo những ngành nào thuộc khối Kỹ thuật và Công nghệ?",
+      "passed": true,
+      "duration_sec": 0.423,
+      "is_out_of_domain": false,
+      "details": {
+        "matched_keywords": [
+          "Công nghệ",
+          "Kỹ thuật",
+          "ngành"
+        ],
+        "citations_count": 1,
+        "effective_date": "2025-2026",
+        "answer_snippet": "HUIT hiện công bố **24 ngành đào tạo đại học chính quy** trong danh mục tuyển sinh 2026:\n\n1. **An toàn thông tin - Tuyển..."
+      }
+    },
+    {
+      "category": "majors_catalog",
+      "question": "Tổ hợp môn xét tuyển ngành Kỹ thuật Cơ điện tử tại HUIT là những khối nào?",
+      "passed": true,
+      "duration_sec": 0.158,
+      "is_out_of_domain": false,
+      "details": {
+        "matched_keywords": [
+          "A00",
+          "A01",
+          "D01",
+          "C01",
+          "tổ hợp"
+        ],
+        "citations_count": 1,
+        "effective_date": "2025-2026",
+        "answer_snippet": "Ngành **Kỹ thuật Cơ điện tử** (Mã ngành: `7520114`) tại Trường Đại học Công Thương TP.HCM (HUIT) xét tuyển các **tổ hợp ..."
+      }
+    },
+    {
+      "category": "scholarships",
+      "question": "Chính sách học bổng tuyển sinh và khuyến khích học tập của HUIT cho sinh viên?",
+      "passed": true,
+      "duration_sec": 0.176,
+      "is_out_of_domain": false,
+      "details": {
+        "matched_keywords": [
+          "học bổng",
+          "sinh viên",
+          "khuyến khích"
+        ],
+        "citations_count": 1,
+        "effective_date": "2025-2026",
+        "answer_snippet": "Trường Đại học Công Thương TP.HCM (HUIT) áp dụng nhiều chính sách **học bổng** hấp dẫn cho **sinh viên** và tân sinh viê..."
+      }
+    },
+    {
+      "category": "anti_hallucination",
+      "question": "Học phí ngành Bác sĩ Y đa khoa của trường Đại học Y Dược TP.HCM năm 2026 là bao nhiêu?",
+      "passed": true,
+      "duration_sec": 3.153,
+      "is_out_of_domain": true,
+      "details": {
+        "has_safe_fallback": true,
+        "answer_snippet": "Chào bạn! 🌟Mình là AI Tư vấn Tuyển sinh của Trường Đại học Công Thương TP.HCM (HUIT) và hiện tại mình chỉ có thông tin v...",
+        "citations_count": 3
+      }
+    },
+    {
+      "category": "anti_hallucination",
+      "question": "Điểm chuẩn chính thức trúng tuyển đại học HUIT của năm 2035 là bao nhiêu?",
+      "passed": true,
+      "duration_sec": 4.557,
+      "is_out_of_domain": true,
+      "details": {
+        "has_safe_fallback": true,
+        "answer_snippet": "Chào bạn! 🌟Hiện tại, dữ liệu mới nhất mà mình có về điểm chuẩn trúng tuyển của Trường Đại học Công Thương TP.HCM là **đi...",
+        "citations_count": 1
+      }
+    }
+  ]
+}

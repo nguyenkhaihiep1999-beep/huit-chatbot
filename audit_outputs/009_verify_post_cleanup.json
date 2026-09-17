@@ -1,0 +1,160 @@
+{
+  "timestamp": "2026-09-15T09:04:22.397341+00:00",
+  "database": "huit_chatbot",
+  "overall_passed": true,
+  "checks": {
+    "validators": {
+      "assets": {
+        "has_validator": true,
+        "level": "moderate",
+        "action": "error",
+        "missing_required_fields": [],
+        "passed": true
+      },
+      "artifacts": {
+        "has_validator": true,
+        "level": "moderate",
+        "action": "error",
+        "missing_required_fields": [],
+        "passed": true
+      },
+      "jobs": {
+        "has_validator": true,
+        "level": "moderate",
+        "action": "error",
+        "missing_required_fields": [],
+        "passed": true
+      },
+      "query_cache": {
+        "has_validator": true,
+        "level": "moderate",
+        "action": "error",
+        "missing_required_fields": [],
+        "passed": true
+      },
+      "rag_events": {
+        "has_validator": true,
+        "level": "moderate",
+        "action": "error",
+        "missing_required_fields": [],
+        "passed": true
+      },
+      "generated_images": {
+        "has_validator": true,
+        "level": "moderate",
+        "action": "error",
+        "missing_required_fields": [],
+        "passed": true
+      },
+      "admission_visuals": {
+        "has_validator": true,
+        "level": "moderate",
+        "action": "error",
+        "missing_required_fields": [],
+        "passed": true
+      }
+    },
+    "indexes": {
+      "assets": {
+        "passed": true,
+        "failures": []
+      },
+      "artifacts": {
+        "passed": true,
+        "failures": []
+      },
+      "jobs": {
+        "passed": true,
+        "failures": []
+      },
+      "generated_images": {
+        "passed": true,
+        "failures": []
+      },
+      "query_cache": {
+        "passed": true,
+        "failures": []
+      },
+      "rag_events": {
+        "passed": true,
+        "failures": []
+      }
+    },
+    "string_dates": {
+      "jobs": {
+        "string_date_documents": 0,
+        "passed": true
+      },
+      "assets": {
+        "string_date_documents": 0,
+        "passed": true
+      },
+      "artifacts": {
+        "string_date_documents": 0,
+        "passed": true
+      },
+      "rag_events": {
+        "string_date_documents": 0,
+        "passed": true
+      },
+      "query_cache": {
+        "string_date_documents": 0,
+        "passed": true
+      },
+      "generated_images": {
+        "string_date_documents": 0,
+        "passed": true
+      }
+    },
+    "binary_and_base64": {
+      "generated_images.image_data": {
+        "count": 0,
+        "passed": true
+      },
+      "query_cache.meta_base64": {
+        "count": 0,
+        "passed": true
+      },
+      "assets.manifest_residual": {
+        "count": 0,
+        "passed": true
+      },
+      "artifacts.dangling_blob_references": {
+        "count": 0,
+        "passed": true
+      }
+    },
+    "huit_kb_vector_search": {
+      "document_count": 399,
+      "vector_search_index_status": "verified",
+      "status": "pass",
+      "vector_indexes_found": 1
+    },
+    "physical_storage": {
+      "total_assets": 46,
+      "assets_with_storage_key": 46,
+      "missing_storage_key": 0,
+      "existing_on_disk": 46,
+      "missing_on_disk": 0,
+      "missing_asset_ids": [],
+      "status": "pass"
+    },
+    "image_dedup_index": {
+      "has_owner_fingerprint_unique": true,
+      "has_global_content_hash_unique": false,
+      "status": "pass"
+    },
+    "jobs_resilience": {
+      "total_jobs": 23,
+      "missing_resilience_fields": 0,
+      "status": "pass"
+    },
+    "compact_payload_and_blob_integrity": {
+      "admission_visuals_base64": 0,
+      "generated_images_dangling_blob_ids": 0,
+      "status": "pass"
+    }
+  },
+  "script": "009_verify_migration",
+  "mode": "dry-run"
+}

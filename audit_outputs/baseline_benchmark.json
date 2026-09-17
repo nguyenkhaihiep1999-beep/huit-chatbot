@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-09-12 20:27:48",
+  "total_queries": 5,
+  "results": [
+    {
+      "query": "HUIT có những ngành đào tạo nào?",
+      "retrieval_ms": 7046.57,
+      "ttft_ms": 158.65,
+      "generation_ms": 234.1,
+      "total_ms": 7280.68,
+      "cache_hit_ttft_ms": 150.51,
+      "docs_count": 3,
+      "answer_length": 2342,
+      "answer_sample": "HUIT hiện công bố **37 ngành đào tạo đại học chính quy** trong danh mục tuyển sinh 2026:\n\n1. **An toàn thông tin - Tuyển..."
+    },
+    {
+      "query": "Điểm chuẩn ngành Công nghệ thông tin năm 2024 là bao nhiêu?",
+      "retrieval_ms": 1170.59,
+      "ttft_ms": 4842.05,
+      "generation_ms": 5339.88,
+      "total_ms": 6510.47,
+      "cache_hit_ttft_ms": 0.6,
+      "docs_count": 2,
+      "answer_length": 710,
+      "answer_sample": "Chào bạn! 🌟Theo **ngữ cảnh HUIT** mà mình đang truy cập, trường Đại học Công Thương TP.HCM đã công bố điểm chuẩn **năm 2..."
+    },
+    {
+      "query": "Học phí trường Đại học Công Thương TP.HCM như thế nào?",
+      "retrieval_ms": 1349.11,
+      "ttft_ms": 2210.47,
+      "generation_ms": 3250.23,
+      "total_ms": 4599.34,
+      "cache_hit_ttft_ms": 0.72,
+      "docs_count": 1,
+      "answer_length": 1396,
+      "answer_sample": "Chào bạn! 😊Học phí tại Trường Đại học Công Thương TP.HCM (HUIT) được thiết kế để vừa đảm bảo chất lượng đào tạo, vừa tạo..."
+    },
+    {
+      "query": "Hồ sơ xét tuyển học bạ gồm những gì?",
+      "retrieval_ms": 1192.38,
+      "ttft_ms": 2466.79,
+      "generation_ms": 3123.03,
+      "total_ms": 4315.41,
+      "cache_hit_ttft_ms": 0.61,
+      "docs_count": 1,
+      "answer_length": 828,
+      "answer_sample": "Chào bạn! Để nộp hồ sơ xét tuyển theo phương thức **xét học bạ THPT** tại Trường Đại học Công Thương TP.HCM (HUIT), bạn ..."
+    },
+    {
+      "query": "Hiệu trưởng trường Đại học Công Thương TP.HCM là ai?",
+      "retrieval_ms": 1370.66,
+      "ttft_ms": 2627.38,
+      "generation_ms": 2981.27,
+      "total_ms": 4351.93,
+      "cache_hit_ttft_ms": 0.66,
+      "docs_count": 2,
+      "answer_length": 538,
+      "answer_sample": "Xin lỗi anh/chị, trong các tài liệu mà tôi đang tham khảo (các thông tin về các ngành học và quy trình tuyển sinh của HU..."
+    }
+  ]
+}

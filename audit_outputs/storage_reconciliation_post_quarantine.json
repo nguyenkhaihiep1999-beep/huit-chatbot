@@ -1,0 +1,30 @@
+{
+  "script": "storage_reconciliation",
+  "started_at": "2026-09-15T09:03:55.711892+00:00",
+  "mode": "dry-run",
+  "storage_backend": "LocalStorageAdapter",
+  "storage_root": "D:\\chatbot2\\data\\artifacts_store",
+  "total_assets_scanned": 46,
+  "valid_assets_count": 46,
+  "repaired_svg_count": 0,
+  "repaired_excel_count": 0,
+  "unrendered_manifests_cleaned": 0,
+  "unavailable_marked_count": 0,
+  "checksum_corrected_count": 0,
+  "size_corrected_count": 0,
+  "dangling_logical_refs_count": 0,
+  "orphan_files_count": 0,
+  "errors": 0,
+  "backups": {},
+  "details": [],
+  "orphan_files": [],
+  "planned_operations": {
+    "restorations": 0,
+    "placeholder_cleanups": 0,
+    "asset_updates": 0,
+    "artifact_updates": 0,
+    "image_updates": 0
+  },
+  "preflight_passed": true,
+  "completed_at": "2026-09-15T09:03:56.078870+00:00"
+}

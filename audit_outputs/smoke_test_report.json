@@ -1,0 +1,133 @@
+{
+  "timestamp": "2026-09-17T02:07:05.639870+00:00",
+  "target_url": "http://127.0.0.1:8000",
+  "total_tests": 13,
+  "passed_tests": 13,
+  "failed_tests": 0,
+  "pass_rate_pct": 100.0,
+  "total_duration_sec": 39.531,
+  "status": "PASSED",
+  "tests": [
+    {
+      "name": "1. Health Live (/api/health/live)",
+      "passed": true,
+      "duration_sec": 0.013,
+      "message": "HTTP 200 OK, status=alive",
+      "details": null
+    },
+    {
+      "name": "2. Health Ready (/api/health/ready)",
+      "passed": true,
+      "duration_sec": 0.333,
+      "message": "HTTP 200 OK, dependencies fully operational",
+      "details": {
+        "mongodb": {
+          "status": "healthy",
+          "latency_ms": 326.25,
+          "database": "huit_chatbot"
+        },
+        "job_queue": {
+          "status": "healthy",
+          "queued_jobs": 0,
+          "stuck_jobs": 0
+        },
+        "knowledge_base": {
+          "status": "healthy",
+          "kb_version": "huit-kb-2026-07-v4-semantic",
+          "documents_count": 399
+        },
+        "redis": {
+          "status": "disabled",
+          "message": "Redis chưa được cấu hình (đang dùng In-Memory)",
+          "ping_ms": null
+        },
+        "storage": {
+          "status": "healthy",
+          "type": "local",
+          "root_dir": "D:\\chatbot2\\data\\artifacts_store"
+        }
+      }
+    },
+    {
+      "name": "3. CSRF Bootstrap (/api/auth/session)",
+      "passed": true,
+      "duration_sec": 0.003,
+      "message": "HTTP 200 OK, user csrf_token received (length=35)",
+      "details": null
+    },
+    {
+      "name": "4. Admin Login Zero-Token Contract",
+      "passed": true,
+      "duration_sec": 0.188,
+      "message": "HTTP 200 OK, HttpOnly cookie set, zero token in JSON body, admin CSRF issued",
+      "details": null
+    },
+    {
+      "name": "5. Admin Verify, Logout & Revocation",
+      "passed": true,
+      "duration_sec": 0.879,
+      "message": "Verify 200 -> Logout 200 -> Revoked session correctly returned 401",
+      "details": null
+    },
+    {
+      "name": "6. Regular Chat (/api/chat)",
+      "passed": true,
+      "duration_sec": 3.434,
+      "message": "HTTP 200 OK, answer received successfully",
+      "details": null
+    },
+    {
+      "name": "7. NDJSON Canonical Stream (/api/chat-stream)",
+      "passed": true,
+      "duration_sec": 14.731,
+      "message": "HTTP 200 OK, 348 canonical events, monotonic sequence",
+      "details": null
+    },
+    {
+      "name": "8. Stream Reconnect / Resume (X-Last-Sequence)",
+      "passed": true,
+      "duration_sec": 13.306,
+      "message": "HTTP 200 OK Resume reconnected from sequence > 3 successfully",
+      "details": null
+    },
+    {
+      "name": "9. Stream Cancel Endpoint (/api/chat/{request_id}/cancel)",
+      "passed": true,
+      "duration_sec": 0.003,
+      "message": "HTTP 200 OK cancel acknowledged: cancelled",
+      "details": null
+    },
+    {
+      "name": "10. Migration 020 Validator, Index & TTL",
+      "passed": true,
+      "duration_sec": 1.287,
+      "message": "admin_sessions strict/error validator, unique session_hash & TTL expires_at verified",
+      "details": null
+    },
+    {
+      "name": "11. Artifact Multi-User Isolation",
+      "passed": true,
+      "duration_sec": 0.641,
+      "message": "Two users isolated successfully (art_a=art_32e4c1a3eef68cc4f3dd, art_b=art_97cec993a1d1719bf32a)",
+      "details": null
+    },
+    {
+      "name": "12. Durable Worker Export & Upscale (HTTP 202 & Polling)",
+      "passed": true,
+      "duration_sec": 4.688,
+      "message": "Export job job_49dad156daa1444a99faeb1a and Upscale job job_5dee10784b4b53803757886f both completed via worker with signed URLs",
+      "details": {
+        "export_job_id": "job_49dad156daa1444a99faeb1a",
+        "upscale_job_id": "job_5dee10784b4b53803757886f",
+        "upscale_url": "/api/artifacts/art_up_96cb67cb9b9026ba/e"
+      }
+    },
+    {
+      "name": "13. Signed Download Contract (Valid vs Unsigned vs Expired)",
+      "passed": true,
+      "duration_sec": 0.025,
+      "message": "Signed download: valid 200 OK, unsigned/expired/tampered strictly blocked 403",
+      "details": null
+    }
+  ]
+}

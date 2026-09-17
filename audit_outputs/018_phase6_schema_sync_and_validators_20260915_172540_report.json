@@ -1,0 +1,35 @@
+{
+  "script": "018_phase6_schema_sync_and_validators",
+  "timestamp": "2026-09-15T17:25:34.537743+00:00",
+  "dry_run": false,
+  "database": "huit_chatbot",
+  "backup_name": null,
+  "huit_kb": {
+    "total_documents_scanned": 399,
+    "legacy_documents_detected": 0,
+    "documents_normalized": 0,
+    "preflight_passed": 399,
+    "preflight_failed": 0,
+    "validator_applied": true
+  },
+  "operation_audit": {
+    "collection_created": false,
+    "validator_applied": true,
+    "indexes_created": [
+      "created_at_-1",
+      "operation_key_1_operation_version_1_created_at_-1",
+      "request_id_1",
+      "status_1_created_at_-1",
+      "principal_id_1_created_at_-1"
+    ]
+  },
+  "post_verification": {
+    "huit_kb_document_count": 399,
+    "huit_kb_vector_search_status": "READY",
+    "huit_kb_has_validator": true,
+    "operation_audit_has_validator": true,
+    "operation_audit_indexes_count": 6
+  },
+  "status": "success",
+  "errors": []
+}

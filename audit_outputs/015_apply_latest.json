@@ -1,0 +1,28 @@
+{
+  "script": "015_sync_job_and_image_validators",
+  "started_at": "2026-09-15T08:32:07.347615+00:00",
+  "mode": "apply",
+  "jobs": {
+    "total": 23,
+    "needing_sync": 23,
+    "updated": 23,
+    "duplicate_idempotency_groups": 0
+  },
+  "generated_images": {
+    "total": 43,
+    "needing_sync": 0,
+    "updated": 0,
+    "unresolved_blob_ids": 0
+  },
+  "validators_updated": [
+    "jobs",
+    "generated_images"
+  ],
+  "preflight_passed": true,
+  "errors": 0,
+  "backups": {
+    "jobs": "jobs_backup_20260915_083207",
+    "generated_images": "generated_images_backup_20260915_083208"
+  },
+  "completed_at": "2026-09-15T08:32:09.125378+00:00"
+}

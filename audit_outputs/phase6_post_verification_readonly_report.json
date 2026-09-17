@@ -1,0 +1,167 @@
+{
+  "timestamp": "2026-09-16T02:34:26.353760+00:00",
+  "database": "huit_chatbot",
+  "collections_status": {
+    "assets": {
+      "exists": true,
+      "count": 53,
+      "has_validator": true,
+      "validation_level": "strict",
+      "validation_action": "error",
+      "indexes_count": 6,
+      "indexes": [
+        "_id_",
+        "asset_id_1",
+        "checksum_1",
+        "created_at_-1",
+        "last_accessed_at_-1",
+        "content_hash_1"
+      ],
+      "string_dates": 0,
+      "base64_leaks": 0
+    },
+    "artifacts": {
+      "exists": true,
+      "count": 24,
+      "has_validator": true,
+      "validation_level": "strict",
+      "validation_action": "error",
+      "indexes_count": 7,
+      "indexes": [
+        "_id_",
+        "artifact_id_1",
+        "owner_id_1",
+        "blob_id_1",
+        "content_hash_1",
+        "owner_id_1_created_at_-1",
+        "created_at_-1"
+      ],
+      "string_dates": 0,
+      "base64_leaks": 0
+    },
+    "jobs": {
+      "exists": true,
+      "count": 23,
+      "has_validator": true,
+      "validation_level": "strict",
+      "validation_action": "error",
+      "indexes_count": 8,
+      "indexes": [
+        "_id_",
+        "job_id_1",
+        "owner_id_1_updated_at_-1",
+        "status_1_updated_at_-1",
+        "request_id_1",
+        "artifact_id_1",
+        "expires_at_1",
+        "idempotency_key_unique_v1"
+      ],
+      "string_dates": 0,
+      "base64_leaks": 0
+    },
+    "generated_images": {
+      "exists": true,
+      "count": 43,
+      "has_validator": true,
+      "validation_level": "strict",
+      "validation_action": "error",
+      "indexes_count": 6,
+      "indexes": [
+        "_id_",
+        "created_at_-1",
+        "image_id_1",
+        "blob_id_1",
+        "owner_request_fingerprint_unique_v1",
+        "content_hash_lookup_v1"
+      ],
+      "string_dates": 0,
+      "base64_leaks": 0
+    },
+    "query_cache": {
+      "exists": true,
+      "count": 9,
+      "has_validator": true,
+      "validation_level": "strict",
+      "validation_action": "error",
+      "indexes_count": 4,
+      "indexes": [
+        "_id_",
+        "expires_at_1",
+        "updated_at_-1",
+        "cache_key_1"
+      ],
+      "string_dates": 0,
+      "base64_leaks": 0
+    },
+    "rag_events": {
+      "exists": true,
+      "count": 1491,
+      "has_validator": true,
+      "validation_level": "strict",
+      "validation_action": "error",
+      "indexes_count": 5,
+      "indexes": [
+        "_id_",
+        "created_at_1",
+        "created_at_-1",
+        "request_id_1",
+        "intent_1_created_at_-1"
+      ],
+      "string_dates": 0,
+      "base64_leaks": 0
+    },
+    "admission_visuals": {
+      "exists": true,
+      "count": 46,
+      "has_validator": true,
+      "validation_level": "strict",
+      "validation_action": "error",
+      "indexes_count": 4,
+      "indexes": [
+        "_id_",
+        "visual_id_1",
+        "major_code_1",
+        "category_1"
+      ],
+      "string_dates": 0,
+      "base64_leaks": 0
+    },
+    "huit_kb": {
+      "exists": true,
+      "count": 399,
+      "has_validator": true,
+      "validation_level": "strict",
+      "validation_action": "error",
+      "indexes_count": 1,
+      "indexes": [
+        "_id_"
+      ],
+      "string_dates": 0,
+      "base64_leaks": 0
+    },
+    "operation_audit": {
+      "exists": true,
+      "count": 7,
+      "has_validator": true,
+      "validation_level": "strict",
+      "validation_action": "error",
+      "indexes_count": 6,
+      "indexes": [
+        "_id_",
+        "created_at_-1",
+        "operation_key_1_operation_version_1_created_at_-1",
+        "request_id_1",
+        "status_1_created_at_-1",
+        "principal_id_1_created_at_-1"
+      ],
+      "string_dates": 0,
+      "base64_leaks": 0
+    }
+  },
+  "summary": {
+    "all_validators_active": true,
+    "total_string_dates": 0,
+    "total_base64_leaks": 0,
+    "huit_vector_search_ready": true
+  }
+}

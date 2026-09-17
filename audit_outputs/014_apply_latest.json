@@ -1,0 +1,23 @@
+{
+  "script": "014_fix_image_dedup_index",
+  "started_at": "2026-09-15T08:31:40.637362+00:00",
+  "mode": "apply",
+  "total_images": 43,
+  "has_global_content_hash_unique": true,
+  "images_needing_fingerprint": 43,
+  "duplicate_owner_fingerprint_groups": 0,
+  "preflight_passed": true,
+  "dropped_indexes": [
+    "content_hash_1"
+  ],
+  "created_indexes": [
+    "owner_request_fingerprint_unique_v1",
+    "content_hash_lookup_v1"
+  ],
+  "fingerprints_updated": 43,
+  "errors": 0,
+  "backups": {
+    "generated_images": "generated_images_backup_20260915_083140"
+  },
+  "completed_at": "2026-09-15T08:31:42.053422+00:00"
+}
