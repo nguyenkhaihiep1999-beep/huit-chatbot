@@ -37,3 +37,5 @@ e2e-report/
 **/e2e-report/
 .vercel/
 **/.vercel/
+backups/
+**/backups/
