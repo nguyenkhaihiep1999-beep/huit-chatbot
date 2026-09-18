@@ -486,6 +486,27 @@ describe('Frontend LTX Hook Gate - Artifact Workflow & Architecture', () => {
       });
       expect(result.current.errorMessage).toBeNull();
     });
+
+    it('tự đồng bộ manifest để planned artifact không quay vô hạn', async () => {
+      const plannedArtifact: ArtifactSummary = {
+        ...mockArtifactA,
+        status: 'planned',
+      };
+      vi.spyOn(artifactApi, 'fetchArtifactSummary').mockResolvedValue({
+        ...plannedArtifact,
+        status: 'ready',
+      });
+
+      const { result } = renderHook(() => useArtifactWorkflow(plannedArtifact));
+
+      await act(async () => {
+        await Promise.resolve();
+      });
+
+      expect(artifactApi.fetchArtifactSummary).toHaveBeenCalledWith('art-demo-001');
+      expect(result.current.resolvedArtifact?.status).toBe('ready');
+      expect(result.current.defaultPreviewUrl).toBe(plannedArtifact.preview_url);
+    });
   });
 
   // 11. Durable Background Queue & Reload Reattachment Contracts
