@@ -653,7 +653,21 @@ class MongoOperationAuditRecord(BaseModel):
     operation_version: str = Field(..., min_length=1, max_length=32)
     operation_checksum: str = Field(..., min_length=1, max_length=128)
     operation_type: Literal["read", "command", "transaction"]
-    mutation_policy: Literal["none", "read_only", "append_only", "idempotent_write", "destructive_mutation"]
+    # Keep legacy values readable while accepting every policy emitted by the
+    # current LTX Operation Gateway. Removing the legacy values would make old
+    # audit records unreadable after a rolling deployment.
+    mutation_policy: Literal[
+        "none",
+        "insert_only",
+        "update_only",
+        "upsert",
+        "delete_only",
+        "any_mutation",
+        "read_only",
+        "append_only",
+        "idempotent_write",
+        "destructive_mutation",
+    ]
     principal_id: str = Field(..., min_length=1, max_length=64)
     request_id: str = Field(..., min_length=1, max_length=64)
     status: Literal["success", "failed", "rejected"]
@@ -787,5 +801,4 @@ class AdminSessionDocument(BaseModel):
 
     def to_bson(self) -> Dict[str, Any]:
         return self.model_dump()
-
 

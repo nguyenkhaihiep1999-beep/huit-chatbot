@@ -66,6 +66,12 @@ OPERATION_AUDIT_VALIDATOR = {
             "mutation_policy": {
                 "enum": [
                     "none",
+                    "insert_only",
+                    "update_only",
+                    "upsert",
+                    "delete_only",
+                    "any_mutation",
+                    # Legacy audit values remain valid for rolling upgrades.
                     "read_only",
                     "append_only",
                     "idempotent_write",

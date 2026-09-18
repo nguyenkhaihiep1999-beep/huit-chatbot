@@ -7,6 +7,7 @@ Bộ kiểm thử Phase 6: MongoDB Schema, Validators và Operation Audit:
 4. Kiểm thử Migration 018: chế độ dry-run mặc định và tính an toàn
 """
 from datetime import datetime, timezone
+from typing import get_args
 import pytest
 from pydantic import ValidationError
 
@@ -16,6 +17,7 @@ from backend.app.models.mongo_models import (
     ensure_utc_datetime,
 )
 from backend.app.repositories.mongo_repository import MongoRepository
+from backend.app.data_access.operation_gateway import MutationPolicy
 import importlib
 
 migration_018 = importlib.import_module("scripts.migrations.018_phase6_schema_sync_and_validators")
@@ -110,6 +112,29 @@ class TestPhase6MongoModels:
         assert "$jsonSchema" in HUIT_KB_VALIDATOR
         assert "embedding" in HUIT_KB_VALIDATOR["$jsonSchema"]["required"]
         assert HUIT_KB_VALIDATOR["$jsonSchema"]["properties"]["embedding"]["minItems"] == 1024
+
+    def test_operation_audit_accepts_all_gateway_mutation_policies(self):
+        validator_values = set(
+            OPERATION_AUDIT_VALIDATOR["$jsonSchema"]["properties"]["mutation_policy"]["enum"]
+        )
+        gateway_values = set(get_args(MutationPolicy))
+        assert gateway_values <= validator_values
+
+        for mutation_policy in gateway_values:
+            record = MongoOperationAuditRecord(
+                operation_key="jobs.atomic_claim",
+                operation_version="2.0.0",
+                operation_checksum="a" * 64,
+                operation_type="command" if mutation_policy != "none" else "read",
+                mutation_policy=mutation_policy,
+                principal_id="worker_test",
+                request_id="req_test",
+                status="success",
+                duration_ms=1.0,
+                output_bytes=0,
+                parameter_hash="b" * 64,
+            )
+            assert record.mutation_policy == mutation_policy
 
     def test_mongo_repository_helpers(self):
         col = MongoRepository.get_operation_audit_collection()
