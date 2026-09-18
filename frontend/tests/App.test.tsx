@@ -56,8 +56,9 @@ describe('App Component (Direct End-to-End Application Flow Tests)', () => {
         return Promise.resolve(
           new Response(
             JSON.stringify({
+              success: true,
               session_id: 'session-app-test',
-              csrf_token: 'csrf-app-test',
+              csrf_token: 'csrf-app-test-123456',
               issued_at: 1000,
               expires_at: 2000,
               ttl_seconds: 1000,

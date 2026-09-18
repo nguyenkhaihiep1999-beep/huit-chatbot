@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "registry_version": 1,
+  "contracts": [
+    {
+      "schema_id": "huit.api.session-bootstrap-response",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/session-bootstrap-response.v1.schema.json",
+      "frontend": true,
+      "consumers": [
+        "backend.app.api.routes.auth.SessionResponse",
+        "frontend.features.session.api.sessionApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.chat-request",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/chat-request.v1.schema.json",
+      "frontend": true,
+      "consumers": [
+        "backend.app.api.schemas.chat.ChatRequest",
+        "frontend.features.chat.api.chatApi"
+      ]
+    },
+    {
+      "schema_id": "huit.stream.chat-event",
+      "version": "2.0.0",
+      "kind": "stream",
+      "file": "stream/chat-event.v2.schema.json",
+      "frontend": true,
+      "consumers": [
+        "backend.app.api.schemas.streaming_v2.StreamEventEnvelope",
+        "frontend.features.chat.utils.ndjsonParser",
+        "frontend.features.chat.hooks.useChatStream"
+      ]
+    },
+    {
+      "schema_id": "huit.stream.chat-event-legacy-boundary",
+      "version": "1.0.0",
+      "kind": "stream",
+      "file": "stream/chat-event-legacy-boundary.v1.schema.json",
+      "frontend": true,
+      "consumers": [
+        "frontend.features.chat.utils.ndjsonParser"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.operation-audit",
+      "version": "1.1.0",
+      "kind": "mongodb",
+      "file": "mongo/operation-audit.v1.schema.json",
+      "frontend": false,
+      "consumers": [
+        "backend.app.models.mongo_models.MongoOperationAuditRecord",
+        "backend.app.data_access.operation_gateway",
+        "mongodb.operation_audit"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.schema-registry-record",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/schema-registry-record.v1.schema.json",
+      "frontend": false,
+      "consumers": [
+        "scripts.migrations.022_backup_json_schema_registry",
+        "mongodb.schema_registry"
+      ]
+    }
+  ]
+}

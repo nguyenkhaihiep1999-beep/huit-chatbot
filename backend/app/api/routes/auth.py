@@ -9,9 +9,10 @@ import logging
 import secrets
 import time
 import uuid
+from typing import Literal
 from fastapi import APIRouter, Response, Request, Depends
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from backend.app.config import settings
 from backend.app.services.auth_service import (
@@ -26,12 +27,20 @@ router = APIRouter(prefix="/auth", tags=["Authentication & Session"])
 
 
 class SessionResponse(BaseModel):
-    success: bool = True
-    session_id: str
-    csrf_token: str
-    issued_at: int
-    expires_at: int
-    ttl_seconds: int
+    model_config = ConfigDict(
+        extra="forbid",
+        json_schema_extra={
+            "x-contract-id": "huit.api.session-bootstrap-response",
+            "x-contract-version": "1.0.0",
+        },
+    )
+
+    success: Literal[True]
+    session_id: str = Field(min_length=8, max_length=128)
+    csrf_token: str = Field(min_length=16, max_length=512)
+    issued_at: int = Field(ge=0)
+    expires_at: int = Field(ge=0)
+    ttl_seconds: int = Field(ge=300, le=604800)
 
 
 class SessionStatusResponse(BaseModel):

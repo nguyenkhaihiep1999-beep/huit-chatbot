@@ -1,0 +1,34 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_id",
+      "schema_version",
+      "kind",
+      "file",
+      "sha256",
+      "schema_document",
+      "consumers",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "properties": {
+      "_id": { "bsonType": "objectId" },
+      "schema_id": { "bsonType": "string", "minLength": 1, "maxLength": 160 },
+      "schema_version": { "bsonType": "string", "minLength": 1, "maxLength": 32 },
+      "kind": { "enum": ["api", "stream", "mongodb"] },
+      "file": { "bsonType": "string", "minLength": 1, "maxLength": 255 },
+      "sha256": { "bsonType": "string", "pattern": "^[a-f0-9]{64}$" },
+      "schema_document": { "bsonType": "object" },
+      "consumers": {
+        "bsonType": "array",
+        "items": { "bsonType": "string" }
+      },
+      "status": { "enum": ["active", "superseded"] },
+      "created_at": { "bsonType": "date" },
+      "updated_at": { "bsonType": "date" }
+    }
+  }
+}

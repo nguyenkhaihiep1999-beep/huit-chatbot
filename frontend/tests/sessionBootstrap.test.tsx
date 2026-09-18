@@ -48,10 +48,12 @@ describe('Session Bootstrap & Error Handling Tests', () => {
         }));
       }
       return Promise.resolve(new Response(JSON.stringify({
+        success: true,
         session_id: 'sess_recovered_999',
         csrf_token: 'csrf_recovered_888',
         issued_at: 1000,
         expires_at: 2000,
+        ttl_seconds: 1000,
       }), {
         status: 200,
         headers: { 'Content-Type': 'application/json', 'X-Request-ID': 'req-retry-2' },

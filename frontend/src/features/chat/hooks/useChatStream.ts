@@ -131,7 +131,7 @@ export function useChatStream({
   const sendQuery = useCallback(
     async (
       question: string,
-      history: Array<{ role: string; content: string }> = [],
+      history: Array<{ role: 'user' | 'assistant'; content: string }> = [],
       sessionId: string
     ) => {
       // 1. Nếu có request cũ đang chạy, chốt đúng một lần và dọn dẹp an toàn

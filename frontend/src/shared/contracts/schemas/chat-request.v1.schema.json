@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:chat-request:1.0.0",
+  "title": "HUIT chat request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["question"],
+  "properties": {
+    "question": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "history": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "content"],
+        "properties": {
+          "role": { "enum": ["user", "assistant"] },
+          "content": { "type": "string" }
+        }
+      }
+    },
+    "enable_cache": { "type": "boolean", "default": true },
+    "session_id": {
+      "anyOf": [
+        { "type": "string", "minLength": 1, "maxLength": 128 },
+        { "type": "null" }
+      ],
+      "default": null
+    }
+  }
+}

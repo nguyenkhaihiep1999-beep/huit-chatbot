@@ -148,6 +148,29 @@ python -m compileall backend scripts   # 0 lỗi cú pháp
 
 ---
 
+## 🧭 JSON Schema là nguồn chuẩn đầu tiên
+
+Mọi dữ liệu đi qua ranh giới hệ thống phải bắt đầu từ schema do con người duyệt trong [`backend/json_schemas/`](backend/json_schemas/README.md). Thứ tự phụ thuộc bắt buộc là:
+
+```text
+backend/json_schemas (source of truth)
+  -> Backend Pydantic / LTX operations / MongoDB validators
+  -> Frontend runtime contract validator
+  -> Feature API
+  -> Hook
+  -> Shared state và UI components
+```
+
+- `backend/app/contracts/schema_registry.py`: nạp schema an toàn và tính SHA-256.
+- `scripts/sync_json_schemas.py`: sinh bản sao frontend; không sửa tay bản sao.
+- `frontend/src/shared/contracts/`: kiểm tra JSON runtime trước khi hook cập nhật UI.
+- `scripts/migrations/022_backup_json_schema_registry.py`: lưu bản sao versioned vào MongoDB collection `schema_registry`; Git vẫn là nguồn chỉnh sửa chính.
+- `backend/tests/test_canonical_json_schema_registry.py` và `frontend/tests/architectureContract.test.ts`: release gate chặn schema/hook/API/Mongo bị lệch.
+
+Khi có lỗi contract: sửa schema chuẩn trước, chạy script đồng bộ, rồi sửa consumer bị báo lỗi. Không sửa riêng interface frontend hoặc Mongo validator để “né” schema.
+
+---
+
 ## 🗄️ Kiến Trúc MongoDB & Quy Trình Migrations
 
 Hệ thống sử dụng MongoDB Atlas (`huit_chatbot`) với Pydantic Models chuẩn hóa, `$jsonSchema` validators và StorageAdapter:

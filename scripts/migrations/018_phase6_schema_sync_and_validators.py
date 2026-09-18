@@ -23,6 +23,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from backend.app.config import settings
+from backend.app.contracts.schema_registry import load_schema
 from backend.app.models.mongo_models import (
     MongoHuitKbRecord,
     MongoOperationAuditRecord,
@@ -37,58 +38,8 @@ from scripts.migrations.common import (
     save_migration_report,
 )
 
-# 1. $jsonSchema Validator cho operation_audit
-OPERATION_AUDIT_VALIDATOR = {
-    "$jsonSchema": {
-        "bsonType": "object",
-        "required": [
-            "schema_version",
-            "operation_key",
-            "operation_version",
-            "operation_checksum",
-            "operation_type",
-            "mutation_policy",
-            "principal_id",
-            "request_id",
-            "status",
-            "duration_ms",
-            "output_bytes",
-            "parameter_hash",
-            "created_at",
-        ],
-        "properties": {
-            "_id": {"bsonType": ["string", "objectId"]},
-            "schema_version": {"bsonType": "int", "minimum": 1},
-            "operation_key": {"bsonType": "string", "maxLength": 128},
-            "operation_version": {"bsonType": "string", "maxLength": 32},
-            "operation_checksum": {"bsonType": "string", "maxLength": 128},
-            "operation_type": {"enum": ["read", "command", "transaction"]},
-            "mutation_policy": {
-                "enum": [
-                    "none",
-                    "insert_only",
-                    "update_only",
-                    "upsert",
-                    "delete_only",
-                    "any_mutation",
-                    # Legacy audit values remain valid for rolling upgrades.
-                    "read_only",
-                    "append_only",
-                    "idempotent_write",
-                    "destructive_mutation",
-                ]
-            },
-            "principal_id": {"bsonType": "string", "maxLength": 64},
-            "request_id": {"bsonType": "string", "maxLength": 64},
-            "status": {"enum": ["success", "failed", "rejected"]},
-            "duration_ms": {"bsonType": ["double", "int"], "minimum": 0},
-            "output_bytes": {"bsonType": "int", "minimum": 0},
-            "parameter_hash": {"bsonType": "string", "maxLength": 128},
-            "error_type": {"bsonType": ["string", "null"], "maxLength": 128},
-            "created_at": {"bsonType": "date"},
-        },
-    }
-}
+# 1. Validator operation_audit lấy trực tiếp từ nguồn chuẩn duy nhất.
+OPERATION_AUDIT_VALIDATOR = load_schema("huit.mongo.operation-audit", "1.1.0")
 
 # 2. $jsonSchema Validator cho huit_kb
 HUIT_KB_VALIDATOR = {

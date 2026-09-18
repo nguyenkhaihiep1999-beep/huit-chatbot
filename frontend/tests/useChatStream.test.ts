@@ -29,6 +29,18 @@ function createNDJSONResponse(lines: string[], delayMs: number = 0): Response {
   });
 }
 
+function canonicalEvent(type: string, sequence: number, payload: Record<string, unknown>): string {
+  return JSON.stringify({
+    protocol_version: 2,
+    stream_id: 'stream-test-123',
+    request_id: 'request-test-123',
+    sequence,
+    type,
+    timestamp: '2026-09-18T00:00:00Z',
+    payload,
+  });
+}
+
 describe('useChatStream Hook (Full Production Flow Tests)', () => {
   beforeEach(() => {
     vi.useFakeTimers();
@@ -517,46 +529,21 @@ describe('useChatStream Hook (Full Production Flow Tests)', () => {
 
   it('16. NDJSON v2 Canonical Event Set: nhận đủ start -> progress -> artifact -> token -> done', async () => {
     const lines = [
-      JSON.stringify({
-        type: 'start',
-        protocol_version: 2,
-        sequence: 1,
-        payload: { version: '2.0.0' },
-      }),
-      JSON.stringify({
-        type: 'progress',
-        protocol_version: 2,
-        sequence: 2,
-        payload: {
+      canonicalEvent('start', 1, { version: '2.0.0' }),
+      canonicalEvent('progress', 2, {
           stage: 'retrieval_complete',
           sources: [{ i: 1, title: 'HUIT Tuyển sinh', url: 'https://ts.huit.edu.vn', score: 0.95, text: 'Thông tin học phí' }],
           trace: [{ step: 1, name: 'NLU', detail: 'Học phí', status: 'success' }],
           cached: false,
-        },
       }),
-      JSON.stringify({
-        type: 'artifact',
-        protocol_version: 2,
-        sequence: 3,
-        payload: {
+      canonicalEvent('artifact', 3, {
           artifact_id: 'art_tuition_canon',
           title: 'Bảng học phí HUIT 2026',
           type: 'document',
           preview_url: '/api/artifacts/art_tuition_canon/preview',
-        },
       }),
-      JSON.stringify({
-        type: 'token',
-        protocol_version: 2,
-        sequence: 4,
-        payload: { token: 'Học phí HUIT dao động 30-34 triệu.' },
-      }),
-      JSON.stringify({
-        type: 'done',
-        protocol_version: 2,
-        sequence: 5,
-        payload: { latency_ms: 150.0, cached: false },
-      }),
+      canonicalEvent('token', 4, { token: 'Học phí HUIT dao động 30-34 triệu.' }),
+      canonicalEvent('done', 5, { latency_ms: 150.0, cached: false }),
     ];
     vi.spyOn(chatApi, 'fetchChatStream').mockResolvedValue(createNDJSONResponse(lines));
 

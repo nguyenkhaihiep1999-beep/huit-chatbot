@@ -1,0 +1,50 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "schema_version",
+      "operation_key",
+      "operation_version",
+      "operation_checksum",
+      "operation_type",
+      "mutation_policy",
+      "principal_id",
+      "request_id",
+      "status",
+      "duration_ms",
+      "output_bytes",
+      "parameter_hash",
+      "created_at"
+    ],
+    "properties": {
+      "_id": { "bsonType": ["string", "objectId"] },
+      "schema_version": { "bsonType": "int", "minimum": 1 },
+      "operation_key": { "bsonType": "string", "maxLength": 128 },
+      "operation_version": { "bsonType": "string", "maxLength": 32 },
+      "operation_checksum": { "bsonType": "string", "maxLength": 128 },
+      "operation_type": { "enum": ["read", "command", "transaction"] },
+      "mutation_policy": {
+        "enum": [
+          "none",
+          "insert_only",
+          "update_only",
+          "upsert",
+          "delete_only",
+          "any_mutation",
+          "read_only",
+          "append_only",
+          "idempotent_write",
+          "destructive_mutation"
+        ]
+      },
+      "principal_id": { "bsonType": "string", "maxLength": 64 },
+      "request_id": { "bsonType": "string", "maxLength": 64 },
+      "status": { "enum": ["success", "failed", "rejected"] },
+      "duration_ms": { "bsonType": ["double", "int"], "minimum": 0 },
+      "output_bytes": { "bsonType": "int", "minimum": 0 },
+      "parameter_hash": { "bsonType": "string", "maxLength": 128 },
+      "error_type": { "bsonType": ["string", "null"], "maxLength": 128 },
+      "created_at": { "bsonType": "date" }
+    }
+  }
+}

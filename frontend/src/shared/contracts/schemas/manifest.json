@@ -1,0 +1,29 @@
+{
+  "generated_from": "backend/json_schemas/registry.json",
+  "contracts": [
+    {
+      "schema_id": "huit.api.session-bootstrap-response",
+      "version": "1.0.0",
+      "file": "session-bootstrap-response.v1.schema.json",
+      "sha256": "9966c250b9aca26500381e8b09069019688dd204af7fa774ab34d05cefdf5a1e"
+    },
+    {
+      "schema_id": "huit.api.chat-request",
+      "version": "1.0.0",
+      "file": "chat-request.v1.schema.json",
+      "sha256": "1f87bd17df5b6bc8729f4fe46ab0220a66d15e9445037046c818606eb7830b70"
+    },
+    {
+      "schema_id": "huit.stream.chat-event",
+      "version": "2.0.0",
+      "file": "chat-event.v2.schema.json",
+      "sha256": "3fe1e99b3192ab8e48a70a82bda4af14bf811a4364803cc6439ecec4b8104008"
+    },
+    {
+      "schema_id": "huit.stream.chat-event-legacy-boundary",
+      "version": "1.0.0",
+      "file": "chat-event-legacy-boundary.v1.schema.json",
+      "sha256": "67d8f71e690a8f3c2980435a5b0fbceb63b33171878a80a47cb2fcc9bcd6fcd3"
+    }
+  ]
+}

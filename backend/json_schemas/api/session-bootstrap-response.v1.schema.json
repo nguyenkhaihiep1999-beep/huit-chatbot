@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:session-bootstrap-response:1.0.0",
+  "title": "HUIT session bootstrap response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "success",
+    "session_id",
+    "csrf_token",
+    "issued_at",
+    "expires_at",
+    "ttl_seconds"
+  ],
+  "properties": {
+    "success": { "const": true },
+    "session_id": { "type": "string", "minLength": 8, "maxLength": 128 },
+    "csrf_token": { "type": "string", "minLength": 16, "maxLength": 512 },
+    "issued_at": { "type": "integer", "minimum": 0 },
+    "expires_at": { "type": "integer", "minimum": 0 },
+    "ttl_seconds": { "type": "integer", "minimum": 300, "maximum": 604800 }
+  }
+}
