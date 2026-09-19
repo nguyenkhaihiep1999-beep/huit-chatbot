@@ -22,6 +22,21 @@ describe('Session Bootstrap & Error Handling Tests', () => {
     expect(mapped.message).not.toContain('SESSION_BOOTSTRAP');
   });
 
+  it('1b. Phân biệt artifact thuộc phiên cũ với lỗi CSRF thay vì báo 403 chung chung', () => {
+    const artifactError = mapApiError(
+      new Error('HTTP 403: {"error_code":"ARTIFACT_ACCESS_DENIED"}')
+    );
+    expect(artifactError.code).toBe('ARTIFACT_SESSION_MISMATCH');
+    expect(artifactError.message).toContain('phiên làm việc trước');
+    expect(artifactError.canRetry).toBe(false);
+
+    const csrfError = mapApiError(
+      new Error('HTTP 403: {"error_code":"CSRF_TOKEN_INVALID"}')
+    );
+    expect(csrfError.code).toBe('CSRF_ERROR');
+    expect(csrfError.canRetry).toBe(true);
+  });
+
   it('2. Retry thất bại: createSession retry tối đa 3 lần khi backend 500, không retry vô hạn', async () => {
     let callCount = 0;
     vi.stubGlobal('fetch', vi.fn().mockImplementation(() => {

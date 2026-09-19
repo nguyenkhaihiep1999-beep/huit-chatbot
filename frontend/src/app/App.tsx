@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../features/theme/hooks/useTheme';
 import { useChatHistory } from '../features/history/hooks/useChatHistory';
 import { useVisualLightbox } from '../features/admission-visuals/hooks/useVisualLightbox';
@@ -14,9 +14,15 @@ import { AdminPage } from '../features/admin/components/AdminPage';
 
 export const App: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
-  const { sessions, saveSession, deleteSession, clearAllSessions } = useChatHistory();
   const { activeVisual, openLightbox, closeLightbox } = useVisualLightbox();
-  const { isReady: isSessionReady, isLoading: isSessionLoading, error: sessionError, retry: retrySession } = useSessionBootstrap();
+  const {
+    isReady: isSessionReady,
+    isLoading: isSessionLoading,
+    error: sessionError,
+    sessionScope,
+    retry: retrySession,
+  } = useSessionBootstrap();
+  const { sessions, saveSession, deleteSession, clearAllSessions } = useChatHistory(sessionScope);
 
   const [currentPath, setCurrentPath] = useState<string>(() =>
     typeof window !== 'undefined' ? window.location.pathname : '/'
@@ -29,6 +35,20 @@ export const App: React.FC = () => {
   const [currentSessionId, setCurrentSessionId] = useState<string>(() => generateUniqueId('session'));
   const [sessionMessages, setSessionMessages] = useState<ChatMessage[]>([]);
   const [isOnline, setIsOnline] = useState<boolean>(() => (typeof navigator !== 'undefined' ? navigator.onLine : true));
+  const previousSessionScopeRef = useRef('');
+
+  // Nếu backend cấp một phiên mới, tuyệt đối không giữ artifact/job của phiên cũ
+  // trong vùng làm việc đang mở. Lịch sử tương ứng được lọc theo sessionScope.
+  useEffect(() => {
+    if (!sessionScope) return;
+    const previousScope = previousSessionScopeRef.current;
+    if (previousScope && previousScope !== sessionScope) {
+      setCurrentSessionId(generateUniqueId('session'));
+      setSessionMessages([]);
+      closeLightbox();
+    }
+    previousSessionScopeRef.current = sessionScope;
+  }, [closeLightbox, sessionScope]);
 
   // Theo dõi trạng thái mạng và lịch sử URL (popstate)
   useEffect(() => {

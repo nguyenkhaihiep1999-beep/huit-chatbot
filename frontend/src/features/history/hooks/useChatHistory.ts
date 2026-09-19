@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useLocalStorage } from '../../../shared/hooks/useLocalStorage';
 import { ConversationSession, ChatMessage } from '../../../shared/types/common.types';
 
@@ -31,6 +31,7 @@ function sanitizeMessageForStorage(msg: ChatMessage): ChatMessage {
       title: msg.artifact.title,
       status: msg.artifact.status,
       available_formats: msg.artifact.available_formats,
+      error_message: msg.artifact.error_message,
     };
   }
 
@@ -43,18 +44,63 @@ function sanitizeMessageForStorage(msg: ChatMessage): ChatMessage {
       svg_url: '', // Loại bỏ URL ký số
       png_url: '',
       json_url: '',
+      status: msg.visual.status,
+      error_message: msg.visual.error_message,
     };
   }
 
   return sanitized;
 }
 
-export function useChatHistory() {
-  const [sessions, setSessions] = useLocalStorage<ConversationSession[]>('huit_chat_sessions', []);
+const LEGACY_RESOURCE_MESSAGE = 'Tài liệu được tạo từ phiên trước. Hãy đặt lại yêu cầu trong phiên hiện tại để tạo bản mới.';
+
+function sanitizeLegacyMessageForDisplay(msg: ChatMessage): ChatMessage {
+  const next: ChatMessage = { ...msg };
+  if (msg.artifact) {
+    next.artifact = {
+      ...msg.artifact,
+      preview_url: undefined,
+      manifest_url: undefined,
+      owner_id: null,
+      status: 'unavailable',
+      error_message: LEGACY_RESOURCE_MESSAGE,
+    };
+  }
+  if (msg.visual) {
+    next.visual = {
+      ...msg.visual,
+      svg_url: '',
+      png_url: '',
+      xlsx_url: undefined,
+      docx_url: undefined,
+      pdf_url: undefined,
+      json_url: '',
+      status: 'unavailable',
+      error_message: LEGACY_RESOURCE_MESSAGE,
+    };
+  }
+  return next;
+}
+
+export function useChatHistory(ownerScope: string) {
+  const [storedSessions, setStoredSessions] = useLocalStorage<ConversationSession[]>('huit_chat_sessions', []);
+
+  const sessions = useMemo(() => {
+    if (!ownerScope) return [];
+    return storedSessions
+      .filter((session) => !session.ownerScope || session.ownerScope === ownerScope)
+      .map((session) => {
+        if (session.ownerScope) return session;
+        return {
+          ...session,
+          messages: session.messages.map(sanitizeLegacyMessageForDisplay),
+        };
+      });
+  }, [ownerScope, storedSessions]);
 
   const saveSession = useCallback(
     (sessionId: string, messages: ChatMessage[]) => {
-      if (!messages || messages.length === 0) return;
+      if (!ownerScope || !messages || messages.length === 0) return;
 
       const firstUserMsg = messages.find((m) => m.role === 'user');
       const title = firstUserMsg
@@ -63,10 +109,15 @@ export function useChatHistory() {
 
       const sanitizedMessages = messages.map(sanitizeMessageForStorage);
 
-      setSessions((prev) => {
-        const existingIdx = prev.findIndex((s) => s.sessionId === sessionId);
+      setStoredSessions((prev) => {
+        const existingIdx = prev.findIndex(
+          (session) =>
+            session.sessionId === sessionId &&
+            (!session.ownerScope || session.ownerScope === ownerScope)
+        );
         const updatedSession: ConversationSession = {
           sessionId,
+          ownerScope,
           title,
           messages: sanitizedMessages,
           createdAt: existingIdx >= 0 ? prev[existingIdx].createdAt : Date.now(),
@@ -82,19 +133,27 @@ export function useChatHistory() {
         }
       });
     },
-    [setSessions]
+    [ownerScope, setStoredSessions]
   );
 
   const deleteSession = useCallback(
     (sessionId: string) => {
-      setSessions((prev) => prev.filter((s) => s.sessionId !== sessionId));
+      setStoredSessions((prev) =>
+        prev.filter(
+          (session) =>
+            session.sessionId !== sessionId ||
+            Boolean(session.ownerScope && session.ownerScope !== ownerScope)
+        )
+      );
     },
-    [setSessions]
+    [ownerScope, setStoredSessions]
   );
 
   const clearAllSessions = useCallback(() => {
-    setSessions([]);
-  }, [setSessions]);
+    setStoredSessions((prev) =>
+      prev.filter((session) => Boolean(session.ownerScope && session.ownerScope !== ownerScope))
+    );
+  }, [ownerScope, setStoredSessions]);
 
   return {
     sessions,

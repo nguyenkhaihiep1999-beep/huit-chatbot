@@ -1,31 +1,33 @@
 import { useState, useEffect, useCallback } from 'react';
-import { createSession, installSessionRefresh, readCachedSession, SessionBootstrapError } from '../api/sessionApi';
+import { createSession, installSessionRefresh, SessionBootstrapError } from '../api/sessionApi';
+import { getSessionScope } from '../../../shared/auth/csrfStore';
 
 export interface UseSessionBootstrapReturn {
   isReady: boolean;
   isLoading: boolean;
   error: SessionBootstrapError | null;
+  sessionScope: string;
   retry: () => Promise<void>;
 }
 
 export function useSessionBootstrap(): UseSessionBootstrapReturn {
-  const cached = readCachedSession();
-  const hasValidCached = Boolean(cached.sessionId && cached.csrfToken);
-  const [isReady, setIsReady] = useState<boolean>(() => hasValidCached);
-  const [isLoading, setIsLoading] = useState<boolean>(() => !hasValidCached);
+  // Luôn xác nhận cookie với backend trước khi mở khóa UI. Dữ liệu sessionStorage
+  // chỉ là cache giao diện và không chứng minh cookie HttpOnly vẫn còn hợp lệ.
+  const [isReady, setIsReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<SessionBootstrapError | null>(null);
+  const [sessionScope, setSessionScope] = useState('');
 
   const initSession = useCallback(async () => {
-    const currentCached = readCachedSession();
-    if (!currentCached.sessionId || !currentCached.csrfToken) {
-      setIsLoading(true);
-    }
+    setIsLoading(true);
     setError(null);
     try {
-      await createSession();
+      const credentials = await createSession();
+      setSessionScope(getSessionScope(credentials.sessionId));
       setIsReady(true);
     } catch (err) {
       setIsReady(false);
+      setSessionScope('');
       if (err instanceof SessionBootstrapError) {
         setError(err);
       } else {
@@ -53,6 +55,7 @@ export function useSessionBootstrap(): UseSessionBootstrapReturn {
     isReady,
     isLoading,
     error,
+    sessionScope,
     retry: initSession,
   };
 }
