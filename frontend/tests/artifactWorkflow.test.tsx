@@ -7,6 +7,7 @@ import { useArtifactExport } from '../src/features/artifacts/hooks/useArtifactEx
 import { useArtifactWorkflow } from '../src/features/artifacts/hooks/useArtifactWorkflow';
 import * as artifactApi from '../src/features/artifacts/api/artifactApi';
 import type { ArtifactSummary } from '../src/shared/types/common.types';
+import { getSessionScope, setSessionCredentials } from '../src/shared/auth/csrfStore';
 
 const mockArtifactA: ArtifactSummary = {
   artifact_id: 'art-demo-001',
@@ -33,6 +34,10 @@ describe('Frontend LTX Hook Gate - Artifact Workflow & Architecture', () => {
     if (typeof window !== 'undefined' && window.localStorage) {
       window.localStorage.clear();
     }
+    setSessionCredentials({
+      sessionId: 'session-artifact-test',
+      csrfToken: 'csrf-artifact-test-123456',
+    });
   });
 
   afterEach(() => {
@@ -536,14 +541,16 @@ describe('Frontend LTX Hook Gate - Artifact Workflow & Architecture', () => {
     });
 
     it('useArtifactExport tự động reattach active job sau reload từ localStorage', async () => {
+      const sessionScope = getSessionScope('session-artifact-test');
       // Giả lập localStorage có active job
       window.localStorage.setItem(
         'huit_active_jobs',
         JSON.stringify({
-          'export:art-demo-001': {
+          [`${sessionScope}:export:art-demo-001`]: {
             jobId: 'job-reattach-111',
             type: 'export',
             artifactId: 'art-demo-001',
+            sessionScope,
             meta: { format: 'docx' },
             timestamp: Date.now(),
           },
@@ -572,13 +579,15 @@ describe('Frontend LTX Hook Gate - Artifact Workflow & Architecture', () => {
     });
 
     it('useArtifactUpscale tự động reattach active job sau reload từ localStorage', async () => {
+      const sessionScope = getSessionScope('session-artifact-test');
       window.localStorage.setItem(
         'huit_active_jobs',
         JSON.stringify({
-          'upscale:art-demo-001': {
+          [`${sessionScope}:upscale:art-demo-001`]: {
             jobId: 'job-up-reattach-222',
             type: 'upscale',
             artifactId: 'art-demo-001',
+            sessionScope,
             meta: { scale: 4 },
             timestamp: Date.now(),
           },

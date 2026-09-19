@@ -80,6 +80,8 @@ export interface ChatMessage {
 
 export interface ConversationSession {
   sessionId: string;
+  /** Hash cục bộ của phiên backend; không phải token và không dùng để phân quyền. */
+  ownerScope?: string;
   title: string;
   createdAt: number;
   updatedAt: number;

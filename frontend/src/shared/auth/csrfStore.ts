@@ -38,3 +38,28 @@ export function setSessionCredentials(credentials: SessionCredentials): void {
     // In-memory credentials remain available when browser storage is blocked.
   }
 }
+
+/**
+ * Tạo khóa phạm vi ổn định từ raw session id để namespace dữ liệu cục bộ.
+ * Đây không phải cơ chế phân quyền; backend cookie vẫn là nguồn xác thực duy nhất.
+ * Không lưu raw session id vào localStorage.
+ */
+export function getSessionScope(rawSessionId?: string): string {
+  const value = (rawSessionId ?? getSessionCredentials().sessionId).trim();
+  if (!value) return '';
+
+  let first = 0xdeadbeef ^ value.length;
+  let second = 0x41c6ce57 ^ value.length;
+  for (let index = 0; index < value.length; index += 1) {
+    const code = value.charCodeAt(index);
+    first = Math.imul(first ^ code, 2654435761);
+    second = Math.imul(second ^ code, 1597334677);
+  }
+  first = Math.imul(first ^ (first >>> 16), 2246822507) ^ Math.imul(second ^ (second >>> 13), 3266489909);
+  second = Math.imul(second ^ (second >>> 16), 2246822507) ^ Math.imul(first ^ (first >>> 13), 3266489909);
+
+  const digest = `${(first >>> 0).toString(16).padStart(8, '0')}${(second >>> 0)
+    .toString(16)
+    .padStart(8, '0')}`;
+  return `scope_${digest}`;
+}

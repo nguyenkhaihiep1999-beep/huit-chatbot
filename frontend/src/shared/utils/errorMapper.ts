@@ -15,6 +15,7 @@ export function mapApiError(error: unknown, defaultMessage = 'Hệ thống tư v
 
   // Nếu là chuỗi thông báo
   const errorMsg = error instanceof Error ? error.message : typeof error === 'string' ? error : '';
+  const lower = errorMsg.toLowerCase();
 
   // Kiểm tra mã trạng thái HTTP nếu có trong message "HTTP 429: ..."
   const httpStatusMatch = errorMsg.match(/HTTP\s+(\d{3})/i);
@@ -31,6 +32,27 @@ export function mapApiError(error: unknown, defaultMessage = 'Hệ thống tư v
   }
 
   if (status === 403) {
+    if (lower.includes('csrf_token_invalid') || lower.includes('csrf token')) {
+      return {
+        code: 'CSRF_ERROR',
+        status: 403,
+        message: 'Phiên bảo mật vừa thay đổi. Vui lòng thử lại thao tác.',
+        canRetry: true,
+      };
+    }
+    if (
+      lower.includes('artifact_access_denied') ||
+      lower.includes('không có quyền truy cập file') ||
+      lower.includes('không có quyền truy cập tài nguyên') ||
+      lower.includes('không có quyền truy cập hình ảnh')
+    ) {
+      return {
+        code: 'ARTIFACT_SESSION_MISMATCH',
+        status: 403,
+        message: 'Tài liệu thuộc phiên làm việc trước. Hãy tạo lại tài liệu trong phiên hiện tại.',
+        canRetry: false,
+      };
+    }
     return {
       code: 'PERMISSION_DENIED',
       status: 403,
@@ -89,8 +111,6 @@ export function mapApiError(error: unknown, defaultMessage = 'Hệ thống tư v
   }
 
   // Xử lý các mã lỗi cụ thể qua từ khóa (Error Code Mapping)
-  const lower = errorMsg.toLowerCase();
-
   if (lower.includes('session_bootstrap') || lower.includes('session bootstrap') || (error && typeof error === 'object' && (error as any).name === 'SessionBootstrapError')) {
     const bootstrapErr = error as any;
     return {

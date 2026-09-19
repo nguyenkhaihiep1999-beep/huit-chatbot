@@ -4,12 +4,15 @@
  * Cho phép các React Hooks (export, upscale) tự động reattach tiến trình sau khi người dùng reload trang.
  */
 
+import { getSessionScope } from '../../../shared/auth/csrfStore';
+
 const STORAGE_KEY = 'huit_active_jobs';
 
 export interface StoredActiveJob {
   jobId: string;
   type: 'export' | 'upscale';
   artifactId: string;
+  sessionScope: string;
   meta?: Record<string, any>;
   timestamp: number;
 }
@@ -37,8 +40,8 @@ function setStoredMap(map: Record<string, StoredActiveJob>): void {
   }
 }
 
-function makeKey(type: 'export' | 'upscale', artifactId: string): string {
-  return `${type}:${artifactId}`;
+function makeKey(type: 'export' | 'upscale', artifactId: string, sessionScope: string): string {
+  return `${sessionScope}:${type}:${artifactId}`;
 }
 
 /**
@@ -51,12 +54,15 @@ export function saveActiveJob(
   meta?: Record<string, any>
 ): void {
   if (!artifactId || !jobId) return;
+  const sessionScope = getSessionScope();
+  if (!sessionScope) return;
   const map = getStoredMap();
-  const key = makeKey(type, artifactId);
+  const key = makeKey(type, artifactId, sessionScope);
   map[key] = {
     jobId,
     type,
     artifactId,
+    sessionScope,
     meta,
     timestamp: Date.now(),
   };
@@ -71,10 +77,12 @@ export function getActiveJob(
   artifactId: string
 ): StoredActiveJob | null {
   if (!artifactId) return null;
+  const sessionScope = getSessionScope();
+  if (!sessionScope) return null;
   const map = getStoredMap();
-  const key = makeKey(type, artifactId);
+  const key = makeKey(type, artifactId, sessionScope);
   const item = map[key];
-  if (!item) return null;
+  if (!item || item.sessionScope !== sessionScope) return null;
 
   // Bỏ qua tác vụ đã lưu quá 24 giờ
   if (Date.now() - item.timestamp > 24 * 60 * 60 * 1000) {
@@ -89,10 +97,14 @@ export function getActiveJob(
  */
 export function clearActiveJob(type: 'export' | 'upscale', artifactId: string): void {
   if (!artifactId) return;
+  const sessionScope = getSessionScope();
+  if (!sessionScope) return;
   const map = getStoredMap();
-  const key = makeKey(type, artifactId);
-  if (key in map) {
+  const key = makeKey(type, artifactId, sessionScope);
+  const legacyKey = `${type}:${artifactId}`;
+  if (key in map || legacyKey in map) {
     delete map[key];
+    delete map[legacyKey];
     setStoredMap(map);
   }
 }
