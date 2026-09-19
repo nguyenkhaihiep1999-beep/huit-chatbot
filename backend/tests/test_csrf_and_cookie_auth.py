@@ -99,3 +99,23 @@ def test_admin_routes_require_valid_admin_token():
     )
     assert resp_valid_auth.status_code == 200
     assert resp_valid_auth.json()["role"] == "admin"
+
+
+def test_chat_request_with_legacy_admin_cookie_and_valid_user_csrf_accepted():
+    """Request POST /api/chat khi trình duyệt còn lưu cookie huit_admin_token cũ vẫn được chấp nhận với user CSRF."""
+    raw_session = "sess_student_with_old_admin_cookie"
+    user_token = sign_session_id(raw_session, ttl_seconds=3600)
+    csrf_token = generate_csrf_token(raw_session)
+
+    fresh_client = TestClient(app)
+    with patch("backend.app.api.routes.chat.answer", return_value={"answer": "Chào bạn", "sources": []}):
+        response = fresh_client.post(
+            "/api/chat",
+            json={"question": "Học phí HUIT năm 2026 là bao nhiêu?"},
+            cookies={
+                "huit_session_id": user_token,
+                "huit_admin_token": "legacy_admin_cookie_or_token"
+            },
+            headers={"X-CSRF-Token": csrf_token}
+        )
+        assert response.status_code == 200

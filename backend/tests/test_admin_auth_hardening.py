@@ -59,7 +59,7 @@ def test_login_response_no_token_in_body_and_sets_httponly_cookie():
     assert "huit_admin_token" in response.cookies
     set_cookie_header = response.headers.get("set-cookie", "").lower()
     assert "httponly" in set_cookie_header
-    assert "path=/" in set_cookie_header
+    assert "path=/api/admin" in set_cookie_header
     assert "samesite=lax" in set_cookie_header
 
 

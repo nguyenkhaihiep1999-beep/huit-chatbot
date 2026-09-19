@@ -89,6 +89,17 @@ async def create_or_refresh_session(
         token = sign_session_id(raw_session_id, ttl_seconds=ttl)
         csrf_token = generate_csrf_token(raw_session_id)
 
+        # Cookie admin trước đây dùng Path=/ và bị gửi nhầm theo request chat,
+        # khiến backend kiểm tra CSRF admin trong khi frontend gửi CSRF user.
+        # Xóa biến thể legacy; cookie admin mới được scope tại /api/admin.
+        response.delete_cookie(
+            key="huit_admin_token",
+            path="/",
+            httponly=True,
+            secure=not settings.IS_DEVELOPMENT,
+            samesite="lax",
+        )
+
         # Thiết lập HttpOnly cookie an toàn
         response.set_cookie(
             key="huit_session_id",
