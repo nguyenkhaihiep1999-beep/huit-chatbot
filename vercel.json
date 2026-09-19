@@ -5,6 +5,10 @@
   "outputDirectory": "frontend/dist",
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://bacsihiep-production.up.railway.app/api/:path*"
+    },
+    {
       "source": "/admin(.*)",
       "destination": "/index.html"
     },
