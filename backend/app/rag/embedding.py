@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 import tempfile
 from typing import Optional, List
 import numpy as np
@@ -14,12 +15,22 @@ os.environ.setdefault("XDG_CACHE_HOME", os.path.join(_tmp_dir, "cache"))
 os.environ.setdefault("TORCH_HOME", os.path.join(_tmp_dir, "torch"))
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
 
+logger = logging.getLogger("huit_chatbot.embedding")
+
 class EmbeddingManager:
     _embedder = None
     _cluster_centroids = None
 
     @classmethod
     def get_embedder(cls):
+        if not settings.ENABLE_LOCAL_EMBEDDINGS:
+            if cls._embedder is not False:
+                logger.info(
+                    "Local embeddings disabled; using MongoDB keyword-search fallback"
+                )
+                cls._embedder = False
+            return None
+
         if cls._embedder is None:
             try:
                 from fastembed import TextEmbedding
@@ -27,7 +38,10 @@ class EmbeddingManager:
                 os.makedirs(cache_path, exist_ok=True)
                 cls._embedder = TextEmbedding(settings.EMBEDDING_MODEL, cache_dir=cache_path)
             except Exception as e:
-                print("FastEmbed init warning (falling back to MongoDB keyword search):", e)
+                logger.warning(
+                    "FastEmbed init failed; using MongoDB keyword-search fallback (%s)",
+                    type(e).__name__,
+                )
                 cls._embedder = False
         return cls._embedder if cls._embedder is not False else None
 
@@ -41,7 +55,7 @@ class EmbeddingManager:
             qv_list = list(embedder.embed([f"query: {text}"]))[0].tolist()
             return qv_list
         except Exception as e:
-            print("Embedding generation error:", e)
+            logger.warning("Embedding generation failed (%s)", type(e).__name__)
             return None
 
     @classmethod

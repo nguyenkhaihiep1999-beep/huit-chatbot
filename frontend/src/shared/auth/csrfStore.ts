@@ -6,6 +6,9 @@ export interface SessionCredentials {
 let csrfToken: string | null = null;
 let sessionId: string | null = null;
 
+let adminCsrfToken: string | null = null;
+let adminSessionId: string | null = null;
+
 function readSessionValue(key: string): string | null {
   if (typeof sessionStorage === 'undefined') return null;
   try {
@@ -38,7 +41,21 @@ export function setSessionCredentials(credentials: SessionCredentials): void {
     // In-memory credentials remain available when browser storage is blocked.
   }
 }
+export function getAdminCsrfToken(): string | null {
+  return adminCsrfToken;
+}
 
+export function setAdminCredentials(credentials: { sessionId?: string; csrfToken?: string } | null): void {
+  adminSessionId = credentials?.sessionId || null;
+  adminCsrfToken = credentials?.csrfToken || null;
+}
+
+export function getCsrfTokenForUrl(url: string): string | null {
+  if (url.includes('/api/admin')) {
+    return getAdminCsrfToken() || getCsrfToken();
+  }
+  return getCsrfToken();
+}
 /**
  * Tạo khóa phạm vi ổn định từ raw session id để namespace dữ liệu cục bộ.
  * Đây không phải cơ chế phân quyền; backend cookie vẫn là nguồn xác thực duy nhất.

@@ -74,7 +74,18 @@ class Settings:
         return os.getenv("MONGODB_URI", "").strip()
 
     # RAG & Embeddings (Bảo tồn 100% tính tương đương kiến trúc gốc)
-    EMBEDDING_MODEL: str = "intfloat/multilingual-e5-large"
+    # Container nhỏ có thể tắt riêng bộ suy luận local và tự hạ xuống keyword search.
+    # Dữ liệu vector 1024D trong MongoDB và schema tương ứng không bị thay đổi.
+    @property
+    def ENABLE_LOCAL_EMBEDDINGS(self) -> bool:
+        return os.getenv("ENABLE_LOCAL_EMBEDDINGS", "true").strip().lower() in (
+            "true",
+            "1",
+            "yes",
+            "on",
+        )
+
+    EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "intfloat/multilingual-e5-large")
     EMBEDDING_DIMS: int = 1024
     KB_VERSION: str = "huit-kb-2026-07-v4-semantic"
     RAG_VERSION: str = "rag-v10-grounded-score-source"

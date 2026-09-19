@@ -1,11 +1,12 @@
 import { generateUniqueId } from '../../../shared/utils/idGenerator';
 import { apiClient } from '../../../shared/api/httpClient';
+import { assertChatRequest } from '../../../shared/contracts';
 
 export const API_BASE = '';
 
 export interface SendChatStreamOptions {
   question: string;
-  history: Array<{ role: string; content: string }>;
+  history: Array<{ role: 'user' | 'assistant'; content: string }>;
   enableCache?: boolean;
   signal?: AbortSignal;
   requestId?: string;
@@ -22,14 +23,17 @@ export async function fetchChatStream(options: SendChatStreamOptions): Promise<R
     headers['X-Last-Sequence'] = String(options.lastSequence);
   }
 
+  const body = {
+    question: options.question,
+    history: options.history,
+    enable_cache: options.enableCache !== false,
+  };
+  assertChatRequest(body);
+
   const response = await apiClient(`${API_BASE}/api/chat-stream`, {
     method: 'POST',
     headers,
-    body: JSON.stringify({
-      question: options.question,
-      history: options.history,
-      enable_cache: options.enableCache !== false,
-    }),
+    body: JSON.stringify(body),
     signal: options.signal,
   });
 

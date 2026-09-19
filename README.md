@@ -31,8 +31,6 @@ Lần kiểm chứng gần nhất: **19/09/2026**.
 
 Đây là bản **public demo/staging đang hoạt động**. Việc nghiệm thu production thương mại vẫn cần hoàn tất các mục bảo mật hạ tầng, giám sát, tải thực tế và quy trình phát hành ở phần cuối tài liệu.
 
-Mã nguồn tương ứng với trạng thái đã kiểm chứng hiện được duy trì trên nhánh [`release/v2.0.0-staging`](https://github.com/nguyenkhaihiep1999-beep/huit-chatbot/tree/release/v2.0.0-staging). README trên `main` được đồng bộ để trang chủ repository phản ánh đúng bản demo; việc merge toàn bộ mã staging vào `main` là một release riêng.
-
 ## Tính năng chính
 
 - RAG tuyển sinh HUIT với hybrid retrieval, reranking và trích dẫn nguồn.
@@ -65,7 +63,7 @@ flowchart LR
 
 ## JSON Schema là nguồn chuẩn cho các contract trọng yếu
 
-Schema do con người duyệt nằm tại [`backend/json_schemas/`](https://github.com/nguyenkhaihiep1999-beep/huit-chatbot/tree/release/v2.0.0-staging/backend/json_schemas). Hiện hệ thống có 6 canonical schemas cho các ranh giới trọng yếu: chat request, session bootstrap, stream event v2, legacy stream boundary, operation audit và schema registry record.
+Schema do con người duyệt nằm tại [`backend/json_schemas/`](backend/json_schemas/README.md). Hiện hệ thống có 6 canonical schemas cho các ranh giới trọng yếu: chat request, session bootstrap, stream event v2, legacy stream boundary, operation audit và schema registry record.
 
 ```mermaid
 flowchart TD

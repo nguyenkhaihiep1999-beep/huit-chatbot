@@ -111,50 +111,55 @@ async def csrf_middleware(request: Request, call_next):
             )
             from fastapi.responses import JSONResponse
 
-            # 1. Kiểm tra Admin Session Cookie ('huit_admin_token')
-            cookie_admin = request.cookies.get("huit_admin_token")
-            if cookie_admin:
-                admin_session_id = verify_admin_token_get_session(cookie_admin.strip())
-                if not admin_session_id:
-                    return JSONResponse(
-                        status_code=401,
-                        content={
-                            "error_code": "ADMIN_SESSION_INVALID",
-                            "message": "Phiên quản trị viên không hợp lệ hoặc đã bị thu hồi/hết hạn."
-                        }
-                    )
-                csrf_token = request.headers.get("X-CSRF-Token")
-                if not csrf_token or not verify_csrf_token(admin_session_id, csrf_token):
-                    return JSONResponse(
-                        status_code=403,
-                        content={
-                            "error_code": "CSRF_TOKEN_INVALID",
-                            "message": "CSRF token cho quản trị viên không hợp lệ hoặc đã hết hạn."
-                        }
-                    )
+            # Phân tách rõ ràng: Route Admin kiểm tra Admin Cookie; Route User kiểm tra User Cookie
+            is_admin_path = path.startswith(f"{settings.API_PREFIX}/admin")
 
-            # 2. Kiểm tra User Session Cookie ('huit_session_id')
-            cookie_user = request.cookies.get("huit_session_id")
-            if cookie_user and not cookie_admin:
-                verified_user = verify_session_token(cookie_user.strip())
-                if not verified_user:
-                    return JSONResponse(
-                        status_code=401,
-                        content={
-                            "error_code": "SESSION_INVALID",
-                            "message": "Phiên làm việc không hợp lệ hoặc đã hết hạn."
-                        }
-                    )
-                if verified_user and verified_user != "anonymous":
+            # 1. Kiểm tra Admin Session Cookie ('huit_admin_token') cho các endpoint quản trị (/api/admin/*)
+            if is_admin_path:
+                cookie_admin = request.cookies.get("huit_admin_token")
+                if cookie_admin:
+                    admin_session_id = verify_admin_token_get_session(cookie_admin.strip())
+                    if not admin_session_id:
+                        return JSONResponse(
+                            status_code=401,
+                            content={
+                                "error_code": "ADMIN_SESSION_INVALID",
+                                "message": "Phiên quản trị viên không hợp lệ hoặc đã bị thu hồi/hết hạn."
+                            }
+                        )
                     csrf_token = request.headers.get("X-CSRF-Token")
-                    if not csrf_token or not verify_csrf_token(verified_user, csrf_token):
+                    if not csrf_token or not verify_csrf_token(admin_session_id, csrf_token):
                         return JSONResponse(
                             status_code=403,
                             content={
                                 "error_code": "CSRF_TOKEN_INVALID",
-                                "message": "CSRF token không hợp lệ hoặc đã hết hạn."
+                                "message": "CSRF token cho quản trị viên không hợp lệ hoặc đã hết hạn."
                             }
                         )
+
+            # 2. Kiểm tra User Session Cookie ('huit_session_id') cho các endpoint người dùng (/api/chat, /api/chat-stream, ...)
+            else:
+                cookie_user = request.cookies.get("huit_session_id")
+                if cookie_user:
+                    verified_user = verify_session_token(cookie_user.strip())
+                    if not verified_user:
+                        return JSONResponse(
+                            status_code=401,
+                            content={
+                                "error_code": "SESSION_INVALID",
+                                "message": "Phiên làm việc không hợp lệ hoặc đã hết hạn."
+                            }
+                        )
+                    if verified_user and verified_user != "anonymous":
+                        csrf_token = request.headers.get("X-CSRF-Token")
+                        if not csrf_token or not verify_csrf_token(verified_user, csrf_token):
+                            return JSONResponse(
+                                status_code=403,
+                                content={
+                                    "error_code": "CSRF_TOKEN_INVALID",
+                                    "message": "CSRF token không hợp lệ hoặc đã hết hạn."
+                                }
+                            )
     return await call_next(request)
 
 # Đăng ký các Routers (Toàn bộ API đặt dưới prefix /api hoặc /health)

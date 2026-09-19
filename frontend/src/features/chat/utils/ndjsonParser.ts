@@ -1,4 +1,5 @@
 import { ChatStreamChunk } from '../model/chat.types';
+import { parseChatStreamEvent } from '../../../shared/contracts';
 
 export async function parseNDJSONStream(
   response: Response,
@@ -31,10 +32,10 @@ export async function parseNDJSONStream(
         const trimmed = line.trim();
         if (!trimmed) continue;
         try {
-          const parsed = JSON.parse(trimmed) as ChatStreamChunk;
-          onChunk(parsed);
+          const parsed = parseChatStreamEvent(JSON.parse(trimmed));
+          onChunk(parsed as ChatStreamChunk);
         } catch (err) {
-          console.warn('Malformed NDJSON line skipped:', trimmed, err);
+          console.warn('NDJSON event rejected by canonical schema:', err instanceof Error ? err.message : 'unknown error');
         }
       }
     }
@@ -42,8 +43,8 @@ export async function parseNDJSONStream(
     // Xử lý nốt buffer còn lại nếu có
     if (buffer.trim()) {
       try {
-        const parsed = JSON.parse(buffer.trim()) as ChatStreamChunk;
-        onChunk(parsed);
+        const parsed = parseChatStreamEvent(JSON.parse(buffer.trim()));
+        onChunk(parsed as ChatStreamChunk);
       } catch {
         // ignore incomplete line
       }

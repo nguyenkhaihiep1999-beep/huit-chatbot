@@ -27,6 +27,7 @@ from backend.app.services.admin_metrics_service import get_admin_metrics
 from backend.app.services import admin_ops_service
 
 router = APIRouter()
+ADMIN_COOKIE_PATH = "/api/admin"
 
 
 # ==============================================================================
@@ -43,6 +44,14 @@ async def admin_login(req: AdminLoginRequest, request: Request, response: Respon
             user_agent=user_agent,
         )
         is_secure = (settings.APP_ENV == "production" or settings.IS_PRODUCTION)
+        # Xóa cookie admin legacy từng dùng Path=/ để nó không đi kèm request chat.
+        response.delete_cookie(
+            key="huit_admin_token",
+            path="/",
+            httponly=True,
+            secure=is_secure,
+            samesite="lax",
+        )
         response.set_cookie(
             key="huit_admin_token",
             value=cookie_token,
@@ -50,7 +59,7 @@ async def admin_login(req: AdminLoginRequest, request: Request, response: Respon
             httponly=True,
             secure=is_secure,
             samesite="lax",
-            path="/"
+            path=ADMIN_COOKIE_PATH
         )
         return AdminLoginResponse(
             success=True,
@@ -86,6 +95,14 @@ async def admin_logout(
             detail="Thu hồi phiên thất bại trên hệ thống lưu trữ phân tán"
         )
 
+    response.delete_cookie(
+        key="huit_admin_token",
+        path=ADMIN_COOKIE_PATH,
+        httponly=True,
+        secure=is_secure,
+        samesite="lax"
+    )
+    # Dọn cookie legacy Path=/ trong giai đoạn chuyển đổi.
     response.delete_cookie(
         key="huit_admin_token",
         path="/",

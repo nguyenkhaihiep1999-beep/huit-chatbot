@@ -5,7 +5,7 @@
  * - Tự động đính kèm X-CSRF-Token cho các phương thức thay đổi dữ liệu (POST / PUT / PATCH / DELETE).
  * - Tự động xử lý lỗi 403 CSRF_TOKEN_INVALID: làm mới session 1 lần và thử lại request.
  */
-import { getCsrfToken, SessionCredentials } from '../auth/csrfStore';
+import { getCsrfTokenForUrl, SessionCredentials } from '../auth/csrfStore';
 
 export interface RequestOptions extends RequestInit {
   skipCsrf?: boolean;
@@ -22,11 +22,12 @@ export function configureSessionRefresher(refresher: SessionRefresher): void {
 export async function apiClient(url: string, options: RequestOptions = {}): Promise<Response> {
   const method = (options.method || 'GET').toUpperCase();
   const headers = new Headers(options.headers || {});
+  const isAdminRequest = url.includes('/api/admin');
 
   // Đảm bảo có CSRF token cho các request thay đổi trạng thái
   if (!options.skipCsrf && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
-    let csrf = getCsrfToken();
-    if (!csrf && sessionRefresher) {
+    let csrf = getCsrfTokenForUrl(url);
+    if (!csrf && !isAdminRequest && sessionRefresher) {
       const session = await sessionRefresher();
       csrf = session.csrfToken;
     }
@@ -44,17 +45,27 @@ export async function apiClient(url: string, options: RequestOptions = {}): Prom
 
   let response = await fetch(url, mergedOptions);
 
-  // Tự động bắt lỗi 403 do CSRF token hết hạn và retry đúng 1 lần
-  if (response.status === 403 && !options.skipAuthRetry && sessionRefresher) {
+  // Tự động bắt lỗi 403 do CSRF token hết hạn hoặc sai lệch và retry đúng 1 lần cho user session
+  if (response.status === 403 && !options.skipAuthRetry && !isAdminRequest && sessionRefresher) {
     try {
       const clone = response.clone();
       const errData = await clone.json();
-      if (errData?.error_code === 'CSRF_TOKEN_INVALID') {
+      const isCsrfError =
+        errData?.error_code === 'CSRF_TOKEN_INVALID' ||
+        errData?.detail?.error_code === 'CSRF_TOKEN_INVALID' ||
+        (typeof errData?.detail === 'string' && errData.detail.toLowerCase().includes('csrf')) ||
+        (typeof errData?.message === 'string' && errData.message.toLowerCase().includes('csrf'));
+
+      if (isCsrfError) {
         const refreshed = await sessionRefresher();
         if (refreshed.csrfToken) {
           headers.set('X-CSRF-Token', refreshed.csrfToken);
-          mergedOptions.headers = headers;
-          response = await fetch(url, mergedOptions);
+          response = await fetch(url, {
+            ...options,
+            method,
+            headers,
+            credentials: options.credentials || 'same-origin',
+          });
         }
       }
     } catch {

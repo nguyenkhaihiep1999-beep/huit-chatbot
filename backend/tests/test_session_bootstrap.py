@@ -82,6 +82,19 @@ def test_session_endpoint_exempt_from_csrf_bootstrap(client):
     assert "csrf_token" in resp.json()
 
 
+def test_session_bootstrap_clears_legacy_root_admin_cookie(client):
+    """Bootstrap user phải dọn cookie admin Path=/ để tránh CSRF admin/user xung đột."""
+    resp = client.post(
+        "/api/auth/session",
+        cookies={"huit_admin_token": "legacy-root-admin-cookie"},
+    )
+    assert resp.status_code == 200
+    set_cookie_headers = "\n".join(resp.headers.get_list("set-cookie")).lower()
+    assert "huit_admin_token=" in set_cookie_headers
+    assert "path=/" in set_cookie_headers
+    assert "max-age=0" in set_cookie_headers
+
+
 def test_production_fails_closed_without_secrets():
     """5. Môi trường production bắt buộc fail-closed khi thiếu secret bảo mật."""
     old_env = os.environ.get("APP_ENV")

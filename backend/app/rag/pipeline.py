@@ -64,14 +64,28 @@ def _make_artifact_summary(visual_meta: Optional[Dict[str, Any]]) -> Optional[Di
     art_id = visual_meta.get("id") or visual_meta.get("artifact_id") or visual_meta.get("visual_id")
     if not art_id:
         return None
+    manifest = visual_meta.get("manifest") if isinstance(visual_meta.get("manifest"), dict) else {}
+    render = manifest.get("render") if isinstance(manifest.get("render"), dict) else {}
+    preview_url = (
+        visual_meta.get("preview_url")
+        or visual_meta.get("svg_url")
+        or f"/api/artifacts/{art_id}/preview"
+    )
+    # Artifact tạo trong chat hiện được render preview đồng bộ. Ưu tiên trạng thái
+    # tường minh/manifest; dữ liệu cache cũ có preview URL nhưng thiếu status được
+    # xem là ready để UI không mắc kẹt ở trạng thái planned vô hạn.
+    status = visual_meta.get("status") or render.get("status")
+    if not status and preview_url:
+        status = "ready"
     return {
         "artifact_id": str(art_id),
         "type": visual_meta.get("type", "document"),
         "title": visual_meta.get("title", "Tài liệu Tuyển sinh HUIT"),
-        "preview_url": visual_meta.get("preview_url") or visual_meta.get("svg_url") or f"/api/artifacts/{art_id}/preview",
+        "preview_url": preview_url,
         "manifest_url": visual_meta.get("manifest_url") or visual_meta.get("json_url") or f"/api/artifacts/{art_id}",
         "available_formats": visual_meta.get("available_formats") or ["xlsx", "docx", "pdf", "png", "svg"],
-        "chart_type": visual_meta.get("chart_type")
+        "chart_type": visual_meta.get("chart_type"),
+        "status": status,
     }
 
 

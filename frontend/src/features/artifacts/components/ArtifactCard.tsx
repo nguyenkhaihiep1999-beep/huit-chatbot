@@ -28,28 +28,31 @@ export const ArtifactCard: React.FC<ArtifactCardProps> = ({
   const [imageError, setImageError] = useState<boolean>(false);
 
   const {
+    resolvedArtifact,
     defaultPreviewUrl: previewUrl,
     isExporting,
     errorMessage: exportError,
     downloadArtifactExport,
   } = useArtifactWorkflow(artifact);
 
+  const displayedArtifact = resolvedArtifact || artifact;
+
   const cardRef = useRef<HTMLDivElement>(null);
   const viewBtnRef = useRef<HTMLButtonElement>(null);
 
-  const isPlanned = artifact.status === 'planned';
-  const isRendering = artifact.status === 'rendering';
-  const isUnavailable = artifact.status === 'unavailable' || artifact.status === 'failed';
-  const isReady = !isUnavailable && (!artifact.status || artifact.status === 'ready');
+  const isPlanned = displayedArtifact.status === 'planned';
+  const isRendering = displayedArtifact.status === 'rendering';
+  const isUnavailable = displayedArtifact.status === 'unavailable' || displayedArtifact.status === 'failed';
+  const isReady = !isUnavailable && (!displayedArtifact.status || displayedArtifact.status === 'ready');
 
   // Lọc bỏ tuyệt đối audio/video
-  const availableFormats = (artifact.available_formats || ['svg', 'png', 'pdf', 'xlsx', 'docx']).filter(
+  const availableFormats = (displayedArtifact.available_formats || ['svg', 'png', 'pdf', 'xlsx', 'docx']).filter(
     (f) => !['mp3', 'mp4', 'audio', 'video'].includes(f.toLowerCase())
   );
 
   const handleOpenViewer = () => {
     if (onOpenLightbox) {
-      onOpenLightbox(artifact);
+      onOpenLightbox(displayedArtifact);
     } else {
       setIsInternalLightboxOpen(true);
     }
@@ -62,7 +65,7 @@ export const ArtifactCard: React.FC<ArtifactCardProps> = ({
   };
 
   // Icon biểu diễn theo loại tài liệu
-  const typeLower = (artifact.type || '').toLowerCase();
+  const typeLower = (displayedArtifact.type || '').toLowerCase();
   const isSpreadsheet = typeLower.includes('excel') || typeLower.includes('sheet') || typeLower.includes('table');
   const isDocument = typeLower.includes('doc') || typeLower.includes('word') || typeLower.includes('text');
   const isChartOrImage = typeLower.includes('chart') || typeLower.includes('image') || typeLower.includes('infographic') || typeLower.includes('vector');
@@ -123,7 +126,7 @@ export const ArtifactCard: React.FC<ArtifactCardProps> = ({
                 whiteSpace: 'nowrap',
               }}
             >
-              {artifact.title || 'Tài liệu & Dữ liệu HUIT'}
+              {displayedArtifact.title || 'Tài liệu & Dữ liệu HUIT'}
             </span>
             {isUnavailable ? (
               <span
@@ -275,7 +278,7 @@ export const ArtifactCard: React.FC<ArtifactCardProps> = ({
             >
               <AlertCircle size={28} />
               <span style={{ fontSize: 'var(--font-xs)', fontWeight: 600 }}>
-                {artifact.error_message || 'Tài liệu không khả dụng hoặc đã hết hạn lưu trữ.'}
+                {displayedArtifact.error_message || 'Tài liệu không khả dụng hoặc đã hết hạn lưu trữ.'}
               </span>
             </div>
           ) : isPlanned || isRendering ? (
@@ -323,7 +326,7 @@ export const ArtifactCard: React.FC<ArtifactCardProps> = ({
           ) : (
             <img
               src={previewUrl}
-              alt={artifact.title}
+              alt={displayedArtifact.title}
               loading="lazy"
               width={256}
               height={140}
@@ -361,7 +364,7 @@ export const ArtifactCard: React.FC<ArtifactCardProps> = ({
       {/* Internal Lightbox nếu không có trigger từ parent */}
       {isInternalLightboxOpen && (
         <ArtifactLightbox
-          artifact={artifact}
+          artifact={displayedArtifact}
           onClose={() => setIsInternalLightboxOpen(false)}
           triggerRef={viewBtnRef}
         />

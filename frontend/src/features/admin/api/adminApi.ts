@@ -6,7 +6,7 @@
  * - Khử khuẩn dữ liệu, không trả raw question, secret, hay stacktrace.
  */
 import { http } from '../../../shared/api/httpClient';
-import { setSessionCredentials } from '../../../shared/auth/csrfStore';
+import { setAdminCredentials } from '../../../shared/auth/csrfStore';
 import {
   SystemHealthData,
   AdminMetricsData,
@@ -29,7 +29,7 @@ export async function loginAdmin(username: string, password: string): Promise<{ 
   }
   const data = await res.json();
   if (data?.csrf_token) {
-    setSessionCredentials({
+    setAdminCredentials({
       sessionId: 'admin',
       csrfToken: data.csrf_token,
     });
@@ -51,16 +51,10 @@ export async function verifyAdminSession(): Promise<boolean> {
 export async function logoutAdmin(): Promise<boolean> {
   try {
     const res = await http.post('/api/admin/logout', {});
-    setSessionCredentials({
-      sessionId: '',
-      csrfToken: '',
-    });
+    setAdminCredentials(null);
     return res.ok;
   } catch {
-    setSessionCredentials({
-      sessionId: '',
-      csrfToken: '',
-    });
+    setAdminCredentials(null);
     return false;
   }
 }

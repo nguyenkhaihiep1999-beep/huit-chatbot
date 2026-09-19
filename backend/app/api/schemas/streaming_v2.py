@@ -272,14 +272,20 @@ def validate_payload_for_type(event_type: str, payload: Dict[str, Any]) -> Dict[
 
 class StreamEventEnvelope(BaseModel):
     """Envelope chuẩn NDJSON Protocol v2 thống nhất cho mọi event."""
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(
+        extra="forbid",
+        json_schema_extra={
+            "x-contract-id": "huit.stream.chat-event",
+            "x-contract-version": "2.0.0",
+        },
+    )
 
     protocol_version: int = Field(default=PROTOCOL_VERSION_V2, ge=2, le=2)
     stream_id: str = Field(..., min_length=1, max_length=128)
     request_id: str = Field(..., min_length=1, max_length=128)
     sequence: int = Field(..., ge=1)
-    type: StreamEventType
-    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    type: CanonicalStreamEventType
+    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat(), max_length=64)
     payload: Dict[str, Any] = Field(default_factory=dict)
 
     @model_validator(mode="after")

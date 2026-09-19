@@ -1,0 +1,5 @@
+FROM redis:7.4-alpine
+
+EXPOSE 6379
+
+CMD ["sh", "-c", "exec redis-server --save '' --appendonly no --requirepass \"$REDIS_PASSWORD\""]

@@ -5,6 +5,7 @@ import {
   SessionCredentials,
 } from '../../../shared/auth/csrfStore';
 import { SessionBootstrapError, SessionBootstrapErrorCode } from '../types';
+import { parseSessionBootstrapResponse } from '../../../shared/contracts';
 
 export { SessionBootstrapError };
 export type { SessionBootstrapErrorCode };
@@ -103,26 +104,16 @@ export async function createSession(): Promise<SessionCredentials> {
             });
           }
 
-          let data: any = null;
+          let data;
           try {
-            data = await response.json();
-          } catch {
-            // Non-JSON response
-          }
-
-          if (
-            !data ||
-            typeof data.session_id !== 'string' ||
-            !data.session_id.trim() ||
-            typeof data.csrf_token !== 'string' ||
-            !data.csrf_token.trim()
-          ) {
-            const reqId = response.headers.get('X-Request-ID') || data?.request_id || '';
+            data = parseSessionBootstrapResponse(await response.json());
+          } catch (contractError) {
+            const reqId = response.headers.get('X-Request-ID') || '';
             throw new SessionBootstrapError({
               code: 'SESSION_BOOTSTRAP_FAILED',
               status: response.status,
               requestId: reqId,
-              message: 'Phản hồi từ máy chủ không hợp lệ: thiếu session_id hoặc csrf_token.',
+              message: contractError instanceof Error ? contractError.message : 'Invalid session contract',
               userFriendlyMessage: 'Không thể khởi tạo phiên làm việc. Vui lòng thử lại.',
             });
           }
