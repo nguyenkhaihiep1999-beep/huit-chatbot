@@ -37,3 +37,15 @@ def test_vercel_upload_preserves_frontend_hook_and_contract_sources():
     assert not any(rule in {"frontend/", "frontend/hooks/", "frontend/src/", "frontend/src/shared/contracts/"} for rule in rules)
     assert (ROOT / "frontend/hooks/index.ts").is_file()
     assert (ROOT / "frontend/src/shared/contracts/schemas/manifest.json").is_file()
+
+
+def test_frontend_lockfile_contains_known_security_patch_versions():
+    lock = json.loads((ROOT / "frontend/package-lock.json").read_text(encoding="utf-8"))
+    sanitizer = lock["packages"]["node_modules/dompurify"]["version"]
+    source_map_versions = [
+        item["version"] for name, item in lock["packages"].items()
+        if name.endswith("node_modules/source-map-js")
+    ]
+    assert tuple(map(int, sanitizer.split("."))) >= (3, 4, 16)
+    assert source_map_versions
+    assert all(tuple(map(int, version.split("."))) >= (1, 2, 2) for version in source_map_versions)
