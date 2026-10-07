@@ -4,6 +4,7 @@ from backend.app.config import settings
 from backend.app.api.schemas.admin import (
     AdminLoginRequest,
     AdminLoginResponse,
+    AdminSessionResponse,
     ClearCacheRequest,
     AdminJobListResponse,
     AdminJobDetailResponse,
@@ -113,10 +114,10 @@ async def admin_logout(
     return {"success": True, "message": "Đã đăng xuất quản trị viên"}
 
 
-@router.get("/admin/verify")
+@router.get("/admin/verify", response_model=AdminSessionResponse)
 async def admin_verify(admin: Principal = Depends(require_admin)):
     """Kiểm tra tính hợp lệ của token admin hiện tại."""
-    return {"valid": True, "role": "admin"}
+    return AdminSessionResponse(valid=True, role="admin")
 
 
 # ==============================================================================

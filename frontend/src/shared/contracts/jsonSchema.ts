@@ -54,7 +54,6 @@ function validateNode(schema: JsonSchema, value: unknown, root: JsonSchema, path
   if (Array.isArray(schema.anyOf)) {
     const matched = schema.anyOf.some((part) => isObject(part) && validateNode(part, value, root, path).length === 0);
     if (!matched) errors.push(`${path}: does not match any allowed schema`);
-    return errors;
   }
 
   if (Array.isArray(schema.oneOf)) {
@@ -62,7 +61,6 @@ function validateNode(schema: JsonSchema, value: unknown, root: JsonSchema, path
       (part) => isObject(part) && validateNode(part, value, root, path).length === 0
     ).length;
     if (matches !== 1) errors.push(`${path}: must match exactly one schema`);
-    return errors;
   }
 
   if ('const' in schema && !sameValue(value, schema.const)) {

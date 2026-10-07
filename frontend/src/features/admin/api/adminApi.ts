@@ -20,14 +20,30 @@ import {
   AdminBackupsResponse,
   AdminAlertSummaryResponse,
 } from '../types/admin.types';
+import {
+  assertAdminLoginRequest,
+  parseAdminLoginResponse,
+  parseAdminSessionResponse,
+  parseApiErrorResponse,
+  AdminLoginResponseContract,
+} from '../../../shared/contracts';
 
-export async function loginAdmin(username: string, password: string): Promise<{ success: boolean; message: string; csrf_token?: string }> {
-  const res = await http.post('/api/admin/login', { username, password });
+export async function loginAdmin(username: string, password: string): Promise<AdminLoginResponseContract> {
+  const payload = { username, password };
+  assertAdminLoginRequest(payload);
+  const res = await http.post('/api/admin/login', payload);
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
-    throw new Error(errorData.detail || 'Tài khoản hoặc mật khẩu không chính xác.');
+    try {
+      parseApiErrorResponse(errorData);
+    } catch {
+      // fallback if error payload is malformed
+    }
+    const message = typeof errorData.detail === 'string' ? errorData.detail : (errorData.message || 'Tài khoản hoặc mật khẩu không chính xác.');
+    throw new Error(message);
   }
-  const data = await res.json();
+  const rawData = await res.json();
+  const data = parseAdminLoginResponse(rawData);
   if (data?.csrf_token) {
     setAdminCredentials({
       sessionId: 'admin',
@@ -41,8 +57,9 @@ export async function verifyAdminSession(): Promise<boolean> {
   try {
     const res = await http.get('/api/admin/verify');
     if (!res.ok) return false;
-    const data = await res.json();
-    return Boolean(data?.valid);
+    const rawData = await res.json();
+    const data = parseAdminSessionResponse(rawData);
+    return Boolean(data.valid);
   } catch {
     return false;
   }

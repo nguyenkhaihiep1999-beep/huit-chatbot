@@ -15,14 +15,23 @@ def compute_cache_key(question: str, chat_history: Optional[list] = None) -> str
                     "role": turn.get("role"),
                     "content": str(turn.get("content", ""))[:500],
                 })
+    cache_identity = {
+        "question": normalize_text(question),
+        "history": relevant_history,
+        "kb_version": settings.KB_VERSION,
+        "rag_version": settings.RAG_VERSION,
+        "model": settings.OPENROUTER_MODEL,
+    }
+    # Assist can change routing and the LLM context. Keep its answers isolated
+    # without deleting legacy cache entries; off/shadow retain their old keys.
+    if settings.JEV_MODE == "assist":
+        cache_identity["jev_assist"] = {
+            "policy_version": "1",
+            "model": settings.JEV_MODEL,
+            "confidence_threshold": settings.JEV_CONFIDENCE_THRESHOLD,
+        }
     payload = json.dumps(
-        {
-            "question": normalize_text(question),
-            "history": relevant_history,
-            "kb_version": settings.KB_VERSION,
-            "rag_version": settings.RAG_VERSION,
-            "model": settings.OPENROUTER_MODEL,
-        },
+        cache_identity,
         ensure_ascii=False,
         sort_keys=True,
     )

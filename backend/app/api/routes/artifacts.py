@@ -22,7 +22,9 @@ from backend.app.api.schemas.artifact import (
     ArtifactRenderRequest,
     ArtifactUpscaleRequest,
     ArtifactExportRequest,
-    JobStatusResponse
+    JobStatusResponse,
+    JobAcceptedResponse,
+    ArtifactSummary
 )
 from backend.app.services.artifact_service import (
     create_artifact_plan,
@@ -65,8 +67,40 @@ async def plan_artifact_endpoint(
         )
 
 
-@router.get("/artifacts/{artifact_id}")
-@router.get("/artifacts/{artifact_id}/manifest")
+@router.get("/artifacts", response_model=List[ArtifactSummary])
+async def list_artifacts_endpoint(
+    limit: int = Query(50, ge=1, le=100),
+    type: Optional[str] = Query(None),
+    status: Optional[str] = Query(None),
+    principal: Principal = Depends(get_current_principal)
+):
+    """Lấy danh sách tóm tắt các Artifacts có phân trang và lọc (kiểm soát quyền hạn)."""
+    try:
+        from backend.app.data_access.operations import artifact_operations
+        docs = artifact_operations.list_artifacts(
+            owner_id=principal.user_id if not principal.is_admin else None,
+            limit=limit,
+            artifact_type=type,
+            status=status
+        )
+        summaries = []
+        for d in docs:
+            summaries.append(ArtifactSummary(
+                artifact_id=d["artifact_id"],
+                type=d.get("type", "document"),
+                title=d.get("title", ""),
+                preview_url=d.get("preview", {}).get("url") or f"/api/artifacts/{d['artifact_id']}/preview",
+                manifest_url=f"/api/artifacts/{d['artifact_id']}/manifest",
+                available_formats=d.get("export_options", ["xlsx", "docx", "pdf", "png", "svg"]),
+                status=d.get("render", {}).get("status", "ready")
+            ))
+        return summaries
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error_code": "ARTIFACT_LIST_FAILED", "message": str(e)})
+
+
+@router.get("/artifacts/{artifact_id}", response_model=ArtifactManifest)
+@router.get("/artifacts/{artifact_id}/manifest", response_model=ArtifactManifest)
 async def get_artifact_endpoint(
     artifact_id: str,
     principal: Principal = Depends(get_current_principal)
@@ -104,7 +138,7 @@ async def get_artifact_preview_endpoint(
         return JSONResponse(status_code=status_code, content=a_err.to_dict())
 
 
-@router.post("/artifacts/render")
+@router.post("/artifacts/render", status_code=202, response_model=JobAcceptedResponse)
 async def render_artifact_endpoint(
     req: ArtifactRenderRequest,
     principal: Principal = Depends(get_current_principal)
@@ -148,21 +182,20 @@ async def render_artifact_endpoint(
             }
 
         JobQueueManager.run_in_background(job_id, _execute_render)
-        return JSONResponse(
-            status_code=202,
-            content={
-                "job_id": job_id,
-                "status": "queued",
-                "artifact_id": req.artifact_id,
-                "format": target_fmt,
-                "check_status_url": f"/api/jobs/{job_id}"
-            }
+        return JobAcceptedResponse(
+            job_id=job_id,
+            status="queued",
+            artifact_id=req.artifact_id,
+            action="render",
+            format=target_fmt,
+            scale=None,
+            check_status_url=f"/api/jobs/{job_id}",
         )
     except ArtifactException as a_err:
         return JSONResponse(status_code=400, content=a_err.to_dict())
 
 
-@router.post("/artifacts/{artifact_id}/upscale")
+@router.post("/artifacts/{artifact_id}/upscale", status_code=202, response_model=JobAcceptedResponse)
 async def upscale_artifact_endpoint(
     artifact_id: str,
     req: ArtifactUpscaleRequest,
@@ -202,22 +235,21 @@ async def upscale_artifact_endpoint(
             return res
 
         JobQueueManager.run_in_background(job_id, _execute_upscale)
-        return JSONResponse(
-            status_code=202,
-            content={
-                "job_id": job_id,
-                "status": "queued",
-                "artifact_id": artifact_id,
-                "scale": scale,
-                "check_status_url": f"/api/jobs/{job_id}"
-            }
+        return JobAcceptedResponse(
+            job_id=job_id,
+            status="queued",
+            artifact_id=artifact_id,
+            action="upscale",
+            format="png",
+            scale=scale,
+            check_status_url=f"/api/jobs/{job_id}",
         )
     except ArtifactException as a_err:
         status_code = 404 if "NOT_FOUND" in a_err.error_code else (403 if "ACCESS_DENIED" in a_err.error_code else 400)
         return JSONResponse(status_code=status_code, content=a_err.to_dict())
 
 
-@router.post("/artifacts/{artifact_id}/export")
+@router.post("/artifacts/{artifact_id}/export", status_code=202, response_model=JobAcceptedResponse)
 async def export_artifact_endpoint(
     artifact_id: str,
     req: Optional[ArtifactExportRequest] = None,
@@ -264,15 +296,14 @@ async def export_artifact_endpoint(
             }
 
         JobQueueManager.run_in_background(job_id, _execute_export)
-        return JSONResponse(
-            status_code=202,
-            content={
-                "job_id": job_id,
-                "status": "queued",
-                "artifact_id": artifact_id,
-                "format": target_fmt,
-                "check_status_url": f"/api/jobs/{job_id}"
-            }
+        return JobAcceptedResponse(
+            job_id=job_id,
+            status="queued",
+            artifact_id=artifact_id,
+            action="export",
+            format=target_fmt,
+            scale=None,
+            check_status_url=f"/api/jobs/{job_id}",
         )
     except ArtifactException as a_err:
         status_code = 404 if "NOT_FOUND" in a_err.error_code else (403 if "ACCESS_DENIED" in a_err.error_code else 400)

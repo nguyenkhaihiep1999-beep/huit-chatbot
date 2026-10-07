@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:queue:dead-letter-metadata:1.0.0",
+  "title": "HUIT queue dead-letter job metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["job_id", "action", "failed_at", "attempts", "max_attempts"],
+  "properties": {
+    "job_id": { "type": "string", "pattern": "^job_[a-zA-Z0-9_\\-]+$", "minLength": 8, "maxLength": 64 },
+    "action": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "failed_at": { "type": "string" },
+    "attempts": { "type": "integer", "minimum": 1 },
+    "max_attempts": { "type": "integer", "minimum": 1 },
+    "sanitized_error": {
+      "anyOf": [{ "type": "string", "maxLength": 500 }, { "type": "null" }],
+      "default": null
+    },
+    "error": {
+      "anyOf": [{ "type": "object" }, { "type": "null" }],
+      "default": null
+    }
+  }
+}

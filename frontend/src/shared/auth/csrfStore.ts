@@ -7,7 +7,6 @@ let csrfToken: string | null = null;
 let sessionId: string | null = null;
 
 let adminCsrfToken: string | null = null;
-let adminSessionId: string | null = null;
 
 function readSessionValue(key: string): string | null {
   if (typeof sessionStorage === 'undefined') return null;
@@ -46,7 +45,6 @@ export function getAdminCsrfToken(): string | null {
 }
 
 export function setAdminCredentials(credentials: { sessionId?: string; csrfToken?: string } | null): void {
-  adminSessionId = credentials?.sessionId || null;
   adminCsrfToken = credentials?.csrfToken || null;
 }
 

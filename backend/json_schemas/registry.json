@@ -8,6 +8,9 @@
       "kind": "api",
       "file": "api/session-bootstrap-response.v1.schema.json",
       "frontend": true,
+      "sha256": "9966c250b9aca26500381e8b09069019688dd204af7fa774ab34d05cefdf5a1e",
+      "status": "active",
+      "description": "Khởi tạo phiên làm việc của người dùng khách và cấp phát CSRF token.",
       "consumers": [
         "backend.app.api.routes.auth.SessionResponse",
         "frontend.features.session.api.sessionApi"
@@ -19,9 +22,208 @@
       "kind": "api",
       "file": "api/chat-request.v1.schema.json",
       "frontend": true,
+      "sha256": "1f87bd17df5b6bc8729f4fe46ab0220a66d15e9445037046c818606eb7830b70",
+      "status": "active",
+      "description": "Yêu cầu gửi câu hỏi tuyển sinh và lịch sử hội thoại từ client tới chatbot.",
       "consumers": [
         "backend.app.api.schemas.chat.ChatRequest",
         "frontend.features.chat.api.chatApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.error-response",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/error-response.v1.schema.json",
+      "frontend": true,
+      "sha256": "6649c9c146b6a64cbb0d4ff1838f2647021e7b376fd45f37a4543f92fa2210ba",
+      "status": "active",
+      "description": "Định dạng phản hồi lỗi chuẩn API cho toàn bộ dịch vụ backend.",
+      "consumers": [
+        "backend.app.api.routes",
+        "frontend.shared.api.httpClient"
+      ]
+    },
+    {
+      "schema_id": "huit.api.artifact-manifest",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/artifact-manifest.v1.schema.json",
+      "frontend": true,
+      "sha256": "368841711502cfb004811dad3f22971bbfd7339eb1389a332f6244de63e069f2",
+      "status": "active",
+      "description": "Manifest mô tả chi tiết siêu dữ liệu của một artifact được khởi tạo hoặc render.",
+      "consumers": [
+        "backend.app.models.artifact.ArtifactManifest",
+        "frontend.features.artifacts.api.artifactsApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.artifact-summary",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/artifact-summary.v1.schema.json",
+      "frontend": true,
+      "sha256": "622c7b1c7e8fe6690b906f0ad371292ab3aeb783b9865bc90af83b39c02c0e9b",
+      "status": "active",
+      "description": "Tóm tắt gọn thông tin artifact phục vụ danh sách và preview nhanh.",
+      "consumers": [
+        "backend.app.models.artifact.ArtifactSummary",
+        "frontend.features.artifacts.api.artifactsApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.artifact-plan-request",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/artifact-plan-request.v1.schema.json",
+      "frontend": true,
+      "sha256": "87513a7cb71d8b906b88036d402434f023bc1707ba8a040ade18cd34fbc5f1fe",
+      "status": "active",
+      "description": "Yêu cầu lên kế hoạch sinh file đồ họa hoặc tài liệu trực quan.",
+      "consumers": [
+        "backend.app.models.artifact.ArtifactPlanRequest",
+        "frontend.features.artifacts.api.artifactsApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.artifact-render-request",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/artifact-render-request.v1.schema.json",
+      "frontend": true,
+      "sha256": "ab610ef26646c2b860b26fba124de19eaea0359d7bc7e9ff9a8efa7c6c3a07fb",
+      "status": "active",
+      "description": "Yêu cầu render artifact sang định dạng hiển thị hoặc preview.",
+      "consumers": [
+        "backend.app.models.artifact.ArtifactRenderRequest",
+        "frontend.features.artifacts.api.artifactsApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.artifact-upscale-request",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/artifact-upscale-request.v1.schema.json",
+      "frontend": true,
+      "sha256": "3a9f15c0e6f2e47a55c2930f942cb5350a5837815db7ca407877594d1487fe3f",
+      "status": "active",
+      "description": "Yêu cầu nâng độ phân giải (upscale 2x/4x) của hình ảnh đồ họa.",
+      "consumers": [
+        "backend.app.models.artifact.ArtifactUpscaleRequest",
+        "frontend.features.artifacts.api.artifactsApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.artifact-export-request",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/artifact-export-request.v1.schema.json",
+      "frontend": true,
+      "sha256": "67cb43ac0dccbcb84934bf8d195209e3e554a7f3f5c8a5ff24bd1b8a76b04b08",
+      "status": "active",
+      "description": "Yêu cầu kết xuất artifact ra file tải về (xlsx, docx, pdf, png, svg).",
+      "consumers": [
+        "backend.app.models.artifact.ArtifactExportRequest",
+        "frontend.features.artifacts.api.artifactsApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.job-accepted-response",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/job-accepted-response.v1.schema.json",
+      "frontend": true,
+      "sha256": "c54272e3b765ea003f1c7be6dd536d3f2b469e8f5283bf6daf98fd8049f6ded5",
+      "status": "active",
+      "description": "Phản hồi chuẩn HTTP 202 khi tác vụ nền được tiếp nhận vào hàng đợi.",
+      "consumers": [
+        "backend.app.api.schemas.artifact.JobAcceptedResponse",
+        "frontend.src.shared.contracts.JobAcceptedResponseContract"
+      ]
+    },
+    {
+      "schema_id": "huit.api.job-status-response",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/job-status-response.v1.schema.json",
+      "frontend": true,
+      "sha256": "84c22bc81c0482538f48da8f5a0c2761f1fe0c2d2e26b6dc890df77274fc2a8b",
+      "status": "active",
+      "description": "Phản hồi thăm dò trạng thái và tiến độ xử lý công việc nền.",
+      "consumers": [
+        "backend.app.models.artifact.JobStatusResponse",
+        "frontend.features.artifacts.api.artifactsApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.image-create-request",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/image-create-request.v1.schema.json",
+      "frontend": true,
+      "sha256": "25128882124727fa8b8ed983501ad6041633c2406e2266d7c0cd12498064f7fd",
+      "status": "active",
+      "description": "Yêu cầu sinh hình ảnh trực tiếp qua model FLUX hoặc SVG scene.",
+      "consumers": [
+        "backend.app.models.image_service.ImageCreateRequest",
+        "frontend.features.chat.api.imageApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.image-result",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/image-result.v1.schema.json",
+      "frontend": true,
+      "sha256": "9f58a8650193780f039b0469381b648e495d4286fc3d1b5064b018b99a384ca3",
+      "status": "active",
+      "description": "Kết quả sinh ảnh hoàn tất kèm URL, kích thước và định dạng.",
+      "consumers": [
+        "backend.app.models.image_service.ImageResult",
+        "frontend.features.chat.api.imageApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.admin-login-request",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/admin-login-request.v1.schema.json",
+      "frontend": true,
+      "sha256": "aa86ce2bb59a993a7ec816e5503de2ecba7afd0a405779b38c85bbfba71f10ba",
+      "status": "active",
+      "description": "Thông tin đăng nhập cổng quản trị viên bảo mật.",
+      "consumers": [
+        "backend.app.api.routes.admin.AdminLoginRequest",
+        "frontend.features.admin.api.adminApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.admin-login-response",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/admin-login-response.v1.schema.json",
+      "frontend": true,
+      "sha256": "fb414680d2d970f863af244e5bf61d3c293669222d2c36373191383d4a18f43f",
+      "status": "active",
+      "description": "Phản hồi đăng nhập admin thành công với cookie phiên httpOnly.",
+      "consumers": [
+        "backend.app.api.routes.admin.AdminLoginResponse",
+        "frontend.features.admin.api.adminApi"
+      ]
+    },
+    {
+      "schema_id": "huit.api.admin-session-response",
+      "version": "1.0.0",
+      "kind": "api",
+      "file": "api/admin-session-response.v1.schema.json",
+      "frontend": true,
+      "sha256": "ab969fdd94d47f3a8580a41ef630847ff1f8e7301a1401d6114b14b62b2ba6b4",
+      "status": "active",
+      "description": "Xác thực trạng thái hiệu lực của phiên làm việc quản trị viên.",
+      "consumers": [
+        "backend.app.api.routes.admin.AdminSessionResponse",
+        "frontend.features.admin.api.adminApi"
       ]
     },
     {
@@ -30,6 +232,9 @@
       "kind": "stream",
       "file": "stream/chat-event.v2.schema.json",
       "frontend": true,
+      "sha256": "3fe1e99b3192ab8e48a70a82bda4af14bf811a4364803cc6439ecec4b8104008",
+      "status": "active",
+      "description": "Phong bì sự kiện NDJSON v2 chuẩn hóa truyền luồng từ chatbot tới giao diện người dùng.",
       "consumers": [
         "backend.app.api.schemas.streaming_v2.StreamEventEnvelope",
         "frontend.features.chat.utils.ndjsonParser",
@@ -42,8 +247,81 @@
       "kind": "stream",
       "file": "stream/chat-event-legacy-boundary.v1.schema.json",
       "frontend": true,
+      "sha256": "67d8f71e690a8f3c2980435a5b0fbceb63b33171878a80a47cb2fcc9bcd6fcd3",
+      "status": "active",
+      "description": "Ranh giới tương thích ngược cho client nhận format sự kiện luồng NDJSON v1 cũ.",
       "consumers": [
         "frontend.features.chat.utils.ndjsonParser"
+      ]
+    },
+    {
+      "schema_id": "huit.queue.job-input",
+      "version": "1.0.0",
+      "kind": "queue",
+      "file": "queue/job-input.v1.schema.json",
+      "frontend": false,
+      "sha256": "b8103762b285e67b5b275e6732aedfe1402826ee3c8f45049a019487fced9c07",
+      "status": "active",
+      "description": "Payload dữ liệu đầu vào đẩy vào hàng đợi công việc nền xử lý bất đồng bộ.",
+      "consumers": [
+        "backend.app.services.job_queue",
+        "backend.app.workers.artifact_worker"
+      ]
+    },
+    {
+      "schema_id": "huit.queue.job-result",
+      "version": "1.0.0",
+      "kind": "queue",
+      "file": "queue/job-result.v1.schema.json",
+      "frontend": false,
+      "sha256": "27884a0541c35192b504a96d95f16df373b8a3acb7eb1e5ef4d230308a3d2c4a",
+      "status": "active",
+      "description": "Payload kết quả trả về từ worker sau khi công việc hoàn tất thành công.",
+      "consumers": [
+        "backend.app.services.job_queue",
+        "backend.app.workers.artifact_worker"
+      ]
+    },
+    {
+      "schema_id": "huit.queue.job-error",
+      "version": "1.0.0",
+      "kind": "queue",
+      "file": "queue/job-error.v1.schema.json",
+      "frontend": false,
+      "sha256": "adc9dcfee87a29902f3bcd8f07464098b7ab4fca9e831bf139542a3fe2fc1d19",
+      "status": "active",
+      "description": "Cấu trúc lỗi chi tiết khi công việc trong hàng đợi thất bại.",
+      "consumers": [
+        "backend.app.services.job_queue",
+        "backend.app.workers.artifact_worker"
+      ]
+    },
+    {
+      "schema_id": "huit.queue.retry-metadata",
+      "version": "1.0.0",
+      "kind": "queue",
+      "file": "queue/retry-metadata.v1.schema.json",
+      "frontend": false,
+      "sha256": "4c012bc9a768fa648d81f68d59e787c32ec5788bc34f5bfaad1351c218bf55bf",
+      "status": "active",
+      "description": "Metadata theo dõi số lần thử lại và thời gian dãn cách lũy thừa (exponential backoff).",
+      "consumers": [
+        "backend.app.services.job_queue",
+        "backend.app.workers.artifact_worker"
+      ]
+    },
+    {
+      "schema_id": "huit.queue.dead-letter-metadata",
+      "version": "1.0.0",
+      "kind": "queue",
+      "file": "queue/dead-letter-metadata.v1.schema.json",
+      "frontend": false,
+      "sha256": "d88812b690f1e8d576b88ff8ee9f4df46a8d45defc784354d2676c06b84493ad",
+      "status": "planned",
+      "description": "Planned: Cấu trúc metadata dự phòng cho dead-letter queue khi triển khai kho lưu trữ chuyên biệt.",
+      "consumers": [
+        "backend.app.services.job_queue",
+        "backend.app.workers.artifact_worker"
       ]
     },
     {
@@ -52,6 +330,9 @@
       "kind": "mongodb",
       "file": "mongo/operation-audit.v1.schema.json",
       "frontend": false,
+      "sha256": "ace2c12409aea72d98d6d9dae852f1c2b2567522c65d5aaf4a4823527e1e9608",
+      "status": "active",
+      "description": "Schema validator MongoDB cho nhật ký kiểm toán hoạt động của Gateway (operation_audit).",
       "consumers": [
         "backend.app.models.mongo_models.MongoOperationAuditRecord",
         "backend.app.data_access.operation_gateway",
@@ -64,9 +345,181 @@
       "kind": "mongodb",
       "file": "mongo/schema-registry-record.v1.schema.json",
       "frontend": false,
+      "sha256": "3b1955f50313f1c5ac44d19381ecf978c6bdf812448bc410600138521f3e76ce",
+      "status": "active",
+      "description": "Schema validator MongoDB lưu trữ các bản sao lưu hợp đồng schema registry bất biến.",
       "consumers": [
         "scripts.migrations.022_backup_json_schema_registry",
         "mongodb.schema_registry"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.asset-record",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/asset-record.v1.schema.json",
+      "frontend": false,
+      "sha256": "14f74a4879326e7a76833c26a6a350ae02be0eb339b46e412e4800c506363efa",
+      "status": "active",
+      "description": "Schema validator MongoDB cho tập tin tài sản nhị phân vật lý trong collection assets.",
+      "consumers": [
+        "backend.app.models.mongo_models.MongoAssetRecord",
+        "mongodb.assets"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.artifact-record",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/artifact-record.v1.schema.json",
+      "frontend": false,
+      "sha256": "540087074414ce04b893373e31ac80a2e952490206d3a9f265ebb73167ec37bc",
+      "status": "active",
+      "description": "Schema validator MongoDB cho tài liệu artifact trong collection artifacts.",
+      "consumers": [
+        "backend.app.models.mongo_models.MongoArtifactRecord",
+        "mongodb.artifacts"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.job-record",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/job-record.v1.schema.json",
+      "frontend": false,
+      "sha256": "e303b768f5ed983b874f348a00ae487e9f00ec3d146cb5fd4fa79de0ec6b2be9",
+      "status": "active",
+      "description": "Schema validator MongoDB cho công việc nền trong collection jobs.",
+      "consumers": [
+        "backend.app.models.mongo_models.MongoJobRecord",
+        "mongodb.jobs"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.generated-image-record",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/generated-image-record.v1.schema.json",
+      "frontend": false,
+      "sha256": "5f3b5ef372d160128c75ed075a10fda0aacfdef712534cc1596933c7ccbbc12b",
+      "status": "active",
+      "description": "Schema validator MongoDB cho ảnh sinh (FLUX/SVG) trong collection generated_images.",
+      "consumers": [
+        "backend.app.models.mongo_models.MongoGeneratedImageRecord",
+        "mongodb.generated_images"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.admin-session-document",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/admin-session-document.v1.schema.json",
+      "frontend": false,
+      "sha256": "e5c06806f9d6827a29ca77cc835491976a91df2901295cebb27cbcd750d381bf",
+      "status": "active",
+      "description": "Schema validator MongoDB cho phiên quản trị viên trong collection admin_sessions.",
+      "consumers": [
+        "backend.app.models.mongo_models.AdminSessionDocument",
+        "mongodb.admin_sessions"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.query-cache-record",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/query-cache-record.v1.schema.json",
+      "frontend": false,
+      "sha256": "12dfb32ffff98d998f5d57edcc52d5d26737c1078564392557436d68227ac514",
+      "status": "active",
+      "description": "Schema validator MongoDB cho bộ nhớ đệm câu trả lời trong collection query_cache.",
+      "consumers": [
+        "backend.app.models.mongo_models.MongoQueryCacheRecord",
+        "mongodb.query_cache"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.rag-event-record",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/rag-event-record.v1.schema.json",
+      "frontend": false,
+      "sha256": "9068b7da81e000a5530478a888adcc21489b8bdb9bd2c2a01b4223e4206ebc87",
+      "status": "active",
+      "description": "Schema validator MongoDB cho nhật ký đo từ xa ẩn danh trong collection rag_events.",
+      "consumers": [
+        "backend.app.models.mongo_models.MongoRagEventRecord",
+        "mongodb.rag_events"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.admission-visual-record",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/admission-visual-record.v1.schema.json",
+      "frontend": false,
+      "sha256": "32916729decd55b92593416dbcfdf12ecc1ef3134b45b76adb08212bc40d170f",
+      "status": "active",
+      "description": "Schema validator MongoDB cho đồ họa thông tin tuyển sinh trong collection admission_visuals.",
+      "consumers": [
+        "backend.app.models.mongo_models.MongoAdmissionVisualRecord",
+        "mongodb.admission_visuals"
+      ]
+    },
+    {
+      "schema_id": "huit.mongo.huit-kb-record",
+      "version": "1.0.0",
+      "kind": "mongodb",
+      "file": "mongo/huit-kb-record.v1.schema.json",
+      "frontend": false,
+      "sha256": "66630c6a6a66da0a884689be4c8c5c8aef2f4782d24cd3398f09723c4683b7d0",
+      "status": "active",
+      "description": "Schema validator MongoDB cho tri thức tuyển sinh HUIT kèm vector 1024D trong huit_kb.",
+      "consumers": [
+        "backend.app.models.mongo_models.MongoHuitKbRecord",
+        "mongodb.huit_kb"
+      ]
+    },
+    {
+      "schema_id": "huit.decision.decision-request",
+      "version": "1.0.0",
+      "kind": "decision",
+      "file": "decision/decision-request.v1.schema.json",
+      "frontend": false,
+      "sha256": "60604e8727f1518bff77f4a1427424025d047e9068723a4368b7f4709121f22d",
+      "status": "deprecated",
+      "replaced_by": "huit.decision.decision-request@2.0.0",
+      "description": "Bản lịch sử v1; giữ nguyên checksum để tra cứu và kiểm toán.",
+      "consumers": [
+        "backend.app.contracts.schema_registry",
+        "scripts.migrations.022_backup_json_schema_registry"
+      ]
+    },
+    {
+      "schema_id": "huit.decision.decision-request",
+      "version": "2.0.0",
+      "kind": "decision",
+      "file": "decision/decision-request.v2.schema.json",
+      "frontend": false,
+      "sha256": "aa9510afa8814d20234a7020a006115e67b0ee66dda9b4bf87ab26e349cdafa0",
+      "status": "active",
+      "description": "Decision request v2: Score dùng 2–10 mức có thứ tự; criteria được kiểm tra theo loại câu hỏi.",
+      "consumers": [
+        "backend.app.decision_engine.contracts.DecisionRequest",
+        "backend.app.decision_engine.service"
+      ]
+    },
+    {
+      "schema_id": "huit.decision.decision-result",
+      "version": "1.0.0",
+      "kind": "decision",
+      "file": "decision/decision-result.v1.schema.json",
+      "frontend": false,
+      "sha256": "3034e8c4a30d8d4db270bacbd32f3cd6b1e6686333706926ccadb2344ad741d0",
+      "status": "active",
+      "description": "Schema hợp đồng kết quả trả về từ Decision Engine độc lập.",
+      "consumers": [
+        "backend.app.decision_engine.contracts.DecisionResult",
+        "backend.app.decision_engine.service"
       ]
     }
   ]

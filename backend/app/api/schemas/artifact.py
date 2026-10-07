@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Literal, Optional
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 ArtifactType = Literal["spreadsheet", "document", "image"]
+ArtifactStatus = Literal["planned", "rendering", "ready", "failed", "unavailable", "pending"]
 RenderQuality = Literal["preview", "standard", "high", "retina", "4k"]
 RenderStatus = Literal["pending", "rendering", "ready", "failed"]
 ExportFormat = Literal["xlsx", "docx", "pdf", "png", "svg", "webp"]
@@ -117,6 +118,9 @@ class ArtifactSummary(BaseModel):
     checksum: Optional[str] = Field(default=None, description="Mã SHA-256 xác thực nếu có")
     preview_bytes: Optional[int] = Field(default=None, description="Dung lượng preview tính bằng byte")
     chart_type: Optional[str] = Field(default=None)
+    status: Optional[ArtifactStatus] = Field(default=None, description="Trạng thái render")
+    owner_id: Optional[str] = Field(default=None, description="User ID hoặc Session ID sở hữu")
+    error_message: Optional[str] = Field(default=None, description="Thông báo lỗi nếu thất bại")
 
     def to_stream_dict(self) -> Dict[str, Any]:
         return self.model_dump(exclude_none=True)
@@ -144,7 +148,8 @@ class ArtifactExportRequest(BaseModel):
 
 class JobStatusResponse(BaseModel):
     job_id: str = Field(...)
-    status: Literal["queued", "processing", "completed", "failed", "cancelled"] = Field(...)
+    action: Optional[str] = Field(default=None, description="Tên tác vụ nền")
+    status: Literal["queued", "processing", "completed", "failed", "cancelled", "pending"] = Field(...)
 
     progress: int = Field(default=0, ge=0, le=100)
     artifact_id: Optional[str] = Field(default=None)
@@ -152,7 +157,20 @@ class JobStatusResponse(BaseModel):
     download_url: Optional[str] = Field(default=None)
     check_status_url: Optional[str] = Field(default=None)
     media_type: Optional[str] = Field(default=None)
-    error: Optional[Dict[str, Any]] = Field(default=None)
+    error: Optional[Any] = Field(default=None)
     created_at: Optional[str] = Field(default=None)
     updated_at: Optional[str] = Field(default=None)
+
+
+class JobAcceptedResponse(BaseModel):
+    """Phản hồi HTTP 202 chuẩn khi tác vụ nền được tiếp nhận vào hàng đợi (huit.api.job-accepted-response@1.0.0)."""
+    job_id: str = Field(..., min_length=8, max_length=64, description="Mã định danh duy nhất của tác vụ nền")
+    status: Literal["queued"] = Field(..., description="Trạng thái tiếp nhận hàng đợi")
+    artifact_id: Optional[str] = Field(default=None, max_length=64, description="Mã định danh artifact liên kết")
+    action: Optional[Literal["render", "export", "upscale"]] = Field(default=None, description="Hành động của tác vụ")
+    format: Optional[Literal["xlsx", "docx", "pdf", "png", "svg", "webp", "html", "csv", "json"]] = Field(
+        default=None, description="Định dạng tệp đầu ra"
+    )
+    scale: Optional[int] = Field(default=None, ge=1, le=4, description="Hệ số scale hình ảnh")
+    check_status_url: str = Field(..., min_length=1, max_length=256, description="Đường dẫn thăm dò trạng thái công việc")
 

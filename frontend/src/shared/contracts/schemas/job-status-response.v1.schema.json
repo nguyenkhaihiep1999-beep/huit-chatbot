@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:job-status-response:1.0.0",
+  "title": "HUIT background job status response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["job_id", "status"],
+  "properties": {
+    "job_id": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "action": {
+      "anyOf": [{ "type": "string", "maxLength": 64 }, { "type": "null" }],
+      "default": null
+    },
+    "status": { "enum": ["queued", "pending", "processing", "completed", "failed", "cancelled"] },
+    "progress": { "type": "integer", "minimum": 0, "maximum": 100, "default": 0 },
+    "artifact_id": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "result_url": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "download_url": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "check_status_url": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "media_type": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "error": {
+      "anyOf": [{ "type": "object" }, { "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "created_at": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "updated_at": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    }
+  }
+}

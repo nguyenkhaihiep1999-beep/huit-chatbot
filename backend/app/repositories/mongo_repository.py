@@ -204,6 +204,19 @@ class MongoRepository:
         results.append(cls._create_single_index(cls._db["operation_audit"], [("request_id", 1)], sparse=True))
         results.append(cls._create_single_index(cls._db["operation_audit"], [("status", 1), ("created_at", -1)]))
         results.append(cls._create_single_index(cls._db["operation_audit"], [("principal_id", 1), ("created_at", -1)]))
+        # Safety net for older workers that still audit empty job-queue polls.
+        # Real claims and failed claims do not match this partial TTL filter.
+        results.append(cls._create_single_index(
+            cls._db["operation_audit"],
+            [("created_at", 1)],
+            name="ttl_noop_atomic_claim_5m",
+            expireAfterSeconds=300,
+            partialFilterExpression={
+                "operation_key": "jobs.atomic_claim",
+                "status": "success",
+                "output_bytes": 31,
+            },
+        ))
 
         # Tổng kết trạng thái
         failed_count = sum(1 for r in results if r["status"] in ("duplicate_key_error", "options_conflict", "unauthorized", "timeout", "operation_failed", "unknown_error"))

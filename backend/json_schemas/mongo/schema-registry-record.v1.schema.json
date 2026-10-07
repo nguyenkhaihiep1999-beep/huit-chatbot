@@ -18,7 +18,7 @@
       "_id": { "bsonType": "objectId" },
       "schema_id": { "bsonType": "string", "minLength": 1, "maxLength": 160 },
       "schema_version": { "bsonType": "string", "minLength": 1, "maxLength": 32 },
-      "kind": { "enum": ["api", "stream", "mongodb"] },
+      "kind": { "enum": ["api", "stream", "mongodb", "queue"] },
       "file": { "bsonType": "string", "minLength": 1, "maxLength": 255 },
       "sha256": { "bsonType": "string", "pattern": "^[a-f0-9]{64}$" },
       "schema_document": { "bsonType": "object" },

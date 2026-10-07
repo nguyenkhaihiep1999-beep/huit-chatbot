@@ -1,0 +1,52 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "asset_id",
+      "content_hash",
+      "media_type",
+      "file_ext",
+      "storage_key",
+      "file_size",
+      "renderer_version",
+      "created_at"
+    ],
+    "properties": {
+      "_id": { "bsonType": ["string", "objectId"] },
+      "schema_version": { "bsonType": "int", "minimum": 1 },
+      "asset_id": {
+        "bsonType": "string",
+        "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+      },
+      "content_hash": {
+        "bsonType": "string",
+        "pattern": "^[a-zA-Z0-9_\\-\\.:]{4,128}$"
+      },
+      "checksum": { "bsonType": ["string", "null"] },
+      "media_type": { "bsonType": "string" },
+      "file_ext": { "bsonType": "string", "maxLength": 10 },
+      "storage_key": {
+        "bsonType": "string",
+        "pattern": "^$|^[^/\\\\\\.\\.][a-zA-Z0-9_\\-\\.]+$"
+      },
+      "file_size": {
+        "bsonType": "int",
+        "minimum": 0,
+        "maximum": 52428800
+      },
+      "preview_key": { "bsonType": ["string", "null"] },
+      "manifest": { "bsonType": ["object", "null"] },
+      "width": { "bsonType": ["int", "null"] },
+      "height": { "bsonType": ["int", "null"] },
+      "duration": { "bsonType": ["double", "int", "null"] },
+      "scale": { "bsonType": ["int", "null"] },
+      "reference_count": { "bsonType": "int", "minimum": 1 },
+      "renderer_version": { "bsonType": "string" },
+      "source_asset_id": { "bsonType": ["string", "null"] },
+      "owner_id": { "bsonType": ["string", "null"] },
+      "created_at": { "bsonType": "date" },
+      "last_accessed_at": { "bsonType": "date" },
+      "is_archived_duplicate": { "bsonType": ["bool", "null"] }
+    }
+  }
+}

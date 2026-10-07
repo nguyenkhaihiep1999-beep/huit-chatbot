@@ -11,16 +11,30 @@ from functools import lru_cache
 import hashlib
 import json
 from pathlib import Path
-from typing import Any, Dict, Iterable
+import re
+from typing import Any, Dict, Iterable, Optional
+import jsonschema
 
 
 SCHEMA_ROOT = Path(__file__).resolve().parents[2] / "json_schemas"
 REGISTRY_FILE = SCHEMA_ROOT / "registry.json"
-SUPPORTED_KINDS = {"api", "stream", "mongodb"}
+SUPPORTED_KINDS = {"api", "stream", "mongodb", "queue", "decision"}
+VALID_STATUSES = {"active", "deprecated", "planned"}
+SHA256_PATTERN = re.compile(r"^[a-f0-9]{64}$")
 
 
 class SchemaRegistryError(RuntimeError):
     """Raised when the canonical registry is missing, unsafe, or inconsistent."""
+
+
+def clear_registry_cache() -> None:
+    """Clear lru caches for manifest, loaded schemas, and compiled validators."""
+    if hasattr(_manifest, "cache_clear"):
+        _manifest.cache_clear()
+    if hasattr(_load_schema_cached, "cache_clear"):
+        _load_schema_cached.cache_clear()
+    if hasattr(get_compiled_validator, "cache_clear"):
+        get_compiled_validator.cache_clear()
 
 
 @lru_cache(maxsize=1)
@@ -29,7 +43,7 @@ def _manifest() -> Dict[str, Any]:
         raw = json.loads(REGISTRY_FILE.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise SchemaRegistryError("Cannot load canonical JSON Schema registry") from exc
-    if raw.get("registry_version") != 1 or not isinstance(raw.get("contracts"), list):
+    if not isinstance(raw, dict) or raw.get("registry_version") != 1 or not isinstance(raw.get("contracts"), list):
         raise SchemaRegistryError("Unsupported or malformed JSON Schema registry manifest")
     return raw
 
@@ -51,24 +65,47 @@ def iter_schema_entries(*, frontend_only: bool = False) -> Iterable[Dict[str, An
     for item in _manifest()["contracts"]:
         if not isinstance(item, dict):
             raise SchemaRegistryError("Every registry contract must be an object")
-        required = {"schema_id", "version", "kind", "file", "frontend", "consumers"}
+        required = {"schema_id", "version", "kind", "file", "frontend", "sha256", "consumers"}
         if not required.issubset(item):
             raise SchemaRegistryError(f"Registry entry is missing fields: {sorted(required - set(item))}")
+
         key = (item["schema_id"], item["version"])
         if key in seen:
             raise SchemaRegistryError(f"Duplicate schema identity: {key}")
         seen.add(key)
+
         if item["kind"] not in SUPPORTED_KINDS:
             raise SchemaRegistryError(f"Unsupported schema kind: {item['kind']}")
+
+        if not isinstance(item["frontend"], bool):
+            raise SchemaRegistryError(f"Schema 'frontend' flag must be boolean: {item['schema_id']}")
+
+        if not isinstance(item["sha256"], str) or not SHA256_PATTERN.fullmatch(item["sha256"]):
+            raise SchemaRegistryError(f"Invalid sha256 semantic checksum: {item['schema_id']}@{item['version']}")
+
         if not isinstance(item["consumers"], list) or not item["consumers"]:
             raise SchemaRegistryError(f"Schema has no declared consumers: {item['schema_id']}")
+
+        status = item.get("status", "active")
+        if status not in VALID_STATUSES:
+            raise SchemaRegistryError(f"Invalid contract status '{status}': {item['schema_id']}")
+
+        if "deprecated" in item and not isinstance(item["deprecated"], bool):
+            raise SchemaRegistryError(f"Field 'deprecated' must be boolean: {item['schema_id']}")
+
+        if "replaced_by" in item and not isinstance(item["replaced_by"], str):
+            raise SchemaRegistryError(f"Field 'replaced_by' must be string: {item['schema_id']}")
+
+        if "description" in item and not isinstance(item["description"], str):
+            raise SchemaRegistryError(f"Field 'description' must be string: {item['schema_id']}")
+
         _safe_schema_path(item["file"])
         if frontend_only and not item["frontend"]:
             continue
         yield deepcopy(item)
 
 
-@lru_cache(maxsize=32)
+@lru_cache(maxsize=64)
 def _load_schema_cached(schema_id: str, version: str) -> Dict[str, Any]:
     matches = [
         entry
@@ -88,13 +125,38 @@ def _load_schema_cached(schema_id: str, version: str) -> Dict[str, Any]:
         if "$jsonSchema" not in document:
             raise SchemaRegistryError(f"MongoDB schema lacks $jsonSchema: {schema_id}@{version}")
     elif document.get("$schema") != "https://json-schema.org/draft/2020-12/schema":
-        raise SchemaRegistryError(f"API/stream schema is not draft 2020-12: {schema_id}@{version}")
+        raise SchemaRegistryError(f"API/stream/queue schema is not draft 2020-12: {schema_id}@{version}")
     return document
 
 
 def load_schema(schema_id: str, version: str) -> Dict[str, Any]:
     """Return a defensive copy so callers cannot mutate the cached contract."""
     return deepcopy(_load_schema_cached(schema_id, version))
+
+
+def get_schema_entry(schema_id: str, version: str) -> Optional[Dict[str, Any]]:
+    """Retrieve metadata entry from registry for a specific schema_id and version."""
+    for entry in iter_schema_entries():
+        if entry["schema_id"] == schema_id and entry["version"] == version:
+            return deepcopy(entry)
+    return None
+
+
+@lru_cache(maxsize=64)
+def get_compiled_validator(schema_id: str, version: str) -> jsonschema.Draft202012Validator:
+    """Return a cached, pre-compiled Draft202012Validator instance.
+
+    Compiled once in memory, avoiding redundant schema loads or validator
+    recompilations on hot paths.
+    """
+    schema = _load_schema_cached(schema_id, version)
+    return jsonschema.Draft202012Validator(schema)
+
+
+def validate_contract(schema_id: str, version: str, data: Any) -> None:
+    """Validate data against pre-compiled validator in memory without disk read."""
+    validator = get_compiled_validator(schema_id, version)
+    validator.validate(data)
 
 
 def schema_sha256(schema_id: str, version: str) -> str:
@@ -106,3 +168,27 @@ def schema_sha256(schema_id: str, version: str) -> str:
         separators=(",", ":"),
     ).encode("utf-8")
     return hashlib.sha256(canonical).hexdigest()
+
+
+def verify_schema_checksum(schema_id: str, version: str) -> bool:
+    """Fail-fast verification that the declared sha256 matches the actual schema document."""
+    matches = [
+        entry
+        for entry in iter_schema_entries()
+        if entry["schema_id"] == schema_id and entry["version"] == version
+    ]
+    if len(matches) != 1:
+        raise SchemaRegistryError(f"Unknown canonical schema: {schema_id}@{version}")
+    declared = matches[0]["sha256"]
+    computed = schema_sha256(schema_id, version)
+    if declared != computed:
+        raise SchemaRegistryError(
+            f"Checksum mismatch for {schema_id}@{version}: declared {declared} != computed {computed}"
+        )
+    return True
+
+
+def verify_all_registry_checksums() -> None:
+    """Verify semantic checksums for all contracts in the registry."""
+    for entry in iter_schema_entries():
+        verify_schema_checksum(entry["schema_id"], entry["version"])

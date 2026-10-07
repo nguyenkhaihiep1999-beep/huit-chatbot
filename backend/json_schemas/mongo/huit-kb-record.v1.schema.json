@@ -1,0 +1,35 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": ["title", "text", "source_url", "category", "embedding"],
+    "properties": {
+      "_id": { "bsonType": ["string", "objectId"] },
+      "schema_version": { "bsonType": "int", "minimum": 1 },
+      "title": { "bsonType": "string", "minLength": 1 },
+      "text": { "bsonType": "string", "minLength": 1 },
+      "source_url": { "bsonType": "string", "minLength": 1 },
+      "category": { "bsonType": "string", "minLength": 1 },
+      "embedding": {
+        "bsonType": "array",
+        "minItems": 1024,
+        "maxItems": 1024,
+        "items": { "bsonType": ["double", "int"] }
+      },
+      "raw_text": { "bsonType": ["string", "null"] },
+      "page_title": { "bsonType": ["string", "null"] },
+      "source_domain": { "bsonType": ["string", "null"] },
+      "official": { "bsonType": ["bool", "null"] },
+      "retrieved_at": { "bsonType": ["date", "null"] },
+      "updated_at": { "bsonType": ["date", "null"] },
+      "created_at": { "bsonType": ["date", "null"] },
+      "verification_status": { "bsonType": ["string", "null"] },
+      "major_code": { "bsonType": ["string", "null"] },
+      "year": { "bsonType": ["int", "null"] },
+      "visual_id": { "bsonType": ["string", "null"] },
+      "chunk_hash": { "bsonType": ["string", "null"] },
+      "url": { "bsonType": ["string", "null"] },
+      "date": { "bsonType": ["string", "null"] },
+      "cluster_id": { "bsonType": ["int", "null"] }
+    }
+  }
+}

@@ -2,7 +2,13 @@
 .github
 .env
 .env.*
-!.env.example
+**/.env
+**/.env.*
+backend/.env
+backend/.env.*
+**/credentials*.json
+**/service_account*.json
+!**/.env.example
 .pytest_cache
 .pytest_temp
 .testdeps

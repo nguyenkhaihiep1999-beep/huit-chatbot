@@ -41,12 +41,12 @@ export const ChatMessageItem: React.FC<ChatMessageItemProps> = React.memo(
       if (message.visual) {
         return {
           artifact_id: message.visual.artifact_id || message.visual.visual_id,
-          type: message.visual.type || 'chart',
+          type: (message.visual.type === 'document' || message.visual.type === 'image') ? message.visual.type : 'spreadsheet',
           title: message.visual.title || 'Đồ họa & Dữ liệu Tuyển sinh HUIT',
           preview_url: message.visual.svg_url,
           manifest_url: message.visual.json_url,
-          available_formats: message.visual.available_formats || ['svg', 'png', 'pdf', 'xlsx', 'docx'],
-          status: message.visual.status || 'ready',
+          available_formats: (message.visual.available_formats as ArtifactSummary['available_formats']) || ['svg', 'png', 'pdf', 'xlsx', 'docx'],
+          status: (message.visual.status as ArtifactSummary['status']) || 'ready',
         };
       }
       return null;
@@ -121,7 +121,7 @@ export const ChatMessageItem: React.FC<ChatMessageItemProps> = React.memo(
                           png_url: '',
                           json_url: artifactData.manifest_url || '',
                           available_formats: artifactData.available_formats,
-                          status: artifactData.status,
+                          status: artifactData.status || undefined,
                         })
                     : undefined
                 }

@@ -27,6 +27,7 @@ from backend.app.data_access.operation_gateway import (
     execute_registered_operation,
     get_operation,
     register_operation,
+    _should_audit,
 )
 
 
@@ -559,6 +560,18 @@ def test_audit_policy_and_fail_policy():
                 checksum=spec_fail_closed.checksum,
                 parameters={"query_text": "valid", "limit": 5},
             )
+
+
+def test_atomic_claim_noop_is_not_audited_but_real_claim_and_failure_are():
+    """Polling không có job không được làm phình operation_audit."""
+    spec = MagicMock()
+    spec.key = "jobs.atomic_claim"
+    spec.audit_policy = "always"
+    spec.operation_type = "command"
+
+    assert _should_audit(spec, "success", {"claimed": False, "job": None}) is False
+    assert _should_audit(spec, "success", {"claimed": True, "job": {"job_id": "masked"}}) is True
+    assert _should_audit(spec, "failed", None) is True
 
 
 # ==============================================================================

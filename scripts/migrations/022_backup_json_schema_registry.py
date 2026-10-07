@@ -124,6 +124,20 @@ def run_migration(
 
         for document in documents:
             created_at = document.pop("created_at")
+            existing = collection.find_one(
+                {
+                    "schema_id": document["schema_id"],
+                    "schema_version": document["schema_version"],
+                },
+                {"sha256": 1},
+            )
+            if existing and existing.get("sha256") != document["sha256"]:
+                raise RuntimeError(
+                    f"Refusing to overwrite existing schema version {document['schema_id']}@{document['schema_version']}: "
+                    f"stored checksum {existing.get('sha256')} differs from incoming {document['sha256']}. "
+                    "Breaking changes must bump version."
+                )
+
             collection.update_one(
                 {
                     "schema_id": document["schema_id"],

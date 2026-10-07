@@ -1,0 +1,37 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": ["visual_id", "major_code", "category", "title"],
+    "properties": {
+      "_id": { "bsonType": ["string", "objectId"] },
+      "schema_version": { "bsonType": "int", "minimum": 1 },
+      "visual_id": {
+        "bsonType": "string",
+        "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+      },
+      "major_code": { "bsonType": "string", "maxLength": 20 },
+      "category": { "bsonType": "string", "maxLength": 50 },
+      "title": { "bsonType": "string", "maxLength": 200 },
+      "faculty": { "bsonType": ["string", "null"] },
+      "duration": { "bsonType": ["string", "null"] },
+      "tuition": { "bsonType": ["string", "null"] },
+      "subject_combinations": {
+        "bsonType": "array",
+        "items": { "bsonType": "string" }
+      },
+      "career_highlights": {
+        "bsonType": "array",
+        "items": { "bsonType": "string" }
+      },
+      "cutoff_boxes": {
+        "bsonType": "array",
+        "items": { "bsonType": "object" }
+      },
+      "scholarship_highlight": { "bsonType": ["string", "null"] },
+      "source_url": { "bsonType": ["string", "null"] },
+      "type": { "bsonType": "string" },
+      "storage_key": { "bsonType": ["string", "null"] },
+      "created_at": { "bsonType": "date" }
+    }
+  }
+}

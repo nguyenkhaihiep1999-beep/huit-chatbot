@@ -39,16 +39,7 @@ from backend.app.models.mongo_models import (
     Polygon,
     Scene,
 )
-
-
-class ImageRequest(BaseModel):
-    prompt: str = Field(min_length=1, max_length=800)
-    width: int = Field(default=512, ge=128, le=1024)
-    height: int = Field(default=512, ge=128, le=1024)
-    max_json_kb: int = Field(default=12, ge=2, le=24)
-    style: Optional[str] = Field(default="photorealistic")
-    backend: Literal["flux", "svg"] = Field(default="flux")
-    regenerate: bool = Field(default=False, description="Cờ bắt buộc tạo ảnh mới với seed khác, bỏ qua deduplication")
+from backend.app.api.schemas.image import ImageRequest, ImageCreateRequest, ImageResult
 
 
 def translate_prompt_to_english(prompt: str) -> str:
@@ -564,6 +555,7 @@ def create_image(req: ImageRequest, owner_id: Optional[str] = None):
             "checksum": physical_hash,
             "request_fingerprint": request_fingerprint_val,
             "billing": "free",
+            "cached": False,
             "access_scope": access_scope,
             "owner_id": clean_owner
         }
@@ -636,6 +628,7 @@ def create_image(req: ImageRequest, owner_id: Optional[str] = None):
         "checksum": physical_hash,
         "request_fingerprint": request_fingerprint_val,
         "billing": "free",
+        "cached": False,
         "access_scope": access_scope,
         "owner_id": clean_owner
     }

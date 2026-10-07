@@ -1,5 +1,13 @@
 import { JobStatusResponse, ArtifactSummary } from '../../../shared/types/common.types';
 import { apiClient } from '../../../shared/api/httpClient';
+import {
+  parseArtifactManifest,
+  parseArtifactSummary,
+  assertArtifactExportRequest,
+  assertArtifactUpscaleRequest,
+  parseJobStatusResponse,
+  parseJobAcceptedResponse,
+} from '../../../shared/contracts';
 
 export const API_BASE = '';
 
@@ -29,17 +37,19 @@ export async function fetchArtifactSummary(artifactId: string): Promise<Artifact
     throw new Error(`HTTP ${res.status}: Không thể tải thông tin artifact`);
   }
 
-  const manifest = await res.json();
-  return {
+  const rawManifest = await res.json();
+  const manifest = parseArtifactManifest(rawManifest);
+  const summary: ArtifactSummary = {
     artifact_id: manifest.artifact_id || artifactId,
-    type: manifest.type || 'document',
-    title: manifest.title || 'Tài liệu tuyển sinh HUIT',
+    type: manifest.type,
+    title: manifest.title,
     preview_url: manifest.preview?.url || getArtifactPreviewUrl(artifactId),
     manifest_url: `/api/artifacts/${encodeURIComponent(artifactId)}/manifest`,
     available_formats: manifest.export_options || ['xlsx', 'docx', 'pdf', 'png', 'svg'],
     status: manifest.render?.status || 'ready',
     owner_id: manifest.owner_id,
   };
+  return parseArtifactSummary(summary);
 }
 
 /**
@@ -60,6 +70,8 @@ export async function requestArtifactExport(
     throw new Error('Định dạng âm thanh/video chưa được hệ thống hỗ trợ.');
   }
 
+  assertArtifactExportRequest({ format: cleanFmt as 'xlsx' | 'docx' | 'pdf' | 'png' | 'svg' | 'webp' });
+
   const endpoint = `${API_BASE}/api/artifacts/${encodeURIComponent(artifactId)}/export?format=${cleanFmt}`;
   const res = await apiClient(endpoint, {
     method: 'POST',
@@ -76,15 +88,13 @@ export async function requestArtifactExport(
   }
 
   const data = await res.json();
-  if (!data.job_id) {
-    throw new Error('Không nhận được job_id từ máy chủ.');
-  }
+  const accepted = parseJobAcceptedResponse(data);
 
   return {
     success: true,
-    job_id: data.job_id,
-    status: data.status || 'queued',
-    check_status_url: data.check_status_url,
+    job_id: accepted.job_id,
+    status: accepted.status,
+    check_status_url: accepted.check_status_url,
   };
 }
 
@@ -118,6 +128,8 @@ export async function downloadArtifactExport(
     throw new Error('Định dạng âm thanh/video chưa được hệ thống hỗ trợ.');
   }
 
+  assertArtifactExportRequest({ format: cleanFmt as 'xlsx' | 'docx' | 'pdf' | 'png' | 'svg' | 'webp' });
+
   const endpoint = `${API_BASE}/api/artifacts/${encodeURIComponent(artifactId)}/export?format=${cleanFmt}`;
   const res = await apiClient(endpoint, {
     method: 'POST',
@@ -137,14 +149,8 @@ export async function downloadArtifactExport(
 
   if (contentType.includes('application/json')) {
     const data = await res.json();
-    if (data.job_id) {
-      // TUYỆT ĐỐI KHÔNG coi job_id là url! Trả về job_id để hook thực hiện polling
-      return { success: true, job_id: data.job_id };
-    }
-    if (data.download_url) {
-      triggerFileDownload(data.download_url, filename || `${artifactId}.${cleanFmt}`);
-      return { success: true, url: data.download_url };
-    }
+    const accepted = parseJobAcceptedResponse(data);
+    return { success: true, job_id: accepted.job_id };
   }
 
   const blob = await res.blob();
@@ -167,6 +173,7 @@ export async function requestArtifactUpscale(
   artifactId: string,
   scale: number
 ): Promise<{ success: boolean; job_id?: string; url?: string }> {
+  assertArtifactUpscaleRequest({ scale });
   const res = await apiClient(`${API_BASE}/api/artifacts/${encodeURIComponent(artifactId)}/upscale`, {
     method: 'POST',
     headers: {
@@ -182,10 +189,10 @@ export async function requestArtifactUpscale(
   }
 
   const data = await res.json();
+  const accepted = parseJobAcceptedResponse(data);
   return {
     success: true,
-    job_id: data.job_id,
-    url: data.result_url || data.url || undefined,
+    job_id: accepted.job_id,
   };
 }
 
@@ -201,7 +208,8 @@ export async function fetchJobStatus(jobId: string): Promise<JobStatusResponse> 
     throw new Error(`HTTP ${res.status}: Không thể kiểm tra trạng thái tác vụ`);
   }
 
-  return res.json();
+  const rawData = await res.json();
+  return parseJobStatusResponse(rawData);
 }
 
 /**

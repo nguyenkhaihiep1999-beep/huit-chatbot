@@ -488,10 +488,23 @@ def _sanitize_and_check_payload(obj: Any, path: str = "", context: str = "kết 
     return obj
 
 
-def _should_audit(spec: OperationSpec, status: str) -> bool:
+def _should_audit(spec: OperationSpec, status: str, result: Any = None) -> bool:
     policy = spec.audit_policy
     if policy == "never":
         return False
+
+    # Worker polling calls jobs.atomic_claim continuously even when no job is
+    # available. Those successful no-op results do not represent a state
+    # change and previously generated tens of thousands of redundant audit
+    # documents per day. Preserve audits for real claims and every failure.
+    if spec.key == "jobs.atomic_claim" and status == "success":
+        if isinstance(result, Mapping):
+            claimed = result.get("claimed")
+        else:
+            claimed = getattr(result, "claimed", None)
+        if claimed is False:
+            return False
+
     if policy == "always":
         return True
     if policy == "failures_only":
@@ -511,9 +524,10 @@ def _write_audit(
     output_bytes: int,
     parameter_hash: str,
     error_type: Optional[str] = None,
+    result: Any = None,
     session: Optional[Any] = None,
 ) -> None:
-    if not _should_audit(spec, status):
+    if not _should_audit(spec, status, result):
         return
 
     # Strictly log only bounded metadata, SHA-256 parameter hash and class name in error_type.
@@ -648,6 +662,7 @@ def execute_registered_operation(
     status = "failed"
     output_bytes = 0
     error_type: Optional[str] = None
+    final_result: Any = None
 
     is_mutation = spec.operation_type != "read" and spec.mutation_policy != "none"
     use_transaction = (spec.audit_fail_policy == "fail_closed" and is_mutation)
@@ -696,6 +711,7 @@ def execute_registered_operation(
                     output_bytes=output_bytes,
                     parameter_hash=parameter_hash,
                     error_type=None,
+                    result=final_result,
                     session=session,
                 )
                 # Successful exit from with session.start_transaction() commits the transaction!
@@ -768,6 +784,7 @@ def execute_registered_operation(
                 output_bytes=output_bytes,
                 parameter_hash=parameter_hash,
                 error_type=error_type,
+                result=final_result,
                 session=None,
             )
 

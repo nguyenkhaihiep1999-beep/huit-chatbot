@@ -284,14 +284,16 @@ export function useChatStream({
                 } else if (chunk.type === 'artifact' || chunk.type === 'artifact_planned') {
                   // Lập tức hiển thị thẻ artifact dự kiến cho người dùng
                   const plannedId = payload.artifact_id || 'planned_artifact';
+                  const rawType = String(payload.type || payload.artifact_type || payload.file_type || '');
+                  const resolvedType: ArtifactSummary['type'] = (rawType === 'document' || rawType === 'image') ? rawType : 'spreadsheet';
                   const summary: ArtifactSummary = {
                     artifact_id: plannedId,
-                    type: payload.type || payload.artifact_type || payload.file_type || 'chart',
+                    type: resolvedType,
                     title: payload.title || 'Biểu đồ Tuyển sinh & Học phí',
                     preview_url: payload.preview_url || '',
                     manifest_url: payload.manifest_url || '',
                     available_formats: payload.available_formats || ['svg', 'png', 'pdf', 'xlsx', 'docx'],
-                    status: (payload.status as 'planned' | 'ready') || 'planned',
+                    status: (payload.status as ArtifactSummary['status']) || 'planned',
                   };
                   newCtx.currentAiMsg.artifact = summary;
                   if (!newCtx.currentAiMsg.visual) {

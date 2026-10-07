@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:artifact-plan-request:1.0.0",
+  "title": "HUIT artifact planning request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["prompt"],
+  "properties": {
+    "prompt": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "type": {
+      "anyOf": [
+        { "enum": ["spreadsheet", "document", "image"] },
+        { "type": "null" }
+      ],
+      "default": null
+    },
+    "template_id": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "content": {
+      "anyOf": [{ "type": "object" }, { "type": "null" }],
+      "default": null
+    },
+    "user_id": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "session_id": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    }
+  }
+}

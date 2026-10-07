@@ -29,6 +29,8 @@ function sanitizeMessageForStorage(msg: ChatMessage): ChatMessage {
       artifact_id: msg.artifact.artifact_id,
       type: msg.artifact.type,
       title: msg.artifact.title,
+      preview_url: msg.artifact.preview_url || '',
+      manifest_url: msg.artifact.manifest_url || '',
       status: msg.artifact.status,
       available_formats: msg.artifact.available_formats,
       error_message: msg.artifact.error_message,
@@ -59,8 +61,8 @@ function sanitizeLegacyMessageForDisplay(msg: ChatMessage): ChatMessage {
   if (msg.artifact) {
     next.artifact = {
       ...msg.artifact,
-      preview_url: undefined,
-      manifest_url: undefined,
+      preview_url: undefined as unknown as string,
+      manifest_url: undefined as unknown as string,
       owner_id: null,
       status: 'unavailable',
       error_message: LEGACY_RESOURCE_MESSAGE,

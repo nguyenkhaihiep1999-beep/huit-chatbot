@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN groupadd -r appgroup && useradd -r -g appgroup -d /app appuser
+RUN groupadd -r -g 10001 appgroup && useradd -r -u 10001 -g appgroup -d /app appuser
 
 COPY backend /app/backend
 COPY scripts /app/scripts

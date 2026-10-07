@@ -1,3 +1,22 @@
+import type {
+  ArtifactSummaryContract,
+  JobStatusResponseContract,
+  ImageResultContract,
+  AdminLoginRequestContract,
+  AdminLoginResponseContract,
+  AdminSessionResponseContract,
+  ArtifactManifestContract,
+  ArtifactPlanRequestContract,
+  ArtifactRenderRequestContract,
+  ArtifactUpscaleRequestContract,
+  ArtifactExportRequestContract,
+  ImageCreateRequestContract,
+  ApiErrorResponseContract,
+  SessionBootstrapContract,
+  ChatRequestContract,
+  CanonicalChatStreamEvent,
+} from '../contracts';
+
 export type ThemeMode = 'light' | 'dark';
 
 export interface SourceCitation {
@@ -15,18 +34,29 @@ export interface TraceStep {
   status: 'success' | 'warning' | 'error' | 'pending';
 }
 
-export interface ArtifactSummary {
-  artifact_id: string;
-  type: 'spreadsheet' | 'document' | 'chart' | 'image' | 'infographic' | string;
-  title: string;
-  preview_url?: string;
-  manifest_url?: string;
-  available_formats?: string[];
-  preview_bytes?: number;
-  status?: 'planned' | 'rendering' | 'ready' | 'failed' | 'unavailable';
-  error_message?: string;
-  owner_id?: string | null;
-}
+export type ArtifactType = 'spreadsheet' | 'document' | 'image';
+export type ExportFormat = 'xlsx' | 'docx' | 'pdf' | 'png' | 'svg' | 'webp';
+export type ArtifactStatus = 'planned' | 'rendering' | 'ready' | 'failed' | 'unavailable' | 'pending';
+export type JobStatus = 'queued' | 'pending' | 'processing' | 'completed' | 'failed' | 'cancelled';
+export type ImageAccessScope = 'public' | 'private' | 'legacy_public';
+
+export type ArtifactSummary = ArtifactSummaryContract;
+export type JobStatusResponse = JobStatusResponseContract;
+export type ImageResult = ImageResultContract;
+export type AdminLoginRequest = AdminLoginRequestContract;
+export type AdminLoginResponse = AdminLoginResponseContract;
+export type AdminSessionResponse = AdminSessionResponseContract;
+
+export type ArtifactManifest = ArtifactManifestContract;
+export type ArtifactPlanRequest = ArtifactPlanRequestContract;
+export type ArtifactRenderRequest = ArtifactRenderRequestContract;
+export type ArtifactUpscaleRequest = ArtifactUpscaleRequestContract;
+export type ArtifactExportRequest = ArtifactExportRequestContract;
+export type ImageCreateRequest = ImageCreateRequestContract;
+export type ApiErrorResponse = ApiErrorResponseContract;
+export type SessionBootstrapResponse = SessionBootstrapContract;
+export type ChatRequest = ChatRequestContract;
+export type ChatStreamEvent = CanonicalChatStreamEvent;
 
 export interface VisualMetadata {
   visual_id: string;
@@ -40,7 +70,7 @@ export interface VisualMetadata {
   pdf_url?: string;
   json_url: string;
   available_formats?: string[];
-  status?: 'planned' | 'rendering' | 'ready' | 'failed' | 'unavailable';
+  status?: ArtifactStatus;
   error_message?: string;
 }
 
@@ -50,17 +80,6 @@ export interface AppError {
   status?: number;
   retryAfterSeconds?: number;
   canRetry?: boolean;
-}
-
-export interface JobStatusResponse {
-  job_id: string;
-  action: string;
-  status: 'queued' | 'pending' | 'processing' | 'completed' | 'failed' | 'cancelled';
-  progress?: number;
-  result_url?: string | null;
-  download_url?: string | null;
-  error?: string | null;
-  error_code?: string | null;
 }
 
 export interface ChatMessage {

@@ -21,7 +21,13 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "erasableSyntaxOnly": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "paths": {
+      "@hooks": ["./hooks/index.ts"],
+      "@hooks/*": ["./hooks/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "hooks"]
 }

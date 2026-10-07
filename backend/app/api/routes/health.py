@@ -21,6 +21,7 @@ from backend.app.config import settings
 from backend.app.data_access.operations.system_operations import read_database_snapshot
 from backend.app.storage.storage_adapter import get_storage_adapter
 from backend.app.cache.redis_client import check_redis_health
+from backend.app.decision_engine.service import decision_service
 
 router = APIRouter()
 
@@ -102,6 +103,12 @@ async def readiness_probe():
     except Exception as e:
         is_ready = False
         components["storage"] = {"status": "unhealthy", "error": str(e)}
+
+    # 4. Kiểm tra Decision Engine (Jev TypeSafe)
+    try:
+        components["decision_engine"] = decision_service.get_health_status()
+    except Exception as e:
+        components["decision_engine"] = {"status": "degraded", "error": str(e)}
 
     status_str = "ready" if is_ready else "degraded"
     status_code = 200 if is_ready else 503

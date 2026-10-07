@@ -1,0 +1,41 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": ["session_hash", "session_id", "admin_id", "created_at", "expires_at", "revoked"],
+    "properties": {
+      "_id": { "bsonType": "objectId" },
+      "session_hash": {
+        "bsonType": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      },
+      "session_id": {
+        "bsonType": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "admin_id": {
+        "bsonType": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "created_at": {
+        "bsonType": "date"
+      },
+      "expires_at": {
+        "bsonType": "date"
+      },
+      "revoked": {
+        "bsonType": "bool"
+      },
+      "ip_address": {
+        "bsonType": ["string", "null"]
+      },
+      "user_agent": {
+        "bsonType": ["string", "null"]
+      },
+      "last_seen_at": {
+        "bsonType": ["date", "null"]
+      }
+    }
+  }
+}

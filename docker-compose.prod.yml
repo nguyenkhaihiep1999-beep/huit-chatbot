@@ -109,6 +109,15 @@ services:
       - ADMIN_TOKEN=${ADMIN_TOKEN:?ADMIN_TOKEN must be set}
       - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:?CORS_ALLOWED_ORIGINS must be set in production}
       - TRUSTED_PROXIES=${TRUSTED_PROXIES:-127.0.0.1/32,::1/128}
+      # Jev Decision Engine (TypeSafe AI)
+      - JEV_MODE=${JEV_MODE:-off}
+      - TYPESAFE_API_KEY=${TYPESAFE_API_KEY:-}
+      - JEV_MODEL=${JEV_MODEL:-jev-latest}
+      - JEV_TIMEOUT_SECONDS=${JEV_TIMEOUT_SECONDS:-2}
+      - JEV_CONFIDENCE_THRESHOLD=${JEV_CONFIDENCE_THRESHOLD:-0.80}
+      - JEV_MAX_CONCURRENCY=${JEV_MAX_CONCURRENCY:-10}
+      - JEV_TOTAL_BUDGET_MS=${JEV_TOTAL_BUDGET_MS:-2000.0}
+      - JEV_MAX_STATE_BYTES=${JEV_MAX_STATE_BYTES:-8192}
     volumes:
       - shared-storage:/app/data/artifacts_store
     depends_on:
@@ -148,8 +157,9 @@ services:
     read_only: true
     tmpfs:
       - /tmp
-    # Worker chay ngam, tuyet doi khong co public port
+    # Worker can outbound internet (frontend_net) de ket noi Atlas/S3/LLM, nhung van ket noi Redis qua backend_net (internal: true)
     networks:
+      - frontend_net
       - backend_net
     environment:
       - APP_ENV=production

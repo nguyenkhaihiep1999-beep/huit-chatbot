@@ -1,0 +1,107 @@
+[
+  {
+    "case_id": "ret_01",
+    "answer_hash": "d6ff3ab46277c8e9",
+    "answer_text": "Mã ngành Công nghệ thông tin của HUIT là 7480201 [1].",
+    "source_version": "1.1.0-standardized-fixture",
+    "source_ids": [
+      "doc_major_cntt_7480201"
+    ],
+    "source_fingerprints": [
+      "1fa1c029e8718b45"
+    ],
+    "status": "approved",
+    "verdict": "supported",
+    "reviewer_note": "Xác nhận mã ngành 7480201 khớp chính xác tài liệu doc_major_cntt_7480201."
+  },
+  {
+    "case_id": "ret_02",
+    "answer_hash": "1270105c975c8cbf",
+    "answer_text": "Mức học phí đại học chính quy HUIT khóa K26 dao động khoảng 14 - 16 triệu đồng/học kỳ theo thông báo [1].",
+    "source_version": "1.1.0-standardized-fixture",
+    "source_ids": [
+      "doc_tuition_k26"
+    ],
+    "source_fingerprints": [
+      "90c2b98e4245c572"
+    ],
+    "status": "approved",
+    "verdict": "supported",
+    "reviewer_note": "Khớp số liệu 14 - 16 triệu đồng/kỳ của khóa K26 trong doc_tuition_k26."
+  },
+  {
+    "case_id": "ret_03",
+    "answer_hash": "fbdbc65e1b81a4a4",
+    "answer_text": "Điểm chuẩn trúng tuyển ngành Logistics năm 2026 là 22.50 điểm theo dữ kiện công bố của HUIT [1].",
+    "source_version": "1.1.0-standardized-fixture",
+    "source_ids": [
+      "doc_cutoff_2026"
+    ],
+    "source_fingerprints": [
+      "d7efd7d4267bf556"
+    ],
+    "status": "approved",
+    "verdict": "supported",
+    "reviewer_note": "Khớp điểm chuẩn 22.50 của ngành Logistics trong doc_cutoff_2026."
+  },
+  {
+    "case_id": "ret_04",
+    "answer_hash": "b45719f4623a2900",
+    "answer_text": "Mã ngành Trí tuệ nhân tạo của HUIT là 7480107 [1].",
+    "source_version": "1.1.0-standardized-fixture",
+    "source_ids": [
+      "doc_major_ai_7480107"
+    ],
+    "source_fingerprints": [
+      "f4be4c4673383d2b"
+    ],
+    "status": "approved",
+    "verdict": "supported",
+    "reviewer_note": "Khớp mã ngành 7480107 trong doc_major_ai_7480107."
+  },
+  {
+    "case_id": "test_approved_supported",
+    "answer_hash": "e3b0c44298fc1c14",
+    "answer_text": "Câu trả lời mẫu đã được duyệt là supported [1].",
+    "source_version": "1.1.0-standardized-fixture",
+    "source_ids": [
+      "doc_tuition_k26"
+    ],
+    "source_fingerprints": [
+      "90c2b98e4245c572"
+    ],
+    "status": "approved",
+    "verdict": "supported",
+    "reviewer_note": "Annotation mẫu đã duyệt thành công."
+  },
+  {
+    "case_id": "test_approved_contradicted",
+    "answer_hash": "c0ffee123456789a",
+    "answer_text": "Học phí HUIT là 100 triệu đồng một năm [1].",
+    "source_version": "1.1.0-standardized-fixture",
+    "source_ids": [
+      "doc_tuition_k26"
+    ],
+    "source_fingerprints": [
+      "90c2b98e4245c572"
+    ],
+    "status": "approved",
+    "verdict": "contradicted",
+    "reviewer_note": "Annotation đã duyệt xác nhận mâu thuẫn trực tiếp với nguồn doc_tuition_k26."
+  },
+  {
+    "case_id": "test_pending_item",
+    "answer_hash": "bad0cafe98765432",
+    "answer_text": "Câu trả lời đang chờ duyệt phê duyệt [1].",
+    "source_version": "1.1.0-standardized-fixture",
+    "source_ids": [
+      "doc_tuition_k26"
+    ],
+    "source_fingerprints": [
+      "90c2b98e4245c572"
+    ],
+    "status": "pending",
+    "verdict": "supported",
+    "reviewer_note": "Annotation đang ở trạng thái pending, chưa được duyệt."
+  }
+]

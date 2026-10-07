@@ -19,6 +19,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Dict, List, Optional
 
 from backend.app.config import settings
+from backend.app.contracts.schema_registry import load_schema, validate_contract
 from backend.app.data_access.operations import job_operations
 from backend.app.telemetry.errors import ArtifactException, ERROR_JOB_TIMEOUT, ERROR_ARTIFACT_ACCESS_DENIED
 
@@ -45,6 +46,53 @@ def _clean_date_for_api(val: Any) -> Optional[str]:
     return str(val)
 
 
+def validate_job_input(payload: Dict[str, Any]) -> None:
+    """Validate job input payload against canonical huit.queue.job-input@1.0.0."""
+    validate_contract("huit.queue.job-input", "1.0.0", payload)
+
+
+def validate_job_result(payload: Dict[str, Any]) -> None:
+    """Validate worker execution result against canonical huit.queue.job-result@1.0.0."""
+    validate_contract("huit.queue.job-result", "1.0.0", payload)
+
+
+def validate_job_error(payload: Dict[str, Any]) -> None:
+    """Validate job error payload against canonical huit.queue.job-error@1.0.0."""
+    validate_contract("huit.queue.job-error", "1.0.0", payload)
+
+
+def validate_retry_metadata(payload: Dict[str, Any]) -> None:
+    """Validate retry and lease metadata against canonical huit.queue.retry-metadata@1.0.0."""
+    validate_contract("huit.queue.retry-metadata", "1.0.0", payload)
+
+
+def _validate_claimed_job(job_dict: Dict[str, Any], worker_id: str, lease_expiry: datetime, now_dt: datetime) -> None:
+    """Validate both job input and lease boundary when worker claims a job."""
+    input_payload = {
+        "job_id": job_dict["job_id"],
+        "action": job_dict.get("action", "render"),
+        "artifact_id": job_dict.get("artifact_id"),
+        "format": job_dict.get("format"),
+        "scale": job_dict.get("scale"),
+        "owner_id": job_dict.get("owner_id"),
+        "request_id": job_dict.get("request_id"),
+        "idempotency_key": job_dict.get("idempotency_key"),
+        "available_at": _clean_date_for_api(job_dict.get("available_at")),
+    }
+    validate_job_input(input_payload)
+
+    lease_payload = {
+        "attempt": job_dict.get("attempt", 1),
+        "max_attempts": job_dict.get("max_attempts", MAX_RETRIES),
+        "retries": job_dict.get("retries", 0),
+        "lease_owner": worker_id,
+        "lease_expires_at": _clean_date_for_api(lease_expiry),
+        "heartbeat_at": _clean_date_for_api(now_dt),
+        "available_at": _clean_date_for_api(job_dict.get("available_at")),
+    }
+    validate_retry_metadata(lease_payload)
+
+
 class MongoLeaseQueueAdapter:
     """Adapter xử lý cấp phát và thu hồi lease công việc nền nguyên tử qua Registered Operation Gateway."""
 
@@ -65,6 +113,34 @@ class MongoLeaseQueueAdapter:
                 specific_job_id=specific_job_id,
             )
             if doc:
+                try:
+                    _validate_claimed_job(doc, worker_id, lease_expiry, now_dt)
+                except Exception as val_err:
+                    logger.error(f"[Job {doc.get('job_id')}] Claimed job từ MongoDB vi phạm contract: {val_err}")
+                    sanitized_err = {
+                        "error_code": "QUEUE_CLAIM_CONTRACT_VIOLATION",
+                        "message": "Tác vụ vi phạm hợp đồng dữ liệu khi claim",
+                        "job_id": doc.get("job_id"),
+                        "stage": "claim_validation",
+                        "retryable": False,
+                    }
+                    try:
+                        job_operations.update_job_record(
+                            job_id=doc.get("job_id"),
+                            status="failed",
+                            error=sanitized_err,
+                            sanitized_error="Tác vụ vi phạm hợp đồng dữ liệu khi claim",
+                            worker_id=worker_id,
+                        )
+                    except Exception:
+                        pass
+                    if not settings.IS_PRODUCTION and doc.get("job_id") in _jobs:
+                        _jobs[doc["job_id"]]["status"] = "failed"
+                        _jobs[doc["job_id"]]["error"] = sanitized_err
+                        _jobs[doc["job_id"]]["lease_owner"] = None
+                        _jobs[doc["job_id"]]["lease_expires_at"] = None
+                    return None
+
                 if not settings.IS_PRODUCTION:
                     _jobs[doc["job_id"]] = copy.deepcopy(doc)
                 return doc
@@ -101,6 +177,23 @@ class MongoLeaseQueueAdapter:
             is_expired_lease = (status == "processing" and lease_exp is not None and lease_exp <= now_dt and attempt_count < max_att)
 
             if is_ready_queued or is_expired_lease:
+                try:
+                    _validate_claimed_job(j, worker_id, lease_expiry, now_dt)
+                except Exception as val_err:
+                    logger.error(f"[Job {j_id}] Claimed in-memory job vi phạm contract: {val_err}")
+                    sanitized_err = {
+                        "error_code": "QUEUE_CLAIM_CONTRACT_VIOLATION",
+                        "message": "Tác vụ in-memory vi phạm hợp đồng dữ liệu khi claim",
+                        "job_id": j_id,
+                        "stage": "claim_validation",
+                        "retryable": False,
+                    }
+                    j["status"] = "failed"
+                    j["error"] = sanitized_err
+                    j["lease_owner"] = None
+                    j["lease_expires_at"] = None
+                    return None
+
                 j["status"] = "processing"
                 j["lease_owner"] = worker_id
                 j["lease_expires_at"] = lease_expiry
@@ -124,6 +217,16 @@ class MongoLeaseQueueAdapter:
     def heartbeat(job_id: str, worker_id: str, extend_seconds: int = DEFAULT_LEASE_SECONDS) -> bool:
         """Kéo dài thời hạn lease khi worker vẫn đang xử lý bình thường qua Gateway."""
         now_dt = datetime.now(timezone.utc)
+        heartbeat_meta = {
+            "attempt": 1,
+            "max_attempts": MAX_RETRIES,
+            "retries": 0,
+            "lease_owner": worker_id,
+            "lease_expires_at": _clean_date_for_api(now_dt + timedelta(seconds=extend_seconds)),
+            "heartbeat_at": _clean_date_for_api(now_dt),
+            "available_at": None,
+        }
+        validate_retry_metadata(heartbeat_meta)
         try:
             ok = job_operations.heartbeat_job_lease(
                 job_id=job_id,
@@ -252,9 +355,12 @@ class JobQueueManager:
         scale: Optional[int] = None,
         owner_id: Optional[str] = None,
         request_id: Optional[str] = None,
-        idempotency_key: Optional[str] = None
+        idempotency_key: Optional[str] = None,
+        format_str: Optional[str] = None,
     ) -> str:
         """Khởi tạo một job mới trong hàng đợi bền vững với Idempotency Key qua Gateway."""
+        if format_str and not target_format:
+            target_format = format_str
         now_dt = datetime.now(timezone.utc)
         clean_owner_id = owner_id if (owner_id and owner_id != "anonymous") else None
 
@@ -279,6 +385,29 @@ class JobQueueManager:
         job_id = f"job_{secrets.token_hex(12)}"
         if action == "upscale" and scale and not target_format:
             target_format = f"{scale}x"
+
+        # Validate queue input contract
+        queue_input_payload = {
+            "job_id": job_id,
+            "action": action,
+            "artifact_id": artifact_id,
+            "format": target_format,
+            "scale": scale,
+            "owner_id": clean_owner_id,
+            "request_id": request_id,
+            "idempotency_key": idemp_key,
+            "available_at": now_dt.isoformat(),
+        }
+        try:
+            validate_job_input(queue_input_payload)
+        except Exception as q_err:
+            logger.error(f"Lỗi hợp đồng queue job-input: {q_err}")
+            raise ArtifactException(
+                error_code="QUEUE_INPUT_CONTRACT_VIOLATION",
+                message=f"Queue job input contract violation: {q_err}",
+                job_id=job_id,
+                stage="queue_creation"
+            ) from q_err
 
         initial_event = {
             "timestamp": now_dt,
@@ -337,6 +466,8 @@ class JobQueueManager:
 
         return job_id
 
+    enqueue_job = create_job
+
     @staticmethod
     async def update_job(
         job_id: str,
@@ -350,11 +481,116 @@ class JobQueueManager:
         error: Optional[Dict[str, Any]] = None,
         event_detail: Optional[str] = None,
         available_at: Optional[datetime] = None,
-        worker_id: Optional[str] = None
+        worker_id: Optional[str] = None,
+        raw_result: Optional[Dict[str, Any]] = None,
+        scale: Optional[int] = None,
+        bytes_count: Optional[int] = None,
+        filename: Optional[str] = None,
+        upscaled_id: Optional[str] = None,
     ):
-        """Cập nhật tiến trình và ghi nhật ký sự kiện công việc (kiểm soát lease và checkpoint hủy)."""
+        """Cập nhật tiến trình và ghi nhật ký sự kiện công việc (fail-closed contract validation)."""
         now_dt = datetime.now(timezone.utc)
 
+        # ---------------------------------------------------------
+        # BOUNDARY CONTRACT VALIDATIONS (FAIL-CLOSED)
+        # Bắt buộc validate canonical contract trước khi mutate state!
+        # ---------------------------------------------------------
+
+        # 1. Completed transition validation
+        if status == "completed":
+            candidate_res = copy.deepcopy(raw_result) if isinstance(raw_result, dict) else {
+                "url": result_url or download_url,
+                "download_url": download_url,
+                "media_type": media_type,
+                "bytes": bytes_count,
+                "filename": filename,
+                "scale": scale,
+                "upscaled_id": upscaled_id,
+            }
+            try:
+                validate_job_result(candidate_res)
+            except Exception as v_err:
+                logger.error(f"[Job {job_id}] Transition completed bị từ chối do vi phạm contract huit.queue.job-result: {v_err}")
+                raise ArtifactException(
+                    error_code="QUEUE_RESULT_CONTRACT_VIOLATION",
+                    message=f"Worker result contract violation: {v_err}",
+                    job_id=job_id,
+                    stage="queue_result_validation",
+                    retryable=False,
+                ) from v_err
+
+        # 2. Error transition validation (Sanitized & schema compliant)
+        clean_error = None
+        if error is not None:
+            if isinstance(error, dict):
+                candidate_error = {
+                    "error_code": str(error.get("error_code") or "JOB_FAILED")[:128],
+                    "message": str(error.get("message") or "Lỗi xử lý công việc")[:1000],
+                    "request_id": str(error.get("request_id"))[:64] if error.get("request_id") else None,
+                    "job_id": str(error.get("job_id") or job_id)[:128] if (error.get("job_id") or job_id) else None,
+                    "artifact_id": str(error.get("artifact_id"))[:128] if error.get("artifact_id") else None,
+                    "stage": str(error.get("stage"))[:64] if error.get("stage") else None,
+                    "module": str(error.get("module"))[:64] if error.get("module") else None,
+                    "retryable": bool(error.get("retryable", False)),
+                    "details": str(error.get("details"))[:1000] if error.get("details") else None,
+                }
+            else:
+                candidate_error = {
+                    "error_code": "JOB_FAILED",
+                    "message": "Lỗi xử lý công việc",
+                    "request_id": None,
+                    "job_id": job_id,
+                    "artifact_id": None,
+                    "stage": "general",
+                    "module": None,
+                    "retryable": False,
+                    "details": None,
+                }
+            try:
+                validate_job_error(candidate_error)
+                clean_error = candidate_error
+            except Exception as e_err:
+                logger.warning(f"[Job {job_id}] Raw error vi phạm contract ({e_err}), tạo sanitized fallback error")
+                clean_error = {
+                    "error_code": "JOB_FAILED",
+                    "message": "Đã xảy ra sự cố trong quá trình xử lý tác vụ",
+                    "request_id": None,
+                    "job_id": job_id,
+                    "artifact_id": None,
+                    "stage": "general",
+                    "module": None,
+                    "retryable": False,
+                    "details": None,
+                }
+                validate_job_error(clean_error)
+            error = clean_error
+
+        # 3. Retry metadata validation
+        if status == "queued" and (retries is not None or attempt is not None):
+            retry_meta = {
+                "attempt": attempt if attempt is not None else 0,
+                "max_attempts": MAX_RETRIES,
+                "retries": retries if retries is not None else 0,
+                "lease_owner": None,
+                "lease_expires_at": None,
+                "heartbeat_at": None,
+                "available_at": _clean_date_for_api(available_at) if available_at else None,
+            }
+            try:
+                validate_retry_metadata(retry_meta)
+            except Exception as r_err:
+                logger.error(f"[Job {job_id}] Retry metadata contract violation: {r_err}")
+                raise ArtifactException(
+                    error_code="QUEUE_RETRY_CONTRACT_VIOLATION",
+                    message=f"Retry metadata contract violation: {r_err}",
+                    job_id=job_id,
+                    stage="retry_transition",
+                    retryable=False,
+                ) from r_err
+
+        # ---------------------------------------------------------
+        # STATE MUTATION (chỉ thực thi sau khi validation thành công)
+        # ---------------------------------------------------------
         if not settings.IS_PRODUCTION:
             async with _jobs_lock:
                 if job_id in _jobs:
@@ -505,9 +741,34 @@ class JobQueueManager:
                         logger.info(f"[Job {job_id}] Đã bị hủy trong quá trình thực thi, không ghi đè completed.")
                         return
 
-                    result_url = res.get("url") if isinstance(res, dict) else None
-                    download_url = res.get("download_url") if isinstance(res, dict) else None
-                    media_type = res.get("media_type") if isinstance(res, dict) else None
+                    # Worker result validation: Fail-Closed!
+                    # 1. Validate raw result ngay sau khi task trả về.
+                    # 2. Không chỉ lấy res.get("url") rồi bỏ qua phần còn lại.
+                    # 3. Nếu task trả: {}, None, {"unexpected": True} thì không được đánh dấu completed.
+                    if not isinstance(res, dict):
+                        raise ArtifactException(
+                            error_code="QUEUE_RESULT_CONTRACT_VIOLATION",
+                            message=f"Worker task trả về kết quả không hợp lệ: {type(res).__name__}",
+                            job_id=job_id,
+                            stage="queue_result_validation",
+                            retryable=False,
+                        )
+
+                    try:
+                        validate_job_result(res)
+                    except Exception as v_err:
+                        logger.error(f"[Job {job_id}] Worker raw result contract violation: {v_err}")
+                        raise ArtifactException(
+                            error_code="QUEUE_RESULT_CONTRACT_VIOLATION",
+                            message=f"Kết quả tác vụ không đúng hợp đồng queue: {v_err}",
+                            job_id=job_id,
+                            stage="queue_result_validation",
+                            retryable=False,
+                        ) from v_err
+
+                    result_url = res.get("url")
+                    download_url = res.get("download_url")
+                    media_type = res.get("media_type")
                     await JobQueueManager.update_job(
                         job_id,
                         status="completed",
@@ -515,6 +776,7 @@ class JobQueueManager:
                         result_url=result_url,
                         download_url=download_url,
                         media_type=media_type,
+                        raw_result=res,
                         event_detail="Tác vụ hoàn thành thành công",
                         worker_id=worker_id
                     )

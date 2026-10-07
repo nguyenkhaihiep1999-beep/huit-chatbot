@@ -99,6 +99,106 @@ class Settings:
     OPENROUTER_MODEL: str = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
     LLM_MAX_TOKENS: int = int(os.getenv("LLM_MAX_TOKENS", "750"))
 
+    # Jev Decision Engine (TypeSafe AI)
+    @property
+    def JEV_MODE(self) -> str:
+        mode = os.getenv("JEV_MODE", "off").strip().lower()
+        if mode not in ("off", "shadow", "assist"):
+            raise RuntimeError(
+                f"Lỗi cấu hình: JEV_MODE '{mode}' không hợp lệ. Chỉ chấp nhận 'off', 'shadow', hoặc 'assist'."
+            )
+        return mode
+
+    @property
+    def TYPESAFE_API_KEY(self) -> str:
+        return os.getenv("TYPESAFE_API_KEY", "").strip()
+
+    @property
+    def JEV_MODEL(self) -> str:
+        return os.getenv("JEV_MODEL", "jev-latest").strip()
+
+    @property
+    def JEV_TIMEOUT_SECONDS(self) -> float:
+        raw = os.getenv("JEV_TIMEOUT_SECONDS", "2")
+        try:
+            val = float(raw)
+            if 0.1 <= val <= 10.0:
+                return val
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_TIMEOUT_SECONDS={val} vượt phạm vi cho phép [0.1, 10.0]")
+            return 2.0
+        except ValueError:
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_TIMEOUT_SECONDS='{raw}' không phải số hợp lệ")
+            return 2.0
+
+    @property
+    def JEV_MAX_STATE_BYTES(self) -> int:
+        raw = os.getenv("JEV_MAX_STATE_BYTES", "8192")
+        try:
+            val = int(raw)
+            if 256 <= val <= 32768:
+                return val
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_MAX_STATE_BYTES={val} vượt phạm vi cho phép [256, 32768]")
+            return 8192
+        except ValueError:
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_MAX_STATE_BYTES='{raw}' không phải số nguyên hợp lệ")
+            return 8192
+
+    @property
+    def JEV_CONFIDENCE_THRESHOLD(self) -> float:
+        raw = os.getenv("JEV_CONFIDENCE_THRESHOLD", "0.80")
+        try:
+            val = float(raw)
+            if 0.0 <= val <= 1.0:
+                return val
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_CONFIDENCE_THRESHOLD={val} vượt phạm vi [0.0, 1.0]")
+            return 0.80
+        except ValueError:
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_CONFIDENCE_THRESHOLD='{raw}' không phải số hợp lệ")
+            return 0.80
+
+    @property
+    def JEV_MAX_CONCURRENCY(self) -> int:
+        raw = os.getenv("JEV_MAX_CONCURRENCY", "10")
+        try:
+            val = int(raw)
+            if 1 <= val <= 100:
+                return val
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_MAX_CONCURRENCY={val} vượt phạm vi [1, 100]")
+            return 10
+        except ValueError:
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_MAX_CONCURRENCY='{raw}' không phải số nguyên hợp lệ")
+            return 10
+
+    @property
+    def JEV_TOTAL_BUDGET_MS(self) -> float:
+        raw = os.getenv("JEV_TOTAL_BUDGET_MS", "2000.0")
+        try:
+            val = float(raw)
+            if 100.0 <= val <= 10000.0:
+                return val
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_TOTAL_BUDGET_MS={val} vượt phạm vi [100.0, 10000.0]")
+            return 2000.0
+        except ValueError:
+            if not self.IS_DEVELOPMENT:
+                raise RuntimeError(f"Lỗi cấu hình: JEV_TOTAL_BUDGET_MS='{raw}' không phải số hợp lệ")
+            return 2000.0
+
+    @property
+    def TYPESAFE_BASE_URL(self) -> str:
+        """Base URL chính thức của TypeSafe AI, cố định trong production để chống SSRF."""
+        if self.IS_DEVELOPMENT:
+            return os.getenv("TYPESAFE_BASE_URL", "https://api.typesafe.ai").strip()
+        return "https://api.typesafe.ai"
+
     # Security & Auth:
     # - Không hardcode mật khẩu hay token production trong code.
     # - Development (APP_ENV=development) dùng giá trị cục bộ an toàn.
@@ -141,6 +241,16 @@ class Settings:
 
     def validate_security_config(self) -> None:
         """Kiểm tra cấu hình bảo mật khi khởi động ứng dụng."""
+        if self.JEV_MODE != "off":
+            if not self.TYPESAFE_API_KEY:
+                raise RuntimeError(
+                    f"Lỗi cấu hình: JEV_MODE đang bật ở chế độ '{self.JEV_MODE}' nhưng thiếu TYPESAFE_API_KEY."
+                )
+            _ = self.JEV_TIMEOUT_SECONDS
+            _ = self.JEV_MAX_STATE_BYTES
+            _ = self.JEV_CONFIDENCE_THRESHOLD
+            _ = self.JEV_MAX_CONCURRENCY
+            _ = self.JEV_TOTAL_BUDGET_MS
         if not self.IS_DEVELOPMENT:
             _ = self.ADMIN_USERNAME
             _ = self.ADMIN_PASSWORD

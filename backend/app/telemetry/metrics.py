@@ -8,10 +8,11 @@ from backend.app.rag.intent import normalize_text
 from backend.app.telemetry.logger import get_current_request_id, logger
 
 class LatencyBreakdown:
-    def __init__(self, request_id: Optional[str] = None):
+    def __init__(self, request_id: Optional[str] = None, provenance: str = "simulated"):
         self.request_id = request_id or get_current_request_id()
+        self.provenance = provenance
         self.start_time = time.perf_counter()
-        # Khởi tạo đầy đủ 10 số đo hiệu năng bắt buộc của hệ thống
+        # Khởi tạo đầy đủ các số đo hiệu năng của hệ thống
         self.timings: Dict[str, float] = {
             "cache_lookup": 0.0,
             "embedding": 0.0,
@@ -20,10 +21,17 @@ class LatencyBreakdown:
             "rerank": 0.0,
             "visual_lookup": 0.0,
             "llm_ttft": 0.0,
+            "e2e_content_ttft": 0.0,
             "llm_generation": 0.0,
             "cache_write": 0.0,
+            "jev_intent": 0.0,
+            "jev_evidence": 0.0,
         }
         self.active_spans: Dict[str, float] = {}
+        self.measured_spans: set = set()
+
+    def set_provenance(self, provenance: str):
+        self.provenance = provenance
 
     def start_span(self, name: str):
         self.active_spans[name] = time.perf_counter()
@@ -32,21 +40,33 @@ class LatencyBreakdown:
         if name in self.active_spans:
             elapsed = (time.perf_counter() - self.active_spans.pop(name)) * 1000
             self.timings[name] = round(elapsed, 2)
+            self.measured_spans.add(name)
             return self.timings[name]
         return 0.0
 
     def record_metric(self, name: str, value_ms: float):
         self.timings[name] = round(value_ms, 2)
+        self.measured_spans.add(name)
+
+    def is_measured(self, name: str) -> bool:
+        return name in self.measured_spans
 
     def get_total_ms(self) -> float:
         return round((time.perf_counter() - self.start_time) * 1000, 2)
 
-    def to_dict(self) -> Dict[str, Any]:
-        data = dict(self.timings)
+    def to_dict(self, strict_measured: bool = False) -> Dict[str, Any]:
+        if strict_measured:
+            data = {
+                k: (self.timings[k] if k in self.measured_spans else None)
+                for k in self.timings
+            }
+        else:
+            data = dict(self.timings)
         total = self.get_total_ms()
         data["total"] = total
         data["total_ms"] = total
         data["request_id"] = self.request_id
+        data["provenance"] = self.provenance
         return data
 
 def log_event(

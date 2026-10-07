@@ -1,4 +1,5 @@
 {
+  "warning": "Generated file — do not edit manually",
   "generated_from": "backend/json_schemas/registry.json",
   "contracts": [
     {
@@ -12,6 +13,90 @@
       "version": "1.0.0",
       "file": "chat-request.v1.schema.json",
       "sha256": "1f87bd17df5b6bc8729f4fe46ab0220a66d15e9445037046c818606eb7830b70"
+    },
+    {
+      "schema_id": "huit.api.error-response",
+      "version": "1.0.0",
+      "file": "error-response.v1.schema.json",
+      "sha256": "6649c9c146b6a64cbb0d4ff1838f2647021e7b376fd45f37a4543f92fa2210ba"
+    },
+    {
+      "schema_id": "huit.api.artifact-manifest",
+      "version": "1.0.0",
+      "file": "artifact-manifest.v1.schema.json",
+      "sha256": "368841711502cfb004811dad3f22971bbfd7339eb1389a332f6244de63e069f2"
+    },
+    {
+      "schema_id": "huit.api.artifact-summary",
+      "version": "1.0.0",
+      "file": "artifact-summary.v1.schema.json",
+      "sha256": "622c7b1c7e8fe6690b906f0ad371292ab3aeb783b9865bc90af83b39c02c0e9b"
+    },
+    {
+      "schema_id": "huit.api.artifact-plan-request",
+      "version": "1.0.0",
+      "file": "artifact-plan-request.v1.schema.json",
+      "sha256": "87513a7cb71d8b906b88036d402434f023bc1707ba8a040ade18cd34fbc5f1fe"
+    },
+    {
+      "schema_id": "huit.api.artifact-render-request",
+      "version": "1.0.0",
+      "file": "artifact-render-request.v1.schema.json",
+      "sha256": "ab610ef26646c2b860b26fba124de19eaea0359d7bc7e9ff9a8efa7c6c3a07fb"
+    },
+    {
+      "schema_id": "huit.api.artifact-upscale-request",
+      "version": "1.0.0",
+      "file": "artifact-upscale-request.v1.schema.json",
+      "sha256": "3a9f15c0e6f2e47a55c2930f942cb5350a5837815db7ca407877594d1487fe3f"
+    },
+    {
+      "schema_id": "huit.api.artifact-export-request",
+      "version": "1.0.0",
+      "file": "artifact-export-request.v1.schema.json",
+      "sha256": "67cb43ac0dccbcb84934bf8d195209e3e554a7f3f5c8a5ff24bd1b8a76b04b08"
+    },
+    {
+      "schema_id": "huit.api.job-accepted-response",
+      "version": "1.0.0",
+      "file": "job-accepted-response.v1.schema.json",
+      "sha256": "c54272e3b765ea003f1c7be6dd536d3f2b469e8f5283bf6daf98fd8049f6ded5"
+    },
+    {
+      "schema_id": "huit.api.job-status-response",
+      "version": "1.0.0",
+      "file": "job-status-response.v1.schema.json",
+      "sha256": "84c22bc81c0482538f48da8f5a0c2761f1fe0c2d2e26b6dc890df77274fc2a8b"
+    },
+    {
+      "schema_id": "huit.api.image-create-request",
+      "version": "1.0.0",
+      "file": "image-create-request.v1.schema.json",
+      "sha256": "25128882124727fa8b8ed983501ad6041633c2406e2266d7c0cd12498064f7fd"
+    },
+    {
+      "schema_id": "huit.api.image-result",
+      "version": "1.0.0",
+      "file": "image-result.v1.schema.json",
+      "sha256": "9f58a8650193780f039b0469381b648e495d4286fc3d1b5064b018b99a384ca3"
+    },
+    {
+      "schema_id": "huit.api.admin-login-request",
+      "version": "1.0.0",
+      "file": "admin-login-request.v1.schema.json",
+      "sha256": "aa86ce2bb59a993a7ec816e5503de2ecba7afd0a405779b38c85bbfba71f10ba"
+    },
+    {
+      "schema_id": "huit.api.admin-login-response",
+      "version": "1.0.0",
+      "file": "admin-login-response.v1.schema.json",
+      "sha256": "fb414680d2d970f863af244e5bf61d3c293669222d2c36373191383d4a18f43f"
+    },
+    {
+      "schema_id": "huit.api.admin-session-response",
+      "version": "1.0.0",
+      "file": "admin-session-response.v1.schema.json",
+      "sha256": "ab969fdd94d47f3a8580a41ef630847ff1f8e7301a1401d6114b14b62b2ba6b4"
     },
     {
       "schema_id": "huit.stream.chat-event",

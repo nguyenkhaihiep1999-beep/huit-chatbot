@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:job-accepted-response:1.0.0",
+  "title": "HUIT API HTTP 202 Job Accepted response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["job_id", "status", "check_status_url"],
+  "properties": {
+    "job_id": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 64
+    },
+    "status": {
+      "type": "string",
+      "enum": ["queued"]
+    },
+    "artifact_id": {
+      "anyOf": [{ "type": "string", "maxLength": 64 }, { "type": "null" }],
+      "default": null
+    },
+    "action": {
+      "anyOf": [
+        { "type": "string", "enum": ["render", "export", "upscale"] },
+        { "type": "null" }
+      ],
+      "default": null
+    },
+    "format": {
+      "anyOf": [
+        { "type": "string", "enum": ["xlsx", "docx", "pdf", "png", "svg", "webp", "html", "csv", "json"] },
+        { "type": "null" }
+      ],
+      "default": null
+    },
+    "scale": {
+      "anyOf": [
+        { "type": "integer", "minimum": 1, "maximum": 4 },
+        { "type": "null" }
+      ],
+      "default": null
+    },
+    "check_status_url": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    }
+  }
+}

@@ -39,3 +39,4 @@ e2e-report/
 **/.vercel/
 backups/
 **/backups/
+.vscode/

@@ -13,7 +13,9 @@ from backend.app.cache.mongo_cache import CacheManager
 from backend.app.services.visual_service import resolve_visual_for_query
 from backend.app.services.artifact_service import resolve_artifact_for_chat
 from backend.app.telemetry.metrics import LatencyBreakdown, log_event
-from backend.app.telemetry.logger import get_current_request_id, set_current_request_id
+from backend.app.telemetry.logger import get_current_request_id, set_current_request_id, logger
+from backend.app.decision_engine.service import decision_service, is_intent_ambiguous
+from backend.app.decision_engine.policies import INTENT_CHOICES
 
 
 def _make_stream_event(
@@ -87,6 +89,52 @@ def _make_artifact_summary(visual_meta: Optional[Dict[str, Any]]) -> Optional[Di
         "chart_type": visual_meta.get("chart_type"),
         "status": status,
     }
+
+
+def log_decision_application(
+    req_id: str,
+    decision_type: str,
+    mode: str,
+    api_called: bool,
+    result_accepted: bool,
+    decision_applied: bool,
+    apply_reason: str,
+    baseline_choice: Optional[str] = None,
+    selected_choice: Optional[str] = None,
+    confidence: Optional[float] = None,
+) -> Dict[str, Any]:
+    """Ghi nhận telemetry mức pipeline khi xem xét và áp dụng quyết định Jev.
+
+    Bảo mật & Quyền riêng tư:
+    - Tuyệt đối KHÔNG ghi câu hỏi thô, tài liệu thô hoặc PII vào log.
+    - Phân biệt rõ: đã gọi API (api_called), kết quả được chấp nhận (result_accepted),
+      và quyết định thực sự được áp dụng vào luồng chat (decision_applied).
+    """
+    payload = {
+        "event": "decision_application",
+        "request_id": req_id,
+        "decision_type": decision_type,
+        "mode": mode,
+        "api_called": api_called,
+        "result_accepted": result_accepted,
+        "decision_applied": decision_applied,
+        "apply_reason": apply_reason,
+        "baseline_choice": baseline_choice,
+        "selected_choice": selected_choice,
+        "confidence": round(confidence, 3) if confidence is not None else None,
+    }
+    logger.info("[DECISION_APPLICATION] %s", payload)
+    return payload
+
+
+def _decision_not_applied_reason(result) -> str:
+    """Use structured execution evidence, not sanitized exception text."""
+    if result.status == "skipped":
+        return "skipped"
+    reason = result._fallback_reason
+    if reason == "timeout" and not result._api_called:
+        return "budget_exhausted_before_call"
+    return reason or "provider_fallback"
 
 
 def stream_answer(
@@ -185,13 +233,104 @@ def stream_answer(
                 seq += 1
                 yield _make_stream_event("artifact", seq, req_id, visual_summary)
 
+            first_cache_token = False
             for word in re.findall(r'\S+|\s+', answer_text):
+                if not first_cache_token and word.strip():
+                    timings.record_metric("e2e_content_ttft", timings.get_total_ms())
+                    first_cache_token = True
                 seq += 1
                 yield _make_stream_event("token", seq, req_id, {"token": word})
             seq += 1
             yield _make_stream_event("done", seq, req_id, {"latency_ms": timings.get_total_ms(), "cached": True})
             log_event(question, cached_res, timings.get_total_ms(), intent, cached=True, timings=timings.to_dict(), request_id=req_id)
+            if settings.JEV_MODE != "off":
+                log_decision_application(
+                    req_id=req_id,
+                    decision_type="intent",
+                    mode=settings.JEV_MODE,
+                    api_called=False,
+                    result_accepted=False,
+                    decision_applied=False,
+                    apply_reason="cache_hit_bypassed",
+                    baseline_choice=intent,
+                )
             return
+
+        # 3.5 Jev Decision Engine: Intent Disambiguation (Chỉ gọi khi intent mơ hồ / general)
+        jev_spent_ms = 0.0
+        if settings.JEV_MODE != "off":
+            if is_intent_ambiguous(question, intent):
+                timings.start_span("jev_intent")
+                api_called = False
+                result_accepted = False
+                decision_applied = False
+                apply_reason = "unknown"
+                selected_choice = None
+                confidence_val = None
+                baseline_intent = intent
+                try:
+                    budget_ms = settings.JEV_TOTAL_BUDGET_MS
+                    jev_intent_res = decision_service.decide_intent_sync(
+                        question, intent, remaining_budget_ms=budget_ms
+                    )
+                    if jev_intent_res:
+                        api_called = jev_intent_res._api_called
+                        intent_item = jev_intent_res.decisions.get("intent")
+                        if intent_item:
+                            selected_choice = intent_item.choice
+                            confidence_val = intent_item.confidence
+
+                        if jev_intent_res.status == "success":
+                            result_accepted = True
+                            if settings.JEV_MODE == "assist":
+                                if (
+                                    intent_item
+                                    and intent_item.choice
+                                    and intent_item.choice != "out_of_scope"
+                                    and intent_item.choice in INTENT_CHOICES
+                                    and intent_item.confidence >= settings.JEV_CONFIDENCE_THRESHOLD
+                                ):
+                                    intent = intent_item.choice
+                                    decision_applied = True
+                                    apply_reason = "intent_updated"
+                                elif intent_item and intent_item.confidence < settings.JEV_CONFIDENCE_THRESHOLD:
+                                    apply_reason = "confidence_below_threshold"
+                                else:
+                                    apply_reason = "invalid_or_out_of_scope_choice"
+                            else:
+                                apply_reason = "shadow_mode_read_only"
+                        else:
+                            apply_reason = _decision_not_applied_reason(jev_intent_res)
+                    else:
+                        apply_reason = "provider_empty_response"
+                except Exception as exc:
+                    logger.warning("Jev intent disambiguation fallback: %s", type(exc).__name__)
+                    apply_reason = f"exception_{type(exc).__name__}"
+                finally:
+                    jev_spent_ms += timings.end_span("jev_intent")
+                    log_decision_application(
+                        req_id=req_id,
+                        decision_type="intent",
+                        mode=settings.JEV_MODE,
+                        api_called=api_called,
+                        result_accepted=result_accepted,
+                        decision_applied=decision_applied,
+                        apply_reason=apply_reason,
+                        baseline_choice=baseline_intent,
+                        selected_choice=selected_choice,
+                        confidence=confidence_val,
+                    )
+            else:
+                log_decision_application(
+                    req_id=req_id,
+                    decision_type="intent",
+                    mode=settings.JEV_MODE,
+                    api_called=False,
+                    result_accepted=False,
+                    decision_applied=False,
+                    apply_reason="intent_clear_no_call_needed",
+                    baseline_choice=intent,
+                )
 
         # 4. Retrieval Phase
         retrieval_query = question
@@ -227,6 +366,94 @@ def stream_answer(
             f"[{i}] {_clean_doc_title(d.get('title'))} — {str(d.get('text', ''))[:1100]}"
             for i, d in enumerate(docs[:source_limit], 1)
         )
+
+        # 4.5 Jev Decision Engine: Evidence Sufficiency Evaluation
+        if settings.JEV_MODE != "off":
+            if not docs:
+                log_decision_application(
+                    req_id=req_id,
+                    decision_type="evidence_sufficiency",
+                    mode=settings.JEV_MODE,
+                    api_called=False,
+                    result_accepted=False,
+                    decision_applied=False,
+                    apply_reason="no_docs_retrieved",
+                )
+            else:
+                timings.start_span("jev_evidence")
+                api_called = False
+                result_accepted = False
+                decision_applied = False
+                apply_reason = "unknown"
+                selected_choice = None
+                confidence_val = None
+                try:
+                    remaining_budget_ms = max(0.0, settings.JEV_TOTAL_BUDGET_MS - jev_spent_ms)
+                    if remaining_budget_ms < 200.0:
+                        logger.warning(
+                            "Jev evidence evaluation skipped: remaining budget insufficient (%.1f ms)",
+                            remaining_budget_ms,
+                        )
+                        apply_reason = "budget_insufficient"
+                    else:
+                        jev_ev_res = decision_service.decide_evidence_sufficiency_sync(
+                            question, docs, remaining_budget_ms=remaining_budget_ms
+                        )
+                        if jev_ev_res:
+                            api_called = jev_ev_res._api_called
+                            suff_item = jev_ev_res.decisions.get("sufficiency")
+                            clarify_item = jev_ev_res.decisions.get("needs_clarification")
+                            if suff_item:
+                                selected_choice = suff_item.choice
+                                confidence_val = suff_item.confidence
+
+                            if jev_ev_res.status == "success":
+                                result_accepted = True
+                                if settings.JEV_MODE == "assist":
+                                    if (
+                                        suff_item
+                                        and suff_item.choice in ("insufficient", "conflicting")
+                                        and suff_item.confidence >= settings.JEV_CONFIDENCE_THRESHOLD
+                                        and clarify_item
+                                        and clarify_item.noul is not None
+                                        and clarify_item.noul >= 0.70
+                                    ):
+                                        context += (
+                                            "\n\n[LƯU Ý ĐÁNH GIÁ MINH CHỨNG]: Minh chứng hiện tại chưa đủ dữ liệu chi tiết cho câu hỏi. "
+                                            "Hãy cung cấp thông tin hiện có và lịch sự đề nghị thí sinh cung cấp thêm chi tiết (ví dụ ngành học cụ thể hoặc năm xét tuyển)."
+                                        )
+                                        decision_applied = True
+                                        apply_reason = "clarification_hint_injected"
+                                    elif suff_item and suff_item.choice in ("sufficient", "partial"):
+                                        apply_reason = "evidence_sufficient_no_override_needed"
+                                    elif suff_item and suff_item.confidence < settings.JEV_CONFIDENCE_THRESHOLD:
+                                        apply_reason = "confidence_below_threshold"
+                                    elif clarify_item and (clarify_item.noul is None or clarify_item.noul < 0.70):
+                                        apply_reason = "noul_below_threshold"
+                                    else:
+                                        apply_reason = "conditions_not_met"
+                                else:
+                                    apply_reason = "shadow_mode_read_only"
+                            else:
+                                apply_reason = _decision_not_applied_reason(jev_ev_res)
+                        else:
+                            apply_reason = "provider_empty_response"
+                except Exception as exc:
+                    logger.warning("Jev evidence evaluation fallback: %s", type(exc).__name__)
+                    apply_reason = f"exception_{type(exc).__name__}"
+                finally:
+                    timings.end_span("jev_evidence")
+                    log_decision_application(
+                        req_id=req_id,
+                        decision_type="evidence_sufficiency",
+                        mode=settings.JEV_MODE,
+                        api_called=api_called,
+                        result_accepted=result_accepted,
+                        decision_applied=decision_applied,
+                        apply_reason=apply_reason,
+                        selected_choice=selected_choice,
+                        confidence=confidence_val,
+                    )
 
         history_str = ""
         if chat_history and isinstance(chat_history, list):
@@ -279,6 +506,7 @@ def stream_answer(
                 if not first_token_recorded and token_chunk.strip():
                     ttft_ms = (time.perf_counter() - llm_start_time) * 1000
                     timings.record_metric("llm_ttft", ttft_ms)
+                    timings.record_metric("e2e_content_ttft", timings.get_total_ms())
                     first_token_recorded = True
                 accumulated_text += token_chunk
                 seq += 1

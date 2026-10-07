@@ -22,15 +22,16 @@ export interface UseArtifactExportReturn {
 }
 
 export function useArtifactExport(artifactId: string | undefined): UseArtifactExportReturn {
-  const [exportingFormat, setExportingFormat] = useState<string | null>(null);
-  const [exportJobId, setExportJobId] = useState<string | null>(null);
+  const initialActive = artifactId ? getActiveJob('export', artifactId) : null;
+  const [exportingFormat, setExportingFormat] = useState<string | null>(() => initialActive?.meta?.format || null);
+  const [exportJobId, setExportJobId] = useState<string | null>(() => initialActive?.jobId || null);
   const [exportProgress, setExportProgress] = useState<number>(0);
   const [exportError, setExportError] = useState<string | null>(null);
 
   const isMountedRef = useRef<boolean>(true);
   const activeIdRef = useRef<string | undefined>(artifactId);
-  const inFlightRef = useRef<boolean>(false);
-  const activeJobIdRef = useRef<string | null>(null);
+  const inFlightRef = useRef<boolean>(Boolean(initialActive?.jobId));
+  const activeJobIdRef = useRef<string | null>(initialActive?.jobId || null);
   const pollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const clearTimer = useCallback(() => {
@@ -177,12 +178,10 @@ export function useArtifactExport(artifactId: string | undefined): UseArtifactEx
 
     if (artifactId) {
       const activeStored = getActiveJob('export', artifactId);
-      if (activeStored && activeStored.jobId) {
+      if (activeStored && activeStored.jobId && !pollTimerRef.current) {
         const fmt = activeStored.meta?.format || 'xlsx';
         const fn = activeStored.meta?.filename;
         inFlightRef.current = true;
-        setExportingFormat(fmt);
-        setExportJobId(activeStored.jobId);
         startPolling(activeStored.jobId, fmt, fn);
       }
     }

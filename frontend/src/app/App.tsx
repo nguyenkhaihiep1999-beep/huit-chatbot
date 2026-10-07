@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useTheme } from '../features/theme/hooks/useTheme';
-import { useChatHistory } from '../features/history/hooks/useChatHistory';
-import { useVisualLightbox } from '../features/admission-visuals/hooks/useVisualLightbox';
+import {
+  useTheme,
+  useChatHistory,
+  useVisualLightbox,
+  useSessionBootstrap,
+} from '@hooks';
 import { Header } from '../shared/components/Header';
 import { HistoryDrawer } from '../features/history/components/HistoryDrawer';
 import { ChatWindow } from '../features/chat/components/ChatWindow';
@@ -9,7 +12,6 @@ import { VisualLightbox } from '../features/admission-visuals/components/VisualL
 import { ImageGenerationModal } from '../features/image-generation/components/ImageGenerationModal';
 import { ConversationSession, ChatMessage } from '../shared/types/common.types';
 import { generateUniqueId } from '../shared/utils/idGenerator';
-import { useSessionBootstrap } from '../features/session/hooks/useSessionBootstrap';
 import { AdminPage } from '../features/admin/components/AdminPage';
 
 export const App: React.FC = () => {

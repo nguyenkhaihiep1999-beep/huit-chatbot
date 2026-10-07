@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:decision:decision-request:1.0.0",
+  "title": "HUIT decision engine request contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "decision_type",
+    "state",
+    "questions"
+  ],
+  "properties": {
+    "decision_type": {
+      "type": "string",
+      "enum": [
+        "intent",
+        "evidence_sufficiency",
+        "custom"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192,
+      "description": "Dữ liệu trạng thái tối thiểu đã được làm sạch và khử thông tin nhạy cảm."
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "default": "jev-latest"
+    },
+    "questions": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 20,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "choice",
+              "score",
+              "noul"
+            ]
+          },
+          "instructions": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 1000
+          },
+          "criteria": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        }
+      }
+    },
+    "context_metadata": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ]
+      }
+    }
+  }
+}

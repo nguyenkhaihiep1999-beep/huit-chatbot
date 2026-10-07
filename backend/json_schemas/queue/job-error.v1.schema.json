@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:queue:job-error:1.0.0",
+  "title": "HUIT durable job error detail payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["error_code", "message"],
+  "properties": {
+    "error_code": { "type": "string", "maxLength": 128, "default": "UNKNOWN_ERROR" },
+    "message": { "type": "string", "maxLength": 1000, "default": "" },
+    "request_id": {
+      "anyOf": [{ "type": "string", "maxLength": 64 }, { "type": "null" }],
+      "default": null
+    },
+    "job_id": {
+      "anyOf": [{ "type": "string", "maxLength": 128 }, { "type": "null" }],
+      "default": null
+    },
+    "artifact_id": {
+      "anyOf": [{ "type": "string", "maxLength": 128 }, { "type": "null" }],
+      "default": null
+    },
+    "stage": {
+      "anyOf": [{ "type": "string", "maxLength": 64 }, { "type": "null" }],
+      "default": null
+    },
+    "module": {
+      "anyOf": [{ "type": "string", "maxLength": 64 }, { "type": "null" }],
+      "default": null
+    },
+    "retryable": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+      "default": false
+    },
+    "details": {
+      "anyOf": [{ "type": "string", "maxLength": 1000 }, { "type": "null" }],
+      "default": null
+    }
+  }
+}

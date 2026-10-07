@@ -50,12 +50,12 @@ describe('Frontend Overhaul Requirements (Step 16)', () => {
   describe('2. ArtifactCard - Double-click Protection & Format Support', () => {
     const mockArtifact: ArtifactSummary = {
       artifact_id: 'art-excel-101',
-      type: 'table',
+      type: 'spreadsheet',
       title: 'Bảng học phí dự kiến các ngành năm 2026',
       preview_url: '/api/artifacts/art-excel-101/preview.svg',
       manifest_url: '/api/artifacts/art-excel-101/manifest.json',
       status: 'ready',
-      available_formats: ['xlsx', 'docx', 'pdf', 'png', 'svg', 'mp4', 'audio'],
+      available_formats: ['xlsx', 'docx', 'pdf', 'png', 'svg', 'mp4', 'audio'] as any,
     };
 
     it('loại bỏ định dạng audio/video và hiển thị các định dạng hợp lệ', () => {

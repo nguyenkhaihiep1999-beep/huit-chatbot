@@ -104,10 +104,12 @@ def test_network_segmentation_and_port_isolation(prod_compose_data):
     assert "frontend_net" in backend.get("networks", []), "Backend phải nằm trong frontend_net để Nginx proxy tới"
     assert "backend_net" in backend.get("networks", []), "Backend phải nằm trong backend_net để gọi Redis"
 
-    # Worker tuyệt đối KHÔNG có public ports và chỉ nằm trong backend_net
+    # Worker tuyệt đối KHÔNG có public ports; kết nối backend_net để gọi Redis và frontend_net để outbound Atlas/storage/provider
     worker = services.get("worker", {})
     assert "ports" not in worker or len(worker.get("ports", [])) == 0, "Worker tuyệt đối không được publish ports"
-    assert worker.get("networks") == ["backend_net"], "Worker chỉ được nằm trong backend_net"
+    worker_nets = worker.get("networks", [])
+    assert "backend_net" in worker_nets, "Worker phải kết nối backend_net để gọi Redis"
+    assert "frontend_net" in worker_nets, "Worker phải có kết nối outbound để gọi Atlas/storage/provider"
 
     # Redis tuyệt đối KHÔNG có public ports và chỉ nằm trong backend_net
     redis = services.get("redis", {})

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:queue:job-input:1.0.0",
+  "title": "HUIT durable background job input payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["job_id", "action"],
+  "properties": {
+    "job_id": { "type": "string", "pattern": "^job_[a-zA-Z0-9_\\-]+$", "minLength": 8, "maxLength": 64 },
+    "action": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "artifact_id": {
+      "anyOf": [{ "type": "string", "maxLength": 64 }, { "type": "null" }],
+      "default": null
+    },
+    "format": {
+      "anyOf": [{ "type": "string", "maxLength": 16 }, { "type": "null" }],
+      "default": null
+    },
+    "scale": {
+      "anyOf": [{ "type": "integer", "minimum": 1, "maximum": 4 }, { "type": "null" }],
+      "default": null
+    },
+    "owner_id": {
+      "anyOf": [{ "type": "string", "maxLength": 64 }, { "type": "null" }],
+      "default": null
+    },
+    "request_id": {
+      "anyOf": [{ "type": "string", "maxLength": 64 }, { "type": "null" }],
+      "default": null
+    },
+    "idempotency_key": {
+      "anyOf": [{ "type": "string", "maxLength": 128 }, { "type": "null" }],
+      "default": null
+    },
+    "available_at": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "request_id",
+      "created_at",
+      "question_hash",
+      "question_length",
+      "intent",
+      "elapsed_ms"
+    ],
+    "properties": {
+      "_id": { "bsonType": "objectId" },
+      "schema_version": { "bsonType": "int", "minimum": 1 },
+      "request_id": { "bsonType": "string" },
+      "created_at": { "bsonType": "date" },
+      "question_hash": { "bsonType": "string" },
+      "question_length": { "bsonType": "int" },
+      "intent": { "bsonType": "string" },
+      "cached": { "bsonType": "bool" },
+      "fallback": { "bsonType": "bool" },
+      "source_count": { "bsonType": "int" },
+      "source_titles": { "bsonType": "array" },
+      "answer_length": { "bsonType": "int" },
+      "elapsed_ms": { "bsonType": ["double", "int"] },
+      "timings": { "bsonType": "object" },
+      "model": { "bsonType": "string" },
+      "kb_version": { "bsonType": "string" },
+      "rag_version": { "bsonType": "string" },
+      "error": { "bsonType": ["string", "null"] }
+    }
+  }
+}

@@ -87,7 +87,7 @@ def test_admin_jobs_list_and_filters(client, admin_credentials):
         j1 = await JobQueueManager.create_job(action="render", target_format="xlsx")
         j2 = await JobQueueManager.create_job(action="export", target_format="pdf")
         j3 = await JobQueueManager.create_job(action="upscale", scale=2)
-        await JobQueueManager.update_job(j2, status="completed", progress=100)
+        await JobQueueManager.update_job(j2, status="completed", progress=100, result_url="https://storage.huit.edu.vn/exports/test.pdf")
         await JobQueueManager.update_job(j3, status="failed", progress=0, error={"error_code": "TEST_ERR", "message": "Failed test"})
         return j1, j2, j3
 

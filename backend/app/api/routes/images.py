@@ -1,8 +1,12 @@
 from fastapi import APIRouter, HTTPException, Query, Response, Depends, Request
 from fastapi.responses import JSONResponse
 
-from backend.app.services.image_service import (
+from backend.app.api.schemas.image import (
+    ImageCreateRequest,
     ImageRequest,
+    ImageResult,
+)
+from backend.app.services.image_service import (
     create_image as service_create_image,
     get_image as service_get_image,
     list_recent_images as service_list_recent_images,
@@ -24,9 +28,9 @@ PLACEHOLDER_THUMBNAIL_SVG = (
 ).encode("utf-8")
 
 
-@router.post("/images")
+@router.post("/images", response_model=ImageResult)
 async def generate_image_endpoint(
-    req: ImageRequest,
+    req: ImageCreateRequest,
     principal: Principal = Depends(get_current_principal)
 ):
     """Sinh hình ảnh mascot hoặc bối cảnh sinh viên HUIT bằng FLUX.1 hoặc SVG (On-demand & Dedup)."""
@@ -187,13 +191,26 @@ async def get_single_image(
 
     clean_rec = {k: v for k, v in rec.items() if k not in ("_id", "image_data", "storage_key", "thumbnail_key")}
     img_id = clean_rec.get("image_id") or image_id
-    clean_rec["image_id"] = img_id
-    clean_rec["id"] = img_id
-    clean_rec["image_url"] = f"/api/images/{img_id}/file"
-    clean_rec["thumbnail_url"] = f"/api/images/{img_id}/thumbnail"
-    clean_rec["svg_url"] = f"/api/images/{img_id}/svg"
-    clean_rec["json_url"] = f"/api/images/{img_id}"
-    return clean_rec
+    result = ImageResult(
+        image_id=img_id,
+        id=img_id,
+        image_url=f"/api/images/{img_id}/file",
+        thumbnail_url=f"/api/images/{img_id}/thumbnail",
+        svg_url=f"/api/images/{img_id}/svg",
+        json_url=f"/api/images/{img_id}",
+        width=clean_rec.get("width"),
+        height=clean_rec.get("height"),
+        model=clean_rec.get("model"),
+        style=clean_rec.get("style"),
+        byte_size=clean_rec.get("byte_size"),
+        checksum=clean_rec.get("checksum") or clean_rec.get("content_hash"),
+        request_fingerprint=clean_rec.get("request_fingerprint"),
+        billing=clean_rec.get("billing", "free"),
+        cached=clean_rec.get("cached", False),
+        access_scope=clean_rec.get("access_scope", "public"),
+        owner_id=clean_rec.get("owner_id"),
+    )
+    return result.model_dump()
 
 
 @router.get("/images")

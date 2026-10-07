@@ -11,9 +11,10 @@ import { getSessionScope, setSessionCredentials } from '../src/shared/auth/csrfS
 
 const mockArtifactA: ArtifactSummary = {
   artifact_id: 'art-demo-001',
-  type: 'chart',
+  type: 'spreadsheet',
   title: 'Chỉ tiêu Tuyển sinh HUIT 2025',
   preview_url: 'https://cdn.huit.edu.vn/visuals/art-demo-001.svg',
+  manifest_url: '/api/artifacts/art-demo-001/manifest',
   available_formats: ['svg', 'png', 'pdf', 'xlsx', 'docx'],
   status: 'ready',
 };
@@ -23,6 +24,7 @@ const mockArtifactB: ArtifactSummary = {
   type: 'image',
   title: 'Khuôn viên Cơ sở Chính HUIT',
   preview_url: 'https://cdn.huit.edu.vn/visuals/art-demo-002.png',
+  manifest_url: '/api/artifacts/art-demo-002/manifest',
   available_formats: ['png', 'pdf'],
   status: 'ready',
 };

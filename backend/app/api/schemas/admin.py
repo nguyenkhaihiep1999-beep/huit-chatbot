@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Literal
 from pydantic import BaseModel, Field
 
 
@@ -8,9 +8,14 @@ class AdminLoginRequest(BaseModel):
 
 
 class AdminLoginResponse(BaseModel):
-    success: bool = True
+    success: bool = Field(..., description="Trạng thái đăng nhập thành công")
     csrf_token: str = Field(..., description="CSRF token gắn với session quản trị viên")
-    message: str = "Đăng nhập quản trị viên thành công!"
+    message: str = Field(..., description="Thông báo phản hồi")
+
+
+class AdminSessionResponse(BaseModel):
+    valid: bool = Field(..., description="Trạng thái hợp lệ của phiên quản trị viên")
+    role: Literal["admin"] = Field(..., description="Vai trò quản trị viên")
 
 
 class ClearCacheRequest(BaseModel):

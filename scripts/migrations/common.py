@@ -36,10 +36,10 @@ logging.basicConfig(
 logger = logging.getLogger("migration")
 
 
-def get_base_parser(description: str) -> argparse.ArgumentParser:
+def get_base_parser(description: str, require_mode: bool = True) -> argparse.ArgumentParser:
     """Tạo parser với đầy đủ các tham số dòng lệnh quy định."""
     parser = argparse.ArgumentParser(description=description)
-    group = parser.add_mutually_exclusive_group(required=True)
+    group = parser.add_mutually_exclusive_group(required=require_mode)
     group.add_argument(
         "--dry-run",
         action="store_true",

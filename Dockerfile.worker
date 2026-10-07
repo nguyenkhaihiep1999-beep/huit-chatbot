@@ -21,7 +21,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Tạo non-root user để tăng cường bảo mật
-RUN groupadd -r appgroup && useradd -r -g appgroup -d /app appuser
+RUN groupadd -r -g 10001 appgroup && useradd -r -u 10001 -g appgroup -d /app appuser
 
 # Copy mã nguồn
 COPY backend /app/backend

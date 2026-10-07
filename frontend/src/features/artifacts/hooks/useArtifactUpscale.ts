@@ -30,18 +30,19 @@ export function useArtifactUpscale(
   // Cho phép chạy tới 600 lần polling (~10 phút), KHÔNG timeout cứng 30s
   const maxAttempts = options?.maxAttempts ?? 600;
 
+  const initialActive = artifact?.artifact_id ? getActiveJob('upscale', artifact.artifact_id) : null;
   const [upscaledUrl, setUpscaledUrl] = useState<string | null>(null);
-  const [scaleFactor, setScaleFactor] = useState<number>(1);
-  const [isUpscaling, setIsUpscaling] = useState<boolean>(false);
-  const [upscaleJobId, setUpscaleJobId] = useState<string | null>(null);
+  const [scaleFactor, setScaleFactor] = useState<number>(() => initialActive?.meta?.scale || 1);
+  const [isUpscaling, setIsUpscaling] = useState<boolean>(Boolean(initialActive?.jobId));
+  const [upscaleJobId, setUpscaleJobId] = useState<string | null>(() => initialActive?.jobId || null);
   const [jobProgress, setJobProgress] = useState<number>(0);
   const [upscaleError, setUpscaleError] = useState<string | null>(null);
 
   const pollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMountedRef = useRef<boolean>(true);
   const activeArtifactIdRef = useRef<string | undefined>(artifact?.artifact_id);
-  const activeJobIdRef = useRef<string | null>(null);
-  const inFlightRef = useRef<boolean>(false);
+  const activeJobIdRef = useRef<string | null>(initialActive?.jobId || null);
+  const inFlightRef = useRef<boolean>(Boolean(initialActive?.jobId));
 
   const clearTimer = useCallback(() => {
     if (pollTimerRef.current) {
@@ -177,12 +178,11 @@ export function useArtifactUpscale(
       resetUpscale();
     }
 
-    if (artifactId && !activeJobIdRef.current) {
+    if (artifactId) {
       const activeStored = getActiveJob('upscale', artifactId);
-      if (activeStored && activeStored.jobId) {
+      if (activeStored && activeStored.jobId && !pollTimerRef.current) {
         const scale = activeStored.meta?.scale || 2;
         inFlightRef.current = true;
-        setScaleFactor(scale);
         startPolling(activeStored.jobId, scale);
       }
     }
