@@ -16,22 +16,31 @@ def rerank_and_filter(
     intent: str,
     top_cluster_id: Optional[int],
     requested_years: set,
-    top_k: int = 3
+    top_k: int = 3,
+    context_entities: Optional[Dict[str, Any]] = None,
+    profile_id: Optional[str] = None,
 ) -> List[dict]:
+    from backend.app.rag.profile import get_profile
+    prof = get_profile(profile_id)
     rrf_k = 60
     scored_candidates = []
     q_words = set(re.findall(r'\w+', question.lower()))
     q_normalized = normalize_text(question)
     code_matches = re.findall(r'\b7\d{6}\b', question)
+    target_skus = re.findall(r'\b[A-Za-z]{3,4}-\d+[\w-]*\b', question)
+
+    target_major_code = None
+    target_major_name = None
+    target_methods = []
+    if context_entities:
+        target_major_code = context_entities.get("major_code")
+        target_major_name = context_entities.get("major_name")
+        target_methods = context_entities.get("admission_methods", [])
 
     for doc_id, doc in candidate_map.items():
-        metadata = infer_metadata(doc)
-        doc.update({key: doc.get(key) or value for key, value in metadata.items()})
         v_rank = vector_ranks.get(doc_id, 999)
         k_rank = keyword_ranks.get(doc_id, 999)
         rrf_score = (1.0 / (rrf_k + v_rank)) + (1.0 / (rrf_k + k_rank))
-
-        # Re-ranker scoring features
         text_content = (str(doc.get("title", "")) + " " + str(doc.get("text", ""))).lower()
         overlap_count = sum(1 for w in q_words if len(w) > 2 and w in text_content)
         normalized_title = normalize_text(doc.get("title", ""))
@@ -42,59 +51,111 @@ def rerank_and_filter(
             and word in normalized_title
         )
 
-        # Exact course code boost
-        code_boost = 0.0
-        for code in code_matches:
-            if code in text_content:
-                code_boost += 0.5
-
-        intent_boost = 0.35 if intent != "general" and metadata["category"] == intent else 0.0
-        
-        # Extract pure major name from document title
-        pure_major_name = re.sub(r"\s*\(mã ngành.*$", "", normalized_title, flags=re.IGNORECASE)
-        pure_major_name = re.sub(r"\s*\(ma nganh.*$", "", pure_major_name, flags=re.IGNORECASE)
-        pure_major_name = re.sub(r"^nganh\s+", "", pure_major_name, flags=re.IGNORECASE).strip()
-        pure_major_name = re.sub(r"\s*-.*$", "", pure_major_name).strip()
-
-        exact_major_boost = 0.0
-        if metadata["category"] == "major" and len(pure_major_name) >= 3:
-            if pure_major_name in q_normalized or (len(q_normalized) >= 5 and q_normalized in pure_major_name):
-                exact_major_boost = 3.5  # Massive boost ensuring exact major match ALWAYS wins #1 spot!
-            elif pure_major_name == "cong nghe thong tin" and any(alias in q_normalized for alias in ["cntt", "cn thong tin", "cong nghe thong tin"]):
-                exact_major_boost = 3.5
-
-        # Career alignment boost to match user intent to proper faculty/program docs
-        career_boost = 0.0
-        norm_text = normalize_text(text_content)
-        if intent == "career" or any(term in q_normalized for term in ["thiet ke", "vay", "dam", "may mac", "thoi trang", "nau an", "my pham", "lap trinh"]):
-            if any(k in q_normalized for k in ["vay", "dam", "may mac", "thoi trang", "trang phuc", "may rap"]):
-                if any(m in norm_text for m in ["det, may", "thoi trang", "7540204", "7340123", "khoa may"]):
-                    career_boost += 0.8
-            elif any(k in q_normalized for k in ["nau an", "lam banh", "am thuc", "dau bep"]):
-                if any(m in norm_text for m in ["che bien mon an", "dich vu an uong", "7810202", "am thuc"]):
-                    career_boost += 0.8
-            elif any(k in q_normalized for k in ["lap trinh", "game", "code", "app"]):
-                if any(m in norm_text for m in ["cong nghe thong tin", "ky thuat phan mem", "tri tue nhan tao", "7480101", "7480107"]):
-                    career_boost += 0.8
-            elif any(k in q_normalized for k in ["my pham", "son", "kem duong", "hoa chat"]):
-                if any(m in norm_text for m in ["hoa hoc", "hoa my pham", "7510401"]):
-                    career_boost += 0.8
-
-        year_boost = 0.2 if requested_years and metadata["year"] in requested_years else 0.0
-        year_penalty = -0.12 if requested_years and metadata["year"] and metadata["year"] not in requested_years else 0.0
         cluster_boost = 0.35 if (top_cluster_id is not None and doc.get("cluster_id") == top_cluster_id) else 0.0
-        final_score = (
-            (rrf_score * 10)
-            + (overlap_count * 0.05)
-            + (title_overlap * 0.15)
-            + code_boost
-            + intent_boost
-            + exact_major_boost
-            + career_boost
-            + cluster_boost
-            + year_boost
-            + year_penalty
-        )
+
+        if prof.id == "ilt":
+            # ILT Product Ranking Boosts
+            sku_boost = 0.0
+            doc_sku = str(doc.get("sku") or "").upper()
+            doc_all_skus = [str(s).upper() for s in (doc.get("all_skus") or [])]
+            for t_sku in target_skus:
+                t_sku_u = t_sku.upper()
+                if t_sku_u == doc_sku or t_sku_u in doc_all_skus or t_sku_u in text_content.upper():
+                    sku_boost += 4.0
+                    break
+
+            series_boost = 0.0
+            doc_series = str(doc.get("series") or "").lower()
+            if doc_series and doc_series in q_normalized:
+                series_boost += 1.5
+
+            attribute_boost = 0.0
+            if doc.get("product_type") and normalize_text(doc.get("product_type")) in q_normalized:
+                attribute_boost += 0.8
+            if any(f in q_normalized for f in ["nickel", "brushed nickel", "den", "black", "brass", "aged brass"]):
+                doc_finish = str(doc.get("finish") or "").lower()
+                if any(f in doc_finish for f in ["nickel", "black", "brass"]):
+                    attribute_boost += 0.5
+
+            final_score = (
+                (rrf_score * 10)
+                + (overlap_count * 0.05)
+                + (title_overlap * 0.15)
+                + sku_boost
+                + series_boost
+                + attribute_boost
+                + cluster_boost
+            )
+        else:
+            # HUIT Admission Ranking Boosts
+            metadata = infer_metadata(doc)
+            doc.update({key: doc.get(key) or value for key, value in metadata.items()})
+
+            code_boost = 0.0
+            for code in code_matches:
+                if code in text_content:
+                    code_boost += 0.5
+            if target_major_code and target_major_code in text_content:
+                code_boost += 0.6
+
+            intent_boost = 0.45 if intent != "general" and metadata["category"] == intent else 0.0
+            pure_major_name = re.sub(r"\s*\(mã ngành.*$", "", normalized_title, flags=re.IGNORECASE)
+            pure_major_name = re.sub(r"\s*\(ma nganh.*$", "", pure_major_name, flags=re.IGNORECASE)
+            pure_major_name = re.sub(r"^nganh\s+", "", pure_major_name, flags=re.IGNORECASE).strip()
+            pure_major_name = re.sub(r"\s*-.*$", "", pure_major_name).strip()
+
+            exact_major_boost = 0.0
+            if metadata["category"] == "major" and len(pure_major_name) >= 3:
+                if pure_major_name in q_normalized or (len(q_normalized) >= 5 and q_normalized in pure_major_name):
+                    exact_major_boost = 3.5
+                elif pure_major_name == "cong nghe thong tin" and any(alias in q_normalized for alias in ["cntt", "cn thong tin", "cong nghe thong tin"]):
+                    exact_major_boost = 3.5
+
+            if target_major_name and len(target_major_name) >= 3:
+                if target_major_name in normalized_title or target_major_name in normalize_text(text_content):
+                    exact_major_boost = max(exact_major_boost, 1.5)
+
+            method_boost = 0.0
+            norm_text = normalize_text(text_content)
+            for m in target_methods:
+                if m == "hoc_ba" and any(p in norm_text for p in ["hoc ba", "xet hoc ba"]):
+                    method_boost += 0.35
+                elif m == "thpt" and any(p in norm_text for p in ["thpt", "thi tot nghiep"]):
+                    method_boost += 0.35
+                elif m == "dgnl" and any(p in norm_text for p in ["dgnl", "danh gia nang luc"]):
+                    method_boost += 0.35
+
+            career_boost = 0.0
+            if intent == "career" or any(term in q_normalized for term in ["thiet ke", "vay", "dam", "may mac", "thoi trang", "nau an", "my pham", "lap trinh"]):
+                if any(k in q_normalized for k in ["vay", "dam", "may mac", "thoi trang", "trang phuc", "may rap"]):
+                    if any(m in norm_text for m in ["det, may", "thoi trang", "7540204", "7340123", "khoa may"]):
+                        career_boost += 0.8
+                elif any(k in q_normalized for k in ["nau an", "lam banh", "am thuc", "dau bep"]):
+                    if any(m in norm_text for m in ["che bien mon an", "dich vu an uong", "7810202", "am thuc"]):
+                        career_boost += 0.8
+                elif any(k in q_normalized for k in ["lap trinh", "game", "code", "app"]):
+                    if any(m in norm_text for m in ["cong nghe thong tin", "ky thuat phan mem", "tri tue nhan tao", "7480101", "7480107"]):
+                        career_boost += 0.8
+                elif any(k in q_normalized for k in ["my pham", "son", "kem duong", "hoa chat"]):
+                    if any(m in norm_text for m in ["hoa hoc", "hoa my pham", "7510401"]):
+                        career_boost += 0.8
+
+            year_boost = 0.3 if requested_years and metadata["year"] in requested_years else 0.0
+            year_penalty = -0.15 if requested_years and metadata["year"] and metadata["year"] not in requested_years else 0.0
+            final_score = (
+                (rrf_score * 10)
+                + (overlap_count * 0.05)
+                + (title_overlap * 0.15)
+                + code_boost
+                + intent_boost
+                + exact_major_boost
+                + method_boost
+                + career_boost
+                + cluster_boost
+                + year_boost
+                + year_penalty
+            )
+
         doc["score"] = round(doc.get("score") or final_score, 4)
         doc["rrf_score"] = round(final_score, 4)
         scored_candidates.append((final_score, doc))
@@ -102,7 +163,12 @@ def rerank_and_filter(
     scored_candidates.sort(key=lambda x: x[0], reverse=True)
     return [item[1] for item in scored_candidates if item[0] >= 0.15][:top_k]
 
-def apply_heuristic_overrides(docs: List[dict], question: str, intent: str) -> List[dict]:
+def apply_heuristic_overrides(docs: List[dict], question: str, intent: str, profile_id: Optional[str] = None) -> List[dict]:
+    from backend.app.rag.profile import get_profile
+    prof = get_profile(profile_id)
+    if prof.id != "huit":
+        return docs
+
     q_normalized = normalize_text(question)
 
     # 1. General tuition heuristic override
@@ -216,17 +282,53 @@ def apply_heuristic_overrides(docs: List[dict], question: str, intent: str) -> L
 
     return docs
 
-def retrieve(question: str, top_k: int = 3, timings: Optional[Any] = None) -> List[dict]:
-    """Quy trình retrieval hoàn chỉnh kết hợp Dense Vector, Sparse Keyword và Reranking."""
+def retrieve(
+    question: str,
+    top_k: int = 3,
+    timings: Optional[Any] = None,
+    intent: Optional[str] = None,
+    context_entities: Optional[Dict[str, Any]] = None,
+    profile_id: Optional[str] = None,
+) -> List[dict]:
+    """Quy trình retrieval hoàn chỉnh kết hợp Dense Vector, Sparse Keyword và Reranking.
+    
+    Tích hợp:
+    - Hỗ trợ đa profile (HUIT vs ILT).
+    - Hỗ trợ tra cứu mã SKU chính xác cho sản phẩm ILT.
+    - Hỗ trợ Cluster Pre-filter cho Vector Search (giảm phạm vi tìm kiếm trước ANN).
+    - Reranking theo đặc tính kỹ thuật sản phẩm (ILT) hoặc mã ngành/điểm chuẩn/học phí (HUIT).
+    - Bảo toàn 100% tính tương thích baseline cho HUIT.
+    """
+    from backend.app.rag.profile import get_profile
+    profile = get_profile(profile_id)
     expanded_q = expand_query(question)
-    intent = classify_intent(expanded_q)
-    requested_years = {int(val) for val in re.findall(r"\b20\d{2}\b", expanded_q)}
+    effective_intent = intent if intent else classify_intent(expanded_q)
+    
+    if context_entities is None:
+        from backend.app.rag.intent import extract_admission_entities
+        context_entities = extract_admission_entities(question) if profile.id == "huit" else {}
+
+    requested_years = set(context_entities.get("years", []))
+    if not requested_years and profile.id == "huit":
+        requested_years = {int(val) for val in re.findall(r"\b20\d{2}\b", expanded_q)}
 
     candidate_map: Dict[str, dict] = {}
     vector_ranks: Dict[str, int] = {}
     keyword_ranks: Dict[str, int] = {}
 
-    # 1 & 2. Concurrent Vector & Keyword Search (chạy song song để giảm độ trễ I/O mạng MongoDB Atlas)
+    # Exact SKU lookup for ILT profile
+    sku_matches = []
+    if profile.id == "ilt":
+        sku_matches = re.findall(r'\b[A-Za-z]{3,4}-\d+[\w-]*\b', question)
+        for s_idx, sku_val in enumerate(sku_matches[:3]):
+            sku_docs = HybridRetriever.search_sku_exact(sku_val, profile_id=profile.id, limit=3)
+            for rank, doc in enumerate(sku_docs, 1):
+                doc_id = candidate_id(doc, rank + s_idx * 10, "s")
+                candidate_map[doc_id] = doc
+                vector_ranks[doc_id] = 1
+                keyword_ranks[doc_id] = 1
+
+    # 1 & 2. Concurrent Vector & Keyword Search
     def _execute_vector_search():
         t0_emb = time.perf_counter()
         qv_res = EmbeddingManager.embed_query(expanded_q)
@@ -234,21 +336,58 @@ def retrieve(question: str, top_k: int = 3, timings: Optional[Any] = None) -> Li
 
         t0_vec = time.perf_counter()
         v_res = []
+        top_cid = None
         if qv_res:
-            v_res = HybridRetriever.search_vector(qv_res)
+            top_cid = HybridRetriever.get_top_cluster(qv_res, profile_id=profile.id)
+            if profile.enable_cluster_prefilter and top_cid is not None:
+                v_res = HybridRetriever.search_vector(
+                    qv_res,
+                    profile_id=profile.id,
+                    filter_cluster_ids=[top_cid],
+                    limit=15,
+                    num_candidates=200,
+                )
+                is_comparison = any(term in expanded_q.lower() for term in ["so sánh", "khác", "giữa", "compare", "vs"])
+                if len(v_res) < 3 or is_comparison:
+                    global_res = HybridRetriever.search_vector(
+                        qv_res,
+                        profile_id=profile.id,
+                        filter_cluster_ids=None,
+                        limit=15,
+                        num_candidates=200,
+                    )
+                    seen_cids = {d.get("chunk_id") or d.get("title") for d in v_res}
+                    for g_doc in global_res:
+                        gid = g_doc.get("chunk_id") or g_doc.get("title")
+                        if gid not in seen_cids:
+                            v_res.append(g_doc)
+                            seen_cids.add(gid)
+            else:
+                v_res = HybridRetriever.search_vector(
+                    qv_res,
+                    profile_id=profile.id,
+                    filter_cluster_ids=None,
+                    limit=15,
+                    num_candidates=200,
+                )
         t_vec = (time.perf_counter() - t0_vec) * 1000
-        return qv_res, v_res, t_emb, t_vec
+        return qv_res, v_res, top_cid, t_emb, t_vec
 
     def _execute_keyword_search():
         t0_kw = time.perf_counter()
-        k_res = HybridRetriever.search_keyword(expanded_q)
+        k_res = HybridRetriever.search_keyword(
+            expanded_q,
+            profile_id=profile.id,
+            sku_query=sku_matches[0] if sku_matches else None,
+            limit=20,
+        )
         t_kw = (time.perf_counter() - t0_kw) * 1000
         return k_res, t_kw
 
     with ThreadPoolExecutor(max_workers=2) as executor:
         f_vec = executor.submit(_execute_vector_search)
         f_kw = executor.submit(_execute_keyword_search)
-        qv, v_docs, t_emb_ms, t_vec_ms = f_vec.result()
+        qv, v_docs, top_cluster_id, t_emb_ms, t_vec_ms = f_vec.result()
         k_docs, t_kw_ms = f_kw.result()
 
     if timings:
@@ -256,12 +395,11 @@ def retrieve(question: str, top_k: int = 3, timings: Optional[Any] = None) -> Li
         timings.record_metric("vector_search", t_vec_ms)
         timings.record_metric("keyword_search", t_kw_ms)
 
-    top_cluster_id = HybridRetriever.get_top_cluster(qv) if qv else None
-
     if qv:
         for rank, doc in enumerate(v_docs, 1):
             doc_id = candidate_id(doc, rank, "v")
-            candidate_map[doc_id] = doc
+            if doc_id not in candidate_map:
+                candidate_map[doc_id] = doc
             vector_ranks[doc_id] = rank
 
     for rank, doc in enumerate(k_docs, 1):
@@ -273,7 +411,10 @@ def retrieve(question: str, top_k: int = 3, timings: Optional[Any] = None) -> Li
     # Fallback nếu không tìm thấy gì
     if not candidate_map:
         try:
-            raw_docs = rag_operations.get_fallback_docs(limit=top_k)
+            raw_docs = rag_operations.get_profile_fallback_docs(
+                collection=profile.mongodb_collection,
+                limit=top_k,
+            )
             for rank, doc in enumerate(raw_docs, 1):
                 doc_id = candidate_id(doc, rank, "r")
                 candidate_map[doc_id] = doc
@@ -286,21 +427,33 @@ def retrieve(question: str, top_k: int = 3, timings: Optional[Any] = None) -> Li
         timings.start_span("rerank")
     docs = rerank_and_filter(
         candidate_map, vector_ranks, keyword_ranks,
-        expanded_q, intent, top_cluster_id, requested_years, top_k
+        expanded_q, effective_intent, top_cluster_id, requested_years, top_k,
+        context_entities=context_entities,
+        profile_id=profile.id,
     )
 
-    # 4. Heuristics overrides
-    docs = apply_heuristic_overrides(docs, expanded_q, intent)
+    # 4. Heuristics overrides (HUIT only)
+    docs = apply_heuristic_overrides(docs, expanded_q, effective_intent, profile_id=profile.id)
     if timings:
         timings.end_span("rerank")
 
-    # 5. Deduplicate
+    # 5. Deduplicate (keeping distinct chunks/pages/SKUs)
     unique_docs = []
     seen = set()
     for d in docs:
-        ident = (d.get("source_url") or d.get("url"), d.get("category"))
+        ident = (
+            d.get("chunk_id")
+            or d.get("_id")
+            or (
+                d.get("source_url") or d.get("url"),
+                d.get("page_number"),
+                d.get("sku") or d.get("major_code"),
+                d.get("title"),
+            )
+        )
         if ident not in seen:
             seen.add(ident)
             unique_docs.append(d)
 
     return unique_docs[:top_k]
+

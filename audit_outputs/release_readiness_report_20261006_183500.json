@@ -1,0 +1,122 @@
+{
+  "report_id": "release-readiness-20261006-183500",
+  "review_date_local": "2026-10-06",
+  "timezone": "Asia/Saigon",
+  "recorded_at": "2026-10-06T18:35:00+07:00",
+  "workspace": "D:\\chatbot2",
+  "head_commit": "3f338839fcbec4d1337ae10378d9c78c69350127",
+  "git_status": "working_tree_modified_preserved",
+  "verdict": {
+    "code_readiness": "GO",
+    "packaging_and_config": "GO",
+    "jev_decision_telemetry": "GO",
+    "live_production_deployment": "PENDING_APPROVAL_NO_GO"
+  },
+  "checks": {
+    "backend_pytest": {
+      "total": 551,
+      "passed": 551,
+      "failed": 0,
+      "warnings": 34,
+      "duration_seconds": 48.67,
+      "status": "PASS"
+    },
+    "frontend_vitest": {
+      "test_files": 16,
+      "total_tests": 126,
+      "passed": 126,
+      "failed": 0,
+      "duration_seconds": 10.09,
+      "status": "PASS"
+    },
+    "frontend_oxlint": {
+      "files_checked": 100,
+      "errors": 0,
+      "warnings": 0,
+      "status": "PASS"
+    },
+    "frontend_build": {
+      "command": "tsc -b && vite build",
+      "status": "PASS",
+      "dist_output": "dist/index.html, dist/assets/index-Ds9LwIgh.css, dist/assets/index-CtkFPk3t.js"
+    },
+    "schema_contract_sync": {
+      "contracts_checked": 18,
+      "status": "IN_SYNC"
+    },
+    "secret_scan": {
+      "files_scanned": 471,
+      "real_leaks": 0,
+      "status": "PASSED_GO"
+    },
+    "infrastructure_hardening": {
+      "tests_passed": 6,
+      "total": 6,
+      "status": "PASS"
+    }
+  },
+  "blockers_resolved": [
+    {
+      "id": "B1",
+      "component": ".dockerignore",
+      "resolution": "Explicitly excluded **/.env, **/.env.*, backend/.env, credentials*.json"
+    },
+    {
+      "id": "B2",
+      "component": "Dockerfile & Dockerfile.worker",
+      "resolution": "Pinned explicit user/group appuser:appgroup with UID:GID 10001:10001"
+    },
+    {
+      "id": "B3",
+      "component": "docker-compose.prod.yml",
+      "resolution": "Configured worker with frontend_net (outbound internet) and backend_net (internal Redis access) without exposing Redis to public"
+    },
+    {
+      "id": "B4",
+      "component": "docker-compose.prod.yml",
+      "resolution": "Wired all Jev runtime environment variables: JEV_MODE, TYPESAFE_API_KEY, confidence threshold (0.80), total budget (2000ms)"
+    },
+    {
+      "id": "B5",
+      "component": "backend/app/rag/pipeline.py",
+      "resolution": "Integrated log_decision_application logging api_called, result_accepted, decision_applied, apply_reason, request_id without logging PII or raw documents"
+    },
+    {
+      "id": "B6",
+      "component": "backend/tests/test_jev_assist_mode_chat.py",
+      "resolution": "Added comprehensive test cases covering applied decisions, not needed, low confidence, timeout, provider error, cache hit, and circuit breaker open"
+    }
+  ],
+  "pending_user_inputs": [
+    {
+      "id": "D1",
+      "topic": "Target Service & Domain Confirmation",
+      "detail": "Confirm target Railway backend (https://bacsihiep-production.up.railway.app) and Vercel frontend"
+    },
+    {
+      "id": "D2",
+      "topic": "Deployment Permissions",
+      "detail": "Specify deployment method: git push trigger vs direct CLI deploy tokens"
+    },
+    {
+      "id": "D3",
+      "topic": "Live Verification Quota & Budget",
+      "detail": "Approve execution of 10-20 live queries against real domain and API providers"
+    },
+    {
+      "id": "D4",
+      "topic": "Credential Rotation Confirmation",
+      "detail": "Confirm all production credentials have been rotated independently of local development"
+    }
+  ],
+  "rollback_strategy": {
+    "jev_toggle": {
+      "shadow_mode": "Set JEV_MODE=shadow (observability only, 0 chat interference)",
+      "off_mode": "Set JEV_MODE=off (complete bypass, 0 API calls, 0 latency)"
+    },
+    "code_rollback": {
+      "railway": "Trigger instant rollback on Railway dashboard to prior deployment or commit 3f33883",
+      "vercel": "Trigger instant rollback on Vercel dashboard to prior active deployment"
+    }
+  }
+}

@@ -1,18 +1,26 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Send, Square, Mic, MicOff, GraduationCap, Files, Scale } from 'lucide-react';
+import { Send, Square, Mic, MicOff, GraduationCap, Files, Scale, Layers, Sliders, Factory } from 'lucide-react';
 import { useSpeechRecognition } from '../../voice/hooks/useSpeechRecognition';
+import { KnowledgeProfileUI } from '../../../shared/types/common.types';
 
 interface ChatInputProps {
   onSendMessage: (text: string) => void;
   onStopStreaming: () => void;
   isStreaming: boolean;
   disabled?: boolean;
+  profile?: KnowledgeProfileUI | null;
 }
 
-const QUICK_ACTIONS = [
+const HUIT_QUICK_ACTIONS = [
   { label: 'Tư vấn ngành', icon: GraduationCap, prompt: 'Tư vấn ngành học phù hợp với sở thích của tôi.' },
   { label: 'So sánh học phí', icon: Scale, prompt: 'So sánh học phí các ngành HUIT năm 2026.' },
   { label: 'Tạo tài liệu', icon: Files, prompt: 'Tạo bảng Excel thông tin tuyển sinh HUIT.' },
+];
+
+const ILT_QUICK_ACTIONS = [
+  { label: 'Dòng sản phẩm', icon: Layers, prompt: 'Danh mục các dòng đèn trang trí của ILT gồm những loại nào?' },
+  { label: 'Thông số kỹ thuật', icon: Sliders, prompt: 'Thông số kỹ thuật, kích thước và đui đèn của dòng ARNO hoặc BORA?' },
+  { label: 'Năng lực OEM/ODM', icon: Factory, prompt: 'Năng lực sản xuất, gia công tùy chỉnh OEM/ODM và chứng nhận xuất khẩu của nhà máy ILT Đồng Nai?' },
 ];
 
 export const ChatInput: React.FC<ChatInputProps> = React.memo(({
@@ -20,6 +28,7 @@ export const ChatInput: React.FC<ChatInputProps> = React.memo(({
   onStopStreaming,
   isStreaming,
   disabled,
+  profile,
 }) => {
   const [inputText, setInputText] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -60,10 +69,19 @@ export const ChatInput: React.FC<ChatInputProps> = React.memo(({
     }
   }, [inputText]);
 
+  const isIlt = profile?.profile_id === 'ilt';
+  const quickActions = isIlt ? ILT_QUICK_ACTIONS : HUIT_QUICK_ACTIONS;
+  const placeholder = isListening
+    ? '🎙️ Đang lắng nghe bạn nói...'
+    : isIlt
+    ? 'Hỏi về thông số kỹ thuật đèn, kích thước, chứng chỉ hoặc dịch vụ OEM/ODM...'
+    : 'Đặt câu hỏi về ngành học, học phí hoặc điểm chuẩn HUIT 2026...';
+  const ariaLabel = isIlt ? 'Nội dung câu hỏi sản phẩm đèn ILT' : 'Nội dung câu hỏi tuyển sinh HUIT';
+
   return (
     <div className="chat-composer-wrapper" role="region" aria-label="Soạn tin nhắn">
       <div className="composer-quick-actions" role="group" aria-label="Thao tác nhanh">
-        {QUICK_ACTIONS.map(({ label, icon: Icon, prompt }) => (
+        {quickActions.map(({ label, icon: Icon, prompt }) => (
           <button
             key={label}
             type="button"
@@ -82,15 +100,11 @@ export const ChatInput: React.FC<ChatInputProps> = React.memo(({
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={
-            isListening
-              ? '🎙️ Đang lắng nghe bạn nói...'
-              : 'Đặt câu hỏi về ngành học, học phí hoặc điểm chuẩn HUIT 2026...'
-          }
+          placeholder={placeholder}
           className="chat-composer-textarea"
           rows={1}
           disabled={disabled}
-          aria-label="Nội dung câu hỏi tuyển sinh HUIT"
+          aria-label={ariaLabel}
         />
 
         <div className="chat-composer-actions">

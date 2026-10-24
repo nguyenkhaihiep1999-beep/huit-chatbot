@@ -106,3 +106,17 @@ export interface ConversationSession {
   updatedAt: number;
   messages: ChatMessage[];
 }
+
+export interface KnowledgeProfileUI {
+  profile_id: string;
+  name: string;
+  bot_title: string;
+  bot_subtitle: string;
+  eyebrow: string;
+  empty_title: string;
+  empty_description: string;
+  official_contact: string;
+  default_source_url: string;
+  suggestions: Array<{ text: string; badge: string }>;
+}
+

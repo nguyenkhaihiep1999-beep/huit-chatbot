@@ -13,6 +13,78 @@ logger = logging.getLogger("huit_chatbot.chat_route")
 router = APIRouter()
 
 
+@router.get("/profile")
+async def get_active_profile():
+    """Lấy thông tin profile kho tri thức đang phục vụ, cấu hình hiển thị và gợi ý câu hỏi."""
+    from backend.app.rag.profile import get_profile
+    prof = get_profile()
+    if prof.id == "ilt":
+        return {
+            "profile_id": "ilt",
+            "name": prof.name,
+            "bot_title": "Innovative Lighting AI",
+            "bot_subtitle": "Đèn trang trí & chiếu sáng cao cấp · Nhà máy Đồng Nai",
+            "eyebrow": "Dữ liệu Catalogue ILT 2026",
+            "empty_title": "Chiếu sáng kiến trúc. Chuẩn mực quốc tế.",
+            "empty_description": (
+                "Tra cứu thông số kỹ thuật đèn bàn, đèn sàn, đèn thả, đèn chùm, "
+                "năng lực OEM/ODM và tiêu chuẩn xuất khẩu từ Innovative Lighting Technologies."
+            ),
+            "official_contact": prof.official_contact,
+            "default_source_url": prof.default_source_url,
+            "suggestions": [
+                {
+                    "text": "Danh mục các dòng sản phẩm đèn của ILT?",
+                    "badge": "Sản phẩm ILT",
+                },
+                {
+                    "text": "Thông số kỹ thuật dòng đèn ARNO hoặc BORA?",
+                    "badge": "Thông số kỹ thuật",
+                },
+                {
+                    "text": "Năng lực sản xuất và tiêu chuẩn xuất khẩu tại Đồng Nai?",
+                    "badge": "Nhà máy & Chứng nhận",
+                },
+                {
+                    "text": "Quy trình đặt hàng gia công tùy chỉnh OEM/ODM?",
+                    "badge": "Dịch vụ OEM/ODM",
+                },
+            ],
+        }
+    return {
+        "profile_id": "huit",
+        "name": prof.name,
+        "bot_title": "HUIT Tuyển sinh AI",
+        "bot_subtitle": "Thông tin tuyển sinh · Tài liệu trực quan",
+        "eyebrow": "Dữ liệu tuyển sinh HUIT 2026",
+        "empty_title": "Hỏi đúng. Hiểu rõ. Chọn ngành tự tin.",
+        "empty_description": (
+            "Tra cứu học phí, điểm chuẩn, ngành học và tạo tài liệu trực quan từ "
+            "nguồn dữ liệu của Trường Đại học Công Thương TP.HCM."
+        ),
+        "official_contact": prof.official_contact,
+        "default_source_url": prof.default_source_url,
+        "suggestions": [
+            {
+                "text": "Học phí HUIT năm 2026 là bao nhiêu?",
+                "badge": "Học phí",
+            },
+            {
+                "text": "Cho tôi danh sách ngành tuyển sinh.",
+                "badge": "39 Ngành học",
+            },
+            {
+                "text": "Tạo bảng Excel học phí các ngành.",
+                "badge": "Xuất file Excel",
+            },
+            {
+                "text": "Điểm chuẩn ngành Công nghệ thông tin?",
+                "badge": "Điểm sàn & chuẩn",
+            },
+        ],
+    }
+
+
 @router.post("/chat", response_model=ChatResponse)
 async def handle_chat(
     req: ChatRequest,

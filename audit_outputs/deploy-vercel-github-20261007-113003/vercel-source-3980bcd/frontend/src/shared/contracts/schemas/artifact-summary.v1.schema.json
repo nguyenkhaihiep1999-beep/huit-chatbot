@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:artifact-summary:1.0.0",
+  "title": "HUIT lightweight artifact summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact_id", "type", "title", "preview_url", "manifest_url"],
+  "properties": {
+    "artifact_id": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "type": { "enum": ["spreadsheet", "document", "image"] },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "preview_url": { "type": "string" },
+    "manifest_url": { "type": "string" },
+    "available_formats": {
+      "type": "array",
+      "items": { "enum": ["xlsx", "docx", "pdf", "png", "svg", "webp"] },
+      "default": ["xlsx", "docx", "pdf", "svg"]
+    },
+    "checksum": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "preview_bytes": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "default": null
+    },
+    "chart_type": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "status": {
+      "anyOf": [
+        { "enum": ["planned", "rendering", "ready", "failed", "unavailable", "pending"] },
+        { "type": "null" }
+      ],
+      "default": null
+    },
+    "owner_id": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "error_message": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    }
+  }
+}

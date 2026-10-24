@@ -1,0 +1,64 @@
+{
+  "check_date_local": "2026-10-06",
+  "workspace": "D:\\chatbot2",
+  "head": "3f338839fcbec4d1337ae10378d9c78c69350127",
+  "working_tree_dirty": true,
+  "verdict": "Offline code checks passed; live end-to-end and production acceptance remain unverified.",
+  "backend": {"passed": 551, "failed": 0, "errors": 0, "skipped": 0, "junit_duration_seconds": 94.613, "warnings": 34, "jev_assist_cases": 21, "production_infrastructure_cases": 6},
+  "frontend": {"passed": 126, "failed": 0, "errors": 0, "skipped": 0, "test_files": 16, "reported_duration_seconds": 9.45, "lint_exit_code": 0, "build_exit_code": 0},
+  "schema_sync": {"exit_code": 0, "frontend_contracts": 18, "manifest_in_sync": true},
+  "secret_scan_evidence": "secret-scan.json",
+  "secret_scan_scope": "Working-tree pattern scan; not Git history, deployed image or credential-rotation verification.",
+  "runtime": {
+    "checked_at_utc": "2026-10-06T12:26:52.483750+00:00",
+    "backend_live_http_status": 200,
+    "frontend_dev_port_3000": "not_reachable_from_check_environment",
+    "mongodb_direct_ping": "not_confirmed",
+    "mongodb_probe_error_type": "ConfigurationError",
+    "mongodb_probe_error_reason": "Not established; do not infer that the running application's database is unhealthy.",
+    "readiness_endpoint_not_called": "It can write operation_audit and a temporary storage probe.",
+    "docker_cli_available": false,
+    "live_chat_e2e_run": false,
+    "live_jev_api_called": false
+  },
+  "configuration_from_current_files_not_running_process": {
+    "environment": "development",
+    "jev_mode": "assist",
+    "jev_model": "jev-latest",
+    "jev_key_present": true,
+    "redis_configured": false,
+    "local_embeddings_enabled": true
+  },
+  "new_reproduced_finding": {
+    "priority": "P2",
+    "title": "Jev application telemetry can count a provider call that never happened",
+    "location": "backend/app/rag/pipeline.py:254",
+    "related_location": "backend/app/rag/pipeline.py:314",
+    "cause": "api_called defaults to true before entering the service; a pre-provider deadline skip returning None reaches provider_empty_response without clearing the flag.",
+    "controlled_probe": "probe_jev_pre_call_budget.py",
+    "probe_mode": "Existing offline fixtures, HTTP and Mongo transports blocked, synthetic input, injected scheduling delay",
+    "total_budget_ms": 100,
+    "injected_queue_delay_ms": 65,
+    "provider_requests_observed": 0,
+    "pipeline_api_called": true,
+    "apply_reason": "provider_empty_response",
+    "decision_applied": false,
+    "chat_completed": true,
+    "impact": "Overcounts Jev API participation in audit/CEO/cost reports; this reproduction did not break chat."
+  },
+  "previous_worker_network_test_failure": "Resolved in current test run; current assertion accepts frontend_net plus backend_net and verifies no worker host ports.",
+  "limitations": [
+    "Tests use offline/mock providers; they do not establish real Jev quality or answer accuracy improvement.",
+    "No container build/run or deployed environment was verified.",
+    "No Mongo writes, cleanup, migrations, provider billing calls, server restarts or deployment were performed.",
+    "Application and test source were not edited; only check artifacts were created and frontend build output regenerated.",
+    "Embedding pooling warning requires a compatibility check against existing vectors before release; no retrieval failure was established."
+  ],
+  "source_sha256": {
+    "backend/app/rag/pipeline.py": "6D3280CC75167D327564CEDA25CF242F724040E50B1FA54AD8FDB731083F6239",
+    "backend/app/decision_engine/service.py": "522E1B18BC411E6B4E4E436CBA271ED25CA9E7122D53A75FD704E27659E04715",
+    "backend/tests/test_jev_assist_mode_chat.py": "D58CFF84CDD9669D0B945AEF8BDD25B1C207DA1469611CB67BCBD5496DFC2E50",
+    "backend/tests/test_production_infrastructure_hardening.py": "9AD0F78950DF9FE1B17C361D8B620A341E899B12BDE5998B3E925DB9560E9CA0",
+    "docker-compose.prod.yml": "C543508882D0739F862E62F655DE3D7E3765714C38A40695000A209162C3CC7E"
+  }
+}

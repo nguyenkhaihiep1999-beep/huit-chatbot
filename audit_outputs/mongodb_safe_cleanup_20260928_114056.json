@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-09-28T11:40:52.484215+00:00",
+  "database": "huit_chatbot",
+  "mode": "DRY_RUN",
+  "operation_audit": {
+    "before_total": 447,
+    "verified_noop_count": 250,
+    "real_successful_claims_preserved": 1,
+    "failed_claims_preserved": 32,
+    "deleted_noop_count": 0,
+    "after_total": 448,
+    "remaining_verified_noops": 251,
+    "real_successful_claims_after": 1,
+    "failed_claims_after": 32
+  },
+  "test_collections": [
+    {
+      "name": "test_rag_chunks",
+      "exists": false,
+      "count": 0
+    },
+    {
+      "name": "test_categorized_data",
+      "exists": false,
+      "count": 0
+    },
+    {
+      "name": "test_clean_data",
+      "exists": false,
+      "count": 0
+    },
+    {
+      "name": "test_quality_ranked",
+      "exists": false,
+      "count": 0
+    },
+    {
+      "name": "test_search_results",
+      "exists": false,
+      "count": 0
+    },
+    {
+      "name": "test_kb_stats",
+      "exists": false,
+      "count": 0
+    }
+  ],
+  "dropped_test_collections": [],
+  "protected_collections": [
+    "huit_kb",
+    "rag_events",
+    "chat_logs",
+    "query_cache",
+    "jobs",
+    "assets",
+    "artifacts",
+    "generated_images",
+    "admission_visuals"
+  ],
+  "remaining_test_collections": []
+}

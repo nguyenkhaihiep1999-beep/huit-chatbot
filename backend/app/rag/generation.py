@@ -1,6 +1,7 @@
 import os
 import re
-from typing import Generator, List, Tuple, Optional
+from typing import Generator, List, Tuple, Optional, Dict, Any
+
 from openai import OpenAI
 from backend.app.config import settings
 from backend.app.rag.intent import normalize_text, classify_intent
@@ -14,10 +15,119 @@ def clean_llm_text(text: str) -> str:
     text = re.sub(r"^(here is the answer|we need to answer|here's the response):\s*", "", text, flags=re.IGNORECASE)
     return text.strip()
 
+def verify_and_clean_citations(text: str, num_sources: int) -> Tuple[str, Dict[str, Any]]:
+    """Kiểm tra nguồn trích dẫn thuộc tập tài liệu đã truy xuất.
+    
+    Lưu ý quan trọng:
+    - Việc kiểm tra nguồn trích dẫn thuộc tập tài liệu đã truy xuất không đồng nghĩa mọi phát biểu đều đúng.
+    - Hàm loại bỏ các citation marker [n] vượt quá số lượng nguồn thực tế (ví dụ [4] khi chỉ có 3 nguồn)
+      để đảm bảo không tạo trích dẫn rác, và ghi nhận telemetry chi tiết.
+    """
+    if not text:
+        return "", {"valid": True, "cited_indices": [], "invalid_indices": [], "num_sources": num_sources}
+
+    all_markers = [int(m) for m in re.findall(r'\[(\d+)\]', text)]
+    valid_indices = set()
+    invalid_indices = set()
+
+    for idx in all_markers:
+        if 1 <= idx <= num_sources:
+            valid_indices.add(idx)
+        else:
+            invalid_indices.add(idx)
+
+    cleaned_text = text
+    if invalid_indices:
+        for inv in invalid_indices:
+            cleaned_text = re.sub(rf'\[{inv}\]', '', cleaned_text)
+        cleaned_text = re.sub(r'\s{2,}', ' ', cleaned_text).strip()
+
+    report = {
+        "valid": len(invalid_indices) == 0,
+        "cited_indices": sorted(list(valid_indices)),
+        "invalid_indices": sorted(list(invalid_indices)),
+        "num_sources": num_sources
+    }
+    return cleaned_text, report
+
+
 def get_llm_endpoints() -> List[Tuple[OpenAI, str, str]]:
-    """Build prioritized multi-provider LLM endpoint list (Gemini Direct -> Groq Direct -> OpenRouter)."""
+    """Build prioritized multi-provider LLM endpoint list.
+    
+    Hỗ trợ cấu hình Qwen làm LLM chính qua PRIMARY_LLM_PROVIDER='qwen'.
+    Khi PRIMARY_LLM_PROVIDER='gemini' (mặc định), giữ nguyên 100% thứ tự baseline
+    (Gemini Direct -> Groq Direct -> OpenRouter).
+    """
     endpoints = []
 
+    # Khi Qwen được cấu hình làm LLM chính
+    if getattr(settings, "PRIMARY_LLM_PROVIDER", "gemini") == "qwen":
+        # 1. Custom / Dedicated Qwen API (nếu có cấu hình QWEN_API_KEY)
+        if getattr(settings, "QWEN_API_KEY", ""):
+            try:
+                base_url = getattr(settings, "QWEN_BASE_URL", "") or "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+                client = OpenAI(api_key=settings.QWEN_API_KEY, base_url=base_url)
+                q_model = getattr(settings, "QWEN_MODEL", "qwen-2.5-72b-instruct")
+                endpoints.append((client, q_model, "QwenDirect"))
+            except Exception as e:
+                print("Qwen Direct init warning:", e)
+
+        # 2. Qwen qua Groq Direct API (được Groq chính thức hỗ trợ)
+        if settings.GROQ_API_KEY:
+            try:
+                client = OpenAI(api_key=settings.GROQ_API_KEY, base_url="https://api.groq.com/openai/v1")
+                for m in ["qwen/qwen3.8-27b", "qwen-2.5-32b"]:
+                    endpoints.append((client, m, "GroqDirect"))
+            except Exception as e:
+                print("Groq Qwen init warning:", e)
+
+        # 3. Qwen qua OpenRouter API
+        if settings.OPENROUTER_KEY:
+            try:
+                client = OpenAI(api_key=settings.OPENROUTER_KEY, base_url="https://openrouter.ai/api/v1")
+                for m in ["qwen/qwen-2.5-72b-instruct", "qwen/qwen-2.5-coder-32b-instruct"]:
+                    endpoints.append((client, m, "OpenRouter"))
+            except Exception as e:
+                print("OpenRouter Qwen init warning:", e)
+
+        # Fallback cho nhánh Qwen: Gemini -> Groq -> OpenRouter
+        if settings.GEMINI_API_KEY:
+            try:
+                client = OpenAI(api_key=settings.GEMINI_API_KEY, base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
+                for m in [settings.GEMINI_MODEL, "gemini-1.5-flash", "gemini-1.5-flash-8b"]:
+                    endpoints.append((client, m, "GeminiDirect"))
+            except Exception as e:
+                print("Gemini Direct init warning:", e)
+
+        if settings.GROQ_API_KEY:
+            try:
+                client = OpenAI(api_key=settings.GROQ_API_KEY, base_url="https://api.groq.com/openai/v1")
+                for m in [
+                    "openai/gpt-oss-120b",
+                    "openai/gpt-oss-20b",
+                    "llama-3.3-70b-versatile",
+                    "llama-3.1-8b-instant"
+                ]:
+                    endpoints.append((client, m, "GroqDirect"))
+            except Exception as e:
+                print("Groq Direct init warning:", e)
+
+        if settings.OPENROUTER_KEY:
+            try:
+                client = OpenAI(api_key=settings.OPENROUTER_KEY, base_url="https://openrouter.ai/api/v1")
+                for m in [
+                    settings.OPENROUTER_MODEL,
+                    "google/gemma-4-26b-a4b-it:free",
+                    "google/gemma-4-31b-it:free",
+                    "openrouter/free",
+                ]:
+                    endpoints.append((client, m, "OpenRouter"))
+            except Exception as e:
+                print("OpenRouter init warning:", e)
+
+        return endpoints
+
+    # Baseline: 100% tương thích gốc
     # 1. Google Gemini Direct API
     if settings.GEMINI_API_KEY:
         try:
@@ -58,6 +168,8 @@ def get_llm_endpoints() -> List[Tuple[OpenAI, str, str]]:
             print("OpenRouter init warning:", e)
 
     return endpoints
+
+
 
 def call_llm(system_prompt: str, user_prompt: str) -> str:
     msgs = [

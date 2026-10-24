@@ -1,0 +1,1971 @@
+{
+  "dataset_name": "Innovative Lighting Technologies Knowledge Base",
+  "dataset_version": "2026.1",
+  "created_at": "2026-10-24T13:48:10.850492+00:00",
+  "sources": [
+    {
+      "name": "Official Website",
+      "url": "https://innovativelightingco.com/",
+      "chunks": 4
+    },
+    {
+      "name": "Official FlipHTML5 Catalog",
+      "url": "https://online.fliphtml5.com/zpdsw/wjtd/",
+      "pages": 135,
+      "chunks": 135
+    }
+  ],
+  "statistics": {
+    "total_chunks": 139,
+    "web_chunks": 4,
+    "catalogue_chunks": 135,
+    "total_catalogue_pages": 135,
+    "verified_pages": 135,
+    "quarantined_pages": 0,
+    "total_sku_mentions": 327,
+    "unique_skus": 322
+  },
+  "pages_ledger": {
+    "1": {
+      "page_number": 1,
+      "series": "DECORATIVE",
+      "sku_count": 0,
+      "skus": [],
+      "char_count": 41,
+      "sha256": "ea9a220e90b74d7a4134e25e2e66f6601c01608128f90d021fbe8aea75c9bbab",
+      "status": "verified",
+      "notes": "OK",
+      "category": "catalogue_intro"
+    },
+    "2": {
+      "page_number": 2,
+      "series": "DECORATIVE",
+      "sku_count": 0,
+      "skus": [],
+      "char_count": 1008,
+      "sha256": "76eb2430cc4c543df01d59810cad36a715b4f5ab87fc521104774c8d343c1002",
+      "status": "verified",
+      "notes": "OK",
+      "category": "catalogue_intro"
+    },
+    "3": {
+      "page_number": 3,
+      "series": "DECORATIVE",
+      "sku_count": 0,
+      "skus": [],
+      "char_count": 1514,
+      "sha256": "d14a1dff3964928aa21a8baa878e1ae41190b69357e59adada673df5e5710d70",
+      "status": "verified",
+      "notes": "OK",
+      "category": "catalogue_intro"
+    },
+    "4": {
+      "page_number": 4,
+      "series": "ARNO",
+      "sku_count": 0,
+      "skus": [],
+      "char_count": 207,
+      "sha256": "0b865cf69f1967e6bae6542723e0105d4759a9e444c4e90c25e0a461df5b3268",
+      "status": "verified",
+      "notes": "OK",
+      "category": "catalogue_intro"
+    },
+    "5": {
+      "page_number": 5,
+      "series": "ARNO",
+      "sku_count": 0,
+      "skus": [],
+      "char_count": 1076,
+      "sha256": "976acf5d67bad567344e2a26fcc4e3c7726eb614b4197d5bda280a0f8bdf5b80",
+      "status": "verified",
+      "notes": "OK",
+      "category": "catalogue_intro"
+    },
+    "6": {
+      "page_number": 6,
+      "series": "ARNO",
+      "sku_count": 1,
+      "skus": [
+        "ARN-101E26-9-NS-C"
+      ],
+      "char_count": 250,
+      "sha256": "b195138d14c350e4f2c19927a82080a45901b874a1649a30f44c5a3cfb02ebc0",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "7": {
+      "page_number": 7,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-101E26-5-NS-C",
+        "ARN-101E26-3-NS-C"
+      ],
+      "char_count": 350,
+      "sha256": "d4db1e7bed45040f75f50a8cc492563c29bf2e84fd989dea824e5149977789b0",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "8": {
+      "page_number": 8,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-104E26-2-NS-C",
+        "ARN-103E26-2-NS-C"
+      ],
+      "char_count": 370,
+      "sha256": "1c84888595a0df2f7a6db26a21524ccddd723105209f232ac610e1183496a47c",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "9": {
+      "page_number": 9,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-102E26-4-NS-C",
+        "ARN-101E26-1-NS-C"
+      ],
+      "char_count": 366,
+      "sha256": "c93f9013960af6bf7a448361926e7366bbe18cf3c472043a35722c07b9a08702",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "10": {
+      "page_number": 10,
+      "series": "ARNO",
+      "sku_count": 4,
+      "skus": [
+        "ARN-100E26-2-NS-C",
+        "ARN-100E26-4-NS-C",
+        "ARN-100E26-1-NS-C",
+        "ARN-100E26-3-NS-C"
+      ],
+      "char_count": 509,
+      "sha256": "acdd9ae8ae295690e02c787265d873cb2aa34eafb9d969b33b11f1892eb009ba",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "11": {
+      "page_number": 11,
+      "series": "ARNO",
+      "sku_count": 1,
+      "skus": [
+        "ARN-101E26-9-BK-C"
+      ],
+      "char_count": 241,
+      "sha256": "2cc50385277ec89288bc5ebb2886bade0bd5a8e56ffccc8b8a155406add984a2",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "12": {
+      "page_number": 12,
+      "series": "ARNO",
+      "sku_count": 3,
+      "skus": [
+        "ARN-101E26-9-BK-C",
+        "ARN-101E26-5-BK-C",
+        "ARN-101E26-3-BK-C"
+      ],
+      "char_count": 344,
+      "sha256": "9cd58e2e69665ae6c997a4eb1f655acdf5209a853790bacb7b85c9245d5fb8f1",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "13": {
+      "page_number": 13,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-104E26-2-BK-C",
+        "ARN-103E26-2-BK-C"
+      ],
+      "char_count": 361,
+      "sha256": "a3bf1dacc1b3a6ffc683e72bc5349f157d22bf05288d2dcd08226092443f68aa",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "14": {
+      "page_number": 14,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-102E26-4-BK-C",
+        "ARN-101E26-1-BK-C"
+      ],
+      "char_count": 357,
+      "sha256": "69f54c23ecb5bbec57860ec8b4af91fcbb573899cc3d3527be9648c605346b16",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "15": {
+      "page_number": 15,
+      "series": "ARNO",
+      "sku_count": 4,
+      "skus": [
+        "ARN-100E26-3-BK-C",
+        "ARN-100E26-4-BK-C",
+        "ARN-100E26-2-BK-C",
+        "ARN-100E26-1-BK-C"
+      ],
+      "char_count": 549,
+      "sha256": "a834b9f7705b5e132765f25dc6e3a0568258e9ecd463802a13e98c1fb2ecfc7a",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "16": {
+      "page_number": 16,
+      "series": "ARNO",
+      "sku_count": 1,
+      "skus": [
+        "ARN-101E26-9-AB-C"
+      ],
+      "char_count": 246,
+      "sha256": "7a0e8684717024b67cb91efe65222252acc1bc60508c6293219d4bf6bdaaf498",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "17": {
+      "page_number": 17,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-101E26-5-AB-C",
+        "ARN-101E26-3-AB-C"
+      ],
+      "char_count": 346,
+      "sha256": "58f6fde591a4575182f92010d628ce0cd092417d4e8dd1852fd78f9a35b29461",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "18": {
+      "page_number": 18,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-104E26-2-AB-C",
+        "ARN-103E26-2-AB-C"
+      ],
+      "char_count": 366,
+      "sha256": "bf262229db6e144a24fd1b056e8632a91a6c29e7554465d86e44370b79f4440a",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "19": {
+      "page_number": 19,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-102E26-4-AB-C",
+        "ARN-101E26-1-AB-C"
+      ],
+      "char_count": 362,
+      "sha256": "f598f11248c77481e38ed00cc54d25d82178fcd9301039456f3a82efe8bda3bf",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "20": {
+      "page_number": 20,
+      "series": "ARNO",
+      "sku_count": 4,
+      "skus": [
+        "ARN-100E26-4-AB-C",
+        "ARN-100E26-3-AB-C",
+        "ARN-100E26-2-AB-C",
+        "ARN-100E26-1-AB-C"
+      ],
+      "char_count": 505,
+      "sha256": "38dfee1fd0049a03068a87e5072ffb1a162e77858953b2a169b8eb490a2aeaae",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "21": {
+      "page_number": 21,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-101E26-9-NS-F",
+        "ARN-101E26-9-NS-C"
+      ],
+      "char_count": 258,
+      "sha256": "3c71be042d1b4a67dd4c6f9873504d346cc6fab965d1b7f7e6700e1e77f1513b",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "22": {
+      "page_number": 22,
+      "series": "ARNO",
+      "sku_count": 4,
+      "skus": [
+        "ARN-101E26-5-NS-C",
+        "ARN-101E26-3-NS-C",
+        "ARN-101E26-5-NS-F",
+        "ARN-101E26-3-NS-F"
+      ],
+      "char_count": 358,
+      "sha256": "51ffb07645fc39cdabc35d352d28a802978cc4b3dbd3f1fe336374c3d8fd48ef",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "23": {
+      "page_number": 23,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-104E26-2-NS-F",
+        "ARN-103E26-2-NS-F"
+      ],
+      "char_count": 378,
+      "sha256": "700a8fe7c41816d7bae346cc557ec41f179de74f1de00149da281f684f2039c4",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "24": {
+      "page_number": 24,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-102E26-4-NS-F",
+        "ARN-101E26-1-NS-F"
+      ],
+      "char_count": 374,
+      "sha256": "69b58f825f2c3fde36a007199cfd9f70be1da68c9670924d13dcee00f7c455ce",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "25": {
+      "page_number": 25,
+      "series": "ARNO",
+      "sku_count": 4,
+      "skus": [
+        "ARN-100E26-4-NS-F",
+        "ARN-100E26-3-NS-F",
+        "ARN-100E26-2-NS-F",
+        "ARN-100E26-1-NS-F"
+      ],
+      "char_count": 517,
+      "sha256": "8e8a75266f661001be92fa2ef7fde73070cecbf414075bb566ad85fef5439662",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "26": {
+      "page_number": 26,
+      "series": "ARNO",
+      "sku_count": 1,
+      "skus": [
+        "ARN-101E26-9-BK-F"
+      ],
+      "char_count": 249,
+      "sha256": "150811ea839e6d890376955c2762bd2beb86649cf5b8b660695d3b0a45621716",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "27": {
+      "page_number": 27,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-101E26-5-BK-F",
+        "ARN-101E26-3-BK-F"
+      ],
+      "char_count": 349,
+      "sha256": "ee5a2b8e1408e83fb275521cb186d635836617948aa3b125e5ca6ea4112d3c98",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "28": {
+      "page_number": 28,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-104E26-2-BK-F",
+        "ARN-103E26-2-BK-F"
+      ],
+      "char_count": 369,
+      "sha256": "b0fbd06f21047661c0f11321df7901ced758dadc0b7626a7e0125bf77b8af5dd",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "29": {
+      "page_number": 29,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-102E26-4-BK-F",
+        "ARN-101E26-1-BK-F"
+      ],
+      "char_count": 365,
+      "sha256": "c21dce1238208f25a4d87c19e3ede0064cae7b32a41af91899bbe9a28c286740",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "30": {
+      "page_number": 30,
+      "series": "ARNO",
+      "sku_count": 4,
+      "skus": [
+        "ARN-100E26-4-BK-F",
+        "ARN-100E26-3-BK-F",
+        "ARN-100E26-2-BK-F",
+        "ARN-100E26-1-BK-F"
+      ],
+      "char_count": 508,
+      "sha256": "815f96b2238b5fb8477f9a05f820232b0448255fde23ed4e75901683adf49170",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "31": {
+      "page_number": 31,
+      "series": "ARNO",
+      "sku_count": 1,
+      "skus": [
+        "ARN-101E26-9-AB-F"
+      ],
+      "char_count": 254,
+      "sha256": "6725625bd7928ffe2122cce0689ff419e11615cbb96db91ea0800f25f837850b",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "32": {
+      "page_number": 32,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-101E26-5-AB-F",
+        "ARN-101E26-3-AB-F"
+      ],
+      "char_count": 354,
+      "sha256": "9d543cb4405f8291755c59dfe47c1fe67d6dc277291b1b8ece127c74e95ac90d",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "33": {
+      "page_number": 33,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-104E26-2-AB-F",
+        "ARN-103E26-2-AB-F"
+      ],
+      "char_count": 374,
+      "sha256": "81611b82ca03963a0f8471f358acdf5c0e7f61a3d9dfa23db22f2c0e807f7e22",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "34": {
+      "page_number": 34,
+      "series": "ARNO",
+      "sku_count": 2,
+      "skus": [
+        "ARN-102E26-4-AB-F",
+        "ARN-101E26-1-AB-F"
+      ],
+      "char_count": 370,
+      "sha256": "cb827f1ae6f5d43d4aac4615bf2c8d3ff57411675c5b5e3d56604a9cb547a2a0",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "35": {
+      "page_number": 35,
+      "series": "ARNO",
+      "sku_count": 4,
+      "skus": [
+        "ARN-100E26-4-AB-F",
+        "ARN-100E26-3-AB-F",
+        "ARN-100E26-2-AB-F",
+        "ARN-100E26-1-AB-F"
+      ],
+      "char_count": 513,
+      "sha256": "10da57f5a73ebe7db89503d2ad7fc6c8da8c2957eaebb440be4b7e4f5605c960",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "36": {
+      "page_number": 36,
+      "series": "ARNO",
+      "sku_count": 5,
+      "skus": [
+        "BOR-100E26-3-NS-F",
+        "BOR-100E26-2-NS-F",
+        "BOR-100E26-1-NS-F",
+        "BOR-101E26-1-NS-F",
+        "BOR-100E26-4-NS-F"
+      ],
+      "char_count": 684,
+      "sha256": "714d915c8d557c5ae035fe9df08e0c0af5a1b8ee52f1612e1c1203a102861906",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "37": {
+      "page_number": 37,
+      "series": "ARNO",
+      "sku_count": 5,
+      "skus": [
+        "BOR-101E26-1-BK-F",
+        "BOR-100E26-4-BK-F",
+        "BOR-100E26-3-BK-F",
+        "BOR-100E26-2-BK-F",
+        "BOR-100E26-1-BK-F"
+      ],
+      "char_count": 675,
+      "sha256": "32b7a217a10b8fc9b6d0ffb6689916e933e1ed26e29b496f6bfeee3adb2915e1",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "38": {
+      "page_number": 38,
+      "series": "ARNO",
+      "sku_count": 5,
+      "skus": [
+        "BOR-101E26-1-AB-F",
+        "BOR-100E26-4-AB-F",
+        "BOR-100E26-3-AB-F",
+        "BOR-100E26-2-AB-F",
+        "BOR-100E26-1-AB-F"
+      ],
+      "char_count": 680,
+      "sha256": "8b9ff9a58c07b7e9f6c52b629a3cbdb08186c4751b79814afd09aa67aab78dc0",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "39": {
+      "page_number": 39,
+      "series": "ARNO",
+      "sku_count": 5,
+      "skus": [
+        "BOR-101E26-1-NS-B",
+        "BOR-100E26-4-NS-B",
+        "BOR-100E26-3-NS-B",
+        "BOR-100E26-2-NS-B",
+        "BOR-100E26-1-NS-B"
+      ],
+      "char_count": 683,
+      "sha256": "e66b48bd95493fca9f84881ed51783af5e6c2dee7a50aa5154d7bdab75808ee1",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "40": {
+      "page_number": 40,
+      "series": "ARNO",
+      "sku_count": 5,
+      "skus": [
+        "BOR-101E26-1-BK-B",
+        "BOR-100E26-4-BK-B",
+        "BOR-100E26-3-BK-B",
+        "BOR-100E26-2-BK-B",
+        "BOR-100E26-1-BK-B"
+      ],
+      "char_count": 674,
+      "sha256": "0e5fd3d387e228b010a4755d65a1043f3b214b5ab9847a075e7e7884f1eb005d",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "41": {
+      "page_number": 41,
+      "series": "ARNO",
+      "sku_count": 5,
+      "skus": [
+        "BOR-101E26-1-AB-B",
+        "BOR-100E26-4-AB-B",
+        "BOR-100E26-3-AB-B",
+        "BOR-100E26-2-AB-B",
+        "BOR-100E26-1-AB-B"
+      ],
+      "char_count": 679,
+      "sha256": "e3ee514743f9abf41a41b2419c7bc9eb48716ceddbb95d03ce691534ecfabe19",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "42": {
+      "page_number": 42,
+      "series": "BORA",
+      "sku_count": 1,
+      "skus": [
+        "VIT-101E26-9-NS-F"
+      ],
+      "char_count": 279,
+      "sha256": "6e982321f495b2507ef9f50d0ae32983d7912053f74c4feaa9496e7d7b0bac62",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "43": {
+      "page_number": 43,
+      "series": "BORA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-101E26-5-NS-F",
+        "VIT-101E26-3-NS-F"
+      ],
+      "char_count": 456,
+      "sha256": "7f201e4a995a3764fc8b1b864f1f8fc44bc0a5e87e83de9c2bf87ec410186e14",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "44": {
+      "page_number": 44,
+      "series": "BORA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-102E26-6-NS-F",
+        "VIT-202E26-6-NS-F"
+      ],
+      "char_count": 405,
+      "sha256": "1168d498173664cb17696b9fd239aed48eada95107e2b24ce7c26ad987ce65ab",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "45": {
+      "page_number": 45,
+      "series": "BORA",
+      "sku_count": 3,
+      "skus": [
+        "VIT-103E26-2-NS-F",
+        "VIT-101E26-1-NS-F",
+        "VIT-104E26-2-NS-F"
+      ],
+      "char_count": 488,
+      "sha256": "a7dd7a3843eec928f33e0fade80073f2a8b3dd6864ca1dbaef909ea748f82650",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "46": {
+      "page_number": 46,
+      "series": "BORA",
+      "sku_count": 4,
+      "skus": [
+        "VIT-100E26-4-NS-F",
+        "VIT-100E26-3-NS-F",
+        "VIT-100E26-2-NS-F",
+        "VIT-100E26-1-NS-F"
+      ],
+      "char_count": 536,
+      "sha256": "cf0c6d092171c079f2f8c265eca9ef2f8a8877070856f1843587f15a22dc48ab",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "47": {
+      "page_number": 47,
+      "series": "BORA",
+      "sku_count": 1,
+      "skus": [
+        "VIT-101E26-9-BK-F"
+      ],
+      "char_count": 270,
+      "sha256": "0ac2ea4e54958efa5df4c728ba3edea1bf2301f22a0a05a6c2a10051f61e3dee",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "48": {
+      "page_number": 48,
+      "series": "BORA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-101E26-5-BK-F",
+        "VIT-101E26-3-BK-F"
+      ],
+      "char_count": 447,
+      "sha256": "97f977a48c31c8a38c632b690b960c341c308269ecfbaabd273bacc72861ff82",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "49": {
+      "page_number": 49,
+      "series": "BORA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-102E26-6-BK-F",
+        "VIT-202E26-6-BK-F"
+      ],
+      "char_count": 396,
+      "sha256": "91cdc231fe4806f55263eea98d0eca3f96ff337fd388dec1ba7461215f1e81c3",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "50": {
+      "page_number": 50,
+      "series": "BORA",
+      "sku_count": 3,
+      "skus": [
+        "VIT-101E26-1-BK-F",
+        "VIT-103E26-2-BK-F",
+        "VIT-104E26-2-BK-F"
+      ],
+      "char_count": 479,
+      "sha256": "3cbfdd45c22a9c96b82797b26c682f6be02728f9c8b066249348472db7c9444d",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "51": {
+      "page_number": 51,
+      "series": "BORA",
+      "sku_count": 4,
+      "skus": [
+        "VIT-100E26-4-BK-F",
+        "VIT-100E26-3-BK-F",
+        "VIT-100E26-2-BK-F",
+        "VIT-100E26-1-BK-F"
+      ],
+      "char_count": 527,
+      "sha256": "400afe4ae89863f780b30d5fee0dda09ff042bb67a9947da488e09a6139158a7",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "52": {
+      "page_number": 52,
+      "series": "BORA",
+      "sku_count": 1,
+      "skus": [
+        "VIT-101E26-9-AB-F"
+      ],
+      "char_count": 275,
+      "sha256": "039a8412d7e6f4a50f5d2f5267d551d2372f8b7c737ab56914b74f16452387ef",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "53": {
+      "page_number": 53,
+      "series": "BORA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-101E26-5-AB-F",
+        "VIT-101E26-3-AB-F"
+      ],
+      "char_count": 481,
+      "sha256": "7835e5489c74fae4d087b7d05c0b86af0063e8819bac43c536c2df5a779b9bd7",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "54": {
+      "page_number": 54,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-102E26-6-AB-F",
+        "VIT-202E26-6-AB-F"
+      ],
+      "char_count": 401,
+      "sha256": "4e2946142b058927c7709ad3936b5a09ec705470e7814538073ce934d6d9258f",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "55": {
+      "page_number": 55,
+      "series": "VITA",
+      "sku_count": 3,
+      "skus": [
+        "VIT-101E26-1-AB-F",
+        "VIT-103E26-2-AB-F",
+        "VIT-104E26-2-AB-F"
+      ],
+      "char_count": 484,
+      "sha256": "09aad626d34283cd5ec4836ae79711ebacb56941832edb4e1f79d6f2c47b5516",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "56": {
+      "page_number": 56,
+      "series": "VITA",
+      "sku_count": 4,
+      "skus": [
+        "VIT-100E26-4-AB-F",
+        "VIT-100E26-3-AB-F",
+        "VIT-100E26-2-AB-F",
+        "VIT-100E26-1-AB-F"
+      ],
+      "char_count": 532,
+      "sha256": "8e02beac0a69816db152de11ee25e668a17676c6a7d551049c8d34ab121e41ff",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "57": {
+      "page_number": 57,
+      "series": "VITA",
+      "sku_count": 1,
+      "skus": [
+        "VIT-101E26-9-NS-B"
+      ],
+      "char_count": 278,
+      "sha256": "506e4c55d498b44ed130fefd19753e3a1aa9a726e0c49a489ff8ef4cc4ba597c",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "58": {
+      "page_number": 58,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-101E26-5-NS-B",
+        "VIT-101E26-3-NS-B"
+      ],
+      "char_count": 455,
+      "sha256": "7b179f45a27786d539b13adb52bbcaef6b9351f5910a0967dbfbe0fc7a6d1c00",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "59": {
+      "page_number": 59,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-102E26-6-NS-B",
+        "VIT-202E26-6-NS-B"
+      ],
+      "char_count": 404,
+      "sha256": "9c9a22d242689ec67aa8d1493395ad47664b2121acd129fa9fb1bec32b70625f",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "60": {
+      "page_number": 60,
+      "series": "VITA",
+      "sku_count": 3,
+      "skus": [
+        "VIT-101E26-1-NS-B",
+        "VIT-103E26-2-NS-B",
+        "VIT-104E26-2-NS-B"
+      ],
+      "char_count": 487,
+      "sha256": "be6ac32e2155967ecd3f6eee89cd430fd0469411129aaf9c7a4faafbea29a8e4",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "61": {
+      "page_number": 61,
+      "series": "VITA",
+      "sku_count": 4,
+      "skus": [
+        "VIT-100E26-4-NS-B",
+        "VIT-100E26-3-NS-B",
+        "VIT-100E26-2-NS-B",
+        "VIT-100E26-1-NS-B"
+      ],
+      "char_count": 535,
+      "sha256": "a5b7559eeaeb57e7efa5a48df16c973c31893a299da4ab283ae3de2ee2c3f93a",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "62": {
+      "page_number": 62,
+      "series": "VITA",
+      "sku_count": 1,
+      "skus": [
+        "VIT-101E26-9-BK-B"
+      ],
+      "char_count": 269,
+      "sha256": "16289c7bc602e4551207a8a7a2083f9443f1c15fad03e8e290f16f3737e68436",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "63": {
+      "page_number": 63,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-101E26-5-BK-B",
+        "VIT-101E26-3-BK-B"
+      ],
+      "char_count": 446,
+      "sha256": "e42de4cc7c2a164c45b83a79abefd8e5cf178f605fa2cfb244c5e49af3fed26e",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "64": {
+      "page_number": 64,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-102E26-6-BK-B",
+        "VIT-202E26-6-BK-B"
+      ],
+      "char_count": 395,
+      "sha256": "901d77d5e9e97343eabaddeddc709a1ea86a3c6a32eca61163ee3cf732cfa2e9",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "65": {
+      "page_number": 65,
+      "series": "VITA",
+      "sku_count": 3,
+      "skus": [
+        "VIT-101E26-1-BK-B",
+        "VIT-103E26-2-BK-B",
+        "VIT-104E26-2-BK-B"
+      ],
+      "char_count": 478,
+      "sha256": "7ac4e679355d959c0206b4488556c93c428b1000368db8bfc11797798e796e7a",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "66": {
+      "page_number": 66,
+      "series": "VITA",
+      "sku_count": 4,
+      "skus": [
+        "VIT-100E26-4-BK-B",
+        "VIT-100E26-3-BK-B",
+        "VIT-100E26-2-BK-B",
+        "VIT-100E26-1-BK-B"
+      ],
+      "char_count": 526,
+      "sha256": "e434c618dd4c9336ff17e2fb9315ef3ab0963cb23fb3cef5cb42b0788c6be1fd",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "67": {
+      "page_number": 67,
+      "series": "VITA",
+      "sku_count": 1,
+      "skus": [
+        "VIT-101E26-9-AB-B"
+      ],
+      "char_count": 274,
+      "sha256": "c4b6fa4f4b5316125f3f55c57c432c7fdc62556372d21841de42003dc9524368",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "68": {
+      "page_number": 68,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-101E26-5-AB-B",
+        "VIT-101E26-3-AB-B"
+      ],
+      "char_count": 451,
+      "sha256": "94aadb117e71a2f6be6243f53440c72954b4aa3e5099c6a375f2e22c141d0a43",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "69": {
+      "page_number": 69,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "VIT-102E26-6-AB-B",
+        "VIT-202E26-6-AB-B"
+      ],
+      "char_count": 400,
+      "sha256": "e41719e731027dac555d27b9ad8ceca1cf3755ad01336a7b0b450d0d6d3d4f47",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "70": {
+      "page_number": 70,
+      "series": "VITA",
+      "sku_count": 3,
+      "skus": [
+        "VIT-101E26-1-AB-B",
+        "VIT-103E26-2-AB-B",
+        "VIT-104E26-2-AB-B"
+      ],
+      "char_count": 483,
+      "sha256": "623f3d4f4d354869db38fa7bf7b4392bc79729d749bad2012177af460a9c6961",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "71": {
+      "page_number": 71,
+      "series": "VITA",
+      "sku_count": 4,
+      "skus": [
+        "VIT-100E26-4-AB-B",
+        "VIT-100E26-3-AB-B",
+        "VIT-100E26-2-AB-B",
+        "VIT-100E26-1-AB-B"
+      ],
+      "char_count": 531,
+      "sha256": "0647dd85ff8749f94b8aeb29c299b0a312a717b53ca8fff89e4a02446e97ae09",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "72": {
+      "page_number": 72,
+      "series": "VITA",
+      "sku_count": 1,
+      "skus": [
+        "DUN-101E26-9-NS-F"
+      ],
+      "char_count": 269,
+      "sha256": "9d567f849253b73497e4505f13a3591778cda3e8ee87ec6e901df8a3a3c8fefb",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "73": {
+      "page_number": 73,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "DUN-101E26-5-NS-F",
+        "DUN-101E26-3-NS-F"
+      ],
+      "char_count": 427,
+      "sha256": "fc0e7cde3486edd232d1316d6bf1a2606a9c8e9ea3f3b595636a1c19e6d2a82e",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "74": {
+      "page_number": 74,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "DUN-102E26-6-NS-F",
+        "DUN-202E26-6-NS-F"
+      ],
+      "char_count": 355,
+      "sha256": "4222e363b67c5ec55261a6ebd0ace249a6d090e02c4f2c259f05caf51d445416",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "75": {
+      "page_number": 75,
+      "series": "VITA",
+      "sku_count": 3,
+      "skus": [
+        "DUN-101E26-1-NS-F",
+        "DUN-103E26-2-NS-F",
+        "DUN-104E26-2-NS-F"
+      ],
+      "char_count": 479,
+      "sha256": "b0e26aec9e3ffcfbf4ac12478d59ef7f7f179a3e4557c0ae21cec96e1da3221a",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "76": {
+      "page_number": 76,
+      "series": "VITA",
+      "sku_count": 4,
+      "skus": [
+        "DUN-100E26-4-NS-F",
+        "DUN-100E26-3-NS-F",
+        "DUN-100E26-2-NS-F",
+        "DUN-100E26-1-NS-F"
+      ],
+      "char_count": 535,
+      "sha256": "1c0c869b0374b5e7a1167fe8142b03fd08874c03c65a5fd0119149a25b75a13b",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "77": {
+      "page_number": 77,
+      "series": "VITA",
+      "sku_count": 1,
+      "skus": [
+        "DUN-101E26-9-BK-F"
+      ],
+      "char_count": 260,
+      "sha256": "dfc4e11b354416d2ebb71e77f5cbe98729992266e802bba5b8e510ac15ace7c3",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "78": {
+      "page_number": 78,
+      "series": "VITA",
+      "sku_count": 3,
+      "skus": [
+        "DUN-101E26-9-BK-F",
+        "DUN-101E26-5-BK-F",
+        "DUN-101E26-3-BK-F"
+      ],
+      "char_count": 511,
+      "sha256": "6e5873b311138449bc82d8f5e90b7e751e97ec9be0409d59126f2bde1b5130a8",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "79": {
+      "page_number": 79,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "DUN-102E26-6-BK-F",
+        "DUN-202E26-6-BK-F"
+      ],
+      "char_count": 346,
+      "sha256": "21e83a37a2f1a081f72e6e430e7b73b8edbbadead3001a9bcb3b99d552332e15",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "80": {
+      "page_number": 80,
+      "series": "VITA",
+      "sku_count": 3,
+      "skus": [
+        "DUN-101E26-1-BK-F",
+        "DUN-103E26-2-BK-F",
+        "DUN-104E26-2-BK-F"
+      ],
+      "char_count": 470,
+      "sha256": "ffffbde39d486f82c4358ad1e06fa6afbc50ba494dce033fa366e3967148c3f5",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "81": {
+      "page_number": 81,
+      "series": "VITA",
+      "sku_count": 4,
+      "skus": [
+        "DUN-100E26-4-BK-F",
+        "DUN-100E26-3-BK-F",
+        "DUN-100E26-2-BK-F",
+        "DUN-100E26-1-BK-F"
+      ],
+      "char_count": 526,
+      "sha256": "5614dc6d14ec4db00d1c2dbf93aad3c0b1e08177c07f34f2b875da37d566ac4a",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "82": {
+      "page_number": 82,
+      "series": "VITA",
+      "sku_count": 1,
+      "skus": [
+        "DUN-101E26-9-AB-F"
+      ],
+      "char_count": 265,
+      "sha256": "849c7f20c88f4f36ff50e998e60b2abdb017603b105f6b19a11a37f07fec43aa",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "83": {
+      "page_number": 83,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "DUN-101E26-5-AB-F",
+        "DUN-101E26-3-AB-F"
+      ],
+      "char_count": 423,
+      "sha256": "95c904d1469251d737f7ed354ca440c8322728206fa10b88dd43cb9c7325d386",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "84": {
+      "page_number": 84,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "DUN-102E26-6-AB-F",
+        "DUN-202E26-6-AB-F"
+      ],
+      "char_count": 351,
+      "sha256": "374cf055dab18b332116e70d2e2e76663fb9907492633910d66b321e667dd018",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "85": {
+      "page_number": 85,
+      "series": "VITA",
+      "sku_count": 3,
+      "skus": [
+        "DUN-101E26-1-AB-F",
+        "DUN-103E26-2-AB-F",
+        "DUN-104E26-2-AB-F"
+      ],
+      "char_count": 475,
+      "sha256": "33e7b5044cd963ec93121c6b48a9a5e9fd6cee3d9d0cd0ecfc52bc53c5411024",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "86": {
+      "page_number": 86,
+      "series": "VITA",
+      "sku_count": 4,
+      "skus": [
+        "DUN-100E26-4-AB-F",
+        "DUN-100E26-3-AB-F",
+        "DUN-100E26-2-AB-F",
+        "DUN-100E26-1-AB-F"
+      ],
+      "char_count": 531,
+      "sha256": "5ed933e547a0264d07eb60b3a1e8b1cda406e235a6b2c08d30bd15dcdd755497",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "87": {
+      "page_number": 87,
+      "series": "VITA",
+      "sku_count": 1,
+      "skus": [
+        "DUN-101E26-9-NS-C"
+      ],
+      "char_count": 261,
+      "sha256": "c1949d5f342aa808fa067370b11c5e74e931e0cda0e5e8135437cc5511ba47bb",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "88": {
+      "page_number": 88,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "DUN-101E26-5-NS-C",
+        "DUN-101E26-3-NS-C"
+      ],
+      "char_count": 419,
+      "sha256": "c9c5d5bacccb91bda58b7f03c1bba92088fe11b973ab9b9970018a9e05d6e14e",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "89": {
+      "page_number": 89,
+      "series": "VITA",
+      "sku_count": 2,
+      "skus": [
+        "DUN-102E26-6-NS-C",
+        "DUN-202E26-6-NS-C"
+      ],
+      "char_count": 347,
+      "sha256": "173a882ee96180f2a7f088fed05c82070c82e7759bc06e52c3b977146cdc9fe9",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "90": {
+      "page_number": 90,
+      "series": "DUNE",
+      "sku_count": 3,
+      "skus": [
+        "DUN-101E26-1-NS-C",
+        "DUN-103E26-2-NS-C",
+        "DUN-104E26-2-NS-C"
+      ],
+      "char_count": 471,
+      "sha256": "e15ef7210c837470d00b8adf93db5ac30af74cbcf4a33ad66d6487cb7057ea34",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "91": {
+      "page_number": 91,
+      "series": "DUNE",
+      "sku_count": 4,
+      "skus": [
+        "DUN-100E26-4-NS-C",
+        "DUN-100E26-3-NS-C",
+        "DUN-100E26-2-NS-C",
+        "DUN-100E26-1-NS-C"
+      ],
+      "char_count": 527,
+      "sha256": "c115d227bf7e1d9a6d7b12ad134a9629eea4208c4e0c28edb2d55639e8bea88e",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "92": {
+      "page_number": 92,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "DUN-101E26-9-BK-C"
+      ],
+      "char_count": 252,
+      "sha256": "4bfe74faa3bffd8fc7c57b9a3544203fd039bd958bb7a68c16f83540b2bd8d5e",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "93": {
+      "page_number": 93,
+      "series": "DUNE",
+      "sku_count": 2,
+      "skus": [
+        "DUN-101E26-5-BK-C",
+        "DUN-101E26-3-BK-C"
+      ],
+      "char_count": 410,
+      "sha256": "2a0b96347868e8588683603c8bcadd3f3d3bb374ba0ce5249926fab27c0f0406",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "94": {
+      "page_number": 94,
+      "series": "DUNE",
+      "sku_count": 2,
+      "skus": [
+        "DUN-102E26-6-BK-C",
+        "DUN-202E26-6-BK-C"
+      ],
+      "char_count": 338,
+      "sha256": "1acb112b218e42289e747392820b0b412dc215e6896d4d367076693b2c2d7918",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "95": {
+      "page_number": 95,
+      "series": "DUNE",
+      "sku_count": 3,
+      "skus": [
+        "DUN-101E26-1-BK-C",
+        "DUN-103E26-2-BK-C",
+        "DUN-104E26-2-BK-C"
+      ],
+      "char_count": 462,
+      "sha256": "894d2d36f32eaa52820b3fa3eb5a39bb74dcb1256dc5ca940582cd7438edc2aa",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "96": {
+      "page_number": 96,
+      "series": "DUNE",
+      "sku_count": 4,
+      "skus": [
+        "DUN-100E26-4-BK-C",
+        "DUN-100E26-3-BK-C",
+        "DUN-100E26-2-BK-C",
+        "DUN-100E26-1-BK-C"
+      ],
+      "char_count": 518,
+      "sha256": "1b71f488fc1b4ce94caac277664c094a44d884b6edfdd36d7b40d414eda01346",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "97": {
+      "page_number": 97,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "DUN-101E26-9-AB-C"
+      ],
+      "char_count": 265,
+      "sha256": "db5cf7934d49f7a8f54a9c1e692168b1083fe5dfa2bf1807c2f553cfa53acfa5",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "98": {
+      "page_number": 98,
+      "series": "DUNE",
+      "sku_count": 2,
+      "skus": [
+        "DUN-101E26-5-AB-C",
+        "DUN-101E26-3-AB-C"
+      ],
+      "char_count": 423,
+      "sha256": "a6950c5a2962c82ddedcd12224ef7ffa658af009935fc22a4b81adae50b6e40f",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "99": {
+      "page_number": 99,
+      "series": "DUNE",
+      "sku_count": 2,
+      "skus": [
+        "DUN-102E26-6-AB-C",
+        "DUN-202E26-6-AB-C"
+      ],
+      "char_count": 343,
+      "sha256": "d5415500462e68e8e47c11d0b77e8ac38e46774758aa7ba2a3eef60152471033",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "100": {
+      "page_number": 100,
+      "series": "DUNE",
+      "sku_count": 3,
+      "skus": [
+        "DUN-101E26-1-AB-C",
+        "DUN-103E26-2-AB-C",
+        "DUN-104E26-2-AB-C"
+      ],
+      "char_count": 467,
+      "sha256": "d64d9be1ddfd9a2b4bf85283868f25b2c43319a51aa569fd39174a21ada5dc99",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "101": {
+      "page_number": 101,
+      "series": "DUNE",
+      "sku_count": 4,
+      "skus": [
+        "DUN-100E26-4-AB-C",
+        "DUN-100E26-3-AB-C",
+        "DUN-100E26-2-AB-C",
+        "DUN-100E26-1-AB-C"
+      ],
+      "char_count": 523,
+      "sha256": "441209fbc1de0df9a36b498a3619d60869b4885a8e5d55d9586361ece9da302e",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "102": {
+      "page_number": 102,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "KOV-101E26-9-BK-B"
+      ],
+      "char_count": 257,
+      "sha256": "a68201680cbe966c87d1fdc23bb46904015d9785c451c0759d0d26248b35e92b",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "103": {
+      "page_number": 103,
+      "series": "DUNE",
+      "sku_count": 2,
+      "skus": [
+        "KOV-101E26-5-BK-B",
+        "KOV-101E26-3-BK-B"
+      ],
+      "char_count": 365,
+      "sha256": "b1243cb91ee9d984a440d2ef0e1fca281cbd270eeebb4a76aa2787791c81ec90",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "104": {
+      "page_number": 104,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "KOV-102E26-4-BK-B"
+      ],
+      "char_count": 243,
+      "sha256": "50ebe414fede5362062fa2a62eac1dca8a8cb96cdfd9d069f4aa8917942ea727",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "105": {
+      "page_number": 105,
+      "series": "DUNE",
+      "sku_count": 3,
+      "skus": [
+        "KOV-101E26-1-BK-B",
+        "KOV-103E26-2-BK-B",
+        "KOV-104E26-2-BK-B"
+      ],
+      "char_count": 447,
+      "sha256": "23c037f7d68b81138179a83b649a3992e0968c2ee88e4ad850d4c999c89b578d",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "106": {
+      "page_number": 106,
+      "series": "DUNE",
+      "sku_count": 4,
+      "skus": [
+        "KOV-100E26-4-BK-B",
+        "KOV-100E26-3-BK-B",
+        "KOV-100E26-2-BK-B",
+        "KOV-100E26-1-BK-B"
+      ],
+      "char_count": 535,
+      "sha256": "a10ed1b48848ee9f2d9eb188c65f347eb47180903c7fa68538de78dd7f08e2ee",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "107": {
+      "page_number": 107,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "KOV-101E26-9-BK-F"
+      ],
+      "char_count": 260,
+      "sha256": "8cd70d4a1337dce86253294912840cd32f2582cea26f5ed256ed3c7eca419568",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "108": {
+      "page_number": 108,
+      "series": "DUNE",
+      "sku_count": 2,
+      "skus": [
+        "KOV-101E26-5-BK-F",
+        "KOV-101E26-3-BK-F"
+      ],
+      "char_count": 368,
+      "sha256": "781294395456999aced0646e66986b8c2376ccbf0736ea19a95b9df1a6202652",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "109": {
+      "page_number": 109,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "KOV-102E26-4-BK-F"
+      ],
+      "char_count": 245,
+      "sha256": "d69352e8d07b63b131f9de1bca62a7f8cf1a7b3017d26b2707addc03db404242",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "110": {
+      "page_number": 110,
+      "series": "DUNE",
+      "sku_count": 3,
+      "skus": [
+        "KOV-101E26-1-BK-F",
+        "KOV-103E26-2-BK-F",
+        "KOV-104E26-2-BK-F"
+      ],
+      "char_count": 448,
+      "sha256": "482899e7804f794b7a7e947aadd145eac15596365901a7b082624617c0af17ac",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "111": {
+      "page_number": 111,
+      "series": "DUNE",
+      "sku_count": 4,
+      "skus": [
+        "KOV-100E26-4-BK-F",
+        "KOV-100E26-3-BK-F",
+        "KOV-100E26-2-BK-F",
+        "KOV-100E26-1-BK-F"
+      ],
+      "char_count": 536,
+      "sha256": "257e0d68be21470ba494d937e6754d61cdfd6e5190238dc7ab43d8cb3c93c0c0",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "112": {
+      "page_number": 112,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "EON-101E26-9-NS-CF"
+      ],
+      "char_count": 280,
+      "sha256": "715b6a97ccea9ba76e178f02f64bc7a1c6d936ac15e57fbdc3b850bbc3c7dbe2",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "113": {
+      "page_number": 113,
+      "series": "DUNE",
+      "sku_count": 2,
+      "skus": [
+        "EON-101E26-5-NS-CF",
+        "EON-101E26-3-NS-CF"
+      ],
+      "char_count": 392,
+      "sha256": "6b7b9712093b8963e50fe1298c6c52ca1e4511336f410d1f21add1dc63d66bda",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "114": {
+      "page_number": 114,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "EON-102E26-4-NS-CF"
+      ],
+      "char_count": 266,
+      "sha256": "0a1512759d5f2bf5b4ecc806c72bd135046d4d62bd32eae13ed3ad5dea8041ce",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "115": {
+      "page_number": 115,
+      "series": "DUNE",
+      "sku_count": 3,
+      "skus": [
+        "EON-101E26-1-NS-CF",
+        "EON-103E26-2-NS-CF",
+        "EON-101E26-2-NS-CF"
+      ],
+      "char_count": 469,
+      "sha256": "f9e7d29246921378b7555b257c92ddc9b9c45dc3ca6adb41a2d003567dcf50ed",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "116": {
+      "page_number": 116,
+      "series": "DUNE",
+      "sku_count": 4,
+      "skus": [
+        "EON-100E26-4-NS-CF",
+        "EON-100E26-3-NS-CF",
+        "EON-100E26-2-NS-CF",
+        "EON-100E26-1-NS-CF"
+      ],
+      "char_count": 570,
+      "sha256": "fd333e928ff775d7ba27e51b4b325a7d220520e5913bc96b8edd7aebc39b9344",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "117": {
+      "page_number": 117,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "EON-101E26-9-BK-CF"
+      ],
+      "char_count": 271,
+      "sha256": "73d4872b54b7671659833a65280e82f6d2e668373753a09219dddd33cb19a54a",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "118": {
+      "page_number": 118,
+      "series": "DUNE",
+      "sku_count": 2,
+      "skus": [
+        "EON-101E26-5-BK-CF",
+        "EON-101E26-3-BK-CF"
+      ],
+      "char_count": 383,
+      "sha256": "a100691cde26d1e4fbf8563c01b26edd30e44ee6b85b6a039bcd2b0e7218d041",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "119": {
+      "page_number": 119,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "EON-102E26-4-BK-CF"
+      ],
+      "char_count": 257,
+      "sha256": "5af593d1870c5c3bf199961abf19f5f06ef2bc2155f9e2d8c5f080dbc1edf895",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "120": {
+      "page_number": 120,
+      "series": "DUNE",
+      "sku_count": 3,
+      "skus": [
+        "EON-101E26-1-BK-CF",
+        "EON-103E26-2-BK-CF",
+        "EON-101E26-2-BK-CF"
+      ],
+      "char_count": 460,
+      "sha256": "c2c8d613cecf02c1a7dc0ecf1224488f459e19991493e230952c3a946f6f690a",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "121": {
+      "page_number": 121,
+      "series": "DUNE",
+      "sku_count": 4,
+      "skus": [
+        "EON-100E26-4-BK-CF",
+        "EON-100E26-3-BK-CF",
+        "EON-100E26-2-BK-CF",
+        "EON-100E26-1-BK-CF"
+      ],
+      "char_count": 561,
+      "sha256": "4760b611062a70654fc0c6d3a5c23a42ce331ff475f93e34b6104798bcbc6583",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "122": {
+      "page_number": 122,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "ORE-101E26-5-NS-F"
+      ],
+      "char_count": 284,
+      "sha256": "04d5f92cb398ef4491c34eec518fb63f5e96811293a8926dae2851b64523287c",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "123": {
+      "page_number": 123,
+      "series": "DUNE",
+      "sku_count": 2,
+      "skus": [
+        "ORE-102E26-4-NS-F",
+        "ORE-101E26-1-NS-F"
+      ],
+      "char_count": 403,
+      "sha256": "6dbac6acefb825a8c180416543772200f4ef233a920c00b1d1f33b7544a56bc6",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "124": {
+      "page_number": 124,
+      "series": "DUNE",
+      "sku_count": 4,
+      "skus": [
+        "ORE-100E26-4-NS-F",
+        "ORE-100E26-3-NS-F",
+        "ORE-100E26-2-NS-F",
+        "ORE-100E26-1-NS-F"
+      ],
+      "char_count": 555,
+      "sha256": "36d907fed9d93be0e22e322e7fe1b1caf0020055fabf801edd980997c47ba45e",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "125": {
+      "page_number": 125,
+      "series": "DUNE",
+      "sku_count": 1,
+      "skus": [
+        "ORE-101E26-5-BK-B"
+      ],
+      "char_count": 274,
+      "sha256": "88080a56f8e32900f2173403f541d6127249a0e25c9ecf5961a6c7de03417fa9",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "126": {
+      "page_number": 126,
+      "series": "KOVA",
+      "sku_count": 2,
+      "skus": [
+        "ORE-102E26-4-BK-B",
+        "ORE-101E26-1-BK-B"
+      ],
+      "char_count": 393,
+      "sha256": "93522467e47efebb5142af7852636140da6f0fb2868697737f719c93ead3d33e",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "127": {
+      "page_number": 127,
+      "series": "KOVA",
+      "sku_count": 4,
+      "skus": [
+        "ORE-100E26-4-BK-B",
+        "ORE-100E26-3-BK-B",
+        "ORE-100E26-2-BK-B",
+        "ORE-100E26-1-BK-B"
+      ],
+      "char_count": 545,
+      "sha256": "8eec97f73ea10d6549f8c06991ab130cbc3c5a0c48782f19628387ef52678bad",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "128": {
+      "page_number": 128,
+      "series": "KOVA",
+      "sku_count": 3,
+      "skus": [
+        "ARV-100E26-3-BL-F",
+        "ARV-100E26-4-BL-F",
+        "ARV-101E26-1-BK-F"
+      ],
+      "char_count": 466,
+      "sha256": "9d6a9320bdf4cf1a0d8f224e1fe0829e5c13958d2699189a37665d30e85c9778",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "129": {
+      "page_number": 129,
+      "series": "KOVA",
+      "sku_count": 3,
+      "skus": [
+        "ARV-100E26-3-NS-F",
+        "ARV-100E26-4-NS-F",
+        "ARV-101E26-1-NS-F"
+      ],
+      "char_count": 475,
+      "sha256": "583607ad7f80bcd5807eca523a258e9f8b58eca9ea67167a02fcf0577a95f6b0",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "130": {
+      "page_number": 130,
+      "series": "KOVA",
+      "sku_count": 3,
+      "skus": [
+        "ORI-100E26-4-NS-F",
+        "ORI-100E26-3-NS-F",
+        "ORI-101E26-1-NS-F"
+      ],
+      "char_count": 477,
+      "sha256": "6731942db697832997ab32567612e4e8a1f494cc20cf24188fe4d37e5b96f6d9",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "131": {
+      "page_number": 131,
+      "series": "OREN",
+      "sku_count": 3,
+      "skus": [
+        "ORI-100E26-4-BK-F",
+        "ORI-100E26-3-BK-F",
+        "ORI-101E26-1-BK-F"
+      ],
+      "char_count": 468,
+      "sha256": "b894d57722dc7891d656cbc6859111540d9998e6b72b3c77b9adfce6c6f1a291",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "132": {
+      "page_number": 132,
+      "series": "OREN",
+      "sku_count": 6,
+      "skus": [
+        "ALB-103022-12-BL-1D-5",
+        "ALB-103030-15-BL-1D-5",
+        "ALB-103022-12-NS-1D-5",
+        "ALB-103030-15-NS-1D-5",
+        "ALB-103022-12-SB-1D-5",
+        "ALB-103030-15-SB-1D-5"
+      ],
+      "char_count": 921,
+      "sha256": "551ad9131eb33e530f08a8c1054cf55f40f558e451219338c00f345e897f1184",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "133": {
+      "page_number": 133,
+      "series": "OREN",
+      "sku_count": 3,
+      "skus": [
+        "PAV-100012-BL-1D-5",
+        "PAV-100012-GY-1D-5",
+        "PAV-100012-WH-1D-5"
+      ],
+      "char_count": 453,
+      "sha256": "07a992f75a0089290027104625699387925bc74e933b909e1d9cf31e9e854015",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "134": {
+      "page_number": 134,
+      "series": "TERR",
+      "sku_count": 3,
+      "skus": [
+        "TER-100012-BL-1D-5",
+        "TER-100012-GY-1D-5",
+        "TER-100012-WH-1D-5"
+      ],
+      "char_count": 447,
+      "sha256": "9338cd4e077962ea65de82a0e0d99f93a5da1760398a22723189d30ee64402f3",
+      "status": "verified",
+      "notes": "OK",
+      "category": "product_spec"
+    },
+    "135": {
+      "page_number": 135,
+      "series": "DECORATIVE",
+      "sku_count": 0,
+      "skus": [],
+      "char_count": 708,
+      "sha256": "2d97c6d89337212a90798891a15a8c1f97483dad55326694f4a5e002d5b31114",
+      "status": "verified",
+      "notes": "OK",
+      "category": "catalogue_backcover"
+    }
+  }
+}

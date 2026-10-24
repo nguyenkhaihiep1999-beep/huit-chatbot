@@ -1,0 +1,86 @@
+{
+  "timestamp": "2026-09-27T15:33:07.629188+00:00",
+  "database": "huit_chatbot",
+  "mode": "DRY_RUN",
+  "operation_audit": {
+    "before_total": 565288,
+    "verified_noop_count": 565093,
+    "real_successful_claims_preserved": 1,
+    "failed_claims_preserved": 30,
+    "deleted_noop_count": 0,
+    "after_total": 565290,
+    "remaining_verified_noops": 565095,
+    "real_successful_claims_after": 1,
+    "failed_claims_after": 30
+  },
+  "test_collections": [
+    {
+      "name": "test_rag_chunks",
+      "exists": true,
+      "count": 1454,
+      "size": 788426,
+      "storage_size": 503808,
+      "index_size": 77824
+    },
+    {
+      "name": "test_categorized_data",
+      "exists": true,
+      "count": 27,
+      "size": 423974,
+      "storage_size": 356352,
+      "index_size": 36864
+    },
+    {
+      "name": "test_clean_data",
+      "exists": true,
+      "count": 27,
+      "size": 422972,
+      "storage_size": 356352,
+      "index_size": 36864
+    },
+    {
+      "name": "test_quality_ranked",
+      "exists": true,
+      "count": 27,
+      "size": 424487,
+      "storage_size": 356352,
+      "index_size": 36864
+    },
+    {
+      "name": "test_search_results",
+      "exists": true,
+      "count": 5,
+      "size": 12893,
+      "storage_size": 45056,
+      "index_size": 36864
+    },
+    {
+      "name": "test_kb_stats",
+      "exists": true,
+      "count": 4,
+      "size": 327,
+      "storage_size": 36864,
+      "index_size": 36864
+    }
+  ],
+  "dropped_test_collections": [],
+  "protected_collections": [
+    "huit_kb",
+    "rag_events",
+    "chat_logs",
+    "query_cache",
+    "jobs",
+    "assets",
+    "artifacts",
+    "generated_images",
+    "admission_visuals"
+  ],
+  "remaining_test_collections": [
+    "test_rag_chunks",
+    "test_categorized_data",
+    "test_clean_data",
+    "test_quality_ranked",
+    "test_search_results",
+    "test_kb_stats"
+  ]
+}

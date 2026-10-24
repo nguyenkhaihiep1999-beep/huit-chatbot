@@ -9,11 +9,10 @@ from backend.app.rag.embedding import EmbeddingManager
 import logging
 
 logger = logging.getLogger("huit_chatbot.rag.retrieval")
-
 class HybridRetriever:
     @classmethod
-    def get_top_cluster(cls, qv: List[float]) -> Optional[int]:
-        centroids_data = EmbeddingManager.get_cluster_centroids()
+    def get_top_cluster(cls, qv: List[float], profile_id: Optional[str] = None) -> Optional[int]:
+        centroids_data = EmbeddingManager.get_cluster_centroids(profile_id=profile_id)
         if not centroids_data or "clusters" not in centroids_data or not qv:
             return None
         try:
@@ -35,22 +34,60 @@ class HybridRetriever:
             return None
 
     @classmethod
-    def search_vector(cls, qv: List[float]) -> List[dict]:
+    def search_vector(
+        cls,
+        qv: List[float],
+        profile_id: Optional[str] = None,
+        filter_cluster_ids: Optional[List[int]] = None,
+        limit: int = 15,
+        num_candidates: int = 200,
+    ) -> List[dict]:
+        from backend.app.rag.profile import get_profile
+        target_profile = get_profile(profile_id)
         try:
-            return rag_operations.execute_vector_search(query_vector=qv, limit=15, num_candidates=200)
+            if target_profile.id == "huit" and not filter_cluster_ids:
+                return rag_operations.execute_vector_search(query_vector=qv, limit=limit, num_candidates=num_candidates)
+            return rag_operations.execute_profile_vector_search(
+                query_vector=qv,
+                collection=target_profile.mongodb_collection,
+                index_name=target_profile.vector_index,
+                limit=limit,
+                num_candidates=num_candidates,
+                filter_cluster_ids=filter_cluster_ids,
+            )
         except Exception as e:
             logger.warning("Vector search retrieve warning: %s", type(e).__name__)
             return []
 
     @classmethod
-    def search_keyword(cls, question: str) -> List[dict]:
+    def search_keyword(
+        cls,
+        question: str,
+        profile_id: Optional[str] = None,
+        sku_query: Optional[str] = None,
+        limit: int = 20,
+    ) -> List[dict]:
+        from backend.app.rag.profile import get_profile
+        target_profile = get_profile(profile_id)
         try:
             words = [w.strip() for w in re.split(r'[\s,\?\.\-\(\)]+', question) if len(w.strip()) >= 2]
             stop_words = {"cho", "các", "của", "với", "như", "nào", "bao", "nhiêu", "trường", "huit", "ngành", "được", "không"}
             keywords = [w for w in words if w.lower() not in stop_words or w.isdigit()]
-            if not keywords:
+            if not keywords and not sku_query:
                 return []
-            raw_kw = rag_operations.execute_keyword_search(keywords=keywords, limit=20)
+            if not keywords and sku_query:
+                keywords = [sku_query]
+
+            if target_profile.id == "huit" and not sku_query:
+                raw_kw = rag_operations.execute_keyword_search(keywords=keywords, limit=limit)
+            else:
+                raw_kw = rag_operations.execute_profile_keyword_search(
+                    keywords=keywords,
+                    collection=target_profile.mongodb_collection,
+                    limit=limit,
+                    sku_query=sku_query,
+                )
+
             normalized_terms = {
                 normalize_text(word)
                 for word in keywords
@@ -66,11 +103,32 @@ class HybridRetriever:
                 ),
                 reverse=True,
             )
-            raw_kw = raw_kw[:20]
+            raw_kw = raw_kw[:limit]
             # Loại bỏ các nội dung spam hoặc rác nếu có
             return [d for d in raw_kw if "Di động Máy tính bảng" not in d.get("text", "") and "Pick the Right" not in d.get("text", "")]
         except Exception as e:
             logger.warning("Keyword search retrieve warning: %s", type(e).__name__)
+            return []
+
+    @classmethod
+    def search_sku_exact(
+        cls,
+        sku: str,
+        profile_id: Optional[str] = None,
+        limit: int = 5,
+    ) -> List[dict]:
+        from backend.app.rag.profile import get_profile
+        target_profile = get_profile(profile_id)
+        if target_profile.id != "ilt":
+            return []
+        try:
+            return rag_operations.execute_sku_exact_search(
+                sku=sku,
+                collection=target_profile.mongodb_collection,
+                limit=limit,
+            )
+        except Exception as e:
+            logger.warning("SKU exact search retrieve warning: %s", type(e).__name__)
             return []
 
 

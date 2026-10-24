@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:admin-session-response:1.0.0",
+  "title": "HUIT admin session verification response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["valid", "role"],
+  "properties": {
+    "valid": { "type": "boolean" },
+    "role": { "type": "string", "enum": ["admin"] }
+  }
+}

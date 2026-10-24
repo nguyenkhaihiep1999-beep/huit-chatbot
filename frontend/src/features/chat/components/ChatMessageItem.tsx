@@ -58,13 +58,16 @@ export const ChatMessageItem: React.FC<ChatMessageItemProps> = React.memo(
       return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }, [message.timestamp]);
 
+    const isIltProfile = typeof document !== 'undefined' && document.documentElement.getAttribute('data-profile') === 'ilt';
+    const aiMarkSrc = isIltProfile ? '/ilt-brand-mark.svg' : '/huit-ai-mark.svg';
+
     return (
       <div className={`message-item ${message.role}`}>
         <div className={`message-avatar ${isUser ? 'user-avatar' : 'ai-avatar'}`} aria-hidden="true">
           {isUser ? (
             <User size={18} />
           ) : (
-            <img src="/huit-ai-mark.svg" alt="" width={30} height={30} className="message-brand-mark" />
+            <img src={aiMarkSrc} alt="" width={30} height={30} className="message-brand-mark" />
           )}
         </div>
 

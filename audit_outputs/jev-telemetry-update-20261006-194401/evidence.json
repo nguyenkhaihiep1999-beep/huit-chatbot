@@ -1,0 +1,79 @@
+{
+  "session": "jev-telemetry-update-20261006-194401",
+  "date_local": "2026-10-06",
+  "timezone": "Asia/Saigon",
+  "results_checked_at_utc": "2026-10-06T12:48:39+00:00",
+  "workspace": "D:\\chatbot2",
+  "head": "3f338839fcbec4d1337ae10378d9c78c69350127",
+  "working_tree_dirty": true,
+  "verdict": "Code updated and offline regression checks passed; running-server reload, live Jev, browser E2E and production acceptance are not verified.",
+  "authorized_scope": ["Fix Jev API-attempt telemetry", "Add regression tests", "Run offline checks", "Write continuation prompt and self-contained HTML report"],
+  "implementation": {
+    "api_called_semantics": "At least one HTTP attempt was initiated at the provider client.post boundary. Not proof of server receipt, success or billing.",
+    "request_isolation": "ContextVar observer bound to a lock-protected per-decision tracker, reset after provider invocation; no mutable global/shared-provider call flag.",
+    "structured_fallback_reason": true,
+    "sync_timeout_preserves_tracker_result": true,
+    "public_json_contract_changed": false,
+    "no_http_provider_latency_is_zero": true,
+    "late_http_attempt_guard": "Tracker prevents an HTTP attempt after terminal state or deadline.",
+    "unchanged": ["Jev mode and model configuration", "confidence threshold", "retrieval logic", "baseline answer content", "folder architecture"]
+  },
+  "regression_before_fix": {
+    "command": "pytest backend/tests/test_jev_assist_mode_chat.py -q -k 'pre_provider_budget_expiry or missing_key_does_not_count_http'",
+    "failed": 3,
+    "cases": ["intent pre-provider deadline", "evidence_sufficiency pre-provider deadline", "missing API key"]
+  },
+  "tests_after_fix": {
+    "backend": {"passed": 557, "failures": 0, "errors": 0, "skipped": 0, "warnings": 34, "junit_duration_seconds": 98.461, "evidence": "backend-tests.xml"},
+    "frontend": {"passed": 126, "test_files": 16, "failures": 0, "errors": 0, "skipped": 0, "reported_duration_seconds": 11.06, "evidence": "frontend-tests.xml"},
+    "jev_assist": {"passed": 27, "new_regression_cases": 6},
+    "jev_shadow": {"passed": 12},
+    "decision_engine": {"passed": 79},
+    "frontend_lint_exit_code": 0,
+    "frontend_build_exit_code": 0,
+    "schema_check": {"exit_code": 0, "frontend_contracts": 18, "manifest_in_sync": true},
+    "secret_scan_evidence": "secret-scan.json",
+    "secret_scan_scope": "Working-tree pattern scan, not Git history, deployed images or rotation verification."
+  },
+  "old_probe_replayed_after_fix": {
+    "script": "../system-check-20261006-192015/probe_jev_pre_call_budget.py",
+    "scope": "offline fixture; real HTTP/Mongo transports blocked; synthetic content; controlled scheduling delay",
+    "budget_ms": 100,
+    "injected_queue_delay_ms": 65,
+    "provider_requests_observed": 0,
+    "before": {"api_called": true, "apply_reason": "provider_empty_response", "chat_completed": true},
+    "after": {"api_called": false, "apply_reason": "budget_exhausted_before_call", "chat_completed": true},
+    "flag_matches_observed_provider_calls_after": true
+  },
+  "runtime_readonly_probe": {
+    "checked_at_utc": "2026-10-06T12:48:33.951342+00:00",
+    "backend_live_http_status": 200,
+    "frontend_port_3000": "not_confirmed_reachable",
+    "mongodb_direct_ping": "not_confirmed",
+    "mongodb_error_type": "ConfigurationError",
+    "mongodb_error_cause": "Not established; this does not establish that the running backend's MongoDB is unhealthy.",
+    "current_file_config_not_running_process": {"environment": "development", "jev_mode": "assist", "jev_model": "jev-latest", "jev_key_present": true, "redis_configured": false, "local_embeddings_enabled": true}
+  },
+  "not_performed": ["Paid/real provider API calls", "Mongo writes, deletes, migrations or cleanup", "Application server restart", "Production deploy", "Live browser chat E2E", "Container build/run", "Calling health/ready with operation audit writes"],
+  "remaining_release_work": ["Confirm backend loaded the new source in a controlled reload", "Resolve frontend URL/port and perform browser E2E", "Verify Mongo/KB/worker at the running environment", "Approve live Jev test data and request/cost budget", "Compare real OFF/ASSIST against labeled answers", "Verify production config/container/rollback and deployment authority"],
+  "warnings": ["34 pre-existing backend warnings, including dependency deprecations and FastEmbed pooling compatibility; no automatic dependency update or vector reindex.", "Working tree already contains unrelated edits; no unrelated formatting fix or Git reset performed."],
+  "source_sha256": {
+    "backend/app/rag/pipeline.py": "C0154C00069228E766C615EF1DD74D2C1CF6402F5AC47B8DFD82B77B5D5F0E8B",
+    "backend/app/decision_engine/service.py": "219B6AB8F39014722A47270197FD8F37B3B4216B703298EB97E44275B3012457",
+    "backend/app/decision_engine/contracts.py": "44957EFAE4EF6D2356E5CA5D6FCE14585036C1C07AA4EB311F943BA164C47E68",
+    "backend/app/decision_engine/providers/base.py": "380CB945B46099CA688130E2A740663E53D75AD64BE2FF9DDBBD2439AEE00C45",
+    "backend/app/decision_engine/providers/typesafe_jev.py": "82C8562679087F0F9D01CCCE7A7CAC123A9D72AA9A2EA206789138B1CF34D806",
+    "backend/tests/test_jev_assist_mode_chat.py": "D92EB74FF3EED2B86514DC8FE516D01EE3C0686A4E7819560131A525005F9AD8"
+  },
+  "artifact_verification": {
+    "browser": "Codex in-app browser, isolated loopback report preview; not chatbot E2E",
+    "observed_css_viewport_widths_px": [1041, 386, 373],
+    "horizontal_page_overflow_at_verified_widths": false,
+    "copy_prompt_button_status": "Đã sao chép prompt ngắn.",
+    "browser_console_errors_observed": 0,
+    "all_seven_report_and_evidence_files_http_status": 200,
+    "secret_scan_files": 478,
+    "secret_scan_real_leaks": 0
+  },
+  "deliverables": {"html": "bao-cao-phien.html", "prompt": "prompt-tiep-theo.md", "evidence": "evidence.json"}
+}

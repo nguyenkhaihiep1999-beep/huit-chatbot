@@ -55,3 +55,12 @@ export async function cancelChatStream(requestId: string): Promise<boolean> {
     return false;
   }
 }
+
+export async function fetchKnowledgeProfile(): Promise<any> {
+  const res = await apiClient(`${API_BASE}/api/profile`, { method: 'GET' });
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}`);
+  }
+  return res.json();
+}
+

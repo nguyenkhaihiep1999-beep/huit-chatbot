@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="126" failures="0" errors="0" time="13.8076749">
+    <testsuite name="tests/App.test.tsx" timestamp="2026-10-07T04:32:24.083Z" hostname="LAPTOP-LHAUPND9" tests="2" failures="0" errors="0" skipped="0" time="1.073393">
+        <testcase classname="tests/App.test.tsx" name="App Component (Direct End-to-End Application Flow Tests) &gt; 1. Bắt đầu stream và Tạo chat mới khi đang stream: request cũ bị abort, session cũ lưu đủ, session mới sạch" time="0.6707566">
+        </testcase>
+        <testcase classname="tests/App.test.tsx" name="App Component (Direct End-to-End Application Flow Tests) &gt; 2. Chuyển session qua HistoryDrawer: abort request cũ và nạp đúng tin nhắn session đã chọn" time="0.3988702">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/ChatWindow.test.tsx" timestamp="2026-10-07T04:32:24.089Z" hostname="LAPTOP-LHAUPND9" tests="4" failures="0" errors="0" skipped="0" time="0.7779593">
+        <testcase classname="tests/ChatWindow.test.tsx" name="ChatWindow Component (Direct Integration Tests) &gt; 1. History Payload: Không đưa câu hỏi hiện tại vào cả trường question và history" time="0.3481289">
+        </testcase>
+        <testcase classname="tests/ChatWindow.test.tsx" name="ChatWindow Component (Direct Integration Tests) &gt; 2. Session phải lưu đủ: tin nhắn cũ + câu hỏi vừa gửi + câu trả lời hoàn chỉnh" time="0.0957335">
+        </testcase>
+        <testcase classname="tests/ChatWindow.test.tsx" name="ChatWindow Component (Direct Integration Tests) &gt; 3. Khi chuyển session, abort ngay request đang chạy" time="0.1193263">
+        </testcase>
+        <testcase classname="tests/ChatWindow.test.tsx" name="ChatWindow Component (Direct Integration Tests) &gt; 4. Lỗi mạng: không để pending message trống, thay bằng thông báo lỗi" time="0.2111687">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/adminPortalOps.test.tsx" timestamp="2026-10-07T04:32:24.091Z" hostname="LAPTOP-LHAUPND9" tests="6" failures="0" errors="0" skipped="0" time="1.2040345">
+        <testcase classname="tests/adminPortalOps.test.tsx" name="Admin Portal Operations &amp; Monitoring Tests &gt; 1. AdminJobsPanel (Filtering, Timeline &amp; Safe Action Modals) &gt; Hiển thị danh sách jobs, tiến trình, và mở modal chi tiết dòng thời gian" time="0.6185317">
+        </testcase>
+        <testcase classname="tests/adminPortalOps.test.tsx" name="Admin Portal Operations &amp; Monitoring Tests &gt; 1. AdminJobsPanel (Filtering, Timeline &amp; Safe Action Modals) &gt; Kích hoạt modal xác nhận khi Retry hoặc Cancel job và gọi đúng API" time="0.2557472">
+        </testcase>
+        <testcase classname="tests/adminPortalOps.test.tsx" name="Admin Portal Operations &amp; Monitoring Tests &gt; 2. AdminWorkersPanel (Queue Stats &amp; Worker Heartbeats) &gt; Hiển thị đầy đủ độ sâu hàng đợi và trạng thái dấu sống của các worker" time="0.0674804">
+        </testcase>
+        <testcase classname="tests/adminPortalOps.test.tsx" name="Admin Portal Operations &amp; Monitoring Tests &gt; 3. AdminErrorLogsPanel (Sanitized logs by Request ID) &gt; Hiển thị lỗi đã khử khuẩn, không rò rỉ câu hỏi thô hoặc bí mật" time="0.0902877">
+        </testcase>
+        <testcase classname="tests/adminPortalOps.test.tsx" name="Admin Portal Operations &amp; Monitoring Tests &gt; 4. AdminSystemHealthPanel (Strict Read-Only Guarantee) &gt; Hiển thị migrations và backups ở chế độ CHỈ ĐỌC, không có nút áp dụng/restore" time="0.1436183">
+        </testcase>
+        <testcase classname="tests/adminPortalOps.test.tsx" name="Admin Portal Operations &amp; Monitoring Tests &gt; 5. ConfirmActionModal Accessibility (Focus &amp; Keyboard Contract) &gt; Đóng modal khi nhấn phím Escape và hỗ trợ thuộc tính ARIA đầy đủ" time="0.0211448">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/adminWorkflow.test.tsx" timestamp="2026-10-07T04:32:24.093Z" hostname="LAPTOP-LHAUPND9" tests="8" failures="0" errors="0" skipped="0" time="1.3680096">
+        <testcase classname="tests/adminWorkflow.test.tsx" name="Admin Portal Feature Tests (Protected Route, Security, Accessibility &amp; Dashboard) &gt; 1. Admin Authentication &amp; Security Contracts &gt; TUYỆT ĐỐI KHÔNG lưu token admin trong localStorage hoặc sessionStorage khi đăng nhập thành công" time="0.6038959">
+        </testcase>
+        <testcase classname="tests/adminWorkflow.test.tsx" name="Admin Portal Feature Tests (Protected Route, Security, Accessibility &amp; Dashboard) &gt; 1. Admin Authentication &amp; Security Contracts &gt; Hiển thị lỗi khi thông tin đăng nhập không hợp lệ" time="0.0307739">
+        </testcase>
+        <testcase classname="tests/adminWorkflow.test.tsx" name="Admin Portal Feature Tests (Protected Route, Security, Accessibility &amp; Dashboard) &gt; 1. Admin Authentication &amp; Security Contracts &gt; Có thể quay về trang Chat từ màn hình đăng nhập" time="0.0656401">
+        </testcase>
+        <testcase classname="tests/adminWorkflow.test.tsx" name="Admin Portal Feature Tests (Protected Route, Security, Accessibility &amp; Dashboard) &gt; 2. Admin Dashboard &amp; Metrics Rendering &gt; Hiển thị đầy đủ health, queue/jobs, tỷ lệ lỗi, storage, Mongo status và metrics tổng quan" time="0.2212122">
+        </testcase>
+        <testcase classname="tests/adminWorkflow.test.tsx" name="Admin Portal Feature Tests (Protected Route, Security, Accessibility &amp; Dashboard) &gt; 2. Admin Dashboard &amp; Metrics Rendering &gt; Audit table hiển thị dữ liệu khử khuẩn an toàn, không lộ secret/prompt" time="0.1449839">
+        </testcase>
+        <testcase classname="tests/adminWorkflow.test.tsx" name="Admin Portal Feature Tests (Protected Route, Security, Accessibility &amp; Dashboard) &gt; 2. Admin Dashboard &amp; Metrics Rendering &gt; Xác nhận trước khi xóa cache hệ thống và gọi onClearCache khi đồng ý" time="0.2075179">
+        </testcase>
+        <testcase classname="tests/adminWorkflow.test.tsx" name="Admin Portal Feature Tests (Protected Route, Security, Accessibility &amp; Dashboard) &gt; 3. Accessibility &amp; Usability (A11y) &gt; AdminLoginForm có label liên kết chính xác với input và hỗ trợ bàn phím" time="0.0130586">
+        </testcase>
+        <testcase classname="tests/adminWorkflow.test.tsx" name="Admin Portal Feature Tests (Protected Route, Security, Accessibility &amp; Dashboard) &gt; 3. Accessibility &amp; Usability (A11y) &gt; Audit table có scope col cho header và hỗ trợ cuộn phím" time="0.0767391">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/architectureContract.test.ts" timestamp="2026-10-07T04:32:24.097Z" hostname="LAPTOP-LHAUPND9" tests="19" failures="0" errors="0" skipped="0" time="1.6894268">
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; keeps endpoints and transports out of components" time="0.0071552">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; keeps endpoints and shared transport out of hooks and facades" time="0.0025701">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; ensures public hook facade contains only pure re-exports and no stateful logic or direct transports" time="0.0022034">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; allows fetch only in the shared HTTP client" time="0.0065201">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; keeps feature API modules free of React and UI imports" time="0.0012274">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; prevents shared code from importing features" time="0.0024361">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; forces session, chat request and NDJSON boundaries through canonical schema validators" time="0.0009791">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; keeps frontend schema copies byte-semantically synchronized with backend canonical schemas" time="0.0194208">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 1. ensures frontend/hooks exists strictly outside src" time="0.0098981">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 2. ensures no public hook facade is created at frontend/src/hooks" time="0.0014314">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 3. ensures files in frontend/hooks contain only pure re-exports and type exports" time="0.0066999">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 4. ensures frontend/hooks does not contain transports, URLs, endpoints, MongoDB, or components" time="0.002585">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 5. ensures frontend/src/shared does not reverse-import from features or hooks" time="0.0098226">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 6. ensures feature implementations do not depend backwards on facade to prevent cycles" time="0.002658">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 7. ensures all designated public hooks are exported from frontend/hooks/index.ts" time="1.6008835">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 8. verifies TypeScript and Vite resolve @hooks alias correctly" time="0.0012968">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 9. verifies import graph between facade and features is strictly acyclic (no cycles)" time="0.0019423">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 10. enforces backend/json_schemas as the sole authoritative contract core" time="0.0005598">
+        </testcase>
+        <testcase classname="tests/architectureContract.test.ts" name="LTX frontend dependency contract &gt; Public Hook Facade Architecture Contract (Phase 3 &amp; Phase 4) &gt; 11. (Gate 13) ensures public chat &amp; session hooks utilize DTOs based directly on canonical contracts" time="0.0006033">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/artifactWorkflow.test.tsx" timestamp="2026-10-07T04:32:24.103Z" hostname="LAPTOP-LHAUPND9" tests="19" failures="0" errors="0" skipped="0" time="0.1514424">
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 1. Architecture Dependency &amp; Boundary Contract &gt; ArtifactLightbox và ArtifactCard không import API module hoặc gọi fetch trực tiếp" time="0.0054927">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 1. Architecture Dependency &amp; Boundary Contract &gt; Domain hooks không gọi fetch() hoặc import shared/api/httpClient trực tiếp" time="0.0016585">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 2. Upscale Immediate Result (Cached / Storage) &gt; nhận kết quả tức thời từ máy chủ và cập nhật state không cần polling" time="0.0232202">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 3. Background Job Polling Completion &gt; khởi tạo job_id, poll tiến trình và hoàn thành khi job status = completed" time="0.0074923">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 4. Background Job Failed &amp; Cancelled &gt; xử lý khi tác vụ nền thất bại với thông báo lỗi từ server" time="0.0043454">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 4. Background Job Failed &amp; Cancelled &gt; hủy tác vụ phóng to đang chạy: gọi cancelJob API, ngắt timer và báo hủy" time="0.00452">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 5. Polling Timeout Safeguard &gt; tự động dừng và báo lỗi timeout khi vượt quá số lần thử tối đa" time="0.0049263">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 6. Timer Cleanup &amp; Unmount Safety &gt; hủy timer khi unmount và không cập nhật state sau unmount" time="0.0053168">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 7. Double-Click &amp; In-Flight Protection &gt; chống double-click khi requestUpscale: chỉ gửi 1 request duy nhất dù bấm liên tiếp" time="0.0067991">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 7. Double-Click &amp; In-Flight Protection &gt; chống double-click khi exportArtifact: chỉ gửi 1 request duy nhất" time="0.0095006">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 8. Export Mutation Workflow (Success &amp; Failure) &gt; xuất tệp thành công: trả về true, quản lý đúng isExporting và không có lỗi" time="0.0037038">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 8. Export Mutation Workflow (Success &amp; Failure) &gt; xuất tệp thất bại: bắt lỗi, ánh xạ message thân thiện và trả về false" time="0.0038572">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 9. Artifact Switch During Active Polling &gt; hủy timer, reset toàn bộ state khi prop artifact thay đổi" time="0.0047038">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 10. useArtifactWorkflow Combined Orchestrator &gt; kết hợp preview URL, upscale và export trong một interface thống nhất" time="0.0047073">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 10. useArtifactWorkflow Combined Orchestrator &gt; tự đồng bộ manifest để planned artifact không quay vô hạn" time="0.0040422">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 11. Durable Background Queue &amp; Reload Reattachment Contracts &gt; useArtifactExport nhận job_id, poll tiến trình và kích hoạt tải signed URL khi completed" time="0.0324362">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 11. Durable Background Queue &amp; Reload Reattachment Contracts &gt; useArtifactExport tự động reattach active job sau reload từ localStorage" time="0.0050058">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 11. Durable Background Queue &amp; Reload Reattachment Contracts &gt; useArtifactUpscale tự động reattach active job sau reload từ localStorage" time="0.003222">
+        </testcase>
+        <testcase classname="tests/artifactWorkflow.test.tsx" name="Frontend LTX Hook Gate - Artifact Workflow &amp; Architecture &gt; 11. Durable Background Queue &amp; Reload Reattachment Contracts &gt; useArtifactUpscale không timeout sau 30 giây (tiếp tục poll bền bỉ quá 30s)" time="0.0116119">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/chat_flow.test.ts" timestamp="2026-10-07T04:32:24.108Z" hostname="LAPTOP-LHAUPND9" tests="6" failures="0" errors="0" skipped="0" time="0.0294472">
+        <testcase classname="tests/chat_flow.test.ts" name="React Chat Flow &amp; Streaming Contract &gt; 1. History Payload: Không đưa câu hỏi hiện tại vào cả trường question và history" time="0.0035503">
+        </testcase>
+        <testcase classname="tests/chat_flow.test.ts" name="React Chat Flow &amp; Streaming Contract &gt; 2. Hoàn thành stream: Session lưu đủ [tin nhắn cũ + câu hỏi vừa gửi + câu trả lời]" time="0.0007639">
+        </testcase>
+        <testcase classname="tests/chat_flow.test.ts" name="React Chat Flow &amp; Streaming Contract &gt; 3. Abort: Dừng sinh câu trả lời bảo lưu toàn bộ token đã nhận và cập nhật session" time="0.0005319">
+        </testcase>
+        <testcase classname="tests/chat_flow.test.ts" name="React Chat Flow &amp; Streaming Contract &gt; 4. Stale Response: Ngăn chặn response của session cũ cập nhật vào session mới" time="0.0007118">
+        </testcase>
+        <testcase classname="tests/chat_flow.test.ts" name="React Chat Flow &amp; Streaming Contract &gt; 5. Observability: Không ghi nhận nội dung câu hỏi và không tính meta vào Content TTFT" time="0.0008491">
+        </testcase>
+        <testcase classname="tests/chat_flow.test.ts" name="React Chat Flow &amp; Streaming Contract &gt; 6. Chuẩn hóa ID: ID session không bị trùng trong các lần tạo liên tiếp" time="0.0208993">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/contractCompatibility.test.ts" timestamp="2026-10-07T04:32:24.110Z" hostname="LAPTOP-LHAUPND9" tests="4" failures="0" errors="0" skipped="0" time="0.0094286">
+        <testcase classname="tests/contractCompatibility.test.ts" name="Phase 4: TypeScript Contracts &amp; Canonical Schema Compatibility &gt; strictly validates ArtifactSummary matches canonical schema and TypeScript contract" time="0.0048744">
+        </testcase>
+        <testcase classname="tests/contractCompatibility.test.ts" name="Phase 4: TypeScript Contracts &amp; Canonical Schema Compatibility &gt; strictly validates JobStatusResponse without obsolete error_code" time="0.0007593">
+        </testcase>
+        <testcase classname="tests/contractCompatibility.test.ts" name="Phase 4: TypeScript Contracts &amp; Canonical Schema Compatibility &gt; strictly validates ImageResult matches canonical schema and TypeScript contract" time="0.0007517">
+        </testcase>
+        <testcase classname="tests/contractCompatibility.test.ts" name="Phase 4: TypeScript Contracts &amp; Canonical Schema Compatibility &gt; strictly validates Admin login request and responses" time="0.0009755">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/frontend_overhaul.test.tsx" timestamp="2026-10-07T04:32:24.111Z" hostname="LAPTOP-LHAUPND9" tests="8" failures="0" errors="0" skipped="0" time="0.8829092">
+        <testcase classname="tests/frontend_overhaul.test.tsx" name="Frontend Overhaul Requirements (Step 16) &gt; 1. Empty State &amp; Practical Suggestions &gt; hiển thị đúng 4 gợi ý tuyển sinh thực tế khi chưa có tin nhắn" time="0.1121773">
+        </testcase>
+        <testcase classname="tests/frontend_overhaul.test.tsx" name="Frontend Overhaul Requirements (Step 16) &gt; 2. ArtifactCard - Double-click Protection &amp; Format Support &gt; loại bỏ định dạng audio/video và hiển thị các định dạng hợp lệ" time="0.2036004">
+        </testcase>
+        <testcase classname="tests/frontend_overhaul.test.tsx" name="Frontend Overhaul Requirements (Step 16) &gt; 2. ArtifactCard - Double-click Protection &amp; Format Support &gt; chống double-click: khi đang tải xuống, bấm nhiều lần không gửi lặp request" time="0.0777207">
+        </testcase>
+        <testcase classname="tests/frontend_overhaul.test.tsx" name="Frontend Overhaul Requirements (Step 16) &gt; 3. ConfirmModal - Keyboard Trap &amp; Escape Handling &gt; đóng modal khi nhấn Escape và bẫy phím Tab bên trong modal" time="0.0877091">
+        </testcase>
+        <testcase classname="tests/frontend_overhaul.test.tsx" name="Frontend Overhaul Requirements (Step 16) &gt; 4. Centralized Error Mapping &gt; ánh xạ chính xác các lỗi HTTP và gợi ý thử lại" time="0.001627">
+        </testcase>
+        <testcase classname="tests/frontend_overhaul.test.tsx" name="Frontend Overhaul Requirements (Step 16) &gt; 5. Composer Utilities &amp; Accessible History &gt; gửi đúng prompt từ các thao tác nhanh và khóa chúng khi đang streaming" time="0.3174924">
+        </testcase>
+        <testcase classname="tests/frontend_overhaul.test.tsx" name="Frontend Overhaul Requirements (Step 16) &gt; 5. Composer Utilities &amp; Accessible History &gt; đóng lịch sử bằng Escape và chỉ cho phép tương tác khi drawer mở" time="0.0419318">
+        </testcase>
+        <testcase classname="tests/frontend_overhaul.test.tsx" name="Frontend Overhaul Requirements (Step 16) &gt; 6. Markdown Table Renderer &gt; render bảng GFM thành cell HTML thay vì chuỗi object" time="0.0361418">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/jsonSchemaContracts.test.ts" timestamp="2026-10-07T04:32:24.113Z" hostname="LAPTOP-LHAUPND9" tests="12" failures="0" errors="0" skipped="0" time="0.0363844">
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; accepts a valid session response and rejects drift" time="0.003926">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; validates chat requests before the transport sends them" time="0.001091">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; accepts every canonical v2 event and rejects malformed envelopes" time="0.0023872">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; keeps legacy events only at the declared compatibility boundary" time="0.0004236">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; validates admin login request and responses" time="0.000906">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; validates API error responses with both domain code and FastAPI detail envelopes" time="0.0015536">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; validates artifact manifest and summary contracts" time="0.000824">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; validates artifact plan, render, upscale, and export requests" time="0.0012043">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; validates background job status response with action, pending, and errors" time="0.000561">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; validates image generation request and result contracts" time="0.0007401">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; validates HTTP 202 Job Accepted response contract and negative paths" time="0.0008688">
+        </testcase>
+        <testcase classname="tests/jsonSchemaContracts.test.ts" name="canonical JSON Schema runtime contracts &gt; validates that download/export API routes pass JSON responses through parseJobAcceptedResponse" time="0.0198718">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/ndjsonParser.test.ts" timestamp="2026-10-07T04:32:24.118Z" hostname="LAPTOP-LHAUPND9" tests="4" failures="0" errors="0" skipped="0" time="0.0185797">
+        <testcase classname="tests/ndjsonParser.test.ts" name="NDJSON Stream Parser &gt; phân tích chính xác các dòng NDJSON hoàn chỉnh" time="0.011259">
+        </testcase>
+        <testcase classname="tests/ndjsonParser.test.ts" name="NDJSON Stream Parser &gt; ghép đúng các chunk bị cắt đôi giữa dòng (partial chunks across boundaries)" time="0.0011927">
+        </testcase>
+        <testcase classname="tests/ndjsonParser.test.ts" name="NDJSON Stream Parser &gt; xử lý abort signal mà không gây crash" time="0.0016367">
+        </testcase>
+        <testcase classname="tests/ndjsonParser.test.ts" name="NDJSON Stream Parser &gt; bỏ qua dòng trống và JSON lỗi cú pháp an toàn" time="0.0024312">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/privacyNotice.test.tsx" timestamp="2026-10-07T04:32:24.119Z" hostname="LAPTOP-LHAUPND9" tests="4" failures="0" errors="0" skipped="0" time="1.0014978">
+        <testcase classname="tests/privacyNotice.test.tsx" name="User Privacy, Retention &amp; History Management Contracts &gt; 1. PrivacyPolicyModal Disclosure Contracts &gt; Minh bạch rõ ràng về LocalStorage, chế độ khách, LLM provider và chính sách lưu giữ" time="0.3989698">
+        </testcase>
+        <testcase classname="tests/privacyNotice.test.tsx" name="User Privacy, Retention &amp; History Management Contracts &gt; 1. PrivacyPolicyModal Disclosure Contracts &gt; Đóng modal khi người dùng nhấn phím Escape" time="0.0826293">
+        </testcase>
+        <testcase classname="tests/privacyNotice.test.tsx" name="User Privacy, Retention &amp; History Management Contracts &gt; 2. HistoryDrawer Clear History &amp; Privacy Actions &gt; Giữ nguyên chức năng xóa 1 phiên và xóa toàn bộ kèm modal xác nhận" time="0.4002254">
+        </testcase>
+        <testcase classname="tests/privacyNotice.test.tsx" name="User Privacy, Retention &amp; History Management Contracts &gt; 2. HistoryDrawer Clear History &amp; Privacy Actions &gt; Mở modal Chính sách quyền riêng tư từ liên kết tại footer HistoryDrawer" time="0.1155653">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/publicHookFacade.test.ts" timestamp="2026-10-07T04:32:24.120Z" hostname="LAPTOP-LHAUPND9" tests="3" failures="0" errors="0" skipped="0" time="0.00519">
+        <testcase classname="tests/publicHookFacade.test.ts" name="Public Hook Facade (@hooks) &gt; exports all designated public hooks through the @hooks alias with identical references" time="0.0026638">
+        </testcase>
+        <testcase classname="tests/publicHookFacade.test.ts" name="Public Hook Facade (@hooks) &gt; keeps internal-only feature hooks strictly hidden from @hooks" time="0.0002484">
+        </testcase>
+        <testcase classname="tests/publicHookFacade.test.ts" name="Public Hook Facade (@hooks) &gt; allows importing from individual category facades in frontend/hooks/*" time="0.0004965">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/sessionBootstrap.test.tsx" timestamp="2026-10-07T04:32:24.121Z" hostname="LAPTOP-LHAUPND9" tests="9" failures="0" errors="0" skipped="0" time="5.3655953">
+        <testcase classname="tests/sessionBootstrap.test.tsx" name="Session Bootstrap &amp; Error Handling Tests &gt; 1. Frontend map SESSION_BOOTSTRAP_500 thành thông báo thân thiện chuyên nghiệp" time="0.0028142">
+        </testcase>
+        <testcase classname="tests/sessionBootstrap.test.tsx" name="Session Bootstrap &amp; Error Handling Tests &gt; 1b. Phân biệt artifact thuộc phiên cũ với lỗi CSRF thay vì báo 403 chung chung" time="0.0008286">
+        </testcase>
+        <testcase classname="tests/sessionBootstrap.test.tsx" name="Session Bootstrap &amp; Error Handling Tests &gt; 2. Retry thất bại: createSession retry tối đa 3 lần khi backend 500, không retry vô hạn" time="1.5501196">
+        </testcase>
+        <testcase classname="tests/sessionBootstrap.test.tsx" name="Session Bootstrap &amp; Error Handling Tests &gt; 3. Retry thành công: lần 1 lỗi 500, lần 2 trả về 200 với credentials hợp lệ" time="0.5036277">
+        </testcase>
+        <testcase classname="tests/sessionBootstrap.test.tsx" name="Session Bootstrap &amp; Error Handling Tests &gt; 4. Response thiếu session_id hoặc csrf_token: HTTP 200 nhưng dữ liệu không hợp lệ phải reject" time="3.0428558">
+        </testcase>
+        <testcase classname="tests/sessionBootstrap.test.tsx" name="Session Bootstrap &amp; Error Handling Tests &gt; 5. Session loading state: hiển thị chỉ báo đang chuẩn bị và vô hiệu hóa ô nhập liệu" time="0.0637368">
+        </testcase>
+        <testcase classname="tests/sessionBootstrap.test.tsx" name="Session Bootstrap &amp; Error Handling Tests &gt; 6. Session not ready: không cho gửi chat khi session chưa sẵn sàng" time="0.016622">
+        </testcase>
+        <testcase classname="tests/sessionBootstrap.test.tsx" name="Session Bootstrap &amp; Error Handling Tests &gt; 7. Nút Thử lại trên banner lỗi session hoạt động khi nhấn" time="0.1506144">
+        </testcase>
+        <testcase classname="tests/sessionBootstrap.test.tsx" name="Session Bootstrap &amp; Error Handling Tests &gt; 8. Không lưu lỗi bootstrap vào lịch sử hội thoại người dùng" time="0.030767">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/sessionScopedStorage.test.tsx" timestamp="2026-10-07T04:32:24.122Z" hostname="LAPTOP-LHAUPND9" tests="2" failures="0" errors="0" skipped="0" time="0.0318991">
+        <testcase classname="tests/sessionScopedStorage.test.tsx" name="Session-scoped browser storage &gt; không lưu raw session id trong khóa scope và tách active job giữa hai phiên" time="0.0040268">
+        </testcase>
+        <testcase classname="tests/sessionScopedStorage.test.tsx" name="Session-scoped browser storage &gt; chỉ hiển thị lịch sử đúng scope và vô hiệu hóa artifact legacy" time="0.0238941">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/useChatStream.test.ts" timestamp="2026-10-07T04:32:24.123Z" hostname="LAPTOP-LHAUPND9" tests="16" failures="0" errors="0" skipped="0" time="0.162478">
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 1. Stream hoàn thành: nhận đủ callbacks onMessageStart, onTokenChunk và onMessageComplete" time="0.0449879">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 2. Abort trước token đầu tiên: không crash, lưu thông báo dừng với nội dung rỗng" time="0.0067149">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 3. Abort sau một số token: giữ trọn vẹn các token đã nhận và nối hậu tố đã dừng" time="0.0275172">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 4. Gọi stopStreaming hai lần (Idempotent): chỉ chốt đúng 1 lần, không sinh message trùng lặp" time="0.0064742">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 5. Dừng rồi gửi request mới ngay: finally của request cũ không xóa timer hay isStreaming của request mới" time="0.0150068">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 6. sendQuery thay thế request cũ mà không gọi stop trước: request cũ chốt đúng 1 lần" time="0.0059078">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 7. Response cũ trả về muộn (Stale Response): bị loại bỏ và không ghi đè context mới" time="0.0035044">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 8. Lỗi mạng: gọi onError kèm aiMsgId, không để pending message rỗng" time="0.0029537">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 9. NDJSON bị chia nhỏ giữa các chunk: parser ghép dòng chính xác" time="0.0066331">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 10. Token cuối không có ký tự xuống dòng: vẫn xử lý và xả trọn vẹn" time="0.0035868">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 11. Cleanup khi unmount: bảo lưu token và abort controller an toàn" time="0.0048869">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 12. Metadata không được tính là Content TTFT" time="0.0048075">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 13. NDJSON v2: Hoàn thành bình thường khi có sự kiện completed" time="0.0049175">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 14. NDJSON v2: Ngắt luồng giữa chừng (premature EOF không có completed) gọi onError" time="0.0081452">
+            <system-err>
+[NDJSON v2] Sự cố gián đoạn (Mất kết nối với máy chủ trước khi hoàn thành luồng dữ liệu (Stream interrupted).). Thử kết nối lại lần 1 sau 600ms với sequence &gt; 2...
+
+[NDJSON v2] Sự cố gián đoạn (Mất kết nối với máy chủ trước khi hoàn thành luồng dữ liệu (Stream interrupted).). Thử kết nối lại lần 2 sau 1200ms với sequence &gt; 2...
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 15. NDJSON v2: Nhận artifact_planned lập tức nạp visual metadata dự kiến" time="0.0050933">
+        </testcase>
+        <testcase classname="tests/useChatStream.test.ts" name="useChatStream Hook (Full Production Flow Tests) &gt; 16. NDJSON v2 Canonical Event Set: nhận đủ start -&gt; progress -&gt; artifact -&gt; token -&gt; done" time="0.0070266">
+        </testcase>
+    </testsuite>
+</testsuites>

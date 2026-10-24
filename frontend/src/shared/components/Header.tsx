@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu, Sun, Moon, Sparkles, ShieldCheck, Shield } from 'lucide-react';
-import { ThemeMode } from '../types/common.types';
+import { ThemeMode, KnowledgeProfileUI } from '../types/common.types';
 
 interface HeaderProps {
   onToggleDrawer: () => void;
@@ -10,6 +10,7 @@ interface HeaderProps {
   onOpenImageModal: () => void;
   isOnline: boolean;
   onNavigateAdmin?: () => void;
+  profile?: KnowledgeProfileUI | null;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -20,7 +21,13 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenImageModal,
   isOnline,
   onNavigateAdmin,
+  profile,
 }) => {
+  const isIlt = profile?.profile_id === 'ilt';
+  const brandTitleFull = isIlt ? (profile?.bot_title || 'Innovative Lighting AI') : 'HUIT Tuyển sinh AI';
+  const brandTitleCompact = isIlt ? 'ILT AI' : 'HUIT AI';
+  const brandSubtitle = isIlt ? (profile?.bot_subtitle || 'Đèn trang trí & chiếu sáng cao cấp · Nhà máy Đồng Nai') : 'Thông tin tuyển sinh · Tài liệu trực quan';
+
   return (
     <header className="chat-header">
       <div className="brand-info">
@@ -37,18 +44,18 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
 
         <div className="mascot-avatar-small" aria-hidden="true">
-          <img src="/huit-ai-mark.svg" alt="" width={40} height={40} className="brand-mark-image" />
+          <img src={isIlt ? '/ilt-brand-mark.svg' : '/huit-ai-mark.svg'} alt="" width={40} height={40} className="brand-mark-image" />
         </div>
 
         <div className="header-titles-group">
           <div className="brand-title-row">
             <h1 className="brand-title">
-              <span className="brand-title-full">HUIT Tuyển sinh AI</span>
-              <span className="brand-title-compact">HUIT AI</span>
+              <span className="brand-title-full">{brandTitleFull}</span>
+              <span className="brand-title-compact">{brandTitleCompact}</span>
             </h1>
-            <span className="brand-badge"><ShieldCheck size={12} /> Đã xác thực</span>
+            <span className="brand-badge"><ShieldCheck size={12} /> {isIlt ? 'Chứng nhận UL · ETL · CE' : 'Đã xác thực'}</span>
           </div>
-          <span className="brand-subtitle">Thông tin tuyển sinh · Tài liệu trực quan</span>
+          <span className="brand-subtitle">{brandSubtitle}</span>
         </div>
       </div>
 

@@ -1,0 +1,67 @@
+{
+  "checked_at_utc": "2026-10-07 04:53:54 UTC",
+  "status": "PREVIEW_READY_PRODUCTION_PENDING_BACKEND_AUTHORIZATION",
+  "product_end_to_end_verified": false,
+  "commits": {
+    "release": "3980bcdab143682413072af39041d56a88d7fc83",
+    "security_patch": "ee23fdd4ccae6e0338159e22a21c1ce40fa74d19",
+    "remote_production_main": "3f338839fcbec4d1337ae10378d9c78c69350127"
+  },
+  "github": {
+    "repository": "https://github.com/nguyenkhaihiep1999-beep/huit-chatbot",
+    "pushed_branch": "codex/deploy-vercel-20261007",
+    "production_main_changed": false
+  },
+  "verification": {
+    "backend_tests_passed": 562,
+    "backend_warnings": 34,
+    "frontend_tests_passed": 126,
+    "frontend_test_files": 16,
+    "lint_exit": 0,
+    "build_exit": 0,
+    "frontend_contracts_in_sync": 18,
+    "installed_dompurify_version": "3.4.16",
+    "installed_source_map_js_version": "1.2.2",
+    "npm_known_vulnerabilities": 0,
+    "secret_scan_files": 600,
+    "secret_scan_matches": 8,
+    "real_secret_leaks": 0,
+    "paid_inference_calls": 0,
+    "mongo_migrations_or_cleanup": false,
+    "browser_end_to_end_test_performed": false
+  },
+  "vercel": {
+    "project": "huit-chatbot",
+    "preview_deployment": "dpl_4nKBDnZZRyE7YqaGN3wb697JSbjp",
+    "preview_url": "https://huit-chatbot-2l811xqn8-nguyenkhaihiep1999-beeps-projects.vercel.app",
+    "preview_state": "READY",
+    "preview_target": null,
+    "build_log_zero_vulnerabilities": true,
+    "build_completed": true,
+    "unauthenticated_preview_http": 302,
+    "preview_redirect_host": "vercel.com",
+    "production_promoted": false,
+    "previous_production_deployment": "dpl_3fCXyZU6goBxcVh3RzgcETrALYQR",
+    "production_frontend_http": 200,
+    "production_api_health_live_http": 404
+  },
+  "railway": {
+    "project_id": "18aa08f0-352d-4248-ad54-8cda262cf410",
+    "environment": "production",
+    "api_service": "BacsiHiep",
+    "api_service_id": "9217966a-82c4-4947-9bf2-31834a607500",
+    "api_domain": "bacsihiep-production.up.railway.app",
+    "latest_deployment_id": "e7760864-4567-45bc-9b1c-df5ed76a9956",
+    "latest_deployment_status": "FAILED",
+    "active_deployment_count": 0,
+    "direct_health_live_http": 404,
+    "configured_dockerfile": "Dockerfile",
+    "exact_build_failure_cause": "not_yet_confirmed",
+    "api_restore_authorization": "requested_pending_user_reply",
+    "service_mutated": false,
+    "redis_mutated": false,
+    "typesafe_api_key_present": false,
+    "jev_mode_present": false
+  },
+  "next_required_action": "User approval to restore/redeploy the existing BacsiHiep Railway API; then verify API health before promoting the patched Vercel release. Do not use default Railway link, which currently points to Redis."
+}

@@ -1,0 +1,142 @@
+/* ==============================================================================
+   ARTIFACTS, VISUALS & MODALS STYLES
+   HUIT Chatbot - Clean, Accessible, Responsive
+   ============================================================================== */
+
+/* Visual & Artifact Card Component */
+.visual-card-wrapper {
+  margin-top: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background-color: var(--surface-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+.visual-card-wrapper:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+
+.visual-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px var(--space-4);
+  background-color: var(--surface-hover);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.visual-title {
+  font-size: var(--font-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.visual-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.visual-action-btn {
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 32px;
+  transition: all var(--transition-fast);
+}
+.visual-action-btn:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+}
+.visual-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.visual-render-box {
+  padding: var(--space-4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--surface-canvas);
+  overflow-x: auto;
+  cursor: zoom-in;
+}
+
+.visual-render-box svg,
+.visual-render-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-xs);
+}
+
+/* Lightbox Modal */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--surface-overlay);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  animation: fadeIn var(--transition-fast) ease;
+}
+
+.lightbox-content {
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  max-width: 960px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-default);
+}
+
+.lightbox-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--border-default);
+  background-color: var(--surface-card);
+}
+
+/* Generic Modal Overlay & Container */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--surface-overlay);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  animation: fadeIn var(--transition-fast) ease;
+}
+
+.modal-container {
+  background-color: var(--surface-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-xl);
+}

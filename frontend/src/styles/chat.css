@@ -1654,3 +1654,98 @@
     padding-top: 8px;
   }
 }
+
+/* ==============================================================================
+   ILT BASIC & CLEAN CORPORATE LIGHTING STYLING
+   ============================================================================== */
+
+[data-profile='ilt'] .empty-state-hero {
+  position: relative;
+}
+
+[data-profile='ilt'] .empty-state-icon-box {
+  width: 72px;
+  height: 72px;
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: none;
+}
+
+[data-profile='ilt'] .empty-state-eyebrow {
+  color: var(--color-primary);
+  background: var(--color-primary-subtle);
+  border: 1px solid var(--border-default);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: var(--font-xs);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+[data-profile='ilt'] .ilt-capability-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+[data-profile='ilt'] .ilt-capability-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-xs);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--surface-panel);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  box-shadow: none;
+}
+
+[data-profile='ilt'] .ilt-capability-strip span svg {
+  color: var(--color-primary);
+}
+
+[data-profile='ilt'] .suggestion-chip-btn {
+  border: 1px solid var(--border-default);
+  background: var(--surface-card);
+  transition: all var(--transition-fast);
+  box-shadow: none;
+}
+
+[data-profile='ilt'] .suggestion-chip-btn:hover {
+  border-color: var(--color-primary);
+  background: var(--surface-hover);
+  transform: translateY(-1px);
+}
+
+[data-profile='ilt'] .suggestion-badge {
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  border: 1px solid var(--border-default);
+}
+
+[data-profile='ilt'] .brand-badge {
+  color: var(--color-primary);
+  background: var(--color-primary-subtle);
+  border: 1px solid var(--border-default);
+}
+
+[data-profile='ilt'] .mascot-avatar-small {
+  border-radius: 10px;
+  filter: none;
+}
+
+[data-profile='ilt'] .ai-avatar {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+}
+

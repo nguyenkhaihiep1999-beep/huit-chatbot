@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:artifact-export-request:1.0.0",
+  "title": "HUIT artifact export request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format"],
+  "properties": {
+    "format": {
+      "enum": ["xlsx", "docx", "pdf", "png", "svg", "webp"]
+    }
+  }
+}

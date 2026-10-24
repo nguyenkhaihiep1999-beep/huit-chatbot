@@ -150,10 +150,12 @@ class DecisionTracker:
         service: "DecisionService",
         budget_ms: float,
         deadline: Optional[float] = None,
+        mode: Optional[str] = None,
     ):
         self.request = request
         self.service = service
         self.budget_ms = budget_ms
+        self.mode = mode
         self.start_time = time.perf_counter()
         self.start_monotonic = time.monotonic()
         self.deadline = deadline if deadline is not None else (self.start_monotonic + (budget_ms / 1000.0))
@@ -252,6 +254,7 @@ class DecisionTracker:
                 queue_wait_ms=queue_wait_ms,
                 retry_count=retry_count,
                 fallback_reason=fallback_reason,
+                mode=self.mode,
             )
             return True
 
@@ -293,6 +296,7 @@ class DecisionTracker:
                 queue_wait_ms=queue_wait_ms,
                 retry_count=retry_count,
                 fallback_reason=fallback_reason,
+                mode=self.mode,
             )
             return True
 
@@ -342,6 +346,7 @@ class DecisionTracker:
                 queue_wait_ms=queue_wait_ms,
                 retry_count=retry_count,
                 fallback_reason=fallback_reason,
+                mode=self.mode,
             )
             return True
 
@@ -416,6 +421,7 @@ class DecisionTracker:
             queue_wait_ms=0.0,
             retry_count=0,
             fallback_reason="timeout",
+            mode=self.mode,
         )
         return fallback_res
 
@@ -596,6 +602,7 @@ class DecisionService:
         queue_wait_ms: float = 0.0,
         retry_count: int = 0,
         fallback_reason: Optional[str] = None,
+        mode: Optional[str] = None,
     ) -> None:
         """Ghi metric ẩn danh, tuyệt đối không chứa API key, raw question hay raw user state."""
         selected_choice = None
@@ -623,9 +630,10 @@ class DecisionService:
             diverged_from_baseline = (selected_choice != baseline_decision)
             agreement = (selected_choice == baseline_decision)
 
+        rec_mode = mode or self.mode
         metric_payload = {
             "event": "decision_engine_telemetry",
-            "mode": self.mode,
+            "mode": rec_mode,
             "provider": result.provider,
             "model": result.model,
             "decision_type": request.decision_type,
@@ -704,6 +712,7 @@ class DecisionService:
         budget_ms: Optional[float] = None,
         tracker: Optional[DecisionTracker] = None,
         deadline: Optional[float] = None,
+        mode: Optional[str] = None,
     ) -> DecisionResult:
         """Thực thi quyết định với đầy đủ bảo vệ:
 
@@ -714,8 +723,9 @@ class DecisionService:
         - Fallback an toàn khi lỗi hoặc timeout;
         - Metric đã khử nhạy cảm (jev_intent_ms, jev_evidence_ms, retry_count, fallback_reason, v.v.).
         """
+        eff_mode = (mode if mode is not None else self.mode).strip().lower()
         # 1. Mode OFF: Bỏ qua hoàn toàn, 0 HTTP calls
-        if self.mode == "off":
+        if eff_mode == "off":
             return DecisionResult(
                 decision_type=request.decision_type,
                 status="skipped",
@@ -862,7 +872,7 @@ class DecisionService:
             fallback_reason = None
 
             # Trong assist mode: kiểm tra ngưỡng tin cậy
-            if self.mode == "assist":
+            if eff_mode == "assist":
                 for q_id, dec in result.decisions.items():
                     if dec.confidence is not None and dec.confidence < settings.JEV_CONFIDENCE_THRESHOLD:
                         # Hạ xuống fallback an toàn khi độ tin cậy thấp
@@ -1006,12 +1016,14 @@ class DecisionService:
         current_intent: str,
         remaining_budget_ms: Optional[float] = None,
         tracker: Optional[DecisionTracker] = None,
+        mode: Optional[str] = None,
     ) -> Optional[DecisionResult]:
-        """Tác vụ A: Hỗ trợ quyết định Intent tuyển sinh HUIT.
+        """Tác vụ A: Hỗ trợ quyết định Intent.
 
         Chỉ gọi khi intent là 'general', mơ hồ hoặc có nhiều intent cạnh tranh.
         """
-        if self.mode == "off":
+        eff_mode = (mode if mode is not None else self.mode).strip().lower()
+        if eff_mode == "off":
             return None
 
         eff_budget_ms = (
@@ -1035,12 +1047,14 @@ class DecisionService:
         start_mono = time.monotonic()
         dl = start_mono + (eff_budget_ms / 1000.0)
         if tracker is None:
-            tracker = DecisionTracker(request=request, service=self, budget_ms=eff_budget_ms, deadline=dl)
+            tracker = DecisionTracker(request=request, service=self, budget_ms=eff_budget_ms, deadline=dl, mode=eff_mode)
         else:
             if not getattr(tracker, "deadline", None):
                 tracker.deadline = dl
             if not getattr(tracker, "start_monotonic", None):
                 tracker.start_monotonic = start_mono
+            if not getattr(tracker, "mode", None):
+                tracker.mode = eff_mode
 
         return await self.execute_decision(
             request,
@@ -1048,6 +1062,7 @@ class DecisionService:
             budget_ms=eff_budget_ms,
             tracker=tracker,
             deadline=dl,
+            mode=eff_mode,
         )
 
     async def decide_evidence_sufficiency(
@@ -1056,9 +1071,11 @@ class DecisionService:
         docs: List[Dict[str, Any]],
         remaining_budget_ms: Optional[float] = None,
         tracker: Optional[DecisionTracker] = None,
+        mode: Optional[str] = None,
     ) -> Optional[DecisionResult]:
         """Tác vụ B: Hỗ trợ đánh giá tính đầy đủ của tài liệu minh chứng (Evidence Sufficiency)."""
-        if self.mode == "off":
+        eff_mode = (mode if mode is not None else self.mode).strip().lower()
+        if eff_mode == "off":
             return None
 
         eff_budget_ms = (
@@ -1082,12 +1099,14 @@ class DecisionService:
         start_mono = time.monotonic()
         dl = start_mono + (eff_budget_ms / 1000.0)
         if tracker is None:
-            tracker = DecisionTracker(request=request, service=self, budget_ms=eff_budget_ms, deadline=dl)
+            tracker = DecisionTracker(request=request, service=self, budget_ms=eff_budget_ms, deadline=dl, mode=eff_mode)
         else:
             if not getattr(tracker, "deadline", None):
                 tracker.deadline = dl
             if not getattr(tracker, "start_monotonic", None):
                 tracker.start_monotonic = start_mono
+            if not getattr(tracker, "mode", None):
+                tracker.mode = eff_mode
 
         return await self.execute_decision(
             request,
@@ -1095,6 +1114,7 @@ class DecisionService:
             budget_ms=eff_budget_ms,
             tracker=tracker,
             deadline=dl,
+            mode=eff_mode,
         )
 
     def decide_intent_sync(
@@ -1102,9 +1122,11 @@ class DecisionService:
         question: str,
         current_intent: str,
         remaining_budget_ms: Optional[float] = None,
+        mode: Optional[str] = None,
     ) -> Optional[DecisionResult]:
         """Phiên bản đồng bộ của decide_intent phục vụ stream generator trong executor."""
-        if self.mode == "off":
+        eff_mode = (mode if mode is not None else self.mode).strip().lower()
+        if eff_mode == "off":
             return None
         eff_budget_ms = (
             remaining_budget_ms
@@ -1127,13 +1149,14 @@ class DecisionService:
         start_mono = time.monotonic()
         timeout_s = eff_budget_ms / 1000.0
         dl = start_mono + timeout_s
-        tracker = DecisionTracker(request=request, service=self, budget_ms=eff_budget_ms, deadline=dl)
+        tracker = DecisionTracker(request=request, service=self, budget_ms=eff_budget_ms, deadline=dl, mode=eff_mode)
         coro = self.execute_decision(
             request,
             total_budget_ms=eff_budget_ms,
             budget_ms=eff_budget_ms,
             tracker=tracker,
             deadline=dl,
+            mode=eff_mode,
         )
         return tracker.sync_result(run_coro_sync(
             coro, timeout_seconds=timeout_s, tracker=tracker, executor=self._executor, deadline=dl
@@ -1144,9 +1167,11 @@ class DecisionService:
         question: str,
         docs: List[Dict[str, Any]],
         remaining_budget_ms: Optional[float] = None,
+        mode: Optional[str] = None,
     ) -> Optional[DecisionResult]:
         """Phiên bản đồng bộ của decide_evidence_sufficiency phục vụ stream generator trong executor."""
-        if self.mode == "off":
+        eff_mode = (mode if mode is not None else self.mode).strip().lower()
+        if eff_mode == "off":
             return None
         eff_budget_ms = (
             remaining_budget_ms
@@ -1169,13 +1194,14 @@ class DecisionService:
         start_mono = time.monotonic()
         timeout_s = eff_budget_ms / 1000.0
         dl = start_mono + timeout_s
-        tracker = DecisionTracker(request=request, service=self, budget_ms=eff_budget_ms, deadline=dl)
+        tracker = DecisionTracker(request=request, service=self, budget_ms=eff_budget_ms, deadline=dl, mode=eff_mode)
         coro = self.execute_decision(
             request,
             total_budget_ms=eff_budget_ms,
             budget_ms=eff_budget_ms,
             tracker=tracker,
             deadline=dl,
+            mode=eff_mode,
         )
         return tracker.sync_result(run_coro_sync(
             coro, timeout_seconds=timeout_s, tracker=tracker, executor=self._executor, deadline=dl

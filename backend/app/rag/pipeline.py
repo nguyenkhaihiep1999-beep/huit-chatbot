@@ -4,11 +4,13 @@ import time
 import re
 from typing import Generator, List, Dict, Any, Optional
 from backend.app.config import settings
-from backend.app.rag.intent import classify_intent, expand_query
+from backend.app.rag.intent import classify_intent, expand_query, extract_admission_entities
 from backend.app.rag.guardrails import check_intent_guardrail, is_major_catalog_question, get_major_catalog_response
 from backend.app.rag.retrieval import HybridRetriever
 from backend.app.rag.reranker import retrieve
-from backend.app.rag.generation import stream_llm, call_llm, clean_llm_text, fallback_answer
+from backend.app.rag.generation import stream_llm, call_llm, clean_llm_text, fallback_answer, verify_and_clean_citations
+from backend.app.rag.evidence_policy import EvidencePolicyEvaluator
+from backend.app.decision_engine.redaction import create_canonical_evidence_bundle
 from backend.app.cache.mongo_cache import CacheManager
 from backend.app.services.visual_service import resolve_visual_for_query
 from backend.app.services.artifact_service import resolve_artifact_for_chat
@@ -16,6 +18,7 @@ from backend.app.telemetry.metrics import LatencyBreakdown, log_event
 from backend.app.telemetry.logger import get_current_request_id, set_current_request_id, logger
 from backend.app.decision_engine.service import decision_service, is_intent_ambiguous
 from backend.app.decision_engine.policies import INTENT_CHOICES
+from backend.app.rag.profile import get_profile, KnowledgeProfile
 
 
 def _make_stream_event(
@@ -53,9 +56,9 @@ ANSWER_TEMPLATE = (
     "Nếu câu hỏi mang tính trò chuyện hoặc tư vấn cá nhân, hãy trả lời tự nhiên đúng tư cách là AI Tư vấn Tuyển sinh HUIT."
 )
 
-def _clean_doc_title(title: Optional[str]) -> str:
+def _clean_doc_title(title: Optional[str], default_title: str = "Tài liệu chính thức") -> str:
     if not title or any(k in title for k in ["FPT Shop", "CellphoneS", "Znews"]):
-        return "Thông tin Tuyển sinh & Học phí HUIT (Cổng chính thức)"
+        return default_title
     return title.strip()
 
 
@@ -137,14 +140,51 @@ def _decision_not_applied_reason(result) -> str:
     return reason or "provider_fallback"
 
 
+def _safe_retrieve(
+    retriever_fn,
+    query: str,
+    top_k: int,
+    timings: Optional[Any] = None,
+    intent: Optional[str] = None,
+    context_entities: Optional[Dict[str, Any]] = None,
+    profile_id: Optional[str] = None,
+) -> List[dict]:
+    """Gọi hàm retrieve một cách an toàn, tự động thích ứng với signature của cả hàm thật lẫn test mock."""
+    import inspect
+    try:
+        sig = inspect.signature(retriever_fn)
+        params = sig.parameters
+        accepts_var_keyword = any(p.kind == inspect.Parameter.VAR_KEYWORD for p in params.values())
+        kwargs = {}
+        if "timings" in params or accepts_var_keyword:
+            kwargs["timings"] = timings
+        if "intent" in params or accepts_var_keyword:
+            kwargs["intent"] = intent
+        if "context_entities" in params or accepts_var_keyword:
+            kwargs["context_entities"] = context_entities
+        if "profile_id" in params or accepts_var_keyword:
+            kwargs["profile_id"] = profile_id
+        return retriever_fn(query, top_k, **kwargs)
+    except Exception:
+        try:
+            return retriever_fn(query, top_k, timings=timings)
+        except Exception:
+            return retriever_fn(query, top_k)
+
+
 def stream_answer(
     question: str,
     chat_history: Optional[List[dict]] = None,
     use_cache: bool = True,
     request_id: Optional[str] = None,
-    owner_id: Optional[str] = None
+    owner_id: Optional[str] = None,
+    profile_id: Optional[str] = None,
 ) -> Generator[str, None, None]:
     """Phát luồng NDJSON Protocol v2 chuẩn Canonical duy nhất cho frontend."""
+    profile = get_profile(profile_id)
+    intent_mode = profile.jev_intent_mode
+    evidence_mode = profile.jev_evidence_mode
+
     req_id = set_current_request_id(request_id)
     timings = LatencyBreakdown(request_id=req_id)
     intent = classify_intent(question)
@@ -158,62 +198,62 @@ def stream_answer(
         })
         seq += 1
 
-        # 1. Intent Guardrail Check
-        timings.start_span("guardrails")
-        guard_res = check_intent_guardrail(question, chat_history=chat_history)
-        timings.end_span("guardrails")
-        
-        if guard_res.get("is_handled"):
-            answer_text = guard_res.get("answer", "")
-            sources = guard_res.get("sources", [])
-            trace = guard_res.get("trace", [])
-            yield _make_stream_event("progress", seq, req_id, {
-                "stage": "guardrails",
-                "sources": sources,
-                "trace": trace,
-                "cached": False,
-            })
-            for word in re.findall(r'\S+|\s+', answer_text):
-                seq += 1
-                yield _make_stream_event("token", seq, req_id, {"token": word})
-            seq += 1
-            yield _make_stream_event("done", seq, req_id, {"latency_ms": timings.get_total_ms(), "cached": False})
-            log_event(question, guard_res, timings.get_total_ms(), intent, timings=timings.to_dict(), request_id=req_id)
-            return
-
-        # 2. Major Catalog Check
-        if is_major_catalog_question(question):
-            timings.start_span("catalog_lookup")
-            catalog_res = get_major_catalog_response()
-            timings.end_span("catalog_lookup")
-            if catalog_res:
-                answer_text = catalog_res.get("answer", "")
-                sources = catalog_res.get("sources", [])
-                trace = catalog_res.get("trace", [])
-                catalog_visual = resolve_visual_for_query("catalog", question, [])
-                catalog_summary = _make_artifact_summary(catalog_visual)
+        # 1. HUIT Admission Guardrail & Major Catalog Checks (Only for HUIT profile)
+        if profile.id == "huit":
+            timings.start_span("guardrails")
+            guard_res = check_intent_guardrail(question, chat_history=chat_history)
+            timings.end_span("guardrails")
+            
+            if guard_res.get("is_handled"):
+                answer_text = guard_res.get("answer", "")
+                sources = guard_res.get("sources", [])
+                trace = guard_res.get("trace", [])
                 yield _make_stream_event("progress", seq, req_id, {
-                    "stage": "catalog",
+                    "stage": "guardrails",
                     "sources": sources,
                     "trace": trace,
-                    "visual": catalog_summary or catalog_visual,
                     "cached": False,
                 })
-                if catalog_summary:
-                    seq += 1
-                    yield _make_stream_event("artifact", seq, req_id, catalog_summary)
-
                 for word in re.findall(r'\S+|\s+', answer_text):
                     seq += 1
                     yield _make_stream_event("token", seq, req_id, {"token": word})
                 seq += 1
                 yield _make_stream_event("done", seq, req_id, {"latency_ms": timings.get_total_ms(), "cached": False})
-                log_event(question, catalog_res, timings.get_total_ms(), intent, timings=timings.to_dict(), request_id=req_id)
+                log_event(question, guard_res, timings.get_total_ms(), intent, timings=timings.to_dict(), request_id=req_id)
                 return
+
+            if is_major_catalog_question(question):
+                timings.start_span("catalog_lookup")
+                catalog_res = get_major_catalog_response()
+                timings.end_span("catalog_lookup")
+                if catalog_res:
+                    answer_text = catalog_res.get("answer", "")
+                    sources = catalog_res.get("sources", [])
+                    trace = catalog_res.get("trace", [])
+                    catalog_visual = resolve_visual_for_query("catalog", question, [])
+                    catalog_summary = _make_artifact_summary(catalog_visual)
+                    yield _make_stream_event("progress", seq, req_id, {
+                        "stage": "catalog",
+                        "sources": sources,
+                        "trace": trace,
+                        "visual": catalog_summary or catalog_visual,
+                        "cached": False,
+                    })
+                    if catalog_summary:
+                        seq += 1
+                        yield _make_stream_event("artifact", seq, req_id, catalog_summary)
+
+                    for word in re.findall(r'\S+|\s+', answer_text):
+                        seq += 1
+                        yield _make_stream_event("token", seq, req_id, {"token": word})
+                    seq += 1
+                    yield _make_stream_event("done", seq, req_id, {"latency_ms": timings.get_total_ms(), "cached": False})
+                    log_event(question, catalog_res, timings.get_total_ms(), intent, timings=timings.to_dict(), request_id=req_id)
+                    return
 
         # 3. Cache Hit Check (0ms TTFT)
         timings.start_span("cache_lookup")
-        cached_res = CacheManager.get_cached_response(question, chat_history) if use_cache else None
+        cached_res = CacheManager.get_cached_response(question, chat_history, profile_id=profile.id) if use_cache else None
         timings.end_span("cache_lookup")
 
         if cached_res:
@@ -243,22 +283,32 @@ def stream_answer(
             seq += 1
             yield _make_stream_event("done", seq, req_id, {"latency_ms": timings.get_total_ms(), "cached": True})
             log_event(question, cached_res, timings.get_total_ms(), intent, cached=True, timings=timings.to_dict(), request_id=req_id)
-            if settings.JEV_MODE != "off":
+            if intent_mode != "off":
                 log_decision_application(
                     req_id=req_id,
                     decision_type="intent",
-                    mode=settings.JEV_MODE,
+                    mode=intent_mode,
                     api_called=False,
                     result_accepted=False,
                     decision_applied=False,
                     apply_reason="cache_hit_bypassed",
                     baseline_choice=intent,
                 )
+            if evidence_mode != "off":
+                log_decision_application(
+                    req_id=req_id,
+                    decision_type="evidence_sufficiency",
+                    mode=evidence_mode,
+                    api_called=False,
+                    result_accepted=False,
+                    decision_applied=False,
+                    apply_reason="cache_hit_bypassed",
+                )
             return
 
         # 3.5 Jev Decision Engine: Intent Disambiguation (Chỉ gọi khi intent mơ hồ / general)
         jev_spent_ms = 0.0
-        if settings.JEV_MODE != "off":
+        if intent_mode != "off":
             if is_intent_ambiguous(question, intent):
                 timings.start_span("jev_intent")
                 api_called = False
@@ -269,9 +319,12 @@ def stream_answer(
                 confidence_val = None
                 baseline_intent = intent
                 try:
-                    budget_ms = settings.JEV_TOTAL_BUDGET_MS
+                    if evidence_mode != "off" and settings.JEV_TOTAL_BUDGET_MS >= 400.0:
+                        budget_ms = min(settings.JEV_TOTAL_BUDGET_MS * 0.5, 1000.0)
+                    else:
+                        budget_ms = settings.JEV_TOTAL_BUDGET_MS
                     jev_intent_res = decision_service.decide_intent_sync(
-                        question, intent, remaining_budget_ms=budget_ms
+                        question, intent, remaining_budget_ms=budget_ms, mode=intent_mode
                     )
                     if jev_intent_res:
                         api_called = jev_intent_res._api_called
@@ -282,7 +335,7 @@ def stream_answer(
 
                         if jev_intent_res.status == "success":
                             result_accepted = True
-                            if settings.JEV_MODE == "assist":
+                            if intent_mode == "assist":
                                 if (
                                     intent_item
                                     and intent_item.choice
@@ -311,7 +364,7 @@ def stream_answer(
                     log_decision_application(
                         req_id=req_id,
                         decision_type="intent",
-                        mode=settings.JEV_MODE,
+                        mode=intent_mode,
                         api_called=api_called,
                         result_accepted=result_accepted,
                         decision_applied=decision_applied,
@@ -324,7 +377,7 @@ def stream_answer(
                 log_decision_application(
                     req_id=req_id,
                     decision_type="intent",
-                    mode=settings.JEV_MODE,
+                    mode=intent_mode,
                     api_called=False,
                     result_accepted=False,
                     decision_applied=False,
@@ -332,7 +385,28 @@ def stream_answer(
                     baseline_choice=intent,
                 )
 
-        # 4. Retrieval Phase
+        # 3.9 Entity Extraction & Clarification Check (HUIT profile only)
+        if profile.id == "huit":
+            admission_entities = extract_admission_entities(question, chat_history=chat_history)
+            if admission_entities.get("missing_user_info") and admission_entities.get("clarification_prompt"):
+                clarify_answer = admission_entities["clarification_prompt"]
+                yield _make_stream_event("progress", seq, req_id, {
+                    "stage": "clarification_needed",
+                    "sources": [],
+                    "trace": [{"step": 1, "name": "Đánh giá Yêu cầu", "detail": "Thiếu ngành học cụ thể để tra cứu", "status": "clarification"}],
+                    "cached": False,
+                })
+                for word in re.findall(r'\S+|\s+', clarify_answer):
+                    seq += 1
+                    yield _make_stream_event("token", seq, req_id, {"token": word})
+                seq += 1
+                yield _make_stream_event("done", seq, req_id, {"latency_ms": timings.get_total_ms(), "cached": False})
+                return
+        else:
+            admission_entities = {}
+
+
+        # 4. Retrieval Phase (Sử dụng intent đã được JEV/baseline xác nhận, kèm context entities)
         retrieval_query = question
         if chat_history and isinstance(chat_history, list) and len(question.split()) <= 8:
             user_msgs = [
@@ -342,10 +416,19 @@ def stream_answer(
             if user_msgs:
                 retrieval_query = f"{user_msgs[-1]} {question}"
 
-        docs = retrieve(retrieval_query, settings.TOP_K, timings=timings)
+        docs = _safe_retrieve(
+            retrieve,
+            retrieval_query,
+            settings.TOP_K,
+            timings=timings,
+            intent=intent,
+            context_entities=admission_entities,
+            profile_id=profile.id,
+        )
+
 
         if not docs:
-            res = {"answer": "Không tìm thấy dữ liệu liên quan trong kho tri thức tuyển sinh HUIT.", "sources": []}
+            res = {"answer": profile.empty_kb_message, "sources": []}
             yield _make_stream_event("progress", seq, req_id, {"stage": "retrieval_empty", "sources": [], "trace": [], "visual": None, "cached": False})
             seq += 1
             yield _make_stream_event("token", seq, req_id, {"token": res["answer"]})
@@ -353,27 +436,15 @@ def stream_answer(
             yield _make_stream_event("done", seq, req_id, {"latency_ms": timings.get_total_ms(), "cached": False})
             return
 
-        source_limit = min(3, len(docs))
-        sources = [{
-            "i": i,
-            "title": _clean_doc_title(d.get("title")),
-            "url": d.get("source_url") or d.get("url") or "https://ts.huit.edu.vn",
-            "score": round(d.get("score", 0), 3),
-            "text": d.get("text", "")[:300]
-        } for i, d in enumerate(docs[:source_limit], 1)]
-
-        context = "\n\n".join(
-            f"[{i}] {_clean_doc_title(d.get('title'))} — {str(d.get('text', ''))[:1100]}"
-            for i, d in enumerate(docs[:source_limit], 1)
-        )
-
         # 4.5 Jev Decision Engine: Evidence Sufficiency Evaluation
-        if settings.JEV_MODE != "off":
+        selected_choice = None
+        confidence_val = None
+        if evidence_mode != "off":
             if not docs:
                 log_decision_application(
                     req_id=req_id,
                     decision_type="evidence_sufficiency",
-                    mode=settings.JEV_MODE,
+                    mode=evidence_mode,
                     api_called=False,
                     result_accepted=False,
                     decision_applied=False,
@@ -385,8 +456,6 @@ def stream_answer(
                 result_accepted = False
                 decision_applied = False
                 apply_reason = "unknown"
-                selected_choice = None
-                confidence_val = None
                 try:
                     remaining_budget_ms = max(0.0, settings.JEV_TOTAL_BUDGET_MS - jev_spent_ms)
                     if remaining_budget_ms < 200.0:
@@ -397,7 +466,7 @@ def stream_answer(
                         apply_reason = "budget_insufficient"
                     else:
                         jev_ev_res = decision_service.decide_evidence_sufficiency_sync(
-                            question, docs, remaining_budget_ms=remaining_budget_ms
+                            question, docs, remaining_budget_ms=remaining_budget_ms, mode=evidence_mode
                         )
                         if jev_ev_res:
                             api_called = jev_ev_res._api_called
@@ -409,7 +478,7 @@ def stream_answer(
 
                             if jev_ev_res.status == "success":
                                 result_accepted = True
-                                if settings.JEV_MODE == "assist":
+                                if evidence_mode == "assist":
                                     if (
                                         suff_item
                                         and suff_item.choice in ("insufficient", "conflicting")
@@ -418,10 +487,6 @@ def stream_answer(
                                         and clarify_item.noul is not None
                                         and clarify_item.noul >= 0.70
                                     ):
-                                        context += (
-                                            "\n\n[LƯU Ý ĐÁNH GIÁ MINH CHỨNG]: Minh chứng hiện tại chưa đủ dữ liệu chi tiết cho câu hỏi. "
-                                            "Hãy cung cấp thông tin hiện có và lịch sự đề nghị thí sinh cung cấp thêm chi tiết (ví dụ ngành học cụ thể hoặc năm xét tuyển)."
-                                        )
                                         decision_applied = True
                                         apply_reason = "clarification_hint_injected"
                                     elif suff_item and suff_item.choice in ("sufficient", "partial"):
@@ -446,7 +511,7 @@ def stream_answer(
                     log_decision_application(
                         req_id=req_id,
                         decision_type="evidence_sufficiency",
-                        mode=settings.JEV_MODE,
+                        mode=evidence_mode,
                         api_called=api_called,
                         result_accepted=result_accepted,
                         decision_applied=decision_applied,
@@ -454,6 +519,108 @@ def stream_answer(
                         selected_choice=selected_choice,
                         confidence=confidence_val,
                     )
+
+        # 4.6 Evidence Policy & Supplementary Retrieval (Tối đa 1 lượt bổ sung trong ngân sách)
+        policy_verdict = EvidencePolicyEvaluator.evaluate(
+            question=question,
+            docs=docs,
+            intent=intent,
+            entities=admission_entities,
+            jev_sufficiency=selected_choice,
+            jev_confidence=confidence_val,
+            current_retrieval_round=1,
+            max_retrieval_rounds=settings.MAX_RETRIEVAL_ROUNDS,
+            profile=profile,
+            jev_mode=evidence_mode,
+        )
+
+        rem_budget_for_supp = max(0.0, settings.JEV_TOTAL_BUDGET_MS - jev_spent_ms)
+        if policy_verdict.needs_supplementary and policy_verdict.supplementary_query and rem_budget_for_supp >= 150.0:
+            timings.start_span("supplementary_retrieval")
+            try:
+                supp_docs = _safe_retrieve(
+                    retrieve,
+                    policy_verdict.supplementary_query,
+                    top_k=2,
+                    timings=None,
+                    intent=intent,
+                    context_entities=admission_entities,
+                    profile_id=profile.id,
+                )
+
+                if supp_docs:
+                    seen_ids = set()
+                    for d in docs:
+                        dk = d.get("chunk_id") or str(d.get("_id")) or f"{d.get('source_url') or d.get('url')}::{d.get('page_number')}::{d.get('sku')}::{d.get('title')}"
+                        seen_ids.add(dk)
+                    added_any = False
+                    for sd in supp_docs:
+                        sdk = sd.get("chunk_id") or str(sd.get("_id")) or f"{sd.get('source_url') or sd.get('url')}::{sd.get('page_number')}::{sd.get('sku')}::{sd.get('title')}"
+                        if sdk not in seen_ids:
+                            docs.append(sd)
+                            seen_ids.add(sdk)
+                            added_any = True
+                    if added_any:
+                        policy_verdict = EvidencePolicyEvaluator.evaluate(
+                            question=question,
+                            docs=docs,
+                            intent=intent,
+                            entities=admission_entities,
+                            jev_sufficiency=selected_choice,
+                            jev_confidence=confidence_val,
+                            current_retrieval_round=2,
+                            max_retrieval_rounds=settings.MAX_RETRIEVAL_ROUNDS,
+                            profile=profile,
+                            jev_mode=evidence_mode,
+                        )
+            except Exception as e:
+                logger.warning("Supplementary retrieval fallback: %s", type(e).__name__)
+            finally:
+                timings.end_span("supplementary_retrieval")
+
+        source_limit = min(3, len(docs))
+        canonical_bundle = create_canonical_evidence_bundle(docs, max_docs=source_limit, max_excerpt_chars=1100)
+
+        sources = [{
+            "i": item.get("idx", 1),
+            "title": _clean_doc_title(item.get("title")),
+            "url": item.get("url") or profile.default_source_url,
+            "score": round(float(item.get("score", 0.0)), 3),
+            "text": str(item.get("excerpt", ""))[:300],
+            "year": item.get("year"),
+            "category": item.get("category"),
+            "major_code": item.get("major_code"),
+            "effective_date": item.get("effective_date"),
+            "page_number": item.get("page_number"),
+            "sku": item.get("sku"),
+            "chunk_id": item.get("chunk_id"),
+            "product_type": item.get("product_type"),
+            "verification_status": item.get("verification_status"),
+        } for item in canonical_bundle]
+
+        context_blocks = []
+        for item in canonical_bundle:
+            idx = item.get("idx", 1)
+            t = _clean_doc_title(item.get("title"))
+            page_info = f" (Trang {item['page_number']})" if item.get("page_number") else ""
+            sku_info = f" [SKU: {item['sku']}]" if item.get("sku") else ""
+            excerpt = item.get("excerpt", "")
+            context_blocks.append(f"[{idx}] {t}{page_info}{sku_info} — {excerpt}")
+        context = "\n\n".join(context_blocks)
+
+        if evidence_mode == "assist" and decision_applied and apply_reason == "clarification_hint_injected":
+            if profile.id == "ilt":
+                context += (
+                    "\n\n[LƯU Ý ĐÁNH GIÁ MINH CHỨNG]: Minh chứng hiện tại chưa đủ thông số chi tiết của sản phẩm hoặc yêu cầu đặt hàng. "
+                    "Hãy cung cấp các thông số đã có căn cứ và lịch sự đề nghị khách hàng liên hệ trực tiếp phòng kinh doanh ILT (info@innovativelightingco.com hoặc (+84) 251 3514 366) hoặc cung cấp mã model/SKU cụ thể."
+                )
+            else:
+                context += (
+                    "\n\n[LƯU Ý ĐÁNH GIÁ MINH CHỨNG]: Minh chứng hiện tại chưa đủ dữ liệu chi tiết cho câu hỏi. "
+                    "Hãy cung cấp thông tin hiện có và lịch sự đề nghị thí sinh cung cấp thêm chi tiết (ví dụ ngành học cụ thể hoặc năm xét tuyển)."
+                )
+        elif policy_verdict.evidence_guidance:
+            context += f"\n\n{policy_verdict.evidence_guidance}"
 
         history_str = ""
         if chat_history and isinstance(chat_history, list):
@@ -466,14 +633,14 @@ def stream_answer(
 
         trace = [
             {"step": 1, "name": "Nhận diện Ý định (NLU)", "detail": f"Ý định: {intent}", "status": "success"},
-            {"step": 2, "name": "Truy vấn Kho tri thức HUIT", "detail": f"Vector Search & Keyword: Lấy {len(docs)} đoạn tri thức", "status": "success"},
+            {"step": 2, "name": f"Truy vấn Kho tri thức {profile.name}", "detail": f"Vector Search & Keyword: Lấy {len(docs)} đoạn tri thức", "status": "success"},
             {"step": 3, "name": "Tối ưu & Xếp hạng Ngữ cảnh", "detail": f"Lọc {len(sources)} nguồn minh chứng khớp nhất", "status": "success"},
-            {"step": 4, "name": "Tổng hợp qua LLM", "detail": f"Mô hình: {settings.GEMINI_MODEL} (Phát luồng thời gian thực)", "status": "success"}
+            {"step": 4, "name": "Tổng hợp qua LLM", "detail": f"Mô hình: {getattr(settings, 'QWEN_MODEL', 'qwen-2.5-72b-instruct') if getattr(settings, 'PRIMARY_LLM_PROVIDER', 'gemini') == 'qwen' else settings.GEMINI_MODEL} (Phát luồng thời gian thực)", "status": "success"}
         ]
 
         timings.start_span("visual_lookup")
-        visual_meta = resolve_artifact_for_chat(intent, question, docs, owner_id=owner_id)
-        if not visual_meta:
+        visual_meta = resolve_artifact_for_chat(intent, question, docs, owner_id=owner_id) if profile.id == "huit" else None
+        if not visual_meta and profile.id == "huit":
             visual_meta = resolve_visual_for_query(intent, question, docs)
         timings.end_span("visual_lookup")
 
@@ -494,7 +661,7 @@ def stream_answer(
             yield _make_stream_event("artifact", seq, req_id, visual_summary)
 
         # 5. Stream Real LLM Tokens
-        user_prompt = f"{history_str}{ANSWER_TEMPLATE.format(context=context, question=question)}"
+        user_prompt = f"{history_str}{profile.answer_template.format(context=context, question=question)}"
         accumulated_text = ""
         used_fallback = False
 
@@ -502,7 +669,7 @@ def stream_answer(
         llm_start_time = time.perf_counter()
         first_token_recorded = False
         try:
-            for token_chunk in stream_llm(SYSTEM_PROMPT, user_prompt):
+            for token_chunk in stream_llm(profile.system_prompt, user_prompt):
                 if not first_token_recorded and token_chunk.strip():
                     ttft_ms = (time.perf_counter() - llm_start_time) * 1000
                     timings.record_metric("llm_ttft", ttft_ms)
@@ -526,7 +693,15 @@ def stream_answer(
         else:
             accumulated_text = cleaned_acc
 
+        # 5.5 Kiểm tra nguồn trích dẫn thuộc tập tài liệu đã truy xuất
+        accumulated_text, citation_report = verify_and_clean_citations(accumulated_text, len(sources))
+
         elapsed_ms = timings.get_total_ms()
+        current_model = (
+            getattr(settings, "QWEN_MODEL", "qwen-2.5-72b-instruct")
+            if getattr(settings, "PRIMARY_LLM_PROVIDER", "gemini") == "qwen"
+            else settings.GEMINI_MODEL
+        )
         res_obj = {
             "answer": accumulated_text,
             "sources": sources,
@@ -534,11 +709,15 @@ def stream_answer(
             "visual": visual_summary,
             "artifact": artifact_manifest,
             "meta": {
+                "profile_id": profile.id,
                 "intent": intent,
                 "fallback": used_fallback,
-                "model": settings.GEMINI_MODEL,
-                "kb_version": settings.KB_VERSION,
-                "rag_version": settings.RAG_VERSION,
+                "model": current_model,
+                "provider": getattr(settings, "PRIMARY_LLM_PROVIDER", "gemini"),
+                "policy_verdict": policy_verdict.verdict,
+                "citations": citation_report,
+                "kb_version": profile.kb_version,
+                "rag_version": profile.rag_version,
                 "latency_ms": elapsed_ms,
                 "visual": visual_summary,
                 "artifact": artifact_manifest,
@@ -548,7 +727,7 @@ def stream_answer(
 
         if use_cache and accumulated_text:
             timings.start_span("cache_write")
-            CacheManager.save_response(question, res_obj, chat_history)
+            CacheManager.save_response(question, res_obj, chat_history, profile_id=profile.id)
             timings.end_span("cache_write")
 
         seq += 1
@@ -556,6 +735,7 @@ def stream_answer(
         log_event(question, res_obj, elapsed_ms, intent, timings=timings.to_dict(), request_id=req_id)
 
     except Exception as exc:
+        logger.exception("Pipeline stream error: %s", exc)
         seq += 1
         yield _make_stream_event("error", seq, req_id, {
             "error_code": "RAG_STREAM_ERROR",
@@ -564,19 +744,28 @@ def stream_answer(
         })
 
 
+
 def answer(
     question: str,
     chat_history: Optional[List[dict]] = None,
     use_cache: bool = True,
     request_id: Optional[str] = None,
-    owner_id: Optional[str] = None
+    owner_id: Optional[str] = None,
+    profile_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Phản hồi đồng bộ (synchronous)."""
     full_tokens = []
     metadata = {}
     visual_meta = None
     artifact_manifest = None
-    for line in stream_answer(question, chat_history=chat_history, use_cache=use_cache, request_id=request_id, owner_id=owner_id):
+    for line in stream_answer(
+        question,
+        chat_history=chat_history,
+        use_cache=use_cache,
+        request_id=request_id,
+        owner_id=owner_id,
+        profile_id=profile_id,
+    ):
         try:
             item = json.loads(line.strip())
             item_type = item.get("type")
@@ -610,9 +799,10 @@ def answer(
         "visual": visual_meta or metadata.get("visual"),
         "artifact": artifact_manifest or metadata.get("artifact"),
         "meta": {
+            "profile_id": metadata.get("profile_id") or profile_id,
             "model": settings.GEMINI_MODEL,
-            "kb_version": settings.KB_VERSION,
-            "rag_version": settings.RAG_VERSION,
+            "kb_version": metadata.get("kb_version") or settings.KB_VERSION,
+            "rag_version": metadata.get("rag_version") or settings.RAG_VERSION,
             "request_id": metadata.get("request_id")
         }
     }

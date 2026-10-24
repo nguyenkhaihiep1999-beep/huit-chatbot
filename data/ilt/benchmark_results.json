@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-10-24T14:16:57Z",
+  "profile": "ilt",
+  "total_queries_evaluated": 16,
+  "pipeline_samples": [
+    {
+      "id": "ilt_q01_exact_sku_oren",
+      "query": "Cho tôi thông số kỹ thuật của đèn ốp trần OREN mã ALB-103022-12-BL-1D-5?",
+      "ttft_ms": 3606.937100063078,
+      "total_ms": 4934.587300056592,
+      "sources_count": 2,
+      "huit_leak": false,
+      "answer_preview": "**Đèn ốp trần dòng OREN – Model ALB‑103022‑12‑BL‑1D‑5**  \n\n| Thông số | Chi tiết |\n|----------|----------|\n| **Mã Model / SKU** | ALB‑103022‑12‑BL‑1D‑5 |\n| **Chủng loại** | Đèn ốp trần (LED Flush‑moun"
+    },
+    {
+      "id": "ilt_q07_company_factory_dongnai",
+      "query": "Nhà máy của Innovative Lighting tại Việt Nam nằm ở đâu và quy mô như thế nào?",
+      "ttft_ms": 2947.864899993874,
+      "total_ms": 4310.9554999973625,
+      "sources_count": 2,
+      "huit_leak": false,
+      "answer_preview": "**Nhà máy của Innovative Lighting Technologies (ILT) tại Việt Nam**\n\n- **Địa chỉ đăng ký:**  \n  Đường 8, KCN Nhơn Trạch 2 – Phú Hội, Xã Phú Hội / Thị trấn Hiệp Phước, Huyện Nhơn Trạch, Tỉnh Đồng Nai, "
+    },
+    {
+      "id": "ilt_q10_missing_price_quote",
+      "query": "Giá bán sỉ của mẫu đèn ARN-101E26-9-NS-C là bao nhiêu tiền một chiếc?",
+      "ttft_ms": 3196.4947000378743,
+      "total_ms": 4261.879800003953,
+      "sources_count": 2,
+      "huit_leak": false,
+      "answer_preview": "Kính gửi Quý khách,Cảm ơn Quý khách đã quan tâm đến mẫu đèn chùm **ARN‑101E26‑9‑NS‑C** của Innovative Lighting Technologies (ILT).\n\n**Thông tin sản phẩm (theo Catalogue ILT 2026 – Trang 6)**  \n- **Mã "
+    },
+    {
+      "id": "ilt_q15_out_of_scope_huit_tuition",
+      "query": "Học phí một học kỳ của trường Đại học Công Thương HUIT là bao nhiêu?",
+      "ttft_ms": 3503.5506000276655,
+      "total_ms": 3716.933900024742,
+      "sources_count": 3,
+      "huit_leak": true,
+      "answer_preview": "Xin chào Quý khách,Rất tiếc, chúng tôi không có thông tin về học phí một học kỳ của Trường Đại học Công Thương (HUIT). Để biết chi tiết về mức học phí, Quý khách vui lòng liên hệ trực tiếp với phòng t"
+    }
+  ]
+}

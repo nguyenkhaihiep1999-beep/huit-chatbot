@@ -58,6 +58,64 @@ def anonymize_request_hash(data: str) -> str:
     return hashlib.sha256(data.encode("utf-8", errors="ignore")).hexdigest()[:16]
 
 
+def _truncate_utf8(text: str, max_bytes: int) -> str:
+    """Cắt chuỗi an toàn theo byte UTF-8 mà không làm gãy ký tự đa byte."""
+    if not text:
+        return ""
+    raw = text.encode("utf-8")
+    if len(raw) <= max_bytes:
+        return text
+    return raw[:max_bytes].decode("utf-8", errors="ignore")
+
+
+def create_canonical_evidence_bundle(
+    docs: List[Dict[str, Any]],
+    max_docs: int = 3,
+    max_excerpt_chars: int = 500
+) -> List[Dict[str, Any]]:
+    """Tạo Evidence Bundle chuẩn hóa dùng chung cho cả JEV Decision Engine và ngữ cảnh LLM.
+    
+    Bảo đảm:
+    - Che dữ liệu nhạy cảm (PII/secrets) trên toàn bộ văn bản TRƯỚC KHI cắt đoạn trích (excerpt).
+    - Giữ trọn vẹn metadata: url, source_url, year, category, effective_date, major_code nếu có trong nguồn.
+    - Không tự bịa đặt URL, năm hay số liệu tuyển sinh khi dữ liệu gốc không có.
+    """
+    items = []
+    if not docs:
+        return items
+
+    for i, doc in enumerate(docs[:max_docs], 1):
+        if not isinstance(doc, dict):
+            continue
+        raw_text = str(doc.get("text", "")).strip()
+        redacted_full_text = redact_text(raw_text)
+        excerpt = redacted_full_text[:max_excerpt_chars] if redacted_full_text else ""
+        
+        raw_title = str(doc.get("title", "")).strip()
+        title = redact_text(raw_title)[:120] if raw_title else "Tài liệu chính thức"
+        
+        item = {
+            "idx": i,
+            "doc_id": str(doc.get("chunk_id") or doc.get("_id") or doc.get("id") or f"doc_{i}"),
+            "chunk_id": doc.get("chunk_id"),
+            "title": title,
+            "category": str(doc.get("category", "general")),
+            "year": doc.get("year"),
+            "url": doc.get("source_url") or doc.get("url") or "",
+            "page_number": doc.get("page_number") or doc.get("page"),
+            "sku": doc.get("sku") or doc.get("model") or doc.get("major_code"),
+            "score": round(float(doc.get("score", 0.0)), 3),
+            "major_code": doc.get("major_code"),
+            "product_type": doc.get("product_type"),
+            "verification_status": doc.get("verification_status"),
+            "effective_date": doc.get("effective_date") or doc.get("valid_from") or None,
+            "excerpt": excerpt,
+        }
+        items.append(item)
+
+    return items
+
+
 def build_intent_decision_state(
     question: str,
     current_intent: str,
@@ -67,7 +125,7 @@ def build_intent_decision_state(
 
     - Không chứa lịch sử chat
     - Câu hỏi đã được làm sạch và redacted
-    - Giới hạn kích thước tối đa max_bytes
+    - Giới hạn kích thước tối đa max_bytes và bảo toàn UTF-8
     """
     cleaned_q = redact_text(question.strip())
     state_payload = {
@@ -77,11 +135,14 @@ def build_intent_decision_state(
     }
     encoded = json.dumps(state_payload, ensure_ascii=False)
     # Cắt ngắn nếu vượt quá max_bytes
-    if len(encoded.encode("utf-8")) > max_bytes:
+    while len(encoded.encode("utf-8")) > max_bytes:
         excess = len(encoded.encode("utf-8")) - max_bytes
-        truncated_q = cleaned_q[:-max(1, excess + 10)]
-        state_payload["question"] = truncated_q
+        q_bytes = len(state_payload["question"].encode("utf-8"))
+        target_bytes = max(30, q_bytes - excess - 20)
+        state_payload["question"] = _truncate_utf8(state_payload["question"], target_bytes)
         encoded = json.dumps(state_payload, ensure_ascii=False)
+        if target_bytes <= 30:
+            break
     return encoded
 
 
@@ -92,31 +153,17 @@ def build_evidence_decision_state(
 ) -> str:
     """Xây dựng state tối thiểu cho tác vụ đánh giá Tính đầy đủ của minh chứng (Evidence Sufficiency):
 
-    - Chỉ trích xuất metadata và đoạn trích ngắn (excerpt) đã redacted
-    - Không gửi toàn bộ dữ liệu thô
-    - Giới hạn kích thước tối đa max_bytes
+    - Sử dụng evidence bundle chuẩn hóa đã redacted toàn diện trước khi trích xuất
+    - Luôn đồng bộ evidence_count với số phần tử thực tế trong mảng evidence
+    - Tuyệt đối không vượt quá max_bytes kể cả khi question dài bất thường (>10.000 ký tự)
     """
     cleaned_q = redact_text(question.strip())
-    evidence_items = []
+    # Nếu câu hỏi quá dài, giới hạn trước một nửa ngân sách để dành chỗ cho evidence
+    q_budget = max(256, max_bytes // 3)
+    if len(cleaned_q.encode("utf-8")) > q_budget:
+        cleaned_q = _truncate_utf8(cleaned_q, q_budget)
 
-    for i, doc in enumerate(docs[:3], 1):
-        if not isinstance(doc, dict):
-            continue
-        title = redact_text(str(doc.get("title", "")).strip())
-        category = str(doc.get("category", "general"))
-        year = doc.get("year")
-        score = round(float(doc.get("score", 0.0)), 3)
-        raw_text = str(doc.get("text", "")).strip()
-        excerpt = redact_text(raw_text[:250])
-
-        evidence_items.append({
-            "idx": i,
-            "title": title[:100],
-            "category": category,
-            "year": year,
-            "score": score,
-            "excerpt": excerpt,
-        })
+    evidence_items = create_canonical_evidence_bundle(docs, max_docs=3, max_excerpt_chars=300)
 
     state_payload = {
         "task": "evidence_sufficiency_evaluation",
@@ -126,14 +173,33 @@ def build_evidence_decision_state(
     }
 
     encoded = json.dumps(state_payload, ensure_ascii=False)
-    while len(encoded.encode("utf-8")) > max_bytes and evidence_items:
-        # Cắt ngắn từng excerpt nếu vượt byte limit
-        for item in evidence_items:
-            item["excerpt"] = item["excerpt"][: len(item["excerpt"]) // 2]
-        encoded = json.dumps(state_payload, ensure_ascii=False)
-        if len(encoded.encode("utf-8")) > max_bytes:
-            evidence_items.pop()
+
+    while len(encoded.encode("utf-8")) > max_bytes:
+        if evidence_items:
+            # Ưu tiên rút ngắn excerpt của các tài liệu
+            shortened = False
+            for item in evidence_items:
+                if len(item["excerpt"]) > 60:
+                    item["excerpt"] = item["excerpt"][: len(item["excerpt"]) // 2]
+                    shortened = True
+            if not shortened:
+                # Nếu không thể rút ngắn thêm, pop tài liệu cuối cùng
+                evidence_items.pop()
             state_payload["evidence"] = evidence_items
+            state_payload["evidence_count"] = len(evidence_items)
             encoded = json.dumps(state_payload, ensure_ascii=False)
+        else:
+            # Đã xóa hết evidence nhưng vẫn vượt max_bytes do question, cắt bớt question
+            excess = len(encoded.encode("utf-8")) - max_bytes
+            current_q = state_payload["question"]
+            q_bytes = len(current_q.encode("utf-8"))
+            target_bytes = max(30, q_bytes - excess - 20)
+            state_payload["question"] = _truncate_utf8(current_q, target_bytes)
+            state_payload["evidence_count"] = 0
+            state_payload["evidence"] = []
+            encoded = json.dumps(state_payload, ensure_ascii=False)
+            if target_bytes <= 30:
+                break
 
     return encoded
+

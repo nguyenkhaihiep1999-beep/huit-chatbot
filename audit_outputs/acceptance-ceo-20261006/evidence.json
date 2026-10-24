@@ -1,0 +1,128 @@
+{
+  "report_id": "acceptance-ceo-20261006",
+  "review_date_local": "2026-10-06",
+  "timezone": "Asia/Saigon",
+  "snapshot_recorded_at": "2026-10-06T18:25:00+07:00",
+  "workspace": "D:\\chatbot2",
+  "head": "3f338839fcbec4d1337ae10378d9c78c69350127",
+  "working_tree_dirty": true,
+  "immutable_release_review": false,
+  "scope": {
+    "source_and_configuration_read": true,
+    "offline_tests": true,
+    "primary_source_web_research": true,
+    "paid_api_calls_performed": false,
+    "database_writes_performed": false,
+    "application_source_edits_performed": false,
+    "deployment_performed": false,
+    "container_execution_verified": false,
+    "full_security_or_legal_audit": false
+  },
+  "verdict": {
+    "full_backend_acceptance": "not_passed",
+    "production_acceptance": "insufficient_evidence_and_network_policy_conflict",
+    "jev_integration": "source_and_mock_tests_verified_user_supplied_runtime_response_observed",
+    "jev_application_runtime_proof": "new_source_and_tests_present_no_independently_verified_live_applied_trace",
+    "jev_quality_uplift": "not_measured",
+    "jev_business_roi": "not_measured",
+    "global_ranking": "not_assessed_no_comparable_dataset"
+  },
+  "checks": {
+    "backend_final": {
+      "total": 550,
+      "passed": 549,
+      "failed": 1,
+      "warnings": 34,
+      "elapsed_seconds": 94.31,
+      "exit_code": 1,
+      "junit_file": "backend-tests.xml",
+      "failed_test": "backend/tests/test_production_infrastructure_hardening.py::test_network_segmentation_and_port_isolation",
+      "failed_assertion_line": 110,
+      "expected_worker_networks": ["backend_net"],
+      "observed_worker_networks": ["frontend_net", "backend_net"],
+      "measurement_type": "offline_software_tests_not_model_accuracy"
+    },
+    "jev_assist_subset": {"total": 20, "passed": 20, "failed": 0, "provenance": "backend-tests.xml", "real_model_evaluation": false},
+    "backend_initial": {"passed": 547, "status": "superseded_by_final_run_after_concurrent_updates"},
+    "frontend": {"passed": 126, "test_files": 16, "lint": "passed", "build": "passed", "provenance": "terminal_observation_in_this_review"},
+    "schema_sync": {"frontend_contracts": 18, "manifest": "synchronized"},
+    "working_tree_secret_scan": {
+      "files_scanned": 470,
+      "findings": 8,
+      "placeholders": 5,
+      "allowlisted_synthetic": 3,
+      "real_leaks": 0,
+      "file": "D:\\chatbot2\\temp\\acceptance-secret-9872eab133724cbd8e4ac7851d0a84c8\\secret_scan_report.json",
+      "history_images_or_key_revocation_verified": false
+    },
+    "docker_cli_available": false
+  },
+  "user_supplied_runtime_log": {
+    "provenance": "user_message_not_independently_replayed",
+    "timestamp_local": "2026-10-06 17:54:11",
+    "request_id": "req-5fe877812c4f",
+    "mode": "assist",
+    "provider": "typesafe_jev",
+    "model": "jev-1.13.0",
+    "decision_type": "evidence_sufficiency",
+    "status": "fallback",
+    "fallback_reason": "confidence_below_threshold",
+    "selected_choice": "partial",
+    "confidence": 0.4,
+    "latency_ms": 328.0,
+    "input_tokens": 896,
+    "output_tokens": 77,
+    "conclusion": "response_received_and_policy_gate_observed_not_semantic_correctness_or_quality_uplift"
+  },
+  "safe_local_config_probe": {
+    "development": true,
+    "jev_mode": "assist",
+    "confidence_threshold": 0.8,
+    "total_budget_ms": 2000.0,
+    "key_configured": true,
+    "official_typesafe_target": true,
+    "secret_values_recorded": false
+  },
+  "existing_evaluation_limitations": [
+    {"path": "D:\\chatbot2\\audit_outputs\\rag_baseline_report_20261006_071542.json", "mode": "offline_replay", "provenance": "simulated", "cases": 36, "pending_review": 11, "live_measurement": false, "generation_samples": 10, "full_success": 4, "unverified": 6},
+    {"path": "D:\\chatbot2\\audit_outputs\\jev_evaluation_report_20261004_080623.json", "runner_mode": "mock", "cases": 68, "pending_review": 11, "human_review_independently_confirmed": false},
+    {"paths": ["D:\\chatbot2\\audit_outputs\\smoke_test_report.json", "D:\\chatbot2\\audit_outputs\\load_test_report.json"], "measurement_date": "2026-09-17", "target": "localhost", "new_assist_production_acceptance": false}
+  ],
+  "source_snapshot_sha256": [
+    {"path": "D:\\chatbot2\\backend\\app\\rag\\pipeline.py", "sha256": "85897DEE28F3BF7C54ABBAB40AEFDB0690D256A7235ACF1D51FDED4F0D6916FB"},
+    {"path": "D:\\chatbot2\\backend\\tests\\test_jev_assist_mode_chat.py", "sha256": "578981722D30ECF8EF14DC50AFB4E020687F876A01225DBC3D9B29D173B1F8FD"},
+    {"path": "D:\\chatbot2\\backend\\app\\decision_engine\\service.py", "sha256": "522E1B18BC411E6B4E4E436CBA271ED25CA9E7122D53A75FD704E27659E04715"},
+    {"path": "D:\\chatbot2\\backend\\app\\cache\\memory_cache.py", "sha256": "7BCCDBB0BA5A2B0B9D91B427BF231B41E3C2CF4B1C8A867EFBF0A883229B0169"},
+    {"path": "D:\\chatbot2\\docker-compose.prod.yml", "sha256": "C543508882D0739F862E62F655DE3D7E3765714C38A40695000A209162C3CC7E"},
+    {"path": "D:\\chatbot2\\.dockerignore", "sha256": "5B1373399A6533EBA224DC85BAB224A5CE03CE93AECAB3359F1E71E20E54BB3F"},
+    {"path": "D:\\chatbot2\\Dockerfile", "sha256": "17DE9ECE9AEBA86F4E8739E83E1B11A6EE4D9E08247CD901B30A2876C49ACD97"},
+    {"path": "D:\\chatbot2\\Dockerfile.worker", "sha256": "7C46093B6B18D10B7BAC456268AE1FDE0BA41E054C23C0AFF389A0552EAA1EFA"},
+    {"path": "D:\\chatbot2\\requirements.txt", "sha256": "99B1EA70DEC6454A515D2D169172DF33CAE7E9B8B1A5F14BDE04ADF24D1AF366"}
+  ],
+  "findings": [
+    {"id": "F1", "priority": "production_gate", "title": "Worker network policy and infrastructure test disagree", "action": "Agree egress and lateral-access boundary, align configuration and tests, then verify real containers; do not merely remove assertion."},
+    {"id": "F2", "priority": "measurement_integrity", "title": "api_called does not exclusively prove a network call", "action": "Correlate actual provider attempts/responses; current pipeline flag is set before service guards."},
+    {"id": "F3", "priority": "data_provenance", "title": "Admission facts and dates embedded in system prompt", "action": "Verify official source and version policy; correctness of these facts was not established in this review."},
+    {"id": "F4", "priority": "quality_gate", "title": "No independent real OFF versus ASSIST outcome evidence", "action": "Approve finite pilot budget and pre-registered quality, latency, cost and safety criteria."}
+  ],
+  "pilot": {
+    "performed": false,
+    "budget_approval_required": true,
+    "arms": ["JEV_MODE=off", "JEV_MODE=assist"],
+    "suggested_initial_pairs": "100-200 exploratory pairs; final sample size must match effect and uncertainty goals",
+    "ground_truth": "deidentified_domain_holdout_independently_reviewed",
+    "requirements": ["freeze release/corpus/models/settings", "matched inputs", "control cache and run order", "blind human scoring", "report all failures and pending labels", "paired confidence intervals", "actual billed costs", "no material critical regressions", "tested operational rollback"]
+  },
+  "primary_sources": [
+    "https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance",
+    "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+    "https://arxiv.org/abs/2309.15217",
+    "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+    "https://typesafe.ai/blog/introducing-system-one-models-and-jev",
+    "https://evals.typesafe.ai/",
+    "https://api.typesafe.ai/redoc",
+    "https://docs.docker.com/build/concepts/context/",
+    "https://docs.docker.com/reference/compose-file/networks/#internal"
+  ]
+}

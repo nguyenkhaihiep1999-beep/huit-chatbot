@@ -1,0 +1,1521 @@
+{
+  "report_id": "rag-baseline-20261006_044009",
+  "generated_at": "2026-10-06T04:40:09.989871+00:00",
+  "metadata": {
+    "environment": "development",
+    "jev_mode": "shadow",
+    "embedding_model": "intfloat/multilingual-e5-large",
+    "llm_model": "gemini-2.0-flash",
+    "kb_version": "huit-kb-2026-07-v4-semantic",
+    "rag_version": "rag-v10-grounded-score-source",
+    "dataset_version": "1.0.0 (36 synthetic scenarios)"
+  },
+  "retrieval_evaluation": {
+    "total_cases": 36,
+    "accepted_ground_truth_cases": 18,
+    "pending_human_review_cases": 11,
+    "mrr": 0.9167,
+    "recall_at_1": 0.2917,
+    "recall_at_3": 0.5139,
+    "precision_at_1": 0.8889,
+    "precision_at_3": 0.5556,
+    "error_distribution": {
+      "retrieval_empty": 0,
+      "wrong_topic": 1,
+      "wrong_context": 1,
+      "safe_empty": 0,
+      "out_of_domain_retrieved": 7,
+      "success": 27,
+      "timeout_or_error": 0
+    },
+    "latency_percentiles_ms": {
+      "count": 36,
+      "min": 465.79,
+      "p50": 1114.57,
+      "p90": 3594.43,
+      "p95": 4954.65,
+      "max": 8013.17,
+      "avg": 1689.56
+    },
+    "case_details": [
+      {
+        "id": "ret_01",
+        "category": "clear_intent",
+        "query": "Mã ngành Công nghệ thông tin HUIT là gì?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 8013.17,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.5,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.3333,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.2,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 1,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Ngành Công nghệ thông tin - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_02",
+        "category": "clear_intent",
+        "query": "Học phí ngành Kỹ thuật phần mềm một năm là bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 650.87,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.3333,
+          "precision@3": 0.3333,
+          "hit@5": 1.0,
+          "recall@5": 0.3333,
+          "precision@5": 0.2,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 1,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)"
+        ]
+      },
+      {
+        "id": "ret_03",
+        "category": "clear_intent",
+        "query": "Điểm chuẩn ngành Logistics năm 2026 theo điểm thi tốt nghiệp THPT là bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 1277.53,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.3333,
+          "precision@3": 0.3333,
+          "hit@5": 1.0,
+          "recall@5": 0.3333,
+          "precision@5": 0.2,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 1,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Điểm chuẩn trúng tuyển chính thức Trường Đại học Công Thương TP.HCM năm 2026"
+        ]
+      },
+      {
+        "id": "ret_04",
+        "category": "clear_intent",
+        "query": "Mã ngành Trí tuệ nhân tạo của HUIT là gì?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 2010.9,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.5,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.3333,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.2,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 1,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Ngành Trí tuệ nhân tạo - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_05",
+        "category": "clear_intent",
+        "query": "Phương thức xét tuyển bằng học bạ THPT vào HUIT cần bao nhiêu điểm?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 2,
+        "duration_ms": 677.87,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.25,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "HUIT tiếp tục nhận hồ sơ xét tuyển 100 chỉ tiêu ở các chương trình liên kết quốc tế và ngành Công ng (HUIT Cổng tuyển sinh chính thức)",
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_06",
+        "category": "clear_intent",
+        "query": "Tổ hợp môn xét tuyển ngành Kỹ thuật Cơ điện tử tại HUIT gồm những khối nào?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 1159.68,
+        "error_classification": "wrong_topic",
+        "error_description": "Lấy nhầm tài liệu thuộc chủ đề khác hoàn toàn.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 0.0,
+          "recall@3": 0.0,
+          "precision@3": 0.0,
+          "hit@5": 0.0,
+          "recall@5": 0.0,
+          "precision@5": 0.0,
+          "reciprocal_rank": 0.0,
+          "first_hit_rank": null,
+          "relevant_count": 0,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_07",
+        "category": "clear_intent",
+        "query": "Thủ tục và hồ sơ nhập học cho tân sinh viên HUIT năm 2026 gồm những gì?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 3,
+        "duration_ms": 2004.15,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.25,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.75,
+          "precision@3": 1.0,
+          "hit@5": 1.0,
+          "recall@5": 0.75,
+          "precision@5": 0.6,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 3,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Thông báo hướng dẫn làm thủ tục nhập học Khóa 15 Đại học chính quy năm 2026",
+          "Thông báo nhập học đối với Tân sinh viên khóa 2026 - HUIT (Cổng thông tin tuyển sinh)",
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_08",
+        "category": "clear_intent",
+        "query": "Chính sách học bổng tuyển sinh và khuyến khích học tập của HUIT cho sinh viên?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 2,
+        "duration_ms": 1867.69,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.25,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Học phí HUIT năm 2026: Minh bạch thông tin, đồng hành cùng người học - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Thông tin tuyển sinh Đại học năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_09",
+        "category": "missing_info",
+        "query": "Học phí trường mình bao nhiêu một năm?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 2,
+        "duration_ms": 6870.23,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.6667,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.6667,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+          "HUIT dự kiến học phí khóa 2026–2030 khoảng từ 140 triệu - 170 triệu đồng, tăng theo lộ trình và đi k (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_10",
+        "category": "missing_info",
+        "query": "Điểm chuẩn năm nay của trường là bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 546.74,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.3333,
+          "precision@3": 0.3333,
+          "hit@5": 1.0,
+          "recall@5": 0.3333,
+          "precision@5": 0.2,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 1,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Điểm chuẩn trúng tuyển chính thức Trường Đại học Công Thương TP.HCM năm 2026"
+        ]
+      },
+      {
+        "id": "ret_11",
+        "category": "missing_info",
+        "query": "Thời gian nộp hồ sơ xét tuyển là khi nào?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 2,
+        "duration_ms": 3009.43,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.6667,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.6667,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "HUIT tiếp tục nhận hồ sơ xét tuyển 100 chỉ tiêu ở các chương trình liên kết quốc tế và ngành Công ng (HUIT Cổng tuyển sinh chính thức)",
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_12",
+        "category": "missing_info",
+        "query": "Hồ sơ xét tuyển gồm những giấy tờ gì?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 3,
+        "duration_ms": 599.51,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.25,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.75,
+          "precision@3": 1.0,
+          "hit@5": 1.0,
+          "recall@5": 0.75,
+          "precision@5": 0.6,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 3,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "HUIT tiếp tục nhận hồ sơ xét tuyển 100 chỉ tiêu ở các chương trình liên kết quốc tế và ngành Công ng (HUIT Cổng tuyển sinh chính thức)",
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Thông tin tuyển sinh Đại học năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_13",
+        "category": "missing_info",
+        "query": "Điểm sàn nhận hồ sơ của trường là bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 3,
+        "duration_ms": 1104.07,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.25,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Điểm sàn xét tuyển đại học HUIT năm 2026",
+          "HUIT tiếp tục nhận hồ sơ xét tuyển 100 chỉ tiêu ở các chương trình liên kết quốc tế và ngành Công ng (HUIT Cổng tuyển sinh chính thức)",
+          "HUIT tiếp tục nhận hồ sơ xét tuyển 100 chỉ tiêu đợt bổ sung năm 2026 (LKQT và Công nghệ chế biến thủy sản)"
+        ]
+      },
+      {
+        "id": "ret_14",
+        "category": "missing_info",
+        "query": "Ngành này học mấy năm và cấp bằng gì?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 2,
+        "duration_ms": 1125.07,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.25,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Ngành Công nghệ Thực phẩm - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Ngành Trí tuệ nhân tạo - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_15",
+        "category": "multiple_intents",
+        "query": "Học phí ngành CNTT bao nhiêu và điểm chuẩn năm 2026 lấy mấy điểm?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 2,
+        "duration_ms": 2099.83,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.25,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Điểm chuẩn trúng tuyển chính thức Trường Đại học Công Thương TP.HCM năm 2026",
+          "Ngành Công nghệ thông tin - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_16",
+        "category": "multiple_intents",
+        "query": "Trường có ngành Công nghệ thực phẩm không, mã ngành là gì và học phí thế nào?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 2,
+        "duration_ms": 515.55,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.6667,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.6667,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+          "Ngành Công nghệ Thực phẩm - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_17",
+        "category": "multiple_intents",
+        "query": "Xét học bạ ngành Marketing cần bao nhiêu điểm và trường có học bổng không?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 1,
+        "duration_ms": 4316.13,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.3333,
+          "precision@3": 0.3333,
+          "hit@5": 1.0,
+          "recall@5": 0.3333,
+          "precision@5": 0.2,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 1,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Ngành Marketing - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_18",
+        "category": "multiple_intents",
+        "query": "Điểm sàn ngành Luật kinh tế là bao nhiêu và sau khi trúng tuyển thì nhập học ở đâu?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 3,
+        "duration_ms": 1264.5,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.25,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.75,
+          "precision@3": 1.0,
+          "hit@5": 1.0,
+          "recall@5": 0.75,
+          "precision@5": 0.6,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 3,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Thông báo hướng dẫn làm thủ tục nhập học Khóa 15 Đại học chính quy năm 2026",
+          "Điểm chuẩn trúng tuyển chính thức Trường Đại học Công Thương TP.HCM năm 2026",
+          "Ngành Luật kinh tế - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_19",
+        "category": "multiple_intents",
+        "query": "Ngành An toàn thông tin xét những tổ hợp nào và học phí một tín chỉ là bao nhiêu?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 2,
+        "duration_ms": 966.73,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.25,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+          "Ngành An toàn thông tin - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_20",
+        "category": "multiple_intents",
+        "query": "Địa chỉ trường ở đâu và số hotline tư vấn tuyển sinh là gì?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 3,
+        "duration_ms": 596.4,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.6667,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.6667,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Thông báo tuyển sinh trình độ tiến sĩ đợt 2 năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Thông báo tuyển sinh trình độ thạc sĩ đợt 2 năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Điểm chuẩn Trường Đại học Công Thương TP.HCM năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_21",
+        "category": "out_of_scope",
+        "query": "Học phí ngành Bác sĩ Y đa khoa trường Đại học Y Dược TP.HCM năm 2026 là bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 3,
+        "duration_ms": 1143.07,
+        "error_classification": "out_of_domain_retrieved",
+        "error_description": "Cảnh báo: Có tài liệu được lấy về cho câu hỏi ngoài phạm vi.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 0.0,
+          "recall@3": 0.0,
+          "precision@3": 0.0,
+          "hit@5": 0.0,
+          "recall@5": 0.0,
+          "precision@5": 0.0,
+          "reciprocal_rank": 0.0,
+          "first_hit_rank": null,
+          "relevant_count": 0,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Thông tin tuyển sinh Đại học năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_22",
+        "category": "out_of_scope",
+        "query": "Điểm chuẩn ngành Sư phạm Toán trường Đại học Sư phạm TP.HCM năm 2026?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 530.36,
+        "error_classification": "out_of_domain_retrieved",
+        "error_description": "Cảnh báo: Có tài liệu được lấy về cho câu hỏi ngoài phạm vi.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 0.0,
+          "recall@3": 0.0,
+          "precision@3": 0.0,
+          "hit@5": 0.0,
+          "recall@5": 0.0,
+          "precision@5": 0.0,
+          "reciprocal_rank": 0.0,
+          "first_hit_rank": null,
+          "relevant_count": 0,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Điểm chuẩn trúng tuyển chính thức Trường Đại học Công Thương TP.HCM năm 2026"
+        ]
+      },
+      {
+        "id": "ret_23",
+        "category": "out_of_scope",
+        "query": "Thời tiết TP.HCM hôm nay có mưa không?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 3,
+        "duration_ms": 465.79,
+        "error_classification": "out_of_domain_retrieved",
+        "error_description": "Cảnh báo: Có tài liệu được lấy về cho câu hỏi ngoài phạm vi.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 0.0,
+          "recall@3": 0.0,
+          "precision@3": 0.0,
+          "hit@5": 0.0,
+          "recall@5": 0.0,
+          "precision@5": 0.0,
+          "reciprocal_rank": 0.0,
+          "first_hit_rank": null,
+          "relevant_count": 0,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Điểm chuẩn Trường Đại học Công Thương TP.HCM năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Ngành Kỹ thuật Nhiệt - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Học phí HUIT năm 2026: Minh bạch thông tin, đồng hành cùng người học - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_24",
+        "category": "out_of_scope",
+        "query": "HUIT có mở lớp đào tạo cấp bằng phi công thương mại không?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 2,
+        "duration_ms": 507.81,
+        "error_classification": "out_of_domain_retrieved",
+        "error_description": "Cảnh báo: Có tài liệu được lấy về cho câu hỏi ngoài phạm vi.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 0.0,
+          "recall@3": 0.0,
+          "precision@3": 0.0,
+          "hit@5": 0.0,
+          "recall@5": 0.0,
+          "precision@5": 0.0,
+          "reciprocal_rank": 0.0,
+          "first_hit_rank": null,
+          "relevant_count": 0,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Ngành đào tạo - Tuyển Sinh HUIT - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_25",
+        "category": "out_of_scope",
+        "query": "Bạn có biết số điện thoại riêng và mật khẩu Facebook của tôi không?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 571.29,
+        "error_classification": "out_of_domain_retrieved",
+        "error_description": "Cảnh báo: Có tài liệu được lấy về cho câu hỏi ngoài phạm vi.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 0.0,
+          "recall@3": 0.0,
+          "precision@3": 0.0,
+          "hit@5": 0.0,
+          "recall@5": 0.0,
+          "precision@5": 0.0,
+          "reciprocal_rank": 0.0,
+          "first_hit_rank": null,
+          "relevant_count": 0,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Ngành An toàn thông tin - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_26",
+        "category": "out_of_scope",
+        "query": "Giá cổ phiếu VinFast hôm nay tăng hay giảm bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 2,
+        "duration_ms": 1993.65,
+        "error_classification": "out_of_domain_retrieved",
+        "error_description": "Cảnh báo: Có tài liệu được lấy về cho câu hỏi ngoài phạm vi.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 0.0,
+          "recall@3": 0.0,
+          "precision@3": 0.0,
+          "hit@5": 0.0,
+          "recall@5": 0.0,
+          "precision@5": 0.0,
+          "reciprocal_rank": 0.0,
+          "first_hit_rank": null,
+          "relevant_count": 0,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Điểm chuẩn Trường Đại học Công Thương TP.HCM năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "HUIT dự kiến học phí khóa 2026–2030 khoảng từ 140 triệu - 170 triệu đồng, tăng theo lộ trình và đi k (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_27",
+        "category": "wrong_year_or_method",
+        "query": "Điểm chuẩn chính thức trúng tuyển đại học HUIT của năm 2035 là bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 630.83,
+        "error_classification": "out_of_domain_retrieved",
+        "error_description": "Cảnh báo: Có tài liệu được lấy về cho câu hỏi ngoài phạm vi.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 0.0,
+          "recall@3": 0.0,
+          "precision@3": 0.0,
+          "hit@5": 0.0,
+          "recall@5": 0.0,
+          "precision@5": 0.0,
+          "reciprocal_rank": 0.0,
+          "first_hit_rank": null,
+          "relevant_count": 0,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Điểm chuẩn trúng tuyển chính thức Trường Đại học Công Thương TP.HCM năm 2026"
+        ]
+      },
+      {
+        "id": "ret_28",
+        "category": "wrong_year_or_method",
+        "query": "HUIT có phương thức xét tuyển bằng điểm SAT hoặc ACT không?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 1,
+        "duration_ms": 632.02,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.3333,
+          "precision@3": 0.3333,
+          "hit@5": 1.0,
+          "recall@5": 0.3333,
+          "precision@5": 0.2,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 1,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_29",
+        "category": "wrong_year_or_method",
+        "query": "Học phí một học kỳ của khóa tuyển sinh năm 2012 tại HUIT là bao nhiêu?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 3,
+        "duration_ms": 853.49,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 1.0,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 1.0,
+          "precision@3": 1.0,
+          "hit@5": 1.0,
+          "recall@5": 1.0,
+          "precision@5": 0.6,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 3,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+          "HUIT dự kiến học phí khóa 2026–2030 khoảng từ 140 triệu - 170 triệu đồng, tăng theo lộ trình và đi k (HUIT Cổng tuyển sinh chính thức)",
+          "Cơ hội nhận học bổng lên đến 100% học phí của Viện Quốc tế HUIT từ điểm học bạ - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_30",
+        "category": "wrong_year_or_method",
+        "query": "Thủ tục rút hồ sơ và hoàn học phí năm 2018 diễn ra thế nào?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 3,
+        "duration_ms": 987.83,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.5,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.3333,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.2,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 1,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Thông báo rút học phí đối với sinh viên nhập học năm học 2026 - 2027 - HUIT",
+          "Thông báo nhập học đối với Tân sinh viên khóa 2026 - HUIT (Cổng thông tin tuyển sinh)",
+          "Học phí HUIT năm 2026: Minh bạch thông tin, đồng hành cùng người học - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_31",
+        "category": "wrong_year_or_method",
+        "query": "HUIT có xét tuyển bằng điểm thi tú tài quốc tế IB cho tất cả các ngành không?",
+        "status": "chưa được duyệt",
+        "requires_human_review": true,
+        "retrieved_docs_count": 2,
+        "duration_ms": 1887.5,
+        "error_classification": "wrong_context",
+        "error_description": "Lấy tài liệu cùng chủ đề nhưng sai năm, sai phương thức hoặc sai chuyên ngành.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 0.0,
+          "recall@3": 0.0,
+          "precision@3": 0.0,
+          "hit@5": 0.0,
+          "recall@5": 0.0,
+          "precision@5": 0.0,
+          "reciprocal_rank": 0.0,
+          "first_hit_rank": null,
+          "relevant_count": 0,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Thông tin tuyển sinh Đại học năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_32",
+        "category": "conflicting_or_unverified",
+        "query": "HUIT có chính sách giảm 50% học phí toàn bộ 4 năm cho tất cả sinh viên trúng tuyển không?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 3,
+        "duration_ms": 2935.44,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 0.0,
+          "recall@1": 0.0,
+          "precision@1": 0.0,
+          "hit@3": 1.0,
+          "recall@3": 0.5,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.5,
+          "precision@5": 0.4,
+          "reciprocal_rank": 0.5,
+          "first_hit_rank": 2,
+          "relevant_count": 2,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Điểm chuẩn trúng tuyển chính thức Trường Đại học Công Thương TP.HCM năm 2026",
+          "Thông báo tuyển sinh trình độ thạc sĩ đợt 2 năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_33",
+        "category": "conflicting_or_unverified",
+        "query": "Điểm sàn xét tuyển đại học HUIT năm 2026 có phải là 60 điểm không?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 3,
+        "duration_ms": 1055.15,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.6667,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.6667,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Điểm sàn xét tuyển đại học HUIT năm 2026",
+          "Thông tin tuyển sinh Đại học năm 2026 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "HUIT tiếp tục nhận hồ sơ xét tuyển 100 chỉ tiêu đợt bổ sung năm 2026 (LKQT và Công nghệ chế biến thủy sản)"
+        ]
+      },
+      {
+        "id": "ret_34",
+        "category": "conflicting_or_unverified",
+        "query": "Học phí chương trình chuẩn tại HUIT có phải 100 triệu một năm không?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 2,
+        "duration_ms": 1187.0,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.6667,
+          "precision@3": 0.6667,
+          "hit@5": 1.0,
+          "recall@5": 0.6667,
+          "precision@5": 0.4,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 2,
+          "retrieved_count": 2
+        },
+        "top_doc_titles": [
+          "Chính sách & Mức Học phí HUIT (ĐH Công Thương TP.HCM)",
+          "HUIT dự kiến học phí khóa 2026–2030 khoảng từ 140 triệu - 170 triệu đồng, tăng theo lộ trình và đi k (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_35",
+        "category": "conflicting_or_unverified",
+        "query": "Trường có cam kết 100% sinh viên ra trường được tuyển thẳng vào Google làm việc không?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 3,
+        "duration_ms": 4179.44,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 1.0,
+          "precision@3": 1.0,
+          "hit@5": 1.0,
+          "recall@5": 1.0,
+          "precision@5": 0.6,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 3,
+          "retrieved_count": 3
+        },
+        "top_doc_titles": [
+          "Thông tin tuyển sinh Đại học năm 2025 - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Ngành Công nghệ thông tin - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)",
+          "Học phí HUIT năm 2026: Minh bạch thông tin, đồng hành cùng người học - Tuyển Sinh HUIT (HUIT Cổng tuyển sinh chính thức)"
+        ]
+      },
+      {
+        "id": "ret_36",
+        "category": "conflicting_or_unverified",
+        "query": "HUIT đã công bố điểm chuẩn năm 2027 chưa và ngành nào cao nhất?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "retrieved_docs_count": 1,
+        "duration_ms": 587.36,
+        "error_classification": "success",
+        "error_description": "Thành công: Lấy được tài liệu chứa thông tin kỳ vọng.",
+        "metrics": {
+          "hit@1": 1.0,
+          "recall@1": 0.3333,
+          "precision@1": 1.0,
+          "hit@3": 1.0,
+          "recall@3": 0.3333,
+          "precision@3": 0.3333,
+          "hit@5": 1.0,
+          "recall@5": 0.3333,
+          "precision@5": 0.2,
+          "reciprocal_rank": 1.0,
+          "first_hit_rank": 1,
+          "relevant_count": 1,
+          "retrieved_count": 1
+        },
+        "top_doc_titles": [
+          "Điểm chuẩn trúng tuyển chính thức Trường Đại học Công Thương TP.HCM năm 2026"
+        ]
+      }
+    ]
+  },
+  "generation_evaluation": {
+    "sample_count": 10,
+    "ttft_percentiles_ms": {
+      "count": 10,
+      "min": 0.53,
+      "p50": 5014.61,
+      "p90": 8242.8,
+      "p95": 9380.56,
+      "max": 10518.32,
+      "avg": 4719.83
+    },
+    "total_latency_percentiles_ms": {
+      "count": 10,
+      "min": 145.56,
+      "p50": 5679.02,
+      "p90": 9324.56,
+      "p95": 10486.09,
+      "max": 11647.63,
+      "avg": 5370.76
+    },
+    "decoupling_matrix_counts": {
+      "type_a_full_success": 9,
+      "type_b_generation_failure": 0,
+      "type_c_safe_fallback": 0,
+      "type_d_catastrophic_hallucination": 1,
+      "unknown": 0
+    },
+    "details": [
+      {
+        "id": "ret_01",
+        "query": "Mã ngành Công nghệ thông tin HUIT là gì?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 3583.27,
+        "total_duration_ms": 3741.76,
+        "sources_count": 1,
+        "answer_length": 229,
+        "faithfulness": {
+          "has_citations": true,
+          "citation_count": 0,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": false,
+          "decoupling_type": "type_a_full_success"
+        },
+        "decoupling_type": "type_a_full_success"
+      },
+      {
+        "id": "ret_02",
+        "query": "Học phí ngành Kỹ thuật phần mềm một năm là bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 6749.7,
+        "total_duration_ms": 8053.18,
+        "sources_count": 1,
+        "answer_length": 749,
+        "faithfulness": {
+          "has_citations": true,
+          "citation_count": 0,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": false,
+          "decoupling_type": "type_a_full_success"
+        },
+        "decoupling_type": "type_a_full_success"
+      },
+      {
+        "id": "ret_03",
+        "query": "Điểm chuẩn ngành Logistics năm 2026 theo điểm thi tốt nghiệp THPT là bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 5643.58,
+        "total_duration_ms": 6083.08,
+        "sources_count": 1,
+        "answer_length": 629,
+        "faithfulness": {
+          "has_citations": true,
+          "citation_count": 0,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": false,
+          "decoupling_type": "type_a_full_success"
+        },
+        "decoupling_type": "type_a_full_success"
+      },
+      {
+        "id": "ret_04",
+        "query": "Mã ngành Trí tuệ nhân tạo của HUIT là gì?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 2630.52,
+        "total_duration_ms": 2630.52,
+        "sources_count": 0,
+        "answer_length": 0,
+        "faithfulness": {
+          "has_citations": false,
+          "citation_count": 0,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": false,
+          "decoupling_type": "type_d_catastrophic_hallucination"
+        },
+        "decoupling_type": "type_d_catastrophic_hallucination"
+      },
+      {
+        "id": "ret_05",
+        "query": "Phương thức xét tuyển bằng học bạ THPT vào HUIT cần bao nhiêu điểm?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 10518.32,
+        "total_duration_ms": 11647.63,
+        "sources_count": 2,
+        "answer_length": 1874,
+        "faithfulness": {
+          "has_citations": true,
+          "citation_count": 5,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": true,
+          "decoupling_type": "type_a_full_success"
+        },
+        "decoupling_type": "type_a_full_success"
+      },
+      {
+        "id": "ret_06",
+        "query": "Tổ hợp môn xét tuyển ngành Kỹ thuật Cơ điện tử tại HUIT gồm những khối nào?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 0.83,
+        "total_duration_ms": 414.44,
+        "sources_count": 1,
+        "answer_length": 473,
+        "faithfulness": {
+          "has_citations": true,
+          "citation_count": 0,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": false,
+          "decoupling_type": "type_a_full_success"
+        },
+        "decoupling_type": "type_a_full_success"
+      },
+      {
+        "id": "ret_07",
+        "query": "Thủ tục và hồ sơ nhập học cho tân sinh viên HUIT năm 2026 gồm những gì?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 7989.97,
+        "total_duration_ms": 9066.44,
+        "sources_count": 3,
+        "answer_length": 565,
+        "faithfulness": {
+          "has_citations": true,
+          "citation_count": 1,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": false,
+          "decoupling_type": "type_a_full_success"
+        },
+        "decoupling_type": "type_a_full_success"
+      },
+      {
+        "id": "ret_08",
+        "query": "Chính sách học bổng tuyển sinh và khuyến khích học tập của HUIT cho sinh viên?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 0.53,
+        "total_duration_ms": 145.56,
+        "sources_count": 1,
+        "answer_length": 812,
+        "faithfulness": {
+          "has_citations": true,
+          "citation_count": 0,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": true,
+          "decoupling_type": "type_a_full_success"
+        },
+        "decoupling_type": "type_a_full_success"
+      },
+      {
+        "id": "ret_09",
+        "query": "Học phí trường mình bao nhiêu một năm?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 4385.65,
+        "total_duration_ms": 5274.97,
+        "sources_count": 2,
+        "answer_length": 1074,
+        "faithfulness": {
+          "has_citations": true,
+          "citation_count": 4,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": true,
+          "decoupling_type": "type_a_full_success"
+        },
+        "decoupling_type": "type_a_full_success"
+      },
+      {
+        "id": "ret_10",
+        "query": "Điểm chuẩn năm nay của trường là bao nhiêu?",
+        "status": "chấp nhận",
+        "requires_human_review": false,
+        "ttft_ms": 5695.9,
+        "total_duration_ms": 6650.01,
+        "sources_count": 1,
+        "answer_length": 918,
+        "faithfulness": {
+          "has_citations": true,
+          "citation_count": 3,
+          "citation_faithfulness": true,
+          "has_safe_refusal": false,
+          "has_clarification_prompt": true,
+          "decoupling_type": "type_a_full_success"
+        },
+        "decoupling_type": "type_a_full_success"
+      }
+    ]
+  },
+  "performance_and_bottlenecks": {
+    "cache_miss_breakdown": {
+      "cache_lookup": {
+        "count": 5,
+        "min": 72.53,
+        "p50": 77.6,
+        "p90": 81.63,
+        "p95": 81.89,
+        "max": 82.16,
+        "avg": 77.58
+      },
+      "embedding": {
+        "count": 5,
+        "min": 87.83,
+        "p50": 139.43,
+        "p90": 141.62,
+        "p95": 142.27,
+        "max": 142.92,
+        "avg": 125.7
+      },
+      "vector_search": {
+        "count": 5,
+        "min": 229.76,
+        "p50": 649.56,
+        "p90": 668.58,
+        "p95": 674.2,
+        "max": 679.83,
+        "avg": 571.06
+      },
+      "keyword_search": {
+        "count": 5,
+        "min": 316.37,
+        "p50": 328.74,
+        "p90": 454.5,
+        "p95": 460.37,
+        "max": 466.24,
+        "avg": 373.06
+      },
+      "rerank": {
+        "count": 5,
+        "min": 86.29,
+        "p50": 98.58,
+        "p90": 107.06,
+        "p95": 108.94,
+        "max": 110.82,
+        "avg": 97.9
+      },
+      "jev_intent": {
+        "count": 5,
+        "min": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "max": 0.0,
+        "avg": 0.0
+      },
+      "jev_evidence": {
+        "count": 5,
+        "min": 367.86,
+        "p50": 386.08,
+        "p90": 1615.4,
+        "p95": 1807.99,
+        "max": 2000.57,
+        "avg": 834.9
+      },
+      "llm_ttft": {
+        "count": 5,
+        "min": 519.67,
+        "p50": 4839.78,
+        "p90": 6505.92,
+        "p95": 6718.54,
+        "max": 6931.16,
+        "avg": 4258.73
+      },
+      "llm_generation": {
+        "count": 5,
+        "min": 389.85,
+        "p50": 904.48,
+        "p90": 3011.45,
+        "p95": 3073.21,
+        "max": 3134.98,
+        "avg": 1623.51
+      },
+      "e2e_total": {
+        "count": 5,
+        "min": 4475.71,
+        "p50": 7080.63,
+        "p90": 9490.93,
+        "p95": 9903.55,
+        "max": 10316.17,
+        "avg": 6964.86
+      },
+      "first_token_ttft": "[REDACTED]"
+    },
+    "cache_hit_ttft": {
+      "count": 5,
+      "min": 0.66,
+      "p50": 1.0,
+      "p90": 117.52,
+      "p95": 156.34,
+      "max": 195.15,
+      "avg": 39.72
+    },
+    "jev_shadow_comparison": {
+      "shadow_avg_ms": 5177.11,
+      "off_avg_ms": 3994.85,
+      "overhead_ms": 1182.26
+    },
+    "concurrent_3_requests": {
+      "count": 3,
+      "min": 2945.12,
+      "p50": 8253.14,
+      "p90": 19405.79,
+      "p95": 20799.87,
+      "max": 22193.95,
+      "avg": 11130.74
+    },
+    "bottleneck_ranking": [
+      {
+        "rank": 1,
+        "component": "llm_ttft (Chờ phản hồi mô hình)",
+        "avg_duration_ms": 4258.73
+      },
+      {
+        "rank": 2,
+        "component": "jev_evidence (Shadow evaluation)",
+        "avg_duration_ms": 834.9
+      },
+      {
+        "rank": 3,
+        "component": "vector_search (MongoDB $vectorSearch)",
+        "avg_duration_ms": 571.06
+      },
+      {
+        "rank": 4,
+        "component": "keyword_search (MongoDB Regex)",
+        "avg_duration_ms": 373.06
+      },
+      {
+        "rank": 5,
+        "component": "embedding (FastEmbed local)",
+        "avg_duration_ms": 125.7
+      },
+      {
+        "rank": 6,
+        "component": "rerank (RRF & Metadata Boost)",
+        "avg_duration_ms": 97.9
+      },
+      {
+        "rank": 7,
+        "component": "cache_lookup",
+        "avg_duration_ms": 77.58
+      }
+    ]
+  },
+  "improvement_recommendations": [
+    {
+      "priority": 1,
+      "title": "Tối ưu hóa Gateway Timeout và Caching/Text-Index cho Keyword Search",
+      "impact": "Rất cao (Giảm 3000ms - 5000ms độ trễ retrieval khi MongoDB Atlas chịu tải)",
+      "risk": "Thấp (Không thay đổi dữ liệu, chỉ sửa đổi câu truy vấn regex hoặc áp dụng fallback nhanh)",
+      "evidence": "Số đo thực tế ghi nhận keyword_search thường xuyên chạm ngưỡng timeout 5000ms do unanchored regex quét toàn bộ collection."
+    },
+    {
+      "priority": 2,
+      "title": "Chuyển Jev Evidence Sufficiency sang Asynchronous/Background trong Shadow Mode",
+      "impact": "Trung bình (Giảm ~1000ms overhead Jev trong chat loop)",
+      "risk": "Thấp (Shadow mode vốn không can thiệp vào câu trả lời của chatbot)",
+      "evidence": "Shadow Mode hiện đang gọi đồng bộ (sync) trong stream loop tiêu tốn trung bình 1047ms."
+    },
+    {
+      "priority": 3,
+      "title": "Chuẩn hóa cơ chế trích xuất Citation Marker và Decoupling Guardrail",
+      "impact": "Trung bình (Nâng cao độ chính xác trích dẫn và phát hiện câu hỏi ngoài phạm vi sớm)",
+      "risk": "Trung bình (Cần kiểm thử kỹ để không từ chối nhầm các câu hỏi hợp lệ)",
+      "evidence": "Hiện tại các câu hỏi thiếu thông tin đang trả về tài liệu chung chung mà chưa kích hoạt prompt làm rõ rõ nét."
+    }
+  ]
+}

@@ -13,6 +13,7 @@ import { ImageGenerationModal } from '../features/image-generation/components/Im
 import { ConversationSession, ChatMessage } from '../shared/types/common.types';
 import { generateUniqueId } from '../shared/utils/idGenerator';
 import { AdminPage } from '../features/admin/components/AdminPage';
+import { useKnowledgeProfile } from '../features/chat/hooks/useKnowledgeProfile';
 
 export const App: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -24,6 +25,7 @@ export const App: React.FC = () => {
     sessionScope,
     retry: retrySession,
   } = useSessionBootstrap();
+  const profile = useKnowledgeProfile();
   const { sessions, saveSession, deleteSession, clearAllSessions } = useChatHistory(sessionScope);
 
   const [currentPath, setCurrentPath] = useState<string>(() =>
@@ -51,6 +53,16 @@ export const App: React.FC = () => {
     }
     previousSessionScopeRef.current = sessionScope;
   }, [closeLightbox, sessionScope]);
+
+  useEffect(() => {
+    const profId = profile?.profile_id || 'ilt';
+    document.documentElement.setAttribute('data-profile', profId);
+    if (profId === 'ilt') {
+      document.title = 'Innovative Lighting Technologies - AI Product & Technical Assistant';
+    } else {
+      document.title = 'HUIT Tuyển Sinh - Trợ Lý AI Tư Vấn Trực Tuyến 2026';
+    }
+  }, [profile]);
 
   // Theo dõi trạng thái mạng và lịch sử URL (popstate)
   useEffect(() => {
@@ -127,6 +139,7 @@ export const App: React.FC = () => {
           onOpenImageModal={() => setIsImageModalOpen(true)}
           isOnline={isOnline}
           onNavigateAdmin={() => navigateTo('/admin')}
+          profile={profile}
         />
 
         <ChatWindow
@@ -138,6 +151,7 @@ export const App: React.FC = () => {
           isSessionLoading={isSessionLoading}
           sessionError={sessionError}
           onRetrySession={retrySession}
+          profile={profile}
         />
       </main>
 

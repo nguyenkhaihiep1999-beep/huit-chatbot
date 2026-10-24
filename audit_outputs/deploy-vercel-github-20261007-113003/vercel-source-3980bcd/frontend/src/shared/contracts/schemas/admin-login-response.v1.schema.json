@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:admin-login-response:1.0.0",
+  "title": "HUIT admin login response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["success", "csrf_token", "message"],
+  "properties": {
+    "success": { "type": "boolean", "const": true },
+    "csrf_token": { "type": "string", "minLength": 16, "maxLength": 128 },
+    "message": { "type": "string", "maxLength": 200 }
+  }
+}

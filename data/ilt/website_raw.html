@@ -1,0 +1,502 @@
+<!-- Trang chủ mẫu (HTML + CSS) dành cho WordPress/Elementor -->
+<!-- Phần này dùng để import vào trình chỉnh sửa giao diện WordPress như Elementor -->
+
+<!-- Hero Section -->
+<!-- Hero Section with Fullscreen Image Only -->
+<section class="hero" style="position: relative; overflow: hidden; width: 100%; max-height: 800px; aspect-ratio: 1925 / 800;">
+  
+
+  <div id="hero-slide" style="
+    position: absolute;
+    top: 60; left: 0; width: 100%; height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+    z-index: 1;
+  "></div>
+
+  <!-- Nút điều hướng -->
+  
+</section>
+
+
+  <!-- Ảnh nền động -->
+  <div id="hero-slide" style="
+    position: absolute;
+    top: 60; left: 0; width: 100%; height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-image 3s ease-in-out;
+    z-index: 1;
+  "></div>
+
+  <!-- Nút điều hướng -->
+  <button onclick="prevImage()" style="
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 3;
+    border-radius: 5px;
+  ">&#10094; </button>
+
+  <button onclick="nextImage()" style="
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 3;
+    border-radius: 5px;
+  "> &#10095;</button>
+</section>
+
+<script>
+  const images = [
+    'https://innovativelightingco.com/images/Banner/IMG07.jpg',
+	'https://innovativelightingco.com/images/Banner/IMG02.jpg',
+	'https://innovativelightingco.com/images/Banner/IMG03.jpg',
+	'https://innovativelightingco.com/images/Banner/IMG04.jpg',
+	'https://innovativelightingco.com/images/Banner/IMG05.jpg',
+	'https://innovativelightingco.com/images/Banner/IMG01.jpg',
+    
+    
+    // Thêm ảnh tại đây nếu cần
+  ];
+
+  let currentIndex = 0;
+  const slideDiv = document.getElementById('hero-slide');
+
+  function updateSlide() {
+    slideDiv.style.backgroundImage = `url('${images[currentIndex]}')`;
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateSlide();
+    resetInterval();
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateSlide();
+    resetInterval();
+  }
+
+  // Tự động chuyển ảnh mỗi 5 giây
+  let autoSlide = setInterval(nextImage, 5000);
+
+  function resetInterval() {
+    clearInterval(autoSlide);
+    autoSlide = setInterval(nextImage, 5000);
+  }
+
+  // Hiển thị ảnh đầu tiên
+  updateSlide();
+</script>
+
+<!-- Section ảnh giới thiệu dưới banner -->
+<section style="padding: 60px 20px; max-width: 1400px; margin: auto;">
+  <h2 style="text-align: center; font-size: 2rem; margin-bottom: 40px; color: #222; font-weight: 600;">
+    Featured Highlights
+  </h2>
+
+  <div style="
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch;
+  ">
+    <!-- Hình 1 - INDOOR LIGHTING -->
+    <div style="
+      position: relative;
+      flex: 1 1 300px;
+      max-width: 449px;
+      aspect-ratio: 449 / 597;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+      <img src="images/Highlights/img01.jpg" alt="Indoor Lighting" style="width: 100%; height: 100%; object-fit: cover;">
+      <div style="
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        text-align: center;
+        padding: 15px 10px;
+      ">
+        <div style="font-size: 1.2rem; font-weight: 600;">INDOOR LIGHTING</div>
+        <div style="font-size: 0.95rem;">Residential / Commercial</div>
+      </div>
+    </div>
+
+    <!-- Hình 2 - OUTDOOR LIGHTING -->
+    <div style="
+      position: relative;
+      flex: 1 1 300px;
+      max-width: 449px;
+      aspect-ratio: 449 / 597;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+      <img src="images/Highlights/img02.jpg" alt="Outdoor Lighting" style="width: 100%; height: 100%; object-fit: cover;">
+      <div style="
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        text-align: center;
+        padding: 15px 10px;
+      ">
+        <div style="font-size: 1.2rem; font-weight: 600;">OUTDOOR LIGHTING</div>
+        <div style="font-size: 0.95rem;">Residential</div>
+      </div>
+    </div>
+
+    <!-- Hình 3 - MULTI-FAMILY LIGHTING -->
+    <div style="
+      position: relative;
+      flex: 1 1 300px;
+      max-width: 449px;
+      aspect-ratio: 449 / 597;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+      <img src="images/Highlights/img03.jpg" alt="Multi-Family Lighting" style="width: 100%; height: 100%; object-fit: cover;">
+      <div style="
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        text-align: center;
+        padding: 15px 10px;
+      ">
+        <div style="font-size: 1.2rem; font-weight: 600;">MULTI-FAMILY LIGHTING</div>
+        <div style="font-size: 0.95rem;">Indoor / Outdoor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Innovative Lighting</title>
+  <link rel="icon" href="/favicon.ICO" type="image/x-icon" />
+  <!-- Các thẻ khác như CSS, script, ... -->
+</head>
+
+  <header style="position: fixed; top: 0; width: 100%; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background-color: rgba(0, 0, 0, 0.8); box-sizing: border-box;">
+    <div class="logo" style="height: 80px; display: flex; align-items: center;">
+      <img src="/images/LogoVIL.png" alt="Company Logo" style="height: 80px; width: auto; display: block; margin: auto 0;">
+    </div>
+    <nav>
+      <ul style="display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; align-items: center; height: 80px; white-space: nowrap;">
+        <li><a href="#" style="color: white; text-decoration: none; line-height: 80px; padding: 0 10px; display: block;">HOME</a></li>
+        <li><a href="#catalog" style="color: white; text-decoration: none; line-height: 80px; padding: 0 10px; display: block;" onclick="openCatalog(event)">OUR CATALOG</a></li>
+        <li><a href="#product" style="color: white; text-decoration: none; line-height: 80px; padding: 0 10px; display: block;">PRODUCT</a></li>
+        <li><a href="#about" style="color: white; text-decoration: none; line-height: 80px; padding: 0 10px; display: block;">ABOUT US</a></li>
+        <li><a href="#Contact" style="color: white; text-decoration: none; line-height: 80px; padding: 0 10px; display: block;">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Catalog iframe modal -->
+<div id="catalogModal" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8);">
+  <div style="position: relative; width: 90%; height: 90%; margin: 40px auto;">
+    <iframe src="https://online.fliphtml5.com/zpdsw/wjtd/#p=1" style="width: 100%; height: 100%; border: none;"></iframe>
+    <button onclick="closeCatalog()" style="position: absolute; top: 10px; right: 10px; padding: 10px 15px; background: red; color: white; border: none; cursor: pointer;">Close</button>
+  </div>
+</div>
+
+<script>
+  function openCatalog(event) {
+    event.preventDefault();
+    document.getElementById('catalogModal').style.display = 'block';
+  }
+  function closeCatalog() {
+    document.getElementById('catalogModal').style.display = 'none';
+  }
+  </script>
+ <!-- Product Section -->
+<section id="product" style="padding: 60px 20px; max-width: 1200px; margin: auto; font-family: Arial, sans-serif;">
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 40px;">Our Products</h2>
+  
+    <div id="product-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+      <!-- JavaScript will insert product cards here -->
+    </div>
+  </section>
+  
+  <script>
+    const products = [
+      {
+        name: "LED Ceiling Light",
+        image: "images/product1.jpg",
+        description: "High-efficiency LED ceiling light with modern design.",
+        link: "#"
+      },
+      {
+        name: "LED Wall Sconce",
+        image: "images/product2.jpg",
+        description: "Sleek wall lighting for modern residential projects.",
+        link: "#"
+      },
+      {
+        name: "Under Cabinet Light",
+        image: "images/product3.jpg",
+        description: "Compact LED under-cabinet lights for kitchen & storage.",
+        link: "#"
+      },
+      {
+        name: "Ceiling Fan with Light",
+        image: "images/product4.jpg",
+        description: "Energy-efficient fan with integrated LED lighting.",
+        link: "#"
+      },
+      {
+        name: "DOB Module",
+        image: "images/product5.jpg",
+        description: "Driver-on-Board LED modules for direct connection.",
+        link: "#"
+      },
+      {
+        name: "LED Driver",
+        image: "images/product6.jpg",
+        description: "High-performance constant current LED drivers.",
+        link: "#"
+      }
+    ];
+  
+    const container = document.getElementById('product-list');
+  
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.style.backgroundColor = '#f8f8f8';
+      card.style.padding = '20px';
+      card.style.borderRadius = '10px';
+      card.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+  
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;">
+        <h3 style="margin-top: 15px;">${product.name}</h3>
+        <p>${product.description}</p>
+        <a href="${product.link}" style="color: #007BFF; text-decoration: none;">View Details</a>
+      `;
+  
+      container.appendChild(card);
+    });
+  </script>
+  
+
+  
+  <!-- About Us Section -->
+<section id="about" style="padding: 80px 20px; background-color: #f9f9f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="text-align: center; font-size: 3rem; font-weight: bold; margin-bottom: 60px; color: #333;">ABOUT US</h2>
+
+    <!-- Các thẻ nội dung chia khối -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <h3 style="color: #007BFF; font-size: 1.3rem;">Innovative Lighting Technologies</h3>
+        <p>Since 2003, Innovative Lighting has been at the forefront of LED innovation, transforming spaces with cutting-edge lighting solutions. With roots in Foshan, China, and a state-of-the-art facility in Vietnam since 2019, we offer unmatched manufacturing flexibility between two powerhouse locations. Our world-class technical team ensures products that exceed North American standards for quality and performance.</p>
+      </div>
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <h3 style="color: #007BFF; font-size: 1.3rem;">Sustainable Lighting</h3>
+        <p>WWe craft energy-efficient solutions designed to power the future. Committed to sustainability, our products reduce energy consumption while delivering sleek, modern designs that elevate environments-from multi-family residential projects to custom designs-with a focus on energy conservation and environmental stewardship.</p>
+      </div>
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <h3 style="color: #007BFF; font-size: 1.3rem;">Why Choose Us</h3>
+        <p>As a trusted OEM and ODM partner, we specialize in energy-saving fixtures, advanced LED modules, high-performance LED drivers, and latest DOB technology. We also provide stylish, energy-efficient ceiling fans, brightening and cooling spaces from homes to multi-family developments, ensuring bright futures for customers and the planet.</p>
+      </div>
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <h3 style="color: #007BFF; font-size: 1.3rem;">Vertically Integrated Facilities</h3>
+        <p> Our vertically integrated facilities deliver precision and efficiency, covering metal processing, plastic forming, fixture assembly, LED drivers, DOBs, modules, and ceiling fan production. Controlling every step guarantees unbeatable quality and cost-efficiency, making us the go-to partner for price-sensitive markets.</p>
+      </div>
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <h3 style="color: #007BFF; font-size: 1.3rem;">Innovation & R&D</h3>
+        <p>Our relentless R&D team pushes boundaries, developing groundbreaking products and collaborating with clients to bring visions to life. Partnering with us means working with a team committed to staying ahead in lighting and fan technology.</p>
+      </div>
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <h3 style="color: #007BFF; font-size: 1.3rem;">Certified Quality</h3>
+        <p>Our comprehensive LED lineup-including under-cabinet fixtures, ceiling lights, vanity fixtures, wall sconces, outdoor lighting, and ceiling fans-is both beautiful and safe. ISO 9001 certification and multiple safety approvals (UL, cUL, ETL, CE, Energy Star, FCC, SAA) ensure your lighting and cooling needs are expertly handled.</p>
+      </div>
+    </div>
+
+   
+   <!-- Tiêu đề -->
+<h3 style="text-align: center; font-size: 2rem; margin-top: 70px; margin-bottom: 30px; color: #007BFF;">Our Facilities & Teams</h3>
+
+<!-- Thư viện ảnh dạng kéo -->
+<div style="
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 10px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+">
+  <!-- Mỗi ảnh được đặt trong 1 thẻ inline-block -->
+  <img src="https://innovativelightingco.com/images/Factory/IMG001.jpeg" alt="Factory 1" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  <img src="https://innovativelightingco.com/images/Factory/IMG002.jpeg" alt="Factory 2" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  <img src="https://innovativelightingco.com/images/Factory/IMG003.jpeg" alt="Factory 3" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  <img src="https://innovativelightingco.com/images/Factory/IMG004.jpeg" alt="Factory 4" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  <img src="https://innovativelightingco.com/images/Factory/IMG005.jpeg" alt="Factory 5" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  <img src="https://innovativelightingco.com/images/Factory/IMG006.jpeg" alt="Factory 6" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  <img src="https://innovativelightingco.com/images/Factory/IMG007.jpeg" alt="Factory 7" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG008.jpeg" alt="Factory 8" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG009.jpeg" alt="Factory 9" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG010.jpeg" alt="Factory 10" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG011.jpeg" alt="Factory 11" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG012.jpeg" alt="Factory 12" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG013.jpeg" alt="Factory 13" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG014.jpeg" alt="Factory 14" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG015.jpeg" alt="Factory 15" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG016.jpeg" alt="Factory 16" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG017.jpeg" alt="Factory 17" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG019.jpeg" alt="Factory 20" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG020.jpeg" alt="Factory 21" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG021.jpeg" alt="Factory 22" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG022.jpeg" alt="Factory 23" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG023.jpeg" alt="Factory 23" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+<img src="https://innovativelightingco.com/images/Factory/IMG024.jpeg" alt="Factory 24" style="display: inline-block; width: 250px; height: auto; margin-right: 10px; border-radius: 12px; transition: transform 0.3s; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+
+</div>
+
+  </div>
+</section>
+
+
+
+  <section style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; padding: 60px 20px; max-width: 1200px; margin: auto; font-family: Arial, sans-serif;" id="newsletter-contact">
+  
+ <!-- Newsletter Sign Up -->
+<div style="flex: 1 1 400px; background: #f9f9f9; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+  <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #007BFF;">Newsletter Sign Up</h3>
+
+  <form id="newsletter-form" action="https://formsubmit.co/duy.t@innovativelightingco.com" method="POST">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+
+    <div style="margin-bottom: 15px;">
+      <input type="text" name="First Name" placeholder="First Name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+    </div>
+    <div style="margin-bottom: 15px;">
+      <input type="text" name="Last Name" placeholder="Last Name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+    </div>
+    <div style="margin-bottom: 20px;">
+      <input type="email" name="Email" placeholder="Email Address" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+    </div>
+    <button type="submit" style="background-color: #007BFF; color: white; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer;">Subscribe</button>
+  </form>
+</div>
+
+<!-- Modal Popup -->
+<div id="popup" style="display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
+  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); text-align: center;">
+    <h3 style="color: #28a745;">Thank you for subscribing!</h3>
+    <p>We'll keep you updated with our latest news and offers.</p>
+    <button onclick="document.getElementById('popup').style.display='none'" style="margin-top: 20px; padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 6px; cursor: pointer;">Close</button>
+  </div>
+</div>
+
+<!-- JavaScript to handle form submission -->
+<script>
+  document.getElementById("newsletter-form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Ngăn form gửi mặc định
+
+    const form = this;
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        form.reset(); // Reset form
+        document.getElementById("popup").style.display = "block"; // Hiển thị popup
+      } else {
+        alert("Đã xảy ra lỗi khi gửi biểu mẫu.");
+      }
+    }).catch(error => {
+      alert("Không thể gửi dữ liệu. Vui lòng thử lại sau.");
+    });
+  });
+</script>
+
+
+
+    
+
+
+  
+    <!-- Contact Info -->
+    <div style="flex: 1 1 400px; background: #f7f9fc; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: #007BFF;">Contact Us</h3>
+      <address style="font-style: normal; line-height: 1.8; font-size: 1.05rem; color: #333;">
+        Road 8, Nhon Trach 2 Nhon Phu Industrial Park,<br>
+        Nhon Trach Ward,<br>
+        Dong Nai City, Vietnam<br><br>
+        Phone: <a href="tel:+842513685680" style="color: #007BFF; text-decoration: none;">(+84) 251 3685 680</a><br>
+        Email: <a href="mailto:Sales@innovativelightingco.com" style="color: #007BFF; text-decoration: none;">Sales@innovativelightingco.com</a><br>
+        Web: <a href="http://innovativelightingco.com" target="_blank" style="color: #007BFF; text-decoration: none;">innovativelightingco.com</a>
+      </address>
+    </div>
+  </section>
+
+<!-- Footer -->
+<footer style="background-color: #222; color: #eee; padding: 20px 0; text-align: center; font-family: Arial, sans-serif; font-size: 14px;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <p style="margin: 0 0 10px 0;">
+       Copyright 2009-2025 Dong Nai Innovative Lighting Technologies Co,. Ltd. All rights reserved
+    </p>
+    <div style="font-size: 24px;">
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/profile.php?id=61557939777063" target="_blank" style="color: #eee; margin: 0 10px; text-decoration: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.326v21.348c0 .732.593 1.326 1.325 1.326h11.495v-9.294h-3.123v-3.622h3.123v-2.672c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.466.099 2.797.143v3.24l-1.92.001c-1.506 0-1.797.716-1.797 1.765v2.313h3.594l-.468 3.622h-3.126v9.294h6.127c.732 0 1.325-.594 1.325-1.326v-21.348c0-.733-.593-1.326-1.325-1.326z"/>
+        </svg>
+      </a>
+      <!-- YouTube -->
+      <a href="https://www.youtube.com/yourchannel" target="_blank" style="color: #eee; margin: 0 10px; text-decoration: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M19.615 3.184c-1.252-.088-6.263-.088-6.263-.088s-5.011 0-6.263.088c-1.554.11-2.637 1.59-2.637 4.18v5.271c0 2.591 1.083 4.071 2.637 4.18 1.252.088 6.263.088 6.263.088s5.011 0 6.263-.088c1.554-.11 2.637-1.59 2.637-4.18v-5.271c0-2.591-1.083-4.071-2.637-4.18zm-9.613 8.82v-5.547l5.368 2.773-5.368 2.774z"/>
+        </svg>
+      </a>
+      <!-- Zalo -->
+      <a href="https://zalo.me/yourzaloid" target="_blank" style="color: #eee; margin: 0 10px; text-decoration: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M12 0c-6.627 0-12 5.372-12 12 0 6.627 5.373 12 12 12 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12zm3.782 15.562l-2.357-2.053-2.28 2.035v-4.78h-1.67v5.896h1.81v-2.08l2.245 2.01 2.252-2.015 1.457 1.37-2.157 2.114zm2.46-9.302l-1.737 1.72 1.507 1.5-1.378 1.402-1.556-1.552-2.438 2.287v-5.316h5.602v1.407z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+  
+
+  
+    

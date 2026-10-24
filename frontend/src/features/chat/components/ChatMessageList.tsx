@@ -8,7 +8,7 @@ import {
   FileOutput,
   Zap,
 } from 'lucide-react';
-import { ChatMessage, VisualMetadata } from '../../../shared/types/common.types';
+import { ChatMessage, VisualMetadata, KnowledgeProfileUI } from '../../../shared/types/common.types';
 import { ChatMessageItem } from './ChatMessageItem';
 
 interface ChatMessageListProps {
@@ -17,6 +17,7 @@ interface ChatMessageListProps {
   onSelectSuggestion?: (question: string) => void;
   onSpeak?: (text: string) => void;
   isSpeaking?: boolean;
+  profile?: KnowledgeProfileUI | null;
 }
 
 const PRACTICAL_SUGGESTIONS = [
@@ -48,9 +49,25 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
   onSelectSuggestion,
   onSpeak,
   isSpeaking,
+  profile,
 }) => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const safeMessages = Array.isArray(messages) ? messages : [];
+
+  const isIlt = profile?.profile_id === 'ilt';
+  const eyebrowText = isIlt ? (profile?.eyebrow || 'Dữ liệu Catalogue ILT 2026') : 'Dữ liệu tuyển sinh HUIT 2026';
+  const heroTitle = isIlt ? (profile?.empty_title || 'Chiếu sáng kiến trúc. Chuẩn mực quốc tế.') : 'Hỏi đúng. Hiểu rõ. Chọn ngành tự tin.';
+  const heroDesc = isIlt
+    ? (profile?.empty_description || 'Tra cứu thông số kỹ thuật đèn bàn, đèn sàn, đèn thả, đèn chùm, năng lực OEM/ODM và tiêu chuẩn xuất khẩu từ Innovative Lighting Technologies.')
+    : null;
+
+  const suggestionsToDisplay = isIlt && profile?.suggestions?.length
+    ? profile.suggestions.map((s, idx) => ({
+        icon: [BookOpen, Sparkles, ShieldCheck, Zap][idx % 4] || Sparkles,
+        text: s.text,
+        badge: s.badge,
+      }))
+    : PRACTICAL_SUGGESTIONS;
 
   useEffect(() => {
     const list = Array.isArray(messages) ? messages : [];
@@ -65,34 +82,46 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
         <div className="empty-state-content animate-fade-in">
           <div className="empty-state-hero">
             <div className="empty-state-icon-box" aria-hidden="true">
-              <img src="/huit-ai-mark.svg" alt="" width={64} height={64} className="empty-state-brand-mark" />
+              <img src={isIlt ? '/ilt-brand-mark.svg' : '/huit-ai-mark.svg'} alt="" width={64} height={64} className="empty-state-brand-mark" />
             </div>
             <div className="empty-state-eyebrow">
               <span className="status-dot online" aria-hidden="true" />
-              Dữ liệu tuyển sinh HUIT 2026
+              {eyebrowText}
             </div>
 
             <h2 className="empty-state-title">
-              Hỏi đúng. Hiểu rõ. Chọn ngành tự tin.
+              {heroTitle}
             </h2>
-            <p className="empty-state-description">
-              Tra cứu học phí, điểm chuẩn, ngành học và tạo tài liệu trực quan từ
-              nguồn dữ liệu của <strong>Trường Đại học Công Thương TP.HCM</strong>.
-            </p>
+            {heroDesc ? (
+              <p className="empty-state-description">{heroDesc}</p>
+            ) : (
+              <p className="empty-state-description">
+                Tra cứu học phí, điểm chuẩn, ngành học và tạo tài liệu trực quan từ
+                nguồn dữ liệu của <strong>Trường Đại học Công Thương TP.HCM</strong>.
+              </p>
+            )}
           </div>
 
-          <div className="capability-strip" aria-label="Tiện ích nổi bật">
-            <span><ShieldCheck size={14} /> Nguồn có kiểm chứng</span>
-            <span><FileOutput size={14} /> Excel · Word · PDF · Ảnh</span>
-            <span><Zap size={14} /> Trả lời trực tuyến</span>
-          </div>
+          {isIlt ? (
+            <div className="capability-strip ilt-capability-strip" aria-label="Chứng nhận & năng lực xuất khẩu">
+              <span><ShieldCheck size={14} /> Tiêu chuẩn UL · ETL · CE · ISO 9001</span>
+              <span><Sparkles size={14} /> OEM/ODM Bắc Mỹ & Châu Âu</span>
+              <span><Zap size={14} /> Tra cứu Catalogue 2026</span>
+            </div>
+          ) : (
+            <div className="capability-strip" aria-label="Tiện ích nổi bật">
+              <span><ShieldCheck size={14} /> Nguồn có kiểm chứng</span>
+              <span><FileOutput size={14} /> Excel · Word · PDF · Ảnh</span>
+              <span><Zap size={14} /> Trả lời trực tuyến</span>
+            </div>
+          )}
 
           <div className="suggestions-heading">
             <span>Bắt đầu nhanh</span>
             <small>Chọn một nhu cầu phổ biến</small>
           </div>
           <div className="empty-state-suggestions" role="group" aria-label="Câu hỏi gợi ý">
-            {PRACTICAL_SUGGESTIONS.map((item) => {
+            {suggestionsToDisplay.map((item) => {
               const Icon = item.icon;
               return (
                 <button

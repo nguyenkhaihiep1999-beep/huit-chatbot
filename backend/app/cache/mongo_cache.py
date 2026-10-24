@@ -8,8 +8,12 @@ from backend.app.rag.intent import normalize_text
 
 class CacheManager:
     @staticmethod
-    def get_cached_response(question: str, chat_history: Optional[List[dict]] = None) -> Optional[Dict[str, Any]]:
-        ckey = compute_cache_key(question, chat_history)
+    def get_cached_response(
+        question: str,
+        chat_history: Optional[List[dict]] = None,
+        profile_id: Optional[str] = None,
+    ) -> Optional[Dict[str, Any]]:
+        ckey = compute_cache_key(question, chat_history, profile_id=profile_id)
         
         # 1. Kiểm tra RAM Cache tức thì (0ms)
         ram_item = MemoryCache.get(ckey)
@@ -47,10 +51,15 @@ class CacheManager:
         return None
 
     @staticmethod
-    def save_response(question: str, response_data: Dict[str, Any], chat_history: Optional[List[dict]] = None) -> None:
+    def save_response(
+        question: str,
+        response_data: Dict[str, Any],
+        chat_history: Optional[List[dict]] = None,
+        profile_id: Optional[str] = None,
+    ) -> None:
         if not response_data or not response_data.get("answer"):
             return
-        ckey = compute_cache_key(question, chat_history)
+        ckey = compute_cache_key(question, chat_history, profile_id=profile_id)
         
         # Đảm bảo response_data có meta an toàn
         if "meta" not in response_data or not isinstance(response_data["meta"], dict):
@@ -64,6 +73,8 @@ class CacheManager:
             import hashlib
             q_hash = hashlib.sha256(question.strip().lower().encode("utf-8")).hexdigest()
             now = datetime.now(timezone.utc)
+            from backend.app.rag.profile import get_profile
+            prof = get_profile(profile_id)
             cache_operations.upsert_cached_query_response(
                 cache_key=ckey,
                 question_clean=normalize_text(question),
@@ -73,9 +84,9 @@ class CacheManager:
                 sources=response_data.get("sources", []),
                 trace=response_data.get("trace", []),
                 meta=response_data.get("meta", {}),
-                kb_version=settings.KB_VERSION,
-                rag_version=settings.RAG_VERSION,
-                model=settings.OPENROUTER_MODEL,
+                kb_version=prof.kb_version,
+                rag_version=prof.rag_version,
+                model=getattr(settings, "QWEN_MODEL", "qwen-2.5-72b-instruct") if getattr(settings, "PRIMARY_LLM_PROVIDER", "gemini") == "qwen" else settings.GEMINI_MODEL,
                 updated_at=now,
                 expires_at=now + timedelta(hours=settings.CACHE_TTL_HOURS),
             )

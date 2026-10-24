@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:image-result:1.0.0",
+  "title": "HUIT image generation result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["image_id", "image_url"],
+  "properties": {
+    "image_id": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "id": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "image_url": { "type": "string" },
+    "thumbnail_url": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "svg_url": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "json_url": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "width": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "default": null
+    },
+    "height": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "default": null
+    },
+    "model": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "style": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "byte_size": {
+      "anyOf": [{ "type": "integer" }, { "type": "null" }],
+      "default": null
+    },
+    "checksum": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "request_fingerprint": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "billing": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }],
+      "default": null
+    },
+    "cached": {
+      "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+      "default": null
+    },
+    "access_scope": {
+      "anyOf": [
+        { "enum": ["public", "private", "legacy_public"] },
+        { "type": "null" }
+      ],
+      "default": "public"
+    },
+    "owner_id": {
+      "anyOf": [{ "type": "string", "maxLength": 64 }, { "type": "null" }],
+      "default": null
+    }
+  }
+}

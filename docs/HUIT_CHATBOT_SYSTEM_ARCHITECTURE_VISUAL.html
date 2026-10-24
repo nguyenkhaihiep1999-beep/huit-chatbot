@@ -1,0 +1,2742 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUIT Chatbot - Bản Đồ Trực Quan Kiến Trúc Hệ Thống (System Architecture)</title>
+  <style>
+
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  
+  /* Dark Mode Default */
+  --bg-base: #0d1117;
+  --bg-surface: #161b22;
+  --bg-card: #21262d;
+  --bg-card-hover: #292e36;
+  --border-color: #30363d;
+  --border-subtle: #21262d;
+  --text-main: #f0f6fc;
+  --text-muted: #8b949e;
+  --text-dim: #6e7681;
+  
+  /* Subsystems */
+  --c-backend: #58a6ff;
+  --c-backend-bg: rgba(56, 139, 253, 0.15);
+  --c-frontend: #39c5cf;
+  --c-frontend-bg: rgba(57, 197, 207, 0.15);
+  --c-hook: #bc8cff;
+  --c-hook-bg: rgba(188, 140, 255, 0.15);
+  --c-schema: #f0883e;
+  --c-schema-bg: rgba(240, 136, 62, 0.15);
+  --c-mongo: #3fb950;
+  --c-mongo-bg: rgba(63, 185, 80, 0.15);
+  --c-queue: #fa7a55;
+  --c-queue-bg: rgba(250, 122, 85, 0.15);
+  --c-worker: #d2a8ff;
+  --c-worker-bg: rgba(210, 168, 255, 0.15);
+  --c-security: #f85149;
+  --c-security-bg: rgba(248, 81, 73, 0.15);
+  --c-storage: #56d4dd;
+  --c-storage-bg: rgba(86, 212, 221, 0.15);
+  
+  /* Statuses */
+  --s-verified: #238636;
+  --s-verified-text: #3fb950;
+  --s-partial: #9e6a03;
+  --s-partial-text: #d29922;
+  --s-planned: #30363d;
+  --s-planned-text: #8b949e;
+  --s-error: #da3633;
+  --s-error-text: #f85149;
+  
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --header-h: 60px;
+  --sidebar-w: 280px;
+  --transition-fast: 0.15s ease;
+}
+
+[data-theme="light"] {
+  --bg-base: #f6f8fa;
+  --bg-surface: #ffffff;
+  --bg-card: #f6f8fa;
+  --bg-card-hover: #eaeef2;
+  --border-color: #d0d7de;
+  --border-subtle: #e1e4e8;
+  --text-main: #1f2328;
+  --text-muted: #656d76;
+  --text-dim: #8c959f;
+  
+  --c-backend: #0969da;
+  --c-backend-bg: #ddf4ff;
+  --c-frontend: #0598ab;
+  --c-frontend-bg: #dff7f9;
+  --c-hook: #8250df;
+  --c-hook-bg: #fbefff;
+  --c-schema: #bf5600;
+  --c-schema-bg: #fff1e5;
+  --c-mongo: #1a7f37;
+  --c-mongo-bg: #dafbe1;
+  --c-queue: #bc4c00;
+  --c-queue-bg: #fff0eb;
+  --c-worker: #6e40c9;
+  --c-worker-bg: #f5f0ff;
+  --c-security: #cf222e;
+  --c-security-bg: #ffebe9;
+  --c-storage: #09737a;
+  --c-storage-bg: #e0f9fb;
+  
+  --s-verified: #1a7f37;
+  --s-verified-text: #1a7f37;
+  --s-partial: #9a6700;
+  --s-partial-text: #9a6700;
+  --s-planned: #d0d7de;
+  --s-planned-text: #656d76;
+  --s-error: #cf222e;
+  --s-error-text: #cf222e;
+  
+  --shadow-sm: 0 1px 3px rgba(31,35,40,0.12);
+  --shadow-md: 0 4px 12px rgba(31,35,40,0.12);
+  --shadow-lg: 0 8px 24px rgba(31,35,40,0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 14px; }
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* Layout Structure */
+#app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Header */
+#topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-logo {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--c-backend), var(--c-frontend));
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: -0.5px;
+}
+.brand-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 12px;
+  background: var(--c-backend-bg);
+  color: var(--c-backend);
+  border: 1px solid var(--c-backend);
+}
+
+.topbar-kpis {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 10px;
+}
+.kpi-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 4px 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+.kpi-chip strong {
+  color: var(--text-main);
+}
+.kpi-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+}
+.kpi-dot.green { background: #3fb950; box-shadow: 0 0 6px #3fb950; }
+.kpi-dot.blue { background: #58a6ff; }
+.kpi-dot.purple { background: #bc8cff; }
+.kpi-dot.orange { background: #f0883e; }
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-icon {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.btn-icon:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--text-muted);
+}
+
+/* Sidebar */
+#sidebar {
+  position: fixed;
+  top: var(--header-h);
+  bottom: 0; left: 0;
+  width: var(--sidebar-w);
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-color);
+  overflow-y: auto;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-nav {
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+.nav-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-item:hover {
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+.nav-item.active {
+  background: var(--c-backend-bg);
+  color: var(--c-backend);
+  font-weight: 600;
+}
+.nav-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+}
+.nav-item.active .nav-badge {
+  background: var(--c-backend);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* Main Content */
+#main-content {
+  margin-left: var(--sidebar-w);
+  margin-top: var(--header-h);
+  padding: 30px 40px 80px 40px;
+  flex: 1;
+  max-width: 1600px;
+  width: calc(100% - var(--sidebar-w));
+}
+
+.section-block {
+  margin-bottom: 60px;
+  scroll-margin-top: calc(var(--header-h) + 20px);
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Cards & Grids */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.card:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+}
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.badge-verified { background: rgba(35, 134, 54, 0.2); color: var(--s-verified-text); border: 1px solid var(--s-verified); }
+.badge-partial { background: rgba(158, 106, 3, 0.2); color: var(--s-partial-text); border: 1px solid var(--s-partial); }
+.badge-planned { background: rgba(110, 118, 129, 0.2); color: var(--s-planned-text); border: 1px solid var(--s-planned); }
+.badge-error { background: rgba(218, 54, 51, 0.2); color: var(--s-error-text); border: 1px solid var(--s-error); }
+.badge-tag { background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border-color); }
+
+/* Tables */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+th {
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-main);
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--bg-card-hover); }
+
+/* Code blocks & paths */
+.code-path {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-backend);
+  background: var(--bg-card);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-copy {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+}
+.btn-copy:hover { color: var(--text-main); }
+
+/* Interactive System Graph (SVG Canvas) */
+.graph-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+}
+.system-svg {
+  width: 100%;
+  min-width: 1100px;
+  height: 520px;
+  display: block;
+}
+.svg-node {
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+}
+.svg-node:hover {
+  filter: drop-shadow(0 0 8px rgba(88, 166, 255, 0.4));
+}
+.svg-node.pulse-error rect {
+  stroke: var(--c-security) !important;
+  stroke-width: 3px !important;
+  animation: pulse-red 1s infinite alternate;
+}
+@keyframes pulse-red {
+  from { fill-opacity: 0.9; }
+  to { fill-opacity: 0.4; }
+}
+
+/* Simulator Widget */
+.sim-widget {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
+}
+.sim-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+}
+.btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--text-muted);
+}
+.btn-primary {
+  background: var(--c-backend);
+  color: #fff;
+  border-color: var(--c-backend);
+}
+.btn-primary:hover {
+  background: #388bfd;
+}
+.btn-danger {
+  background: var(--c-security-bg);
+  color: var(--c-security);
+  border-color: var(--c-security);
+}
+.btn-danger:hover {
+  background: var(--c-security);
+  color: #fff;
+}
+
+/* Live Terminal Log */
+.terminal-window {
+  background: #090d13;
+  border: 1px solid #30363d;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.terminal-header {
+  background: #161b22;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #30363d;
+  color: #8b949e;
+}
+.terminal-body {
+  padding: 12px;
+  max-height: 220px;
+  overflow-y: auto;
+  color: #c9d1d9;
+  line-height: 1.6;
+}
+.log-line {
+  margin-bottom: 4px;
+  display: flex;
+  gap: 8px;
+}
+.log-time { color: #6e7681; }
+.log-tag { font-weight: bold; }
+.log-tag.INFO { color: #58a6ff; }
+.log-tag.SUCCESS { color: #3fb950; }
+.log-tag.WARN { color: #d29922; }
+.log-tag.ERROR { color: #f85149; }
+
+/* Filter Tabs / Pills */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filter-pill {
+  padding: 6px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.filter-pill:hover, .filter-pill.active {
+  background: var(--c-backend-bg);
+  border-color: var(--c-backend);
+  color: var(--c-backend);
+}
+
+.search-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-size: 13px;
+  outline: none;
+  min-width: 240px;
+}
+.search-box:focus {
+  border-color: var(--c-backend);
+  box-shadow: 0 0 0 2px var(--c-backend-bg);
+}
+
+/* Modal Drawer */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(3px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-backdrop.open { display: flex; }
+.modal-dialog {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  max-width: 720px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  animation: modal-up 0.2s ease;
+}
+@keyframes modal-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+.modal-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Interactive Lab & Slider Components */
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border-color);
+  outline: none;
+  transition: background 0.2s;
+}
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--c-backend);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(88, 166, 255, 0.5);
+  transition: transform 0.1s;
+}
+.range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+.range-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--c-backend);
+  cursor: pointer;
+  border: none;
+}
+.confidence-zone-bar {
+  display: flex;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  border: 1px solid var(--border-color);
+}
+.zone-deny { width: 65%; background: #da3633; }
+.zone-fallback { width: 25%; background: #d29922; }
+.zone-auto { width: 10%; background: #238636; }
+
+.decision-badge-result {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.res-allow { background: rgba(35, 134, 54, 0.25); color: #3fb950; border: 1px solid #3fb950; }
+.res-fallback { background: rgba(210, 153, 34, 0.25); color: #d29922; border: 1px solid #d29922; }
+.res-human { background: rgba(240, 136, 62, 0.25); color: #f0883e; border: 1px solid #f0883e; }
+.res-deny { background: rgba(218, 54, 51, 0.25); color: #f85149; border: 1px solid #f85149; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  #sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+  #sidebar.open { transform: translateX(0); }
+  #main-content { margin-left: 0; width: 100%; padding: 20px; }
+  .topbar-kpis { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <header id="topbar">
+    <div class="brand-wrapper">
+      <div class="brand-logo">H</div>
+      <div>
+        <div class="brand-title">HUIT Chatbot <span class="brand-badge">v2.0.0 Architecture</span></div>
+      </div>
+    </div>
+    
+    <div class="topbar-kpis">
+      <div class="kpi-chip"><span class="kpi-dot blue"></span> <strong>34</strong> Schemas</div>
+      <div class="kpi-chip"><span class="kpi-dot blue"></span> <strong>18</strong> Frontend Contracts</div>
+      <div class="kpi-chip"><span class="kpi-dot purple"></span> <strong>17</strong> Public Hooks</div>
+      <div class="kpi-chip"><span class="kpi-dot orange"></span> <strong>55</strong> Endpoints</div>
+      <div class="kpi-chip"><span class="kpi-dot green"></span> <strong>23</strong> Migrations</div>
+      <div class="kpi-chip"><span class="kpi-dot green"></span> <strong>344</strong> Backend Tests</div>
+      <div class="kpi-chip"><span class="kpi-dot green"></span> <strong>126</strong> Frontend Tests</div>
+      <div class="kpi-chip"><span class="kpi-dot green"></span> <strong>0</strong> Lint Warnings</div>
+    </div>
+    
+    <div class="topbar-actions">
+      <input type="text" id="global-search" class="search-box" placeholder="Tìm file, schema, hook, endpoint..." aria-label="Tìm kiếm toàn hệ thống">
+      <button id="theme-toggle" class="btn-icon" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện">
+        <svg id="theme-icon-sun" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" role="navigation" aria-label="Điều hướng chính">
+      <nav class="sidebar-nav">
+        <a href="#sec-overview" class="nav-item active" data-target="sec-overview">
+          <span class="nav-item-left">🏛️ Tổng Quan Kiến Trúc</span>
+          <span class="nav-badge">15 nodes</span>
+        </a>
+        <a href="#sec-tech" class="nav-item" data-target="sec-tech">
+          <span class="nav-item-left">⚡ Công Nghệ Đang Dùng</span>
+          <span class="nav-badge">32</span>
+        </a>
+        <a href="#sec-directory" class="nav-item" data-target="sec-directory">
+          <span class="nav-item-left">📁 Cây Thư Mục Hệ Thống</span>
+          <span class="nav-badge">Cấu trúc</span>
+        </a>
+        <a href="#sec-schema" class="nav-item" data-target="sec-schema">
+          <span class="nav-item-left">📋 JSON Schema Core</span>
+          <span class="nav-badge">34</span>
+        </a>
+        <a href="#sec-facade" class="nav-item" data-target="sec-facade">
+          <span class="nav-item-left">🔌 Public Hook Facade</span>
+          <span class="nav-badge">17</span>
+        </a>
+        <a href="#sec-chat-stream" class="nav-item" data-target="sec-chat-stream">
+          <span class="nav-item-left">💬 Chat & NDJSON Stream v2</span>
+          <span class="nav-badge">20 bước</span>
+        </a>
+        <a href="#sec-artifact-image" class="nav-item" data-target="sec-artifact-image">
+          <span class="nav-item-left">🎨 Artifact & Image Lifecycle</span>
+          <span class="nav-badge">2 luồng</span>
+        </a>
+        <a href="#sec-queue-worker" class="nav-item" data-target="sec-queue-worker">
+          <span class="nav-item-left">⚙️ Queue & Worker Machine</span>
+          <span class="nav-badge">Fail-closed</span>
+        </a>
+        <a href="#sec-mongodb" class="nav-item" data-target="sec-mongodb">
+          <span class="nav-item-left">🍃 MongoDB & Migrations</span>
+          <span class="nav-badge">11 cols / 23</span>
+        </a>
+        <a href="#sec-security" class="nav-item" data-target="sec-security">
+          <span class="nav-item-left">🛡️ Bản Đồ 16 Security Gates</span>
+          <span class="nav-badge">16 gates</span>
+        </a>
+        <a href="#sec-simulations" class="nav-item" data-target="sec-simulations">
+          <span class="nav-item-left">🎮 Mô Phỏng Lỗi & Sự Cố</span>
+          <span class="nav-badge">11 kịch bản</span>
+        </a>
+        <a href="#sec-troubleshooting" class="nav-item" data-target="sec-troubleshooting">
+          <span class="nav-item-left">🔍 Bản Đồ Xử Lý Sự Cố</span>
+          <span class="nav-badge">18 lỗi</span>
+        </a>
+        <a href="#sec-deployment" class="nav-item" data-target="sec-deployment">
+          <span class="nav-item-left">🚀 Trạng Thái Triển Khai</span>
+          <span class="nav-badge">Verified</span>
+        </a>
+        <a href="#sec-roadmap" class="nav-item" data-target="sec-roadmap">
+          <span class="nav-item-left">🧭 HUIT Decision Engine</span>
+          <span class="nav-badge">PLANNED — R&amp;D</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main id="main-content" role="main">
+
+      <!-- SECTION 1: OVERVIEW -->
+      <section id="sec-overview" class="section-block">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">🏛️ Tổng Quan Kiến Trúc Hệ Thống HUIT Chatbot</h1>
+            <p class="section-subtitle">Hệ thống trợ lý tuyển sinh thông minh, luồng phản hồi thời gian thực NDJSON v2, dựng tài nguyên đa phương tiện theo yêu cầu và quản trị bảo mật phân tầng.</p>
+          </div>
+          <div>
+            <span class="badge badge-verified">Branch: main (3f33883)</span>
+          </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">🎯 Triết Lý "Mô Tả Nhẹ – Dựng Khi Cần"</div>
+            <p style="color:var(--text-muted); font-size:13px; margin-bottom:12px;">
+              Phản hồi văn bản tức thì (&lt;2ms cache hit). Artifact Manifest siêu nhẹ (&lt;32KB, tuyệt đối không nhúng Base64). Xem trước vector SVG cực nhẹ (&lt;4KB, &lt;15ms). Chỉ render file nặng (Excel, Word, PDF, Upscale) khi người dùng chủ động tải về.
+            </p>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <span class="badge badge-tag">Ultralight JSON</span>
+              <span class="badge badge-tag">SVG Vector Preview</span>
+              <span class="badge badge-tag">Durable Queue</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">🔒 Phân Tách Blob & Quyền Sở Hữu</div>
+            <p style="color:var(--text-muted); font-size:13px; margin-bottom:12px;">
+              Tách bạch <code>MongoAssetRecord</code> (Physical Blob nhị phân toàn cục) và <code>MongoArtifactRecord</code> (Logical Ownership theo session). Người dùng B tái sử dụng blob trùng lặp từ Người dùng A nhưng không bao giờ rò rỉ metadata hay manifest riêng tư.
+            </p>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <span class="badge badge-tag">Deduplication Hash</span>
+              <span class="badge badge-tag">Private Isolation</span>
+              <span class="badge badge-tag">asyncio.Lock</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">🛡️ Rào Chắn JSON Schema Fail-Closed</div>
+            <p style="color:var(--text-muted); font-size:13px; margin-bottom:12px;">
+              34 Canonical JSON Schemas Draft 2020-12 là nguồn chân lý duy nhất. Kiểm soát toàn bộ ranh giới: Request, Response, NDJSON Stream v2, Background Queue và MongoDB Collection Validators. Mọi vi phạm đều bị từ chối ngay lập tức trước khi chạm tới state.
+            </p>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <span class="badge badge-tag">Draft 2020-12</span>
+              <span class="badge badge-tag">Fail-Closed Gate</span>
+              <span class="badge badge-tag">0 Schema Drift</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive End-to-End System Node Graph -->
+        <div class="graph-container">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3 style="font-size:15px; font-weight:700; color:var(--text-main); display:flex; align-items:center; gap:8px;">
+              🌐 Sơ Đồ Kiến Trúc Khối Đầu Cuối (Click vào từng node để xem chi tiết kỹ thuật)
+            </h3>
+            <span style="font-size:12px; color:var(--text-muted);">15 Thành phần kiến trúc đã xác minh</span>
+          </div>
+
+          <svg class="system-svg" viewBox="0 0 1150 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1f6feb"/>
+                <stop offset="100%" stop-color="#1158c7"/>
+              </linearGradient>
+              <linearGradient id="g-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00b4d8"/>
+                <stop offset="100%" stop-color="#0077b6"/>
+              </linearGradient>
+              <linearGradient id="g-purple" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8a2be2"/>
+                <stop offset="100%" stop-color="#6a0dad"/>
+              </linearGradient>
+              <linearGradient id="g-green" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#238636"/>
+                <stop offset="100%" stop-color="#196c2e"/>
+              </linearGradient>
+              <linearGradient id="g-orange" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f0883e"/>
+                <stop offset="100%" stop-color="#c9651a"/>
+              </linearGradient>
+              <linearGradient id="g-red" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#da3633"/>
+                <stop offset="100%" stop-color="#a82421"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Connectors (Paths) -->
+            <g stroke="#30363d" stroke-width="2" stroke-dasharray="4 4">
+              <!-- UI Row -->
+              <path d="M120 70 L170 70" />
+              <path d="M310 70 L360 70" />
+              <path d="M500 70 L550 70" />
+              <path d="M690 70 L740 70" />
+              <path d="M880 70 L930 70" />
+              
+              <!-- Cross row: Transport down to FastAPI -->
+              <path d="M1000 100 L1000 170" />
+              <path d="M930 200 L880 200" />
+              <path d="M740 200 L690 200" />
+              <path d="M550 200 L500 200" />
+              <path d="M360 200 L310 200" />
+              
+              <!-- Cross row: LTX Gateway down to Data/Queue -->
+              <path d="M235 230 L235 300" />
+              <path d="M310 330 L360 330" />
+              <path d="M500 330 L550 330" />
+              <path d="M690 330 L740 330" />
+              
+              <!-- Return loop: Streamer to UI -->
+              <path d="M810 300 L810 230 L810 100" stroke="#39c5cf" stroke-width="2" />
+            </g>
+
+            <!-- Row 1: Frontend Layer -->
+            <g class="svg-node" data-node="client" transform="translate(20, 40)">
+              <rect width="100" height="60" rx="8" fill="#161b22" stroke="#39c5cf" stroke-width="2"/>
+              <text x="50" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Client User</text>
+              <text x="50" y="46" text-anchor="middle" fill="#8b949e" font-size="10">Web Browser</text>
+            </g>
+
+            <g class="svg-node" data-node="ui" transform="translate(170, 40)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#39c5cf" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">React UI (App)</text>
+              <text x="70" y="46" text-anchor="middle" fill="#8b949e" font-size="10">Chat · Artifact · Lightbox</text>
+            </g>
+
+            <g class="svg-node" data-node="facade" transform="translate(360, 40)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Public Hook Facade</text>
+              <text x="70" y="46" text-anchor="middle" fill="#bc8cff" font-size="10">frontend/hooks/* (17)</text>
+            </g>
+
+            <g class="svg-node" data-node="hook" transform="translate(550, 40)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Feature Hooks</text>
+              <text x="70" y="46" text-anchor="middle" fill="#8b949e" font-size="10">useChatStream · Export</text>
+            </g>
+
+            <g class="svg-node" data-node="api_client" transform="translate(740, 40)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#39c5cf" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Feature API Client</text>
+              <text x="70" y="46" text-anchor="middle" fill="#8b949e" font-size="10">chatApi · artifactApi</text>
+            </g>
+
+            <g class="svg-node" data-node="transport" transform="translate(930, 40)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">HTTPS Transport</text>
+              <text x="70" y="46" text-anchor="middle" fill="#8b949e" font-size="10">Vercel Proxy /api/*</text>
+            </g>
+
+            <!-- Row 2: Backend Core & Security -->
+            <g class="svg-node" data-node="fastapi" transform="translate(930, 170)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">FastAPI Core</text>
+              <text x="70" y="46" text-anchor="middle" fill="#8b949e" font-size="10">main.py (55 routes)</text>
+            </g>
+
+            <g class="svg-node" data-node="auth_gate" transform="translate(740, 170)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#f85149" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Security Gates</text>
+              <text x="70" y="46" text-anchor="middle" fill="#f85149" font-size="10">Session · CSRF · Rate</text>
+            </g>
+
+            <g class="svg-node" data-node="schema_gate" transform="translate(550, 170)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#f0883e" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Schema Boundary</text>
+              <text x="70" y="46" text-anchor="middle" fill="#f0883e" font-size="10">34 Canonical Schemas</text>
+            </g>
+
+            <g class="svg-node" data-node="services" transform="translate(360, 170)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Service Layer</text>
+              <text x="70" y="46" text-anchor="middle" fill="#8b949e" font-size="10">Artifact · RAG · Image</text>
+            </g>
+
+            <g class="svg-node" data-node="ltx_gateway" transform="translate(170, 170)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">LTX Gateway</text>
+              <text x="70" y="46" text-anchor="middle" fill="#3fb950" font-size="10">Policy · Budget · Audit</text>
+            </g>
+
+            <!-- Row 3: Data, Queue, Worker, Streamer -->
+            <g class="svg-node" data-node="data_access" transform="translate(170, 300)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">MongoDB Atlas</text>
+              <text x="70" y="46" text-anchor="middle" fill="#3fb950" font-size="10">11 Collections Strict</text>
+            </g>
+
+            <g class="svg-node" data-node="queue" transform="translate(360, 300)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#fa7a55" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Durable Job Queue</text>
+              <text x="70" y="46" text-anchor="middle" fill="#fa7a55" font-size="10">Fail-Closed Lease</text>
+            </g>
+
+            <g class="svg-node" data-node="worker" transform="translate(550, 300)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Artifact Worker</text>
+              <text x="70" y="46" text-anchor="middle" fill="#d2a8ff" font-size="10">Render · Upscale (30s)</text>
+            </g>
+
+            <g class="svg-node" data-node="streamer" transform="translate(740, 300)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#39c5cf" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">NDJSON Streamer</text>
+              <text x="70" y="46" text-anchor="middle" fill="#39c5cf" font-size="10">v2.0 Protocol (Seq 1..n)</text>
+            </g>
+
+            <g class="svg-node" data-node="storage" transform="translate(930, 300)">
+              <rect width="140" height="60" rx="8" fill="#161b22" stroke="#56d4dd" stroke-width="2"/>
+              <text x="70" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Storage Adapter</text>
+              <text x="70" y="46" text-anchor="middle" fill="#56d4dd" font-size="10">Local Volume / S3-R2</text>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <!-- SECTION 2: TECHNOLOGIES -->
+      <section id="sec-tech" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">⚡ Công Nghệ Đang Sử Dụng (Verified Stack)</h2>
+            <p class="section-subtitle">Toàn bộ 32 công nghệ và thư viện đã được xác minh trực tiếp từ mã nguồn thực tế (Không suy đoán từ README).</p>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <button class="filter-pill active" data-tech-filter="all">Tất cả (32)</button>
+          <button class="filter-pill" data-tech-filter="Frontend">Frontend (9)</button>
+          <button class="filter-pill" data-tech-filter="Backend">Backend (8)</button>
+          <button class="filter-pill" data-tech-filter="Data & Storage">Data & Storage (4)</button>
+          <button class="filter-pill" data-tech-filter="Artifact">Artifacts & Engines (6)</button>
+          <button class="filter-pill" data-tech-filter="DevOps">DevOps & Infra (5)</button>
+          <input type="text" id="tech-search" class="search-box" placeholder="Tìm công nghệ..." style="margin-left:auto;">
+        </div>
+
+        <div class="table-responsive">
+          <table id="tech-table">
+            <thead>
+              <tr>
+                <th>Công Nghệ</th>
+                <th>Phân Loại</th>
+                <th>Vai Trò Trong Hệ Thống</th>
+                <th>Tập Tin Xác Minh</th>
+                <th>Phiên Bản / Runtime</th>
+                <th>Trạng Thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Injected by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 3: DIRECTORY ARCHITECTURE -->
+      <section id="sec-directory" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">📁 Kiến Trúc Thư Mục Hệ Thống (Interactive Explorer)</h2>
+            <p class="section-subtitle">Khám phá cấu trúc thư mục thực tế của dự án. Nhấn vào từng file để xem trách nhiệm, input/output và hợp đồng liên quan.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+          <!-- Directory Tree Left -->
+          <div class="card" style="max-height: 550px; overflow-y: auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-weight:600; font-size:13px; color:var(--text-main);">Cây thư mục codebase</span>
+              <input type="text" id="tree-search" class="search-box" placeholder="Lọc file/folder..." style="font-size:11px; padding:4px 8px; min-width:160px;">
+            </div>
+            <div id="tree-root" style="font-family:var(--font-mono); font-size:12px; line-height:1.8;">
+              <!-- Injected by JavaScript -->
+            </div>
+          </div>
+
+          <!-- File Inspector Right -->
+          <div class="card" id="file-inspector-panel">
+            <div class="card-title">📄 Thông Tin Tệp Tin Chi Tiết</div>
+            <p style="color:var(--text-muted); font-size:13px; margin-bottom:16px;">Chọn một tệp tin bất kỳ ở cây thư mục bên trái để xem đặc tả chi tiết.</p>
+            <div id="file-inspector-content">
+              <div style="text-align:center; padding:40px 20px; color:var(--text-dim);">
+                <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin:0 auto 12px; display:block;"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M13 2v7h7"/></svg>
+                Chưa chọn tệp tin nào.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: JSON SCHEMA CORE -->
+      <section id="sec-schema" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">📋 JSON Schema Core (Contract Gateway)</h2>
+            <p class="section-subtitle">Hệ thống 34 Canonical JSON Schemas Draft 2020-12 đóng vai trò rào chắn hợp đồng tối thượng (Single Source of Truth).</p>
+          </div>
+        </div>
+
+        <!-- 6 Artifacts conceptual card -->
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+          <div class="card">
+            <div class="card-title" style="color:var(--c-schema);">1. Canonical JSON Schema</div>
+            <p style="font-size:12px; color:var(--text-muted);">Nguồn chân lý duy nhất đặt tại <code>backend/json_schemas/</code>. Quản lý ID, version và SHA-256 trong <code>registry.json</code>.</p>
+          </div>
+          <div class="card">
+            <div class="card-title" style="color:var(--c-frontend);">2. Generated Frontend Copy</div>
+            <p style="font-size:12px; color:var(--text-muted);">Bản sao đồng bộ tự động tại <code>frontend/src/shared/contracts/schemas/</code>. Không sửa thủ công, kiểm tra bằng cờ <code>--check</code>.</p>
+          </div>
+          <div class="card">
+            <div class="card-title" style="color:var(--c-backend);">3. Pydantic Runtime Model</div>
+            <p style="font-size:12px; color:var(--text-muted);">Mô hình Python tại <code>backend/app/api/schemas/</code> serialize và validate request/response khớp canonical schema 100%.</p>
+          </div>
+          <div class="card">
+            <div class="card-title" style="color:var(--c-hook);">4. TypeScript Contract</div>
+            <p style="font-size:12px; color:var(--text-muted);">Kiểu tĩnh tại <code>frontend/src/shared/contracts/index.ts</code> cùng hàm runtime assertion ném lỗi <code>CONTRACT_VIOLATION</code>.</p>
+          </div>
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">5. MongoDB Registry Backup</div>
+            <p style="font-size:12px; color:var(--text-muted);">Bản sao lưu registry vào collection <code>schema_registry</code> (Migration 022) phục vụ audit/versioning; không phải nguồn schema chính.</p>
+          </div>
+          <div class="card">
+            <div class="card-title" style="color:var(--c-security);">6. MongoDB Collection Validator</div>
+            <p style="font-size:12px; color:var(--text-muted);">Bộ luật <code>$jsonSchema</code> gắn tại cấp collection MongoDB (Migration 023) chặn dữ liệu bẩn tại database ở mức strict.</p>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <button class="filter-pill active" data-schema-filter="all">Tất cả (34)</button>
+          <button class="filter-pill" data-schema-filter="api">API Endpoints (16)</button>
+          <button class="filter-pill" data-schema-filter="stream">NDJSON Stream (2)</button>
+          <button class="filter-pill" data-schema-filter="queue">Queue Tasks (5)</button>
+          <button class="filter-pill" data-schema-filter="mongodb">MongoDB Collections (11)</button>
+          <button class="filter-pill" data-schema-filter="frontend">Đồng bộ Frontend (18)</button>
+          <input type="text" id="schema-search" class="search-box" placeholder="Tìm schema ID..." style="margin-left:auto;">
+        </div>
+
+        <div class="table-responsive">
+          <table id="schema-table">
+            <thead>
+              <tr>
+                <th>Schema ID</th>
+                <th>Phiên Bản</th>
+                <th>Phân Loại</th>
+                <th>Tập Tin Canonical</th>
+                <th>Frontend</th>
+                <th>Trạng Thái</th>
+                <th>Mô Tả & Người Dùng</th>
+                <th>SHA-256 Checksum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Injected by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 5: PUBLIC HOOK FACADE -->
+      <section id="sec-facade" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🔌 Public Hook Facade (`frontend/hooks/`)</h2>
+            <p class="section-subtitle">Kiến trúc bề mặt công khai cấp cao nhất, ngăn chặn phụ thuộc chéo và bảo toàn tính đơn hướng của luồng dữ liệu.</p>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">🏛️ Vì sao đặt `frontend/hooks` ngoài `src`?</div>
+            <ul style="color:var(--text-muted); font-size:13px; line-height:1.7; padding-left:20px;">
+              <li><strong>Top-level Public Surface</strong>: Mở thư mục frontend là thấy ngay <code>hooks/</code> đại diện cho toàn bộ năng lực của hệ thống.</li>
+              <li><strong>Ranh giới vật lý tuyệt đối</strong>: Đặt ngoài <code>src</code> ngăn chặn lập trình viên tùy tiện import file nội bộ của feature khác; người ngoài chỉ được dùng qua alias <code>@hooks</code>.</li>
+              <li><strong>Thuần túy Facade</strong>: Tuyệt đối không chứa fetch, API client, logic nghiệp vụ, hay state cục bộ.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-title">➡️ Luồng Phụ Thuộc Một Chiều Chuẩn Mực</div>
+            <div style="font-family:var(--font-mono); font-size:12px; background:var(--bg-card); padding:12px; border-radius:6px; border:1px solid var(--border-color); color:var(--text-main); margin-bottom:10px;">
+              Canonical Schema<br>
+              &nbsp;&nbsp;↳ Shared Contract (jsonSchema.ts)<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;↳ Feature API (chatApi, artifactApi)<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ Feature Hook (useChatStream, useArtifactExport)<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ Public Hook Facade (frontend/hooks/*)<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ App / UI Components
+            </div>
+          </div>
+
+          <div class="card" style="border-color:var(--c-security);">
+            <div class="card-title" style="color:var(--c-security);">❌ Các Luồng Sai Bị Nghiêm Cấm Tuyệt Đối</div>
+            <ul style="color:var(--text-muted); font-size:12px; line-height:1.7; padding-left:20px;">
+              <li><strong style="color:var(--c-security);">Shared → Feature</strong>: Module dùng chung cấm phụ thuộc vào feature riêng.</li>
+              <li><strong style="color:var(--c-security);">Feature → Facade</strong>: Feature nội bộ cấm gọi ngược ra ngoài facade.</li>
+              <li><strong style="color:var(--c-security);">Hook → fetch trực tiếp</strong>: Hook cấm tự ý fetch mà phải qua Feature API Client.</li>
+              <li><strong style="color:var(--c-security);">Component → MongoDB</strong>: Client không bao giờ gọi trực tiếp database.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Public Hook</th>
+                <th>Tập Tin Facade</th>
+                <th>Tập Tin Triển Khai Thật</th>
+                <th>Feature Domain</th>
+                <th>API Client Tương Ứng</th>
+                <th>Hợp Đồng Schema / Model</th>
+                <th>Trạng Thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Injected by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 6: CHAT & NDJSON STREAM V2 -->
+      <section id="sec-chat-stream" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">💬 Chat và Luồng Dữ Liệu NDJSON v2 (Interactive Simulator)</h2>
+            <p class="section-subtitle">Mô phỏng 20 bước tuần tự từ khi khởi tạo phiên làm việc đến khi hiển thị kết quả và lưu trữ lịch sử an toàn.</p>
+          </div>
+        </div>
+
+        <div class="sim-widget">
+          <div class="sim-controls">
+            <div class="btn-group">
+              <button id="sim-btn-start" class="btn btn-primary">▶ Bắt Đầu</button>
+              <button id="sim-btn-next" class="btn">⏭ Bước Tiếp Theo</button>
+              <button id="sim-btn-auto" class="btn">⚡ Tự Động Chạy</button>
+              <button id="sim-btn-pause" class="btn">⏸ Tạm Dừng</button>
+              <button id="sim-btn-reset" class="btn">↺ Đặt Lại</button>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:12px; color:var(--text-muted);">Tốc độ:</span>
+              <button class="filter-pill active" data-speed="1000">1x</button>
+              <button class="filter-pill" data-speed="500">2x</button>
+              <button class="filter-pill" data-speed="2000">0.5x</button>
+              <span id="sim-step-badge" class="badge badge-verified" style="font-size:12px; padding:4px 10px;">Bước: 0 / 20</span>
+            </div>
+          </div>
+
+          <!-- Step Display Box -->
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
+            <div class="card" id="sim-step-card" style="margin-bottom:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span id="sim-step-num" style="font-weight:700; color:var(--c-backend); font-size:14px;">Chưa bắt đầu mô phỏng</span>
+                <span id="sim-step-node" class="badge badge-tag">IDLE</span>
+              </div>
+              <h3 id="sim-step-title" style="font-size:16px; font-weight:700; margin-bottom:6px;">Nhấn "Bắt Đầu" hoặc "Bước Tiếp Theo"</h3>
+              <p id="sim-step-desc" style="color:var(--text-muted); font-size:13px; margin-bottom:12px;">Quá trình mô phỏng sẽ minh họa chi tiết từng gói tin, mã lệnh và điểm chốt hợp đồng.</p>
+              <div style="display:flex; gap:8px; font-size:12px;">
+                <span class="code-path" id="sim-step-schema">Schema: N/A</span>
+              </div>
+            </div>
+
+            <div class="card" style="margin-bottom:0;">
+              <div class="card-title" style="font-size:13px;">📦 Gói Tin Dữ Liệu Dây (Wire JSON Payload)</div>
+              <pre id="sim-wire-payload" style="background:var(--bg-base); padding:10px; border-radius:6px; font-family:var(--font-mono); font-size:11px; color:#c9d1d9; max-height:130px; overflow-y:auto;">{}</pre>
+            </div>
+          </div>
+
+          <!-- Live Log Console -->
+          <div class="terminal-window">
+            <div class="terminal-header">
+              <span>CONSOLE NHẬT KÝ SỰ KIỆN HỆ THỐNG (LIVE EVENT LOG)</span>
+              <button id="btn-clear-log" style="background:transparent; border:none; color:#8b949e; cursor:pointer; font-size:11px;">[Xóa nhật ký]</button>
+            </div>
+            <div class="terminal-body" id="sim-log-body">
+              <div class="log-line"><span class="log-time">[00:00:00]</span> <span class="log-tag INFO">[READY]</span> Sẵn sàng chạy mô phỏng luồng NDJSON v2.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7: ARTIFACT & IMAGE -->
+      <section id="sec-artifact-image" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🎨 Vòng Đời Artifact & Sinh Ảnh (Ultralight Flow)</h2>
+            <p class="section-subtitle">Minh họa hai luồng tách bạch: Kế hoạch biểu đồ/tài liệu và xử lý tạo ảnh có khử trùng lặp (Deduplication).</p>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title" style="color:var(--c-backend);">📄 1. Luồng Vòng Đời Artifact (Excel, Word, PDF)</div>
+            <ol style="color:var(--text-muted); font-size:13px; line-height:1.8; padding-left:20px;">
+              <li><strong>Phát hiện ý định</strong>: Nhận diện yêu cầu học phí/điểm chuẩn qua <code>artifact_intent.py</code>.</li>
+              <li><strong>Ultralight Plan</strong>: <code>POST /api/artifacts/plan</code> tạo manifest JSON nhẹ &lt; 32KB.</li>
+              <li><strong>Xem trước tức thì</strong>: <code>GET /api/artifacts/{id}/preview</code> trả về vector SVG &lt; 4KB trong &lt; 15ms.</li>
+              <li><strong>Yêu cầu xuất file nặng</strong>: <code>POST /api/artifacts/{id}/export</code> trả về <strong>HTTP 202 Job Accepted</strong>.</li>
+              <li><strong>Background Worker</strong>: Nhận job từ MongoDB Lease Queue, gọi Engine OpenPyXL/Docx/PDF.</li>
+              <li><strong>Lưu trữ an toàn</strong>: File nhị phân chuyển vào <code>StorageAdapter</code>; MongoDB lưu metadata.</li>
+              <li><strong>Tải file bảo vệ</strong>: Trình duyệt nhận Signed URL có HMAC hash tải an toàn.</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-schema);">🖼️ 2. Luồng Sinh Ảnh & Upscale Có Deduplication</div>
+            <ol style="color:var(--text-muted); font-size:13px; line-height:1.8; padding-left:20px;">
+              <li><strong>Yêu cầu tạo ảnh</strong>: Kiểm tra contract schema <code>huit.api.image-create-request</code>.</li>
+              <li><strong>Băm Canonical Hash</strong>: Tính SHA-256 từ <code>(prompt, style, model, dimensions)</code>.</li>
+              <li><strong>Khóa chống trùng</strong>: Khóa <code>asyncio.Lock</code> theo hash ngăn chặn 2 user sinh cùng lúc.</li>
+              <li><strong>Kiểm tra bộ đệm</strong>: Nếu hash đã tồn tại trong collection <code>assets</code>, tái sử dụng tức thì.</li>
+              <li><strong>Gọi mô hình</strong>: Chỉ gọi mô hình tạo ảnh khi chưa có trong kho lưu trữ.</li>
+              <li><strong>Sinh Thumbnail nhẹ</strong>: Tạo ảnh preview 256px cho client tải nhanh; ảnh gốc lưu StorageAdapter.</li>
+              <li><strong>Ghi nhận sở hữu</strong>: Lưu bản ghi vào <code>generated_images</code> gán với phiên người dùng.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 8: QUEUE & WORKER -->
+      <section id="sec-queue-worker" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">⚙️ Quản Lý Tác Vụ Nền & Worker (Fail-Closed Queue)</h2>
+            <p class="section-subtitle">Kiến trúc hàng đợi bền vững dựa trên MongoDB Lease Queue với cơ chế thẩm định hợp đồng chặt chẽ trước mọi thay đổi trạng thái.</p>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">🔄 Máy Trạng Thái (State Transitions)</div>
+            <div style="font-family:var(--font-mono); font-size:12px; background:var(--bg-card); padding:12px; border-radius:6px; border:1px solid var(--border-color); color:var(--text-main); line-height:1.7;">
+              [queued] ──(claim_next_job)──► [processing]<br>
+              &nbsp;&nbsp;│<br>
+              &nbsp;&nbsp;├──(validate_job_result OK)────► [completed] (Bắt buộc có url)<br>
+              &nbsp;&nbsp;├──(validate_retry_metadata)──► [queued] (Thử lại max 3 lần)<br>
+              &nbsp;&nbsp;├──(validate_job_error)────────► [failed] (Lỗi đã khử khuẩn)<br>
+              &nbsp;&nbsp;└──(cancel_job)────────────────► [cancelled]
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">🛡️ Quy Tắc Thẩm Định Fail-Closed</div>
+            <ul style="color:var(--text-muted); font-size:13px; line-height:1.7; padding-left:20px;">
+              <li><strong>Validate trước khi Mutate</strong>: Tuyệt đối không thay đổi RAM <code>_jobs</code> hay gọi MongoDB update nếu schema lỗi.</li>
+              <li><strong>Worker Result bắt buộc</strong>: Task trả về <code>None</code>, <code>{}</code>, thiếu <code>url</code>, hoặc chứa trường lạ đều bị từ chối chuyển sang <code>completed</code>.</li>
+              <li><strong>Khử khuẩn mã lỗi</strong>: Không lưu raw traceback hay secrets vào database; fallback về error canonical schema.</li>
+              <li><strong>Khắc phục Job kẹt</strong>: Lease timeout 180s với heartbeat 30s. Nếu worker chết, lease tự động nhả.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 9: MONGODB & MIGRATIONS -->
+      <section id="sec-mongodb" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🍃 MongoDB Collections & Quy Trình Di Chuyển (Migrations)</h2>
+            <p class="section-subtitle">Đặc tả 11 Collections chính và quy trình kiểm thử di chuyển an toàn với Migration 023 (Mặc định Dry-run).</p>
+          </div>
+        </div>
+
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));">
+          <!-- 11 Collections -->
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 1. assets</div>
+            <p style="font-size:12px; color:var(--text-muted);">Lưu trữ physical binary blob metadata toàn cục, canonical hash chống sinh trùng, content_hash unique index, reference counting.</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.asset-record@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 2. artifacts</div>
+            <p style="font-size:12px; color:var(--text-muted);">Lưu trữ quyền sở hữu logic theo phiên (owner_id) và manifest siêu nhẹ. Tách rời hoàn toàn với assets để bảo vệ quyền riêng tư.</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.artifact-record@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 3. jobs</div>
+            <p style="font-size:12px; color:var(--text-muted);">Hàng đợi tác vụ nền bền vững, atomic claim lease, heartbeat, attempt, progress, result_url, error object.</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.job-record@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 4. generated_images</div>
+            <p style="font-size:12px; color:var(--text-muted);">Lưu trữ metadata ảnh sinh bởi AI, tham chiếu asset_id, prompt hash, kích thước width/height, model và style.</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.generated-image-record@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 5. admin_sessions</div>
+            <p style="font-size:12px; color:var(--text-muted);">Quản lý phiên quản trị viên phân lập cao độ, TTL index tự động hết hạn, quyền role='admin', chống tấn công chiếm đoạt.</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.admin-session-document@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 6. query_cache</div>
+            <p style="font-size:12px; color:var(--text-muted);">Bộ nhớ đệm câu hỏi và câu trả lời RAG thường gặp, TTL tự động hết hạn, giúp tăng tốc phản hồi xuống &lt; 2ms.</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.query-cache-record@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 7. rag_events</div>
+            <p style="font-size:12px; color:var(--text-muted);">Nhật ký kiểm toán sự kiện RAG, lưu vết nguồn trích dẫn, vector distance, thời gian phản hồi (TTFT).</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.rag-event-record@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 8. admission_visuals</div>
+            <p style="font-size:12px; color:var(--text-muted);">Dữ liệu biểu đồ, sơ đồ tuyển sinh vector được chuẩn hóa (loại bỏ hoàn toàn Base64 cũ ở Migration 016).</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.admission-visual-record@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 9. huit_kb</div>
+            <p style="font-size:12px; color:var(--text-muted);">Cơ sở tri thức tuyển sinh HUIT gồm các đoạn văn bản kèm vector nhúng 1024D phục vụ Hybrid RAG retrieval.</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.huit-kb-record@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 10. schema_registry</div>
+            <p style="font-size:12px; color:var(--text-muted);">Bản sao lưu kiểm toán JSON Schema Registry trong database (Migration 022) có unique index (schema_id, version).</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Schema: huit.mongo.schema-registry-record@1.0.0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">📁 11. operation_audit</div>
+            <p style="font-size:12px; color:var(--text-muted);">Nhật ký kiểm soát các truy vấn LTX Gateway, ghi nhận thời gian, budget đã dùng, principal và kết quả.</p>
+            <div style="margin-top:8px; font-size:11px; font-family:var(--font-mono); color:var(--c-backend);">Audit Collection</div>
+          </div>
+        </div>
+
+        <!-- Migration 023 Workflow -->
+        <div class="card" style="margin-top:20px;">
+          <div class="card-title">🛡️ Quy Trình Di Chuyển An Toàn Migration 023 (Safe Dry-Run Engine)</div>
+          <div style="font-family:var(--font-mono); font-size:12px; background:var(--bg-card); padding:14px; border-radius:6px; border:1px solid var(--border-color); color:var(--text-main); line-height:1.8;">
+            Canonical Mongo Schema<br>
+            &nbsp;&nbsp;↳ <strong>Mặc định Dry-Run (is_dry_run = not args.apply)</strong>: Không gửi collMod nếu không có --apply<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;↳ <strong>Preflight Inspection</strong>: Đếm tổng số docs, số docs hợp lệ, tỷ lệ tuân thủ (%)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ <strong>Quyết định cấp độ Strict</strong>: Nếu tỷ lệ = 100% ➔ Strict; nếu &lt; 100% ➔ Tự động fallback Moderate để tránh gián đoạn<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ <strong>Lưu Rollback Metadata</strong>: Lưu trạng thái validator cũ trước khi thay đổi<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ <strong>Rào chắn Production</strong>: Bắt buộc cờ ALLOW_PRODUCTION_MIGRATION_023=true mới được ghi trên Production<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ ⚠️ <em>Lưu ý hiện trạng: Migration 023 chỉ mới được xác minh qua preflight/dry-run test; hiện chưa có bằng chứng áp dụng thực tế trên cụm MongoDB Atlas production live.</em>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 10: SECURITY GATES -->
+      <section id="sec-security" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🛡️ Bản Đồ 16 Security Gates (Defense in Depth)</h2>
+            <p class="section-subtitle">Kiến trúc phòng thủ đa tầng từ biên mạng truyền dẫn đến cơ sở dữ liệu và lưu trữ nhị phân.</p>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Gate ID</th>
+                <th>Tên Rào Chắn</th>
+                <th>Tập Tin Xử Lý</th>
+                <th>Dữ Liệu Đầu Vào</th>
+                <th>Điều Kiện Cho Phép (Pass)</th>
+                <th>Điều Kiện Chặn Lại (Deny)</th>
+                <th>Mã Lỗi Trả Về</th>
+                <th>Tầng Xử Lý</th>
+              </tr>
+            </thead>
+            <tbody id="security-table-body">
+              <!-- Injected by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 11: SIMULATIONS & FAULT INJECTION -->
+      <section id="sec-simulations" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🎮 Trình Mô Phỏng Sự Cố & Tiêm Lỗi (Fault Injection)</h2>
+            <p class="section-subtitle">Kích hoạt các tình huống sự cố thực tế để quan sát hành vi phòng thủ, điểm dừng và cơ chế fallback của hệ thống.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <div style="font-size:13px; font-weight:600; margin-bottom:12px; color:var(--text-main);">Chọn tình huống sự cố để mô phỏng:</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;" id="error-scenario-buttons">
+            <!-- Buttons injected by JavaScript -->
+          </div>
+        </div>
+
+        <div class="card" id="error-inspection-card" style="display:none; border-color:var(--c-security);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="badge badge-error" id="err-card-status">HTTP 500</span>
+              <span class="code-path" id="err-card-code">ERROR_CODE</span>
+            </div>
+            <span class="badge badge-tag" id="err-card-gate">Gate: G00</span>
+          </div>
+          <h3 id="err-card-title" style="font-size:16px; font-weight:700; color:var(--c-security); margin-bottom:6px;">Tên sự cố</h3>
+          <p id="err-card-diag" style="color:var(--text-main); font-size:13px; margin-bottom:12px;">Nguyên nhân và cơ chế kích hoạt lỗi.</p>
+          <div style="background:var(--bg-card); padding:12px; border-radius:6px; font-size:12px; line-height:1.7;">
+            <div><strong>Tập tin cần kiểm tra:</strong> <code class="code-path" id="err-card-file">file/path.py</code></div>
+            <div><strong>Cơ chế Fallback thực tế:</strong> <span id="err-card-fallback" style="color:var(--c-mongo);">Hệ thống xử lý an toàn ra sao</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 12: TROUBLESHOOTING MAP -->
+      <section id="sec-troubleshooting" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🔍 Bản Đồ Xử Lý Sự Cố (Troubleshooting Matrix)</h2>
+            <p class="section-subtitle">18 Hiện tượng lỗi điển hình, tầng phát sinh, tập tin cần kiểm tra và quy trình chẩn đoán khắc phục.</p>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <input type="text" id="trouble-search" class="search-box" placeholder="Tìm kiếm hiện tượng hoặc mã lỗi..." style="min-width:320px;">
+        </div>
+
+        <div class="table-responsive">
+          <table id="trouble-table">
+            <thead>
+              <tr>
+                <th>Hiện Tượng Sự Cố</th>
+                <th>Tầng Có Thể Lỗi</th>
+                <th>Tập Tin Cần Kiểm Tra</th>
+                <th>Dấu Vết Log / Kiểm Thử</th>
+                <th>Hướng Chẩn Đoán & Khắc Phục</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Injected by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 13: DEPLOYMENT STATUS -->
+      <section id="sec-deployment" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🚀 Trạng Thái Triển Khai & Kiểm Thử Toàn Diện</h2>
+            <p class="section-subtitle">Bảng tổng kết trạng thái thực tế dựa trên kết quả kiểm thử và phân tích tĩnh mới nhất.</p>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title" style="color:var(--c-frontend);">💻 Frontend Application</div>
+            <ul style="color:var(--text-muted); font-size:13px; line-height:1.8; list-style:none;">
+              <li>✅ <strong>Vitest Suite</strong>: 126/126 passed (16 files)</li>
+              <li>✅ <strong>Static Linter</strong>: Oxlint 0 errors, 0 warnings (100 files)</li>
+              <li>✅ <strong>Production Build</strong>: Vite bundle 483kB JS, 47kB CSS in 371ms</li>
+              <li>✅ <strong>Public Facade</strong>: 17 public hooks re-exported from @hooks</li>
+              <li>✅ <strong>Runtime Schema</strong>: parseApiErrorResponse, anyOf/oneOf sibling verified</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-backend);">🖥️ Backend Application</div>
+            <ul style="color:var(--text-muted); font-size:13px; line-height:1.8; list-style:none;">
+              <li>✅ <strong>Pytest Suite</strong>: 344/344 passed (0 failed, 100% offline)</li>
+              <li>✅ <strong>Contract Registry</strong>: 39 registry depth tests passed</li>
+              <li>✅ <strong>Queue Fail-Closed</strong>: 17 negative & transition tests passed</li>
+              <li>✅ <strong>Migration 023 Tests</strong>: 9 dry-run & preflight tests passed</li>
+              <li>✅ <strong>Secret Scan Quality Gate</strong>: 5 unit tests passed; scan 0 real leaks (GO)</li>
+              <li>⚠️ <strong>Worker No-op Claim</strong>: Đã qua unit test; chưa được xác minh sau deploy trên production live</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-schema);">📋 Schema Contracts & Database</div>
+            <ul style="color:var(--text-muted); font-size:13px; line-height:1.8; list-style:none;">
+              <li>✅ <strong>Contract Registry</strong>: 36 Canonical Schemas registered</li>
+              <li>✅ <strong>Frontend Sync</strong>: 18 generated schemas in sync (0 drift)</li>
+              <li>✅ <strong>sync_json_schemas.py --check</strong>: Exit Code 0, clean worktree</li>
+              <li>⚠️ <strong>MongoDB Atlas Live Apply</strong>: Mới chỉ kiểm thử dry-run offline; chưa có bằng chứng apply Atlas thật</li>
+              <li>⚠️ <strong>JEV Staging Benchmark</strong>: 100% Mock runner (chưa có live key); quyết định GO chỉ có nghĩa tiếp tục shadow</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- SECTION 14: OPTIONAL JEV INTEGRATION & FUTURE INTERNAL ROADMAP -->
+      <section id="sec-roadmap" class="section-block">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🧭 JEV Decision Support Hiện Tại & HUIT Typed Decision Engine Tương Lai</h2>
+            <p class="section-subtitle">Tích hợp TypeSafe JEV tùy chọn, mặc định tắt, hỗ trợ intent/evidence có cấu trúc; mô hình nội bộ tự host vẫn là định hướng R&amp;D riêng.</p>
+          </div>
+          <div>
+            <span class="badge badge-planned" style="font-size:12px; padding:4px 10px;">OPTIONAL — OFF BY DEFAULT</span>
+          </div>
+        </div>
+
+        <!-- Mandatory Alert Banner -->
+        <div class="card" style="border-left: 4px solid var(--c-security); background: rgba(248, 81, 73, 0.08); margin-bottom: 24px;">
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <span style="font-size:24px; line-height:1;">⚠️</span>
+            <div style="font-size:13px; line-height:1.7;">
+              <strong style="color:var(--c-security); font-size:14px;">RANH GIỚI TÍCH HỢP &amp; QUYỀN RIÊNG TƯ:</strong><br>
+              Runtime hiện có thể gọi <strong>TypeSafe JEV System One</strong> khi quản trị viên chủ động đặt <code>JEV_MODE=shadow</code> hoặc <code>assist</code> và cấu hình API key. Mặc định <code>off</code> bảo đảm 0 HTTP call. State gửi ra ngoài được giới hạn kích thước và khử PII/secret; JEV chỉ hỗ trợ quyết định, không thay thế LLM sinh câu trả lời. Mô hình tự host nội bộ bên dưới vẫn là <strong>R&amp;D tương lai</strong>, không sao chép mã nguồn hoặc trọng số độc quyền và không tuyên bố hiệu năng tương đương JEV.
+            </div>
+          </div>
+        </div>
+
+        <!-- Subsection 1: Goal & Two-Layer Architecture -->
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title" style="color:var(--c-backend);">🎯 1. Mục Tiêu & Phân Tách Hai Lớp (Two-Layer Separation)</div>
+            <p style="color:var(--text-muted); font-size:13px; line-height:1.7; margin-bottom:12px;">
+              Lớp Decision Engine hiện tại <strong>không sinh câu trả lời văn bản dài</strong>. Nó nhận state đã redaction và trả về quyết định có kiểu dữ liệu cố định để backend hỗ trợ phân loại intent và đánh giá evidence.
+            </p>
+            <div style="background:var(--bg-card); padding:12px; border-radius:6px; font-family:var(--font-mono); font-size:12px; line-height:1.8; border:1px solid var(--border-color);">
+              <span style="color:var(--c-frontend);">[1] LLM / Chatbot</span> ➔ Sinh nội dung tư vấn tuyển sinh, giải thích thân thiện.<br>
+              <span style="color:var(--c-schema);">[2] JEV Decision Support</span> ➔ Phân loại intent / evidence theo schema; timeout, confidence gate hoặc lỗi đều quay về pipeline cũ.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-schema);">📐 2. Ba Nhóm Quyết Định Nội Bộ (Typed Decisions)</div>
+            <div style="display:flex; flex-direction:column; gap:10px; font-size:12px;">
+              <div style="background:var(--bg-card); padding:8px 12px; border-radius:4px; border-left:3px solid var(--c-mongo);">
+                <strong style="color:var(--c-mongo);">Binary Decision:</strong> allow / deny, valid / invalid, safe / unsafe, cache / no-cache.<br>
+                <code>{"type": "binary", "result": true, "confidence": 0.96}</code>
+              </div>
+              <div style="background:var(--bg-card); padding:8px 12px; border-radius:4px; border-left:3px solid var(--c-backend);">
+                <strong style="color:var(--c-backend);">Choice Decision:</strong> Chọn 1 nhãn enum xác định trước (admission, tuition, major, artifact, human_review).<br>
+                <code>{"type": "choice", "selected": "tuition", "confidence": 0.91}</code>
+              </div>
+              <div style="background:var(--bg-card); padding:8px 12px; border-radius:4px; border-left:3px solid var(--c-hook);">
+                <strong style="color:var(--c-hook);">Score Decision:</strong> Chấm điểm chuẩn hóa (risk score, quality score, source reliability).<br>
+                <code>{"type": "score", "score": 0.87, "level": "high", "confidence": 0.93}</code>
+              </div>
+            </div>
+            <div style="margin-top:8px; font-size:11px; color:var(--text-dim);">* Tuyệt đối không trả về bất kỳ định dạng nào ngoài schema đã định nghĩa trước.</div>
+          </div>
+        </div>
+
+        <!-- Subsection 3: Pipeline Architecture SVG -->
+        <div class="card" style="margin-bottom:24px;">
+          <div class="card-title" style="color:var(--c-frontend); margin-bottom:16px;">
+            🏗️ 3. Sơ Đồ Quy Trình Xử Lý Quyết Định Có Cấu Trúc (End-to-End Decision Pipeline)
+          </div>
+          
+          <div style="background:var(--bg-card); padding:16px; border-radius:8px; border:1px solid var(--border-color); overflow-x:auto;">
+            <svg viewBox="0 0 1000 120" style="width:100%; min-width:850px; height:120px; font-family:var(--font-sans); font-size:11px;">
+              <!-- Line -->
+              <line x1="80" y1="60" x2="920" y2="60" stroke="var(--border-color)" stroke-width="3" stroke-dasharray="4 4" />
+              
+              <!-- Node 1: Structured State -->
+              <g transform="translate(10, 30)">
+                <rect width="100" height="60" rx="6" fill="var(--bg-surface)" stroke="var(--c-frontend)" stroke-width="2"/>
+                <text x="50" y="26" fill="var(--text-main)" font-weight="700" text-anchor="middle">State</text>
+                <text x="50" y="44" fill="var(--text-muted)" font-size="9" text-anchor="middle">Structured JSON</text>
+              </g>
+
+              <!-- Node 2: Decision Schema -->
+              <g transform="translate(130, 30)">
+                <rect width="100" height="60" rx="6" fill="var(--bg-surface)" stroke="var(--c-schema)" stroke-width="2"/>
+                <text x="50" y="26" fill="var(--text-main)" font-weight="700" text-anchor="middle">Schema</text>
+                <text x="50" y="44" fill="var(--text-muted)" font-size="9" text-anchor="middle">Input Contract</text>
+              </g>
+
+              <!-- Node 3: Rules & Features -->
+              <g transform="translate(250, 30)">
+                <rect width="110" height="60" rx="6" fill="var(--bg-surface)" stroke="var(--c-backend)" stroke-width="2"/>
+                <text x="55" y="26" fill="var(--text-main)" font-weight="700" text-anchor="middle">Feature / Rules</text>
+                <text x="55" y="44" fill="var(--text-muted)" font-size="9" text-anchor="middle">Deterministic Check</text>
+              </g>
+
+              <!-- Node 4: Decision Model -->
+              <g transform="translate(380, 30)">
+                <rect width="110" height="60" rx="6" fill="var(--bg-surface)" stroke="var(--c-worker)" stroke-width="2"/>
+                <text x="55" y="26" fill="var(--text-main)" font-weight="700" text-anchor="middle">JEV Provider</text>
+                <text x="55" y="44" fill="var(--text-muted)" font-size="9" text-anchor="middle">Optional HTTP Call</text>
+              </g>
+
+              <!-- Node 5: Calibration -->
+              <g transform="translate(510, 30)">
+                <rect width="110" height="60" rx="6" fill="var(--bg-surface)" stroke="var(--c-hook)" stroke-width="2"/>
+                <text x="55" y="26" fill="var(--text-main)" font-weight="700" text-anchor="middle">Calibration</text>
+                <text x="55" y="44" fill="var(--text-muted)" font-size="9" text-anchor="middle">Confidence Score</text>
+              </g>
+
+              <!-- Node 6: Policy Threshold -->
+              <g transform="translate(640, 30)">
+                <rect width="110" height="60" rx="6" fill="var(--bg-surface)" stroke="var(--c-queue)" stroke-width="2"/>
+                <text x="55" y="26" fill="var(--text-main)" font-weight="700" text-anchor="middle">Threshold Gate</text>
+                <text x="55" y="44" fill="var(--text-muted)" font-size="9" text-anchor="middle">&gt;= 0.90 / 0.65</text>
+              </g>
+
+              <!-- Node 7: Hook Action -->
+              <g transform="translate(770, 30)">
+                <rect width="100" height="60" rx="6" fill="var(--bg-surface)" stroke="var(--c-mongo)" stroke-width="2"/>
+                <text x="50" y="26" fill="var(--text-main)" font-weight="700" text-anchor="middle">RAG Assist</text>
+                <text x="50" y="44" fill="var(--text-muted)" font-size="9" text-anchor="middle">Apply / Fallback</text>
+              </g>
+
+              <!-- Node 8: Audit -->
+              <g transform="translate(890, 30)">
+                <rect width="90" height="60" rx="6" fill="var(--bg-surface)" stroke="var(--text-muted)" stroke-width="2"/>
+                <text x="45" y="26" fill="var(--text-main)" font-weight="700" text-anchor="middle">Audit Log</text>
+                <text x="45" y="44" fill="var(--text-muted)" font-size="9" text-anchor="middle">Audit Record</text>
+              </g>
+            </svg>
+          </div>
+
+          <div style="margin-top:16px; font-size:12px; color:var(--text-muted);">
+            <strong>Cấu trúc module đang hoạt động (provider ngoài là tùy chọn, mô hình tự host chưa triển khai):</strong>
+            <pre style="background:var(--bg-card); padding:10px; border-radius:6px; font-family:var(--font-mono); font-size:11px; color:#c9d1d9; margin-top:6px; border:1px solid var(--border-color);">
+backend/
+├── app/decision_engine/
+│   ├── contracts.py          # Pydantic typed request/result
+│   ├── policies.py           # Intent & evidence rubrics
+│   ├── redaction.py          # PII/secret redaction + byte limit
+│   ├── service.py            # Mode, budget, concurrency, circuit breaker
+│   └── providers/
+│       ├── base.py           # Provider-neutral interface
+│       └── typesafe_jev.py   # Optional TypeSafe System One adapter
+└── json_schemas/decision/    # 2 canonical schemas Draft 2020-12</pre>
+          </div>
+        </div>
+
+        <!-- Subsection 4 & 5: Schemas & Hook Integration -->
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title" style="color:var(--c-schema);">📋 4. JSON Schema Là Giao Diện Trung Tâm</div>
+            <p style="color:var(--text-muted); font-size:13px; line-height:1.7; margin-bottom:12px;">
+              Tiếp tục giữ vững triết lý <strong>Schema-First</strong> do con người thiết kế và kiểm duyệt tại <code>backend/json_schemas/decision/</code>:
+            </p>
+            <ul style="color:var(--text-muted); font-size:12px; line-height:1.7; padding-left:20px;">
+              <li><code>decision/decision-request.v1.schema.json</code> ➔ State đã redaction và bộ câu hỏi typed</li>
+              <li><code>decision/decision-result.v1.schema.json</code> ➔ Kết quả, confidence, usage và latency chuẩn hóa</li>
+              <li><code>intent</code> workflow ➔ Chỉ gọi khi intent hiện tại mơ hồ hoặc cạnh tranh</li>
+              <li><code>evidence_sufficiency</code> workflow ➔ Đánh giá sufficient / partial / insufficient / conflicting</li>
+              <li>Các hook-gate, artifact-policy và human-review riêng vẫn là hạng mục tương lai, chưa được công bố là đã triển khai.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-hook);">🔌 5. Liên Kết Với Public Hook Facade</div>
+            <p style="color:var(--text-muted); font-size:13px; line-height:1.7; margin-bottom:12px;">
+              Decision Engine <strong>không đặt trực tiếp trong <code>frontend/hooks</code></strong>. Kết quả JEV chỉ được backend áp dụng nội bộ vào RAG; frontend tiếp tục nhận NDJSON contract cũ:
+            </p>
+            <div style="font-size:12px; line-height:1.8; color:var(--text-muted);">
+              <div>🔹 <strong>useChatStream</strong>: Không biết provider; chỉ xử lý start/progress/token/done như trước.</div>
+              <div>🔹 <strong>Shadow mode</strong>: Không thay đổi intent, context hoặc output gửi frontend.</div>
+              <div>🔹 <strong>Assist mode</strong>: Chỉ backend dùng kết quả hợp lệ và đủ confidence.</div>
+              <div>🔹 <strong>Provider failure</strong>: NDJSON stream và LLM chính vẫn hoạt động bằng fallback.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subsection 6: Confidence Thresholds & Dynamic Slider -->
+        <div class="card" style="margin-bottom:24px;">
+          <div class="card-title" style="color:var(--c-queue);">
+            🎚️ 6. Kiểm Soát Ngưỡng Tin Cậy (Confidence Threshold Calibration)
+          </div>
+          <p style="color:var(--text-muted); font-size:13px; margin-bottom:14px;">
+            Mô phỏng 3 phân vùng hành động dựa trên chỉ số Confidence Score (Độ tin cậy được hiệu chuẩn):
+          </p>
+
+          <div class="confidence-zone-bar">
+            <div class="zone-deny" title="Confidence < 0.65: Human Review hoặc Safe Deny"></div>
+            <div class="zone-fallback" title="0.65 <= Confidence < 0.90: Rule Fallback"></div>
+            <div class="zone-auto" title="Confidence >= 0.90: Tự động thực thi"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); margin-bottom:16px;">
+            <span style="color:var(--s-error-text);">0.00 — Phân vùng Rủi ro / Cần duyệt (Human Review / Safe Deny)</span>
+            <span style="color:var(--s-partial-text);">0.65 — Phân vùng Bổ sung Luật (Rule Fallback)</span>
+            <span style="color:var(--s-verified-text);">0.90 — 1.00 Tự Động (Auto Action)</span>
+          </div>
+
+          <!-- Interactive Slider -->
+          <div style="background:var(--bg-card); padding:16px; border-radius:8px; border:1px solid var(--border-color);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-weight:600; font-size:13px;">Thử nghiệm kéo ngưỡng Confidence:</span>
+              <span id="slider-conf-val" style="font-family:var(--font-mono); font-size:15px; font-weight:700; color:var(--c-backend);">0.94</span>
+            </div>
+            <input type="range" id="confidence-slider" class="range-slider" min="0.00" max="1.00" step="0.01" value="0.94">
+            
+            <div id="slider-result-box" style="margin-top:14px; padding:12px; border-radius:6px; background:var(--bg-surface); display:flex; align-items:center; justify-content:space-between; border:1px solid var(--border-color);">
+              <div>
+                <span style="font-size:12px; color:var(--text-muted);">Trạng thái hệ thống ứng phó:</span>
+                <div id="slider-action-label" style="font-size:14px; font-weight:700; color:var(--s-verified-text); margin-top:2px;">
+                  ✅ TỰ ĐỘNG THỰC THI (Auto Action - Không cần can thiệp)
+                </div>
+              </div>
+              <div id="slider-badge" class="decision-badge-result res-allow">ALLOW_EXECUTE</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subsection 7: 12 Future Use Cases -->
+        <div class="card" style="margin-bottom:24px;">
+          <div class="card-title" style="color:var(--c-backend); margin-bottom:12px;">
+            📌 7. 12 Tình Huống Ứng Dụng Cốt Lõi (Core R&D Use Cases)
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; font-size:12px;">
+            <div class="card" style="padding:12px;"><strong>1. Phân loại ý định</strong>: Xác định nhanh intent tuyển sinh, học phí, điểm chuẩn.</div>
+            <div class="card" style="padding:12px;"><strong>2. Chọn Pipeline RAG</strong>: Chọn giữa Vector Search 1024D hay BM25 từ khóa.</div>
+            <div class="card" style="padding:12px;"><strong>3. Độ tin cậy nguồn tin</strong>: Chấm điểm độ tin cậy của tài liệu văn bản HUIT.</div>
+            <div class="card" style="padding:12px;"><strong>4. Kiểm chứng bằng chứng</strong>: Kiểm tra câu trả lời có kèm trích dẫn chính xác không.</div>
+            <div class="card" style="padding:12px;"><strong>5. Quyết định Cache</strong>: Câu hỏi phổ biến có được phép lấy từ query_cache không.</div>
+            <div class="card" style="padding:12px;"><strong>6. Chuyển tiếp tư vấn viên</strong>: Phát hiện thí sinh bối rối để kết nối cán bộ tuyển sinh.</div>
+            <div class="card" style="padding:12px;"><strong>7. Kiểm soát Admin rủi ro</strong>: Ngăn chặn xóa nhầm dữ liệu hoặc cấu hình nhạy cảm.</div>
+            <div class="card" style="padding:12px;"><strong>8. Quyền tạo Artifact</strong>: Thẩm định quyền export tài liệu Excel/Word theo phiên.</div>
+            <div class="card" style="padding:12px;"><strong>9. Điều phối Sync / Async</strong>: Chọn render nhanh &lt;2s hoặc đẩy vào Durable Queue.</div>
+            <div class="card" style="padding:12px;"><strong>10. Phát hiện Schema Drift</strong>: Báo động khi client gửi payload bất thường.</div>
+            <div class="card" style="padding:12px;"><strong>11. Chấm điểm rủi ro Hallucination</strong>: Phát hiện câu trả lời suy diễn sai lệch.</div>
+            <div class="card" style="padding:12px;"><strong>12. Mức độ giải thích</strong>: Điều chỉnh độ chi tiết của câu trả lời cho thí sinh.</div>
+          </div>
+        </div>
+
+        <!-- Subsection 8 & 9: 9-Stage Roadmap & Privacy -->
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title" style="color:var(--c-worker);">🚀 8. Lộ Trình Nghiên Cứu 9 Giai Đoạn (R&D Roadmap)</div>
+            <ol style="color:var(--text-muted); font-size:12px; line-height:1.8; padding-left:20px;">
+              <li><strong>Giai đoạn 1</strong>: Xây dựng Deterministic Rules + Typed Contracts (Hiện tại).</li>
+              <li><strong>Giai đoạn 2</strong>: Thu thập log quyết định đã ẩn danh hóa 100%.</li>
+              <li><strong>Giai đoạn 3</strong>: Xây dựng tập dữ liệu Human-labelled do chuyên gia gắn nhãn.</li>
+              <li><strong>Giai đoạn 4</strong>: Huấn luyện mô hình phân loại / chấm điểm nhỏ nội bộ.</li>
+              <li><strong>Giai đoạn 5</strong>: Hiệu chuẩn độ tin cậy (Confidence Calibration).</li>
+              <li><strong>Giai đoạn 6</strong>: Đánh giá Offline đối chiếu với bộ luật cũ.</li>
+              <li><strong>Giai đoạn 7</strong>: Chạy thử nghiệm ngầm song song (Shadow Mode).</li>
+              <li><strong>Giai đoạn 8</strong>: Triển khai thử nghiệm giới hạn (Limited Rollout).</li>
+              <li><strong>Giai đoạn 9</strong>: Kích hoạt Production Gate bảo vệ toàn hệ thống.</li>
+            </ol>
+            <div style="margin-top:10px; font-size:11px; color:var(--text-dim);">
+              <strong>Chỉ số đo lường (Metrics):</strong> Accuracy, Precision/Recall, False Allow Rate (FAR), False Deny Rate (FDR), Calibration Error, Latency (&lt;10ms), Escalation Rate.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color:var(--c-mongo);">🔒 9. Chế Độ Riêng Tư &amp; Định Hướng Tự Host</div>
+            <ul style="color:var(--text-muted); font-size:12px; line-height:1.8; padding-left:20px;">
+              <li><strong>Off (mặc định)</strong>: Không gọi JEV, không cần API key và không gửi state ra nhà cung cấp.</li>
+              <li><strong>Shadow / Assist</strong>: Có gọi TypeSafe JEV; chỉ gửi state tối thiểu đã redaction, tối đa theo <code>JEV_MAX_STATE_BYTES</code>.</li>
+              <li><strong>Tự host 100%</strong>: Là mục tiêu R&amp;D tương lai, chưa phải trạng thái runtime hiện tại.</li>
+              <li><strong>Không đưa Secret vào Model</strong>: Rào chắn Log Sanitization loại bỏ cookie, token và thông tin định danh trước khi ghi vết.</li>
+              <li><strong>Auditability & Rollback</strong>: Mỗi quyết định đều kèm <code>trace_id</code> và có thể quay về Deterministic Rules bất kỳ lúc nào nếu model có dấu hiệu bất thường.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Subsection 10: Interactive Laboratory -->
+        <div class="card" style="border: 2px solid var(--c-backend); margin-top:20px; box-shadow: var(--shadow-md);">
+          <div class="section-header" style="border-bottom:none; margin-bottom:12px; padding-bottom:0;">
+            <div>
+              <div class="card-title" style="font-size:16px; color:var(--c-backend);">
+                🧪 10. Phòng Thí Nghiệm: HUIT Typed Decision Engine (Interactive Sandbox)
+              </div>
+              <p style="color:var(--text-muted); font-size:12px;">
+                Thử nghiệm giả lập cách thức Decision Engine tiếp nhận trạng thái (State), đánh giá qua bộ luật và trả về kết quả định kiểu (Typed Output).
+              </p>
+            </div>
+            <div>
+              <span class="badge badge-verified">JS In-Memory Simulator</span>
+            </div>
+          </div>
+
+          <!-- Presets buttons -->
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
+            <span style="font-size:12px; color:var(--text-muted); align-self:center;">Mẫu thử nghiệm (Presets):</span>
+            <button class="filter-pill" id="btn-preset-export">📄 Export Hợp Lệ (Low Risk)</button>
+            <button class="filter-pill" id="btn-preset-admin">⚠️ Admin Xóa Dữ Liệu (Cần Duyệt)</button>
+            <button class="filter-pill" id="btn-preset-uncertain">❓ Câu Hỏi Mơ Hồ (Low Confidence)</button>
+            <button class="filter-pill" id="btn-preset-invalid">🚫 Vi Phạm Schema (Deny)</button>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:16px;">
+            <!-- Left: Input State -->
+            <div>
+              <label for="lab-input-state" style="font-size:12px; font-weight:600; display:block; margin-bottom:6px; color:var(--text-main);">
+                Dữ liệu Trạng thái Đầu vào (Structured Request State):
+              </label>
+              <textarea id="lab-input-state" rows="9" style="width:100%; background:var(--bg-card); border:1px solid var(--border-color); border-radius:6px; color:var(--text-main); font-family:var(--font-mono); font-size:12px; padding:10px; outline:none;" aria-label="JSON State đầu vào">{
+  "intent": "artifact_export",
+  "authenticated": true,
+  "owns_resource": true,
+  "schema_valid": true,
+  "estimated_cost": "low",
+  "risk_score": 0.12
+}</textarea>
+              <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+                <input type="checkbox" id="lab-rule-toggle" checked style="cursor:pointer;">
+                <label for="lab-rule-toggle" style="font-size:12px; cursor:pointer;">Kích hoạt bộ lọc quy tắc tất định (Deterministic Rules)</label>
+              </div>
+            </div>
+
+            <!-- Right: Decision Output -->
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span style="font-size:12px; font-weight:600; color:var(--text-main);">Quyết Định Đầu Ra Có Cấu Trúc (Typed Decision Result):</span>
+                <span id="lab-result-badge" class="decision-badge-result res-allow">READY</span>
+              </div>
+              <pre id="lab-output-result" style="width:100%; height:160px; background:var(--bg-base); border:1px solid var(--border-color); border-radius:6px; color:#c9d1d9; font-family:var(--font-mono); font-size:11px; padding:10px; overflow-y:auto;">// Bấm "Chạy Quyết Định" để thực thi mô phỏng...</pre>
+              <div style="font-size:11px; color:var(--text-muted); margin-top:8px;">
+                <span>Contract ID: </span><code class="code-path">huit.decision.hook-gate.v1</code>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls Bar -->
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; padding-top:12px; border-top:1px solid var(--border-color);">
+            <div class="btn-group">
+              <button id="lab-btn-run" class="btn btn-primary">⚡ Chạy Quyết Định (Evaluate)</button>
+              <button id="lab-btn-random" class="btn">🎲 Mô Phỏng Model Uncertainty</button>
+              <button id="lab-btn-human" class="btn btn-danger">👤 Ép Buộc Cần Người Duyệt (Human Review)</button>
+              <button id="lab-btn-reset" class="btn">↺ Đặt Lại</button>
+            </div>
+            <span style="font-size:11px; color:var(--text-muted);">* Mô phỏng toán học chạy 100% JavaScript cục bộ.</span>
+          </div>
+        </div>
+
+      </section>
+
+
+    </main>
+  </div>
+
+  <!-- Detail Modal -->
+  <div id="detail-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div id="modal-title" class="modal-title">Tiêu Đề Chi Tiết</div>
+        <button id="modal-close" class="btn-icon" aria-label="Đóng">&times;</button>
+      </div>
+      <div id="modal-body" class="modal-body">
+        Nội dung modal...
+      </div>
+      <div class="modal-footer">
+        <button id="modal-btn-close" class="btn">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Embedded Project Data -->
+  <script id="system-data" type="application/json">
+{"contracts": [{"schema_id": "huit.api.session-bootstrap-response", "version": "1.0.0", "kind": "api", "file": "api/session-bootstrap-response.v1.schema.json", "frontend": true, "sha256": "9966c250b9aca26500381e8b09069019688dd204af7fa774ab34d05cefdf5a1e", "status": "active", "description": "Khởi tạo phiên làm việc của người dùng khách và cấp phát CSRF token.", "consumers": ["backend.app.api.routes.auth.SessionResponse", "frontend.features.session.api.sessionApi"]}, {"schema_id": "huit.api.chat-request", "version": "1.0.0", "kind": "api", "file": "api/chat-request.v1.schema.json", "frontend": true, "sha256": "1f87bd17df5b6bc8729f4fe46ab0220a66d15e9445037046c818606eb7830b70", "status": "active", "description": "Yêu cầu gửi câu hỏi tuyển sinh và lịch sử hội thoại từ client tới chatbot.", "consumers": ["backend.app.api.schemas.chat.ChatRequest", "frontend.features.chat.api.chatApi"]}, {"schema_id": "huit.api.error-response", "version": "1.0.0", "kind": "api", "file": "api/error-response.v1.schema.json", "frontend": true, "sha256": "6649c9c146b6a64cbb0d4ff1838f2647021e7b376fd45f37a4543f92fa2210ba", "status": "active", "description": "Định dạng phản hồi lỗi chuẩn API cho toàn bộ dịch vụ backend.", "consumers": ["backend.app.api.routes", "frontend.shared.api.httpClient"]}, {"schema_id": "huit.api.artifact-manifest", "version": "1.0.0", "kind": "api", "file": "api/artifact-manifest.v1.schema.json", "frontend": true, "sha256": "368841711502cfb004811dad3f22971bbfd7339eb1389a332f6244de63e069f2", "status": "active", "description": "Manifest mô tả chi tiết siêu dữ liệu của một artifact được khởi tạo hoặc render.", "consumers": ["backend.app.models.artifact.ArtifactManifest", "frontend.features.artifacts.api.artifactsApi"]}, {"schema_id": "huit.api.artifact-summary", "version": "1.0.0", "kind": "api", "file": "api/artifact-summary.v1.schema.json", "frontend": true, "sha256": "622c7b1c7e8fe6690b906f0ad371292ab3aeb783b9865bc90af83b39c02c0e9b", "status": "active", "description": "Tóm tắt gọn thông tin artifact phục vụ danh sách và preview nhanh.", "consumers": ["backend.app.models.artifact.ArtifactSummary", "frontend.features.artifacts.api.artifactsApi"]}, {"schema_id": "huit.api.artifact-plan-request", "version": "1.0.0", "kind": "api", "file": "api/artifact-plan-request.v1.schema.json", "frontend": true, "sha256": "87513a7cb71d8b906b88036d402434f023bc1707ba8a040ade18cd34fbc5f1fe", "status": "active", "description": "Yêu cầu lên kế hoạch sinh file đồ họa hoặc tài liệu trực quan.", "consumers": ["backend.app.models.artifact.ArtifactPlanRequest", "frontend.features.artifacts.api.artifactsApi"]}, {"schema_id": "huit.api.artifact-render-request", "version": "1.0.0", "kind": "api", "file": "api/artifact-render-request.v1.schema.json", "frontend": true, "sha256": "ab610ef26646c2b860b26fba124de19eaea0359d7bc7e9ff9a8efa7c6c3a07fb", "status": "active", "description": "Yêu cầu render artifact sang định dạng hiển thị hoặc preview.", "consumers": ["backend.app.models.artifact.ArtifactRenderRequest", "frontend.features.artifacts.api.artifactsApi"]}, {"schema_id": "huit.api.artifact-upscale-request", "version": "1.0.0", "kind": "api", "file": "api/artifact-upscale-request.v1.schema.json", "frontend": true, "sha256": "3a9f15c0e6f2e47a55c2930f942cb5350a5837815db7ca407877594d1487fe3f", "status": "active", "description": "Yêu cầu nâng độ phân giải (upscale 2x/4x) của hình ảnh đồ họa.", "consumers": ["backend.app.models.artifact.ArtifactUpscaleRequest", "frontend.features.artifacts.api.artifactsApi"]}, {"schema_id": "huit.api.artifact-export-request", "version": "1.0.0", "kind": "api", "file": "api/artifact-export-request.v1.schema.json", "frontend": true, "sha256": "67cb43ac0dccbcb84934bf8d195209e3e554a7f3f5c8a5ff24bd1b8a76b04b08", "status": "active", "description": "Yêu cầu kết xuất artifact ra file tải về (xlsx, docx, pdf, png, svg).", "consumers": ["backend.app.models.artifact.ArtifactExportRequest", "frontend.features.artifacts.api.artifactsApi"]}, {"schema_id": "huit.api.job-accepted-response", "version": "1.0.0", "kind": "api", "file": "api/job-accepted-response.v1.schema.json", "frontend": true, "sha256": "c54272e3b765ea003f1c7be6dd536d3f2b469e8f5283bf6daf98fd8049f6ded5", "status": "active", "description": "Phản hồi chuẩn HTTP 202 khi tác vụ nền được tiếp nhận vào hàng đợi.", "consumers": ["backend.app.api.schemas.artifact.JobAcceptedResponse", "frontend.src.shared.contracts.JobAcceptedResponseContract"]}, {"schema_id": "huit.api.job-status-response", "version": "1.0.0", "kind": "api", "file": "api/job-status-response.v1.schema.json", "frontend": true, "sha256": "84c22bc81c0482538f48da8f5a0c2761f1fe0c2d2e26b6dc890df77274fc2a8b", "status": "active", "description": "Phản hồi thăm dò trạng thái và tiến độ xử lý công việc nền.", "consumers": ["backend.app.models.artifact.JobStatusResponse", "frontend.features.artifacts.api.artifactsApi"]}, {"schema_id": "huit.api.image-create-request", "version": "1.0.0", "kind": "api", "file": "api/image-create-request.v1.schema.json", "frontend": true, "sha256": "25128882124727fa8b8ed983501ad6041633c2406e2266d7c0cd12498064f7fd", "status": "active", "description": "Yêu cầu sinh hình ảnh trực tiếp qua model FLUX hoặc SVG scene.", "consumers": ["backend.app.models.image_service.ImageCreateRequest", "frontend.features.chat.api.imageApi"]}, {"schema_id": "huit.api.image-result", "version": "1.0.0", "kind": "api", "file": "api/image-result.v1.schema.json", "frontend": true, "sha256": "9f58a8650193780f039b0469381b648e495d4286fc3d1b5064b018b99a384ca3", "status": "active", "description": "Kết quả sinh ảnh hoàn tất kèm URL, kích thước và định dạng.", "consumers": ["backend.app.models.image_service.ImageResult", "frontend.features.chat.api.imageApi"]}, {"schema_id": "huit.api.admin-login-request", "version": "1.0.0", "kind": "api", "file": "api/admin-login-request.v1.schema.json", "frontend": true, "sha256": "aa86ce2bb59a993a7ec816e5503de2ecba7afd0a405779b38c85bbfba71f10ba", "status": "active", "description": "Thông tin đăng nhập cổng quản trị viên bảo mật.", "consumers": ["backend.app.api.routes.admin.AdminLoginRequest", "frontend.features.admin.api.adminApi"]}, {"schema_id": "huit.api.admin-login-response", "version": "1.0.0", "kind": "api", "file": "api/admin-login-response.v1.schema.json", "frontend": true, "sha256": "fb414680d2d970f863af244e5bf61d3c293669222d2c36373191383d4a18f43f", "status": "active", "description": "Phản hồi đăng nhập admin thành công với cookie phiên httpOnly.", "consumers": ["backend.app.api.routes.admin.AdminLoginResponse", "frontend.features.admin.api.adminApi"]}, {"schema_id": "huit.api.admin-session-response", "version": "1.0.0", "kind": "api", "file": "api/admin-session-response.v1.schema.json", "frontend": true, "sha256": "ab969fdd94d47f3a8580a41ef630847ff1f8e7301a1401d6114b14b62b2ba6b4", "status": "active", "description": "Xác thực trạng thái hiệu lực của phiên làm việc quản trị viên.", "consumers": ["backend.app.api.routes.admin.AdminSessionResponse", "frontend.features.admin.api.adminApi"]}, {"schema_id": "huit.stream.chat-event", "version": "2.0.0", "kind": "stream", "file": "stream/chat-event.v2.schema.json", "frontend": true, "sha256": "3fe1e99b3192ab8e48a70a82bda4af14bf811a4364803cc6439ecec4b8104008", "status": "active", "description": "Phong bì sự kiện NDJSON v2 chuẩn hóa truyền luồng từ chatbot tới giao diện người dùng.", "consumers": ["backend.app.api.schemas.streaming_v2.StreamEventEnvelope", "frontend.features.chat.utils.ndjsonParser", "frontend.features.chat.hooks.useChatStream"]}, {"schema_id": "huit.stream.chat-event-legacy-boundary", "version": "1.0.0", "kind": "stream", "file": "stream/chat-event-legacy-boundary.v1.schema.json", "frontend": true, "sha256": "67d8f71e690a8f3c2980435a5b0fbceb63b33171878a80a47cb2fcc9bcd6fcd3", "status": "active", "description": "Ranh giới tương thích ngược cho client nhận format sự kiện luồng NDJSON v1 cũ.", "consumers": ["frontend.features.chat.utils.ndjsonParser"]}, {"schema_id": "huit.queue.job-input", "version": "1.0.0", "kind": "queue", "file": "queue/job-input.v1.schema.json", "frontend": false, "sha256": "b8103762b285e67b5b275e6732aedfe1402826ee3c8f45049a019487fced9c07", "status": "active", "description": "Payload dữ liệu đầu vào đẩy vào hàng đợi công việc nền xử lý bất đồng bộ.", "consumers": ["backend.app.services.job_queue", "backend.app.workers.artifact_worker"]}, {"schema_id": "huit.queue.job-result", "version": "1.0.0", "kind": "queue", "file": "queue/job-result.v1.schema.json", "frontend": false, "sha256": "27884a0541c35192b504a96d95f16df373b8a3acb7eb1e5ef4d230308a3d2c4a", "status": "active", "description": "Payload kết quả trả về từ worker sau khi công việc hoàn tất thành công.", "consumers": ["backend.app.services.job_queue", "backend.app.workers.artifact_worker"]}, {"schema_id": "huit.queue.job-error", "version": "1.0.0", "kind": "queue", "file": "queue/job-error.v1.schema.json", "frontend": false, "sha256": "adc9dcfee87a29902f3bcd8f07464098b7ab4fca9e831bf139542a3fe2fc1d19", "status": "active", "description": "Cấu trúc lỗi chi tiết khi công việc trong hàng đợi thất bại.", "consumers": ["backend.app.services.job_queue", "backend.app.workers.artifact_worker"]}, {"schema_id": "huit.queue.retry-metadata", "version": "1.0.0", "kind": "queue", "file": "queue/retry-metadata.v1.schema.json", "frontend": false, "sha256": "4c012bc9a768fa648d81f68d59e787c32ec5788bc34f5bfaad1351c218bf55bf", "status": "active", "description": "Metadata theo dõi số lần thử lại và thời gian dãn cách lũy thừa (exponential backoff).", "consumers": ["backend.app.services.job_queue", "backend.app.workers.artifact_worker"]}, {"schema_id": "huit.queue.dead-letter-metadata", "version": "1.0.0", "kind": "queue", "file": "queue/dead-letter-metadata.v1.schema.json", "frontend": false, "sha256": "d88812b690f1e8d576b88ff8ee9f4df46a8d45defc784354d2676c06b84493ad", "status": "planned", "description": "Planned: Cấu trúc metadata dự phòng cho dead-letter queue khi triển khai kho lưu trữ chuyên biệt.", "consumers": ["backend.app.services.job_queue", "backend.app.workers.artifact_worker"]}, {"schema_id": "huit.mongo.operation-audit", "version": "1.1.0", "kind": "mongodb", "file": "mongo/operation-audit.v1.schema.json", "frontend": false, "sha256": "ace2c12409aea72d98d6d9dae852f1c2b2567522c65d5aaf4a4823527e1e9608", "status": "active", "description": "Schema validator MongoDB cho nhật ký kiểm toán hoạt động của Gateway (operation_audit).", "consumers": ["backend.app.models.mongo_models.MongoOperationAuditRecord", "backend.app.data_access.operation_gateway", "mongodb.operation_audit"]}, {"schema_id": "huit.mongo.schema-registry-record", "version": "1.0.0", "kind": "mongodb", "file": "mongo/schema-registry-record.v1.schema.json", "frontend": false, "sha256": "3b1955f50313f1c5ac44d19381ecf978c6bdf812448bc410600138521f3e76ce", "status": "active", "description": "Schema validator MongoDB lưu trữ các bản sao lưu hợp đồng schema registry bất biến.", "consumers": ["scripts.migrations.022_backup_json_schema_registry", "mongodb.schema_registry"]}, {"schema_id": "huit.mongo.asset-record", "version": "1.0.0", "kind": "mongodb", "file": "mongo/asset-record.v1.schema.json", "frontend": false, "sha256": "14f74a4879326e7a76833c26a6a350ae02be0eb339b46e412e4800c506363efa", "status": "active", "description": "Schema validator MongoDB cho tập tin tài sản nhị phân vật lý trong collection assets.", "consumers": ["backend.app.models.mongo_models.MongoAssetRecord", "mongodb.assets"]}, {"schema_id": "huit.mongo.artifact-record", "version": "1.0.0", "kind": "mongodb", "file": "mongo/artifact-record.v1.schema.json", "frontend": false, "sha256": "540087074414ce04b893373e31ac80a2e952490206d3a9f265ebb73167ec37bc", "status": "active", "description": "Schema validator MongoDB cho tài liệu artifact trong collection artifacts.", "consumers": ["backend.app.models.mongo_models.MongoArtifactRecord", "mongodb.artifacts"]}, {"schema_id": "huit.mongo.job-record", "version": "1.0.0", "kind": "mongodb", "file": "mongo/job-record.v1.schema.json", "frontend": false, "sha256": "e303b768f5ed983b874f348a00ae487e9f00ec3d146cb5fd4fa79de0ec6b2be9", "status": "active", "description": "Schema validator MongoDB cho công việc nền trong collection jobs.", "consumers": ["backend.app.models.mongo_models.MongoJobRecord", "mongodb.jobs"]}, {"schema_id": "huit.mongo.generated-image-record", "version": "1.0.0", "kind": "mongodb", "file": "mongo/generated-image-record.v1.schema.json", "frontend": false, "sha256": "5f3b5ef372d160128c75ed075a10fda0aacfdef712534cc1596933c7ccbbc12b", "status": "active", "description": "Schema validator MongoDB cho ảnh sinh (FLUX/SVG) trong collection generated_images.", "consumers": ["backend.app.models.mongo_models.MongoGeneratedImageRecord", "mongodb.generated_images"]}, {"schema_id": "huit.mongo.admin-session-document", "version": "1.0.0", "kind": "mongodb", "file": "mongo/admin-session-document.v1.schema.json", "frontend": false, "sha256": "e5c06806f9d6827a29ca77cc835491976a91df2901295cebb27cbcd750d381bf", "status": "active", "description": "Schema validator MongoDB cho phiên quản trị viên trong collection admin_sessions.", "consumers": ["backend.app.models.mongo_models.AdminSessionDocument", "mongodb.admin_sessions"]}, {"schema_id": "huit.mongo.query-cache-record", "version": "1.0.0", "kind": "mongodb", "file": "mongo/query-cache-record.v1.schema.json", "frontend": false, "sha256": "12dfb32ffff98d998f5d57edcc52d5d26737c1078564392557436d68227ac514", "status": "active", "description": "Schema validator MongoDB cho bộ nhớ đệm câu trả lời trong collection query_cache.", "consumers": ["backend.app.models.mongo_models.MongoQueryCacheRecord", "mongodb.query_cache"]}, {"schema_id": "huit.mongo.rag-event-record", "version": "1.0.0", "kind": "mongodb", "file": "mongo/rag-event-record.v1.schema.json", "frontend": false, "sha256": "9068b7da81e000a5530478a888adcc21489b8bdb9bd2c2a01b4223e4206ebc87", "status": "active", "description": "Schema validator MongoDB cho nhật ký đo từ xa ẩn danh trong collection rag_events.", "consumers": ["backend.app.models.mongo_models.MongoRagEventRecord", "mongodb.rag_events"]}, {"schema_id": "huit.mongo.admission-visual-record", "version": "1.0.0", "kind": "mongodb", "file": "mongo/admission-visual-record.v1.schema.json", "frontend": false, "sha256": "32916729decd55b92593416dbcfdf12ecc1ef3134b45b76adb08212bc40d170f", "status": "active", "description": "Schema validator MongoDB cho đồ họa thông tin tuyển sinh trong collection admission_visuals.", "consumers": ["backend.app.models.mongo_models.MongoAdmissionVisualRecord", "mongodb.admission_visuals"]}, {"schema_id": "huit.mongo.huit-kb-record", "version": "1.0.0", "kind": "mongodb", "file": "mongo/huit-kb-record.v1.schema.json", "frontend": false, "sha256": "66630c6a6a66da0a884689be4c8c5c8aef2f4782d24cd3398f09723c4683b7d0", "status": "active", "description": "Schema validator MongoDB cho tri thức tuyển sinh HUIT kèm vector 1024D trong huit_kb.", "consumers": ["backend.app.models.mongo_models.MongoHuitKbRecord", "mongodb.huit_kb"]}], "migrations": [{"number": "001", "name": "audit_mongodb_schema", "file": "scripts/migrations/001_audit_mongodb_schema.py"}, {"number": "002", "name": "normalize_datetime_fields", "file": "scripts/migrations/002_normalize_datetime_fields.py"}, {"number": "003", "name": "migrate_asset_documents", "file": "scripts/migrations/003_migrate_asset_documents.py"}, {"number": "004", "name": "migrate_job_documents", "file": "scripts/migrations/004_migrate_job_documents.py"}, {"number": "005", "name": "migrate_generated_images", "file": "scripts/migrations/005_migrate_generated_images.py"}, {"number": "006", "name": "remove_legacy_binary_fields", "file": "scripts/migrations/006_remove_legacy_binary_fields.py"}, {"number": "007", "name": "create_indexes", "file": "scripts/migrations/007_create_indexes.py"}, {"number": "008", "name": "apply_validators", "file": "scripts/migrations/008_apply_validators.py"}, {"number": "009", "name": "verify_migration", "file": "scripts/migrations/009_verify_migration.py"}, {"number": "010", "name": "create_artifacts_collection_and_migrate_ownership", "file": "scripts/migrations/010_create_artifacts_collection_and_migrate_ownership.py"}, {"number": "011", "name": "recover_stuck_jobs", "file": "scripts/migrations/011_recover_stuck_jobs.py"}, {"number": "012", "name": "migrate_images_to_physical_assets", "file": "scripts/migrations/012_migrate_images_to_physical_assets.py"}, {"number": "013", "name": "retention_analysis_report", "file": "scripts/migrations/013_retention_analysis_report.py"}, {"number": "014", "name": "fix_image_dedup_index", "file": "scripts/migrations/014_fix_image_dedup_index.py"}, {"number": "015", "name": "sync_job_and_image_validators", "file": "scripts/migrations/015_sync_job_and_image_validators.py"}, {"number": "016", "name": "remove_admission_visual_base64", "file": "scripts/migrations/016_remove_admission_visual_base64.py"}, {"number": "017", "name": "sync_assets_validator", "file": "scripts/migrations/017_sync_assets_validator.py"}, {"number": "018", "name": "phase6_schema_sync_and_validators", "file": "scripts/migrations/018_phase6_schema_sync_and_validators.py"}, {"number": "019", "name": "upgrade_validators_to_strict", "file": "scripts/migrations/019_upgrade_validators_to_strict.py"}, {"number": "020", "name": "create_admin_sessions_collection", "file": "scripts/migrations/020_create_admin_sessions_collection.py"}, {"number": "021", "name": "sync_operation_audit_mutation_policies", "file": "scripts/migrations/021_sync_operation_audit_mutation_policies.py"}, {"number": "022", "name": "backup_json_schema_registry", "file": "scripts/migrations/022_backup_json_schema_registry.py"}, {"number": "023", "name": "sync_canonical_mongo_validators", "file": "scripts/migrations/023_sync_canonical_mongo_validators.py"}], "hooks": [{"hook": "useAdminAuth", "facade": "frontend/hooks/admin.ts", "impl": "frontend/src/features/admin/hooks/useAdminAuth.ts", "feature": "admin", "api": "adminApi.ts (login/logout/verify)", "contract": "huit.api.admin-login-request, huit.api.admin-login-response, huit.api.admin-session-response", "status": "VERIFIED"}, {"hook": "useAdminDashboard", "facade": "frontend/hooks/admin.ts", "impl": "frontend/src/features/admin/hooks/useAdminDashboard.ts", "feature": "admin", "api": "adminApi.ts (metrics/alerts/migrations)", "contract": "AdminDashboardStats, AdminAlert", "status": "VERIFIED"}, {"hook": "useAdminOps", "facade": "frontend/hooks/admin.ts", "impl": "frontend/src/features/admin/hooks/useAdminOps.ts", "feature": "admin", "api": "adminApi.ts (jobs/workers/backups/cache)", "contract": "AdminJobFilter, AdminLogEntry", "status": "VERIFIED"}, {"hook": "useArtifactWorkflow", "facade": "frontend/hooks/artifacts.ts", "impl": "frontend/src/features/artifacts/hooks/useArtifactWorkflow.ts", "feature": "artifacts", "api": "artifactApi.ts (fetchArtifactSummary, getArtifactPreviewUrl)", "contract": "huit.api.artifact-manifest, huit.api.artifact-summary", "status": "VERIFIED"}, {"hook": "useArtifactExport", "facade": "frontend/hooks/artifacts.ts", "impl": "frontend/src/features/artifacts/hooks/useArtifactExport.ts", "feature": "artifacts", "api": "artifactApi.ts (requestArtifactExport, downloadArtifactExport)", "contract": "huit.api.artifact-export-request, huit.api.job-accepted-response, huit.api.job-status-response", "status": "VERIFIED"}, {"hook": "useArtifactUpscale", "facade": "frontend/hooks/artifacts.ts", "impl": "frontend/src/features/artifacts/hooks/useArtifactUpscale.ts", "feature": "artifacts", "api": "artifactApi.ts (requestArtifactUpscale, fetchJobStatus, cancelJob)", "contract": "huit.api.artifact-upscale-request, huit.api.job-accepted-response, huit.api.job-status-response", "status": "VERIFIED"}, {"hook": "useArtifactActions", "facade": "frontend/hooks/artifacts.ts", "impl": "frontend/src/features/artifacts/hooks/useArtifactActions.ts", "feature": "artifacts", "api": "artifactApi.ts (unified actions trigger)", "contract": "Unified Artifact Lifecycle actions", "status": "VERIFIED"}, {"hook": "useChatStream", "facade": "frontend/hooks/chat.ts", "impl": "frontend/src/features/chat/hooks/useChatStream.ts", "feature": "chat", "api": "chatApi.ts (sendChatStreamV2)", "contract": "huit.api.chat-request, huit.stream.chat-stream-event@2.0.0, huit.api.error-response", "status": "VERIFIED"}, {"hook": "useConversation", "facade": "frontend/hooks/chat.ts", "impl": "frontend/src/features/chat/hooks/useConversation.ts", "feature": "chat", "api": "Local session message orchestration", "contract": "ChatMessage, ChatSession", "status": "VERIFIED"}, {"hook": "useSessionBootstrap", "facade": "frontend/hooks/session.ts", "impl": "frontend/src/features/session/hooks/useSessionBootstrap.ts", "feature": "session", "api": "sessionApi.ts (createSession, checkSession)", "contract": "huit.api.session-bootstrap-response, csrfStore", "status": "VERIFIED"}, {"hook": "useSpeechRecognition", "facade": "frontend/hooks/voice.ts", "impl": "frontend/src/features/voice/hooks/useSpeechRecognition.ts", "feature": "voice", "api": "Web Speech API (webkitSpeechRecognition)", "contract": "VoiceRecognitionState", "status": "VERIFIED"}, {"hook": "useSpeechSynthesis", "facade": "frontend/hooks/voice.ts", "impl": "frontend/src/features/voice/hooks/useSpeechSynthesis.ts", "feature": "voice", "api": "Web Speech Synthesis API", "contract": "VoiceSynthesisState", "status": "VERIFIED"}, {"hook": "useDebounce", "facade": "frontend/hooks/common.ts", "impl": "frontend/src/shared/hooks/useDebounce.ts", "feature": "shared", "api": "Timer utility", "contract": "Generic T debounce", "status": "VERIFIED"}, {"hook": "useLocalStorage", "facade": "frontend/hooks/common.ts", "impl": "frontend/src/shared/hooks/useLocalStorage.ts", "feature": "shared", "api": "Browser localStorage with JSON serializer", "contract": "Storage State Manager", "status": "VERIFIED"}, {"hook": "useTheme", "facade": "frontend/hooks/common.ts", "impl": "frontend/src/features/theme/hooks/useTheme.ts", "feature": "theme", "api": "DOM class toggle & localStorage persistence", "contract": "ThemeMode (\"dark\" | \"light\")", "status": "VERIFIED"}, {"hook": "useChatHistory", "facade": "frontend/hooks/common.ts", "impl": "frontend/src/features/history/hooks/useChatHistory.ts", "feature": "history", "api": "SessionScopedStorage / localStorage history", "contract": "ChatHistoryRecord, SessionHistory", "status": "VERIFIED"}, {"hook": "useVisualLightbox", "facade": "frontend/hooks/common.ts", "impl": "frontend/src/features/admission-visuals/hooks/useVisualLightbox.ts", "feature": "admission-visuals", "api": "SVG zoom / pan / fullscreen modal state", "contract": "LightboxState", "status": "VERIFIED"}], "technologies": [{"name": "React 19 / 18.3.1", "cat": "Frontend", "role": "Giao diện người dùng thành phần (UI Component Architecture)", "file": "frontend/package.json", "version": "18.3.1", "status": "VERIFIED"}, {"name": "TypeScript", "cat": "Frontend", "role": "Hệ thống kiểu tĩnh chặt chẽ toàn diện cho client", "file": "frontend/tsconfig.app.json", "version": "5.6.2", "status": "VERIFIED"}, {"name": "Vite", "cat": "Frontend", "role": "Hệ thống build & dev server tốc độ cao", "file": "frontend/vite.config.ts", "version": "8.3.0", "status": "VERIFIED"}, {"name": "Vitest", "cat": "Frontend", "role": "Framework kiểm thử tự động (126 unit/integration tests)", "file": "frontend/vitest.config.ts", "version": "5.0.0", "status": "VERIFIED"}, {"name": "Oxlint", "cat": "Frontend", "role": "Static code linter siêu tốc (0 warnings, 0 errors trên 100 files)", "file": "frontend/package.json", "version": "latest", "status": "VERIFIED"}, {"name": "Public Hook Facade", "cat": "Frontend", "role": "Kiến trúc facade một chiều cô lập hook implementation ngoài src", "file": "frontend/hooks/index.ts", "version": "v2.0", "status": "VERIFIED"}, {"name": "Frontend JSON Schema Validator", "cat": "Frontend", "role": "Runtime schema assertion độc lập không phụ thuộc thư viện ngoài", "file": "frontend/src/shared/contracts/jsonSchema.ts", "version": "Draft 2020-12", "status": "VERIFIED"}, {"name": "DOMPurify & Marked", "cat": "Frontend", "role": "Phân tích và khử khuẩn XSS nội dung Markdown an toàn", "file": "frontend/src/features/chat/components/ChatMessageItem.tsx", "version": "latest", "status": "VERIFIED"}, {"name": "Lucide React", "cat": "Frontend", "role": "Hệ thống icon SVG đồng bộ nhận diện", "file": "frontend/package.json", "version": "0.344.0", "status": "VERIFIED"}, {"name": "Python", "cat": "Backend", "role": "Nền tảng thực thi ứng dụng backend máy chủ", "file": "requirements.txt", "version": "3.11+", "status": "VERIFIED"}, {"name": "FastAPI", "cat": "Backend", "role": "RESTful & Realtime Streaming Web Framework hiệu năng cao", "file": "backend/app/main.py", "version": "0.110+", "status": "VERIFIED"}, {"name": "Pydantic v2", "cat": "Backend", "role": "Định nghĩa và serialize data model theo schema chuẩn hóa", "file": "backend/app/api/schemas/", "version": "2.6+", "status": "VERIFIED"}, {"name": "Uvicorn", "cat": "Backend", "role": "Máy chủ ASGI tiêu chuẩn phục vụ FastAPI", "file": "backend/app/main.py", "version": "0.27+", "status": "VERIFIED"}, {"name": "jsonschema", "cat": "Backend", "role": "Thư viện thẩm định Draft 2020-12 fail-closed tại mọi ranh giới", "file": "requirements.txt", "version": "4.26.0", "status": "VERIFIED"}, {"name": "LTX Operation Gateway", "cat": "Backend", "role": "Cổng kiểm soát truy vấn database duy nhất kiểm tra chính sách & budget", "file": "backend/app/data_access/operation_gateway.py", "version": "v1.0", "status": "VERIFIED"}, {"name": "Double-Submit CSRF Guard", "cat": "Backend", "role": "Bảo vệ các tác vụ state-changing chống CSRF token rò rỉ", "file": "backend/app/main.py", "version": "v1.0", "status": "VERIFIED"}, {"name": "Sliding Window Rate Limiter", "cat": "Backend", "role": "Bảo vệ tài nguyên chống tấn công từ chối dịch vụ", "file": "backend/app/middleware/rate_limiter.py", "version": "v1.0", "status": "VERIFIED"}, {"name": "MongoDB Atlas", "cat": "Data & Storage", "role": "Cơ sở dữ liệu tài liệu chính (11 collections, strict validators)", "file": "backend/app/models/mongo_models.py", "version": "v7.0+", "status": "VERIFIED"}, {"name": "Redis", "cat": "Data & Storage", "role": "Bộ nhớ đệm query cache, resume stream và rate limiting", "file": "backend/app/cache/redis_client.py", "version": "v7.0+", "status": "VERIFIED"}, {"name": "StorageAdapter (Local/S3)", "cat": "Data & Storage", "role": "Lưu trữ file vật lý nhị phân trừu tượng hóa, chống Path Traversal", "file": "backend/app/storage/storage_adapter.py", "version": "v2.0", "status": "VERIFIED"}, {"name": "FastEmbed (1024D)", "cat": "Data & Storage", "role": "Mô hình tạo vector nhúng multilingual-e5-large cho RAG hybrid", "file": "backend/app/rag/embedding.py", "version": "multilingual-e5-large", "status": "VERIFIED"}, {"name": "OpenPyXL", "cat": "Artifact", "role": "Engine kết xuất file bảng tính Excel (.xlsx) chuẩn nhận diện HUIT", "file": "backend/app/services/visual_service.py", "version": "3.1.2+", "status": "VERIFIED"}, {"name": "Python-Docx", "cat": "Artifact", "role": "Engine kết xuất file văn bản Word (.docx) chuyên nghiệp", "file": "backend/app/services/docx_renderer.py", "version": "1.1.0+", "status": "VERIFIED"}, {"name": "WeasyPrint / CairoSVG", "cat": "Artifact", "role": "Engine kết xuất file ấn phẩm PDF (.pdf) hỗ trợ Unicode tiếng Việt", "file": "backend/app/services/pdf_renderer.py", "version": "latest", "status": "VERIFIED"}, {"name": "SVG Vector Engine", "cat": "Artifact", "role": "Sinh biểu đồ và thẻ thông tin vector tức thì (<15ms, <4KB)", "file": "backend/app/services/visual_service.py", "version": "native", "status": "VERIFIED"}, {"name": "Pillow", "cat": "Artifact", "role": "Engine xử lý ảnh bitmap và phóng to đồ họa 2x, 4x theo yêu cầu", "file": "backend/app/services/artifact_service.py", "version": "10.2+", "status": "VERIFIED"}, {"name": "Asset Deduplication Hash", "cat": "Artifact", "role": "Chống sinh trùng lặp bằng SHA-256 canonical hash và global lock", "file": "backend/app/services/asset_store.py", "version": "v1.0", "status": "VERIFIED"}, {"name": "Docker & Compose", "cat": "DevOps", "role": "Đóng gói container độc lập cho API backend và background worker", "file": "docker-compose.yml", "version": "3.8", "status": "VERIFIED"}, {"name": "Vercel Proxy Rewrites", "cat": "DevOps", "role": "Nền tảng phân phối frontend tĩnh và định tuyến ngược /api an toàn", "file": "vercel.json", "version": "production", "status": "VERIFIED"}, {"name": "Railway App Container", "cat": "DevOps", "role": "Nền tảng container backend chạy FastAPI sản xuất", "file": "vercel.json:rewrites", "version": "production", "status": "VERIFIED"}, {"name": "Jev AI Integration", "cat": "DevOps", "role": "Hệ thống AI mở rộng (Định hướng tương lai)", "file": "docs/ARCHITECTURE.md", "version": "TBD", "status": "PLANNED (CHƯA TRIỂN KHAI)"}, {"name": "Dead-Letter Queue Store", "cat": "DevOps", "role": "Lưu trữ bền vững các job hỏng hoàn toàn (Đã có schema canonical)", "file": "backend/json_schemas/queue/dead-letter-metadata.v1.schema.json", "version": "1.0.0", "status": "PLANNED"}], "security_gates": [{"id": "G01", "name": "Session Bootstrap Gate", "file": "backend/app/api/routes/auth.py", "input": "Client khởi động (POST /api/auth/session)", "pass_cond": "Khởi tạo UUID hợp lệ, phát sinh HttpOnly cookie huit_session_id & CSRF token", "deny_cond": "Lỗi hạ tầng hoặc cấu hình secret", "error": "500 SESSION_BOOTSTRAP_FAILED", "layer": "Authentication"}, {"id": "G02", "name": "HttpOnly Cookie Guard", "file": "backend/app/main.py:csrf_middleware", "input": "Request có chứa cookie huit_session_id", "pass_cond": "Session tồn tại trong cache/memory và chưa quá TTL 24h", "deny_cond": "Cookie rỗng, bị giả mạo hoặc đã hết hạn", "error": "401 SESSION_INVALID", "layer": "Authentication"}, {"id": "G03", "name": "Double-Submit CSRF Guard", "file": "backend/app/main.py:csrf_middleware", "input": "Header X-CSRF-Token cho POST/PUT/DELETE", "pass_cond": "Token khớp chính xác với session_id trong CSRF Store", "deny_cond": "Thiếu header X-CSRF-Token hoặc token không khớp", "error": "403 CSRF_TOKEN_INVALID", "layer": "Security Transport"}, {"id": "G04", "name": "Admin Session Isolation", "file": "backend/app/main.py:csrf_middleware", "input": "Cookie huit_admin_token tại route /api/admin/*", "pass_cond": "Token thuộc collection admin_sessions, còn hạn, đúng role=admin", "deny_cond": "Dùng cookie thường hoặc token admin đã thu hồi", "error": "401 ADMIN_SESSION_INVALID", "layer": "Authorization"}, {"id": "G05", "name": "Principal Dependency Injection", "file": "backend/app/api/dependencies/auth.py", "input": "FastAPI Dependency get_current_principal", "pass_cond": "Trích xuất thành công Principal(user_id, is_admin, session_id)", "deny_cond": "Không thể giải mã danh tính hợp lệ", "error": "401 UNAUTHORIZED", "layer": "Authorization"}, {"id": "G06", "name": "Admin Role Gatekeeper", "file": "backend/app/api/dependencies/auth.py:require_admin", "input": "Endpoint quản trị yêu cầu quyền admin", "pass_cond": "principal.is_admin == True", "deny_cond": "Người dùng thông thường gọi route admin", "error": "403 ADMIN_FORBIDDEN", "layer": "Authorization"}, {"id": "G07", "name": "Resource Ownership Checker", "file": "backend/app/api/routes/artifacts.py", "input": "Yêu cầu tải/upscale/export artifact cụ thể", "pass_cond": "artifact.owner_id == principal.user_id HOẶC principal.is_admin", "deny_cond": "User A truy cập tài nguyên private của User B", "error": "403 ACCESS_DENIED", "layer": "Authorization"}, {"id": "G08", "name": "Sliding Window Rate Limiter", "file": "backend/app/middleware/rate_limiter.py", "input": "Địa chỉ IP hoặc Session ID", "pass_cond": "Số lượng request trong cửa sổ 60s dưới ngưỡng cấu hình (60 req/min)", "deny_cond": "Tần suất request vượt ngưỡng quy định", "error": "429 RATE_LIMIT_EXCEEDED", "layer": "Infrastructure Gate"}, {"id": "G09", "name": "Request Canonical Schema Gate", "file": "backend/app/contracts/schema_registry.py", "input": "Payload JSON gửi lên từ Client", "pass_cond": "Dữ liệu thỏa mãn 100% JSON Schema Draft 2020-12 tương ứng", "deny_cond": "Thiếu trường bắt buộc, sai kiểu, scale > 4, hoặc có trường lạ", "error": "422 CONTRACT_VIOLATION", "layer": "Contract Gate"}, {"id": "G10", "name": "Response Canonical Schema Gate", "file": "frontend/src/shared/contracts/index.ts", "input": "Response JSON trả về từ Backend API", "pass_cond": "Dữ liệu khớp canonical contract định nghĩa trong registry", "deny_cond": "Backend trả sai cấu trúc hoặc trôi schema", "error": "CONTRACT_VIOLATION (Client Throw)", "layer": "Contract Gate"}, {"id": "G11", "name": "LTX Operation Gateway", "file": "backend/app/data_access/operation_gateway.py", "input": "Mọi truy vấn đọc/ghi tới MongoDB", "pass_cond": "Operation key đã đăng ký, version khớp, checksum khớp, trong budget", "deny_cond": "Truy vấn tùy tiện chưa đăng ký hoặc vượt execution budget", "error": "OPERATION_UNAUTHORIZED / BUDGET_EXCEEDED", "layer": "Data Access"}, {"id": "G12", "name": "Queue Fail-Closed Transition", "file": "backend/app/services/job_queue.py", "input": "Thay đổi trạng thái job nền (completed/error/retry)", "pass_cond": "Worker result có url hợp lệ, error đã khử khuẩn, retry hợp lệ", "deny_cond": "Worker trả {}, None, thiếu url, hoặc thừa trường", "error": "QUEUE_RESULT_CONTRACT_VIOLATION", "layer": "Queue & Worker"}, {"id": "G13", "name": "MongoDB $jsonSchema Validator", "file": "scripts/migrations/023_sync_canonical_mongo_validators.py", "input": "Lệnh insert / update document vào MongoDB", "pass_cond": "Document tuân thủ validator cấp collection của MongoDB", "deny_cond": "Document không khớp schema (ở chế độ strict)", "error": "MongoDocumentValidationFailure", "layer": "Database Gate"}, {"id": "G14", "name": "StorageAdapter Path Traversal Defense", "file": "backend/app/storage/storage_adapter.py", "input": "Storage Key khi lưu hoặc tải file vật lý", "pass_cond": "Storage key được sinh từ UUID chuẩn, nằm trọn trong root dir", "deny_cond": "Key chứa .. hoặc ký tự lạ nhằm thoát thư mục lưu trữ", "error": "SECURITY_PATH_TRAVERSAL_BLOCKED", "layer": "Storage Gate"}, {"id": "G15", "name": "HMAC Signed Download Gate", "file": "backend/app/services/auth_service.py", "input": "URL tải file có chữ ký HMAC (sig) và thời gian hết hạn (exp)", "pass_cond": "Chữ ký HMAC hợp lệ bằng secret máy chủ và exp > time()", "deny_cond": "Chữ ký sai hoặc liên kết đã quá hạn", "error": "403 SIGNATURE_EXPIRED_OR_INVALID", "layer": "Security Transport"}, {"id": "G16", "name": "Telemetry & Log Sanitizer", "file": "backend/app/telemetry/metrics.py", "input": "Ghi nhận nhật ký kiểm toán và metrics", "pass_cond": "Nội dung câu hỏi được băm SHA-256; mật khẩu và token bị che giấu", "deny_cond": "Ghi raw văn bản riêng tư hoặc secret ra log server", "error": "REDACTED (Khử khuẩn tự động)", "layer": "Observability"}], "troubleshooting": [{"symptom": "SESSION_BOOTSTRAP_500", "layer": "Session / Auth", "file": "backend/app/api/routes/auth.py", "log": "SESSION_INIT_FAILED | Secret key missing", "fix": "Kiểm tra cấu hình biến môi trường SECRET_KEY và kết nối Redis/Memory store."}, {"symptom": "Đăng nhập Admin thất bại (401/403)", "layer": "Admin Auth", "file": "backend/app/api/routes/admin.py", "log": "ADMIN_AUTH_FAILED | Invalid password hash", "fix": "Xác minh biến ADMIN_USERNAME và ADMIN_PASSWORD trong biến môi trường máy chủ."}, {"symptom": "CSRF_TOKEN_INVALID (403)", "layer": "Security Transport", "file": "backend/app/main.py (csrf_middleware)", "log": "CSRF_TOKEN_INVALID | Header missing or token mismatch", "fix": "Đảm bảo frontend gửi kèm X-CSRF-Token và cookie huit_session_id trong cùng một origin."}, {"symptom": "Mất kết nối Stream giữa chừng (EOF)", "layer": "NDJSON Stream", "file": "frontend/src/features/chat/hooks/useChatStream.ts", "log": "Stream interrupted before completed event", "fix": "useChatStream sẽ tự động kết nối lại tối đa 2 lần với sequence > n; kiểm tra timeout proxy Vercel."}, {"symptom": "JSON Stream Event Invalid", "layer": "Contract Gate", "file": "frontend/src/shared/contracts/index.ts", "log": "CONTRACT_VIOLATION in parseChatStreamEvent", "fix": "Kiểm tra phiên bản protocol_version và schema huit.stream.chat-stream-event@2.0.0."}, {"symptom": "Chatbot không trả lời (Loading vô hạn)", "layer": "RAG Pipeline", "file": "backend/app/rag/pipeline.py", "log": "RAG_TIMEOUT / LLM API Provider unreachable", "fix": "Kiểm tra kết nối mạng tới LLM API hoặc chuyển fallback sang mô hình phụ."}, {"symptom": "Artifact Preview quay mãi không hiện", "layer": "Artifact Engine", "file": "backend/app/services/visual_service.py", "log": "PREVIEW_RENDER_ERROR / Template not found", "fix": "Kiểm tra template_id trong manifest; đảm bảo visual_service hỗ trợ template này."}, {"symptom": "Ảnh không tải được (404/500)", "layer": "Storage / Asset", "file": "backend/app/services/asset_store.py", "log": "ASSET_NOT_FOUND | blob_id missing in storage", "fix": "Kiểm tra volume mount /app/data/artifacts_store và trạng thái của StorageAdapter."}, {"symptom": "Ảnh sinh ra quá lớn hoặc lỗi memory", "layer": "Image Service", "file": "backend/app/services/image_service.py", "log": "IMAGE_OVERSIZE_LIMIT | Dimensions exceed 2048px", "fix": "Đảm bảo width/height nằm trong giới hạn cho phép (mặc định 512x512 hoặc tối đa 1024x1024)."}, {"symptom": "Tác vụ Upscale/Export không hoàn thành", "layer": "Queue & Worker", "file": "backend/app/workers/artifact_worker.py", "log": "WORKER_LEASE_EXPIRED | Job processing timeout", "fix": "Kiểm tra container worker có đang chạy không (`docker ps`), worker lease timeout mặc định 180s."}, {"symptom": "Worker offline (Không xử lý job)", "layer": "Worker Daemon", "file": "Dockerfile.worker", "log": "Worker connection to MongoDB lost", "fix": "Kiểm tra biến MONGODB_URI trong Dockerfile.worker và đảm bảo mongo service healthy."}, {"symptom": "Job bị kẹt ở trạng thái processing", "layer": "Job Queue", "file": "scripts/migrations/011_recover_stuck_jobs.py", "log": "Stuck processing jobs detected with expired lease", "fix": "Chạy script 011 để phục hồi job quá hạn lease sang trạng thái retry hoặc failed an toàn."}, {"symptom": "MongoDB Validator từ chối document", "layer": "Database Gate", "file": "scripts/migrations/023_sync_canonical_mongo_validators.py", "log": "Document failed validation against collection schema", "fix": "Kiểm tra tài liệu có đúng canonical schema không hoặc chạy migration 023 ở chế độ dry-run để preflight."}, {"symptom": "Redis không kết nối được", "layer": "Cache / Redis", "file": "backend/app/cache/redis_client.py", "log": "REDIS_CONNECTION_REFUSED, fallback to in-memory cache", "fix": "Hệ thống tự động fallback về bộ nhớ RAM; kiểm tra dịch vụ Redis hoặc biến REDIS_URL."}, {"symptom": "Object Storage lỗi lưu file", "layer": "Storage Adapter", "file": "backend/app/storage/storage_adapter.py", "log": "STORAGE_WRITE_FAILURE | S3/Local volume write error", "fix": "Kiểm tra quyền ghi trên thư mục artifacts_store hoặc credentials S3/R2 trong settings."}, {"symptom": "CORS / Vercel Proxy lỗi", "layer": "Infrastructure", "file": "vercel.json", "log": "CORS_PREFLIGHT_BLOCKED / Origin not in whitelist", "fix": "Thêm origin frontend vào biến CORS_ALLOWED_ORIGINS trong cấu hình backend Railway."}, {"symptom": "Schema Frontend và Backend bị lệch (Drift)", "layer": "Contract Sync", "file": "scripts/sync_json_schemas.py", "log": "CONTRACT DRIFT: Checksum mismatch or missing files", "fix": "Chạy `python scripts/sync_json_schemas.py` để cập nhật đồng bộ các generated contracts."}, {"symptom": "Hook không cập nhật UI sau khi gọi API", "layer": "Frontend State", "file": "frontend/src/features/artifacts/hooks/useArtifactWorkflow.ts", "log": "React state batching or hook subscription leak", "fix": "Kiểm tra deps array trong useEffect và đảm bảo State Management không bị unmount sớm."}], "chat_simulation": [{"step": 1, "title": "Bootstrap Session Client", "desc": "Trình duyệt gọi POST /api/auth/session khởi tạo phiên làm việc", "node": "client", "code": "POST /api/auth/session", "schema": "huit.api.session-bootstrap-response", "payload": {"session_id": "sess_8f3a9c2b", "ttl": 86400}}, {"step": 2, "title": "Cấp phát HttpOnly Cookie & CSRF", "desc": "Máy chủ trả về Cookie huit_session_id và token X-CSRF-Token", "node": "auth_gate", "code": "Set-Cookie: huit_session_id=...", "schema": "huit.api.session-bootstrap-response", "payload": {"csrf_token": "csrf_5d9e1f82a4c7...", "issued_at": 1726980000}}, {"step": 3, "title": "Người dùng nhập câu hỏi tuyển sinh", "desc": "Người dùng gõ: 'Học phí ngành Công nghệ Thông tin HUIT 2026?'", "node": "ui", "code": "UI ChatInput onSubmit", "schema": "User Interaction", "payload": {"text": "Học phí ngành Công nghệ Thông tin HUIT 2026?"}}, {"step": 4, "title": "Hook chuẩn hóa Request Context", "desc": "useChatStream tiếp nhận câu hỏi, gán sequence=1, history=[...]", "node": "hook", "code": "useChatStream.send()", "schema": "huit.api.chat-request", "payload": {"question": "Học phí CNTT HUIT 2026?", "history": []}}, {"step": 5, "title": "Thẩm định Request Canonical Schema", "desc": "Hàm assertChatRequest() kiểm tra Draft 2020-12 trên frontend", "node": "schema_gate", "code": "assertChatRequest(payload)", "schema": "huit.api.chat-request", "payload": {"valid": true, "properties_checked": ["question", "history", "enable_cache"]}}, {"step": 6, "title": "Gửi HTTP POST /api/chat-stream", "desc": "Gửi request đính kèm Cookie + Header X-CSRF-Token", "node": "transport", "code": "fetch(/api/chat-stream, {headers})", "schema": "HTTP Transport", "payload": {"headers": {"X-CSRF-Token": "csrf_5d9e...", "Accept": "application/x-ndjson"}}}, {"step": 7, "title": "Security Gate: CSRF & Rate Limit", "desc": "Middleware kiểm tra CSRF token và rate limit (dưới 60 req/min)", "node": "auth_gate", "code": "RateLimitMiddleware & csrf_middleware", "schema": "Security Gate", "payload": {"status": "ALLOW", "rate_limit_remaining": 59}}, {"step": 8, "title": "FastAPI Route tiếp nhận & gán Request ID", "desc": "Gán mã định danh duy nhất req-xxxx phục vụ truy vết phân tán", "node": "fastapi", "code": "handle_chat_stream()", "schema": "FastAPI Dependency", "payload": {"request_id": "req-9a1b2c3d4e5f", "principal": "sess_8f3a9c2b"}}, {"step": 9, "title": "RAG Hybrid: FastEmbed Vector Search", "desc": "Chuyển câu hỏi sang vector 1024D, truy vấn ngữ nghĩa huit_kb", "node": "rag", "code": "pipeline.search_knowledge_base()", "schema": "huit.mongo.huit-kb-record", "payload": {"embedding_model": "multilingual-e5-large", "top_k": 5, "rerank_score": 0.94}}, {"step": 10, "title": "Kiểm tra Query Cache", "desc": "Kiểm tra cache SHA-256 câu hỏi trên Redis / Mongo query_cache", "node": "cache", "code": "check_query_cache()", "schema": "huit.mongo.query-cache-record", "payload": {"cached": false, "reason": "Fresh live query"}}, {"step": 11, "title": "Khởi tạo NDJSON Streaming Response", "desc": "Thiết lập Header Content-Type: application/x-ndjson, no-cache", "node": "fastapi", "code": "StreamingResponse(generator)", "schema": "Stream Protocol", "payload": {"protocol": "ndjson_v2", "chunk_size": "event_based"}}, {"step": 12, "title": "Stream Event: START", "desc": "Phát gói tin thông báo bắt đầu luồng dữ liệu", "node": "streamer", "code": "yield event('start')", "schema": "huit.stream.chat-stream-event@2.0.0", "payload": {"protocol_version": 2, "sequence": 1, "type": "start", "payload": {"version": "2.0.0"}}}, {"step": 13, "title": "Stream Event: PROGRESS", "desc": "Cập nhật tiến trình tra cứu tài liệu và nguồn trích dẫn", "node": "streamer", "code": "yield event('progress')", "schema": "huit.stream.chat-stream-event@2.0.0", "payload": {"sequence": 2, "type": "progress", "payload": {"sources": ["De_an_tuyen_sinh_2026.pdf"], "cached": false}}}, {"step": 14, "title": "Stream Event: TOKEN (Text Delta)", "desc": "Phát chuỗi token câu trả lời mượt mà, client đệm 35ms", "node": "streamer", "code": "yield event('token')", "schema": "huit.stream.chat-stream-event@2.0.0", "payload": {"sequence": 3, "type": "token", "payload": {"token": "Học phí ngành CNTT...", "delta": "Học phí"}}}, {"step": 15, "title": "Stream Event: ARTIFACT (Manifest nhẹ)", "desc": "Phát hiện ý định biểu đồ -> sinh manifest siêu nhẹ < 32KB", "node": "streamer", "code": "yield event('artifact')", "schema": "huit.api.artifact-manifest", "payload": {"sequence": 4, "type": "artifact", "payload": {"artifact_id": "art-hocphi-01", "type": "spreadsheet", "title": "Bảng Học Phí CNTT"}}}, {"step": 16, "title": "Stream Event: DONE", "desc": "Kết thúc thành công luồng dữ liệu có độ trễ và thống kê", "node": "streamer", "code": "yield event('done')", "schema": "huit.stream.chat-stream-event@2.0.0", "payload": {"sequence": 5, "type": "done", "payload": {"latency_ms": 480, "cached": false, "tokens": 142}}}, {"step": 17, "title": "Frontend Validate từng Event", "desc": "parseChatStreamEvent() kiểm tra sequence liên tục và contract", "node": "schema_gate", "code": "parseChatStreamEvent(event)", "schema": "huit.stream.chat-stream-event@2.0.0", "payload": {"status": "VALID", "sequence_verified": true}}, {"step": 18, "title": "Hook cập nhật State & Message Store", "desc": "useChatStream ghi nhận toàn bộ tin nhắn, dừng trạng thái isStreaming", "node": "hook", "code": "setIsStreaming(false), appendMessage()", "schema": "UI State", "payload": {"isStreaming": false, "message_id": "msg_001"}}, {"step": 19, "title": "UI Render Markdown & Thẻ Artifact", "desc": "DOMPurify khử khuẩn an toàn, hiển thị thẻ biểu đồ kèm nút tải", "node": "ui", "code": "ChatMessageItem render", "schema": "UI Component", "payload": {"rendered": true, "has_artifact_card": true}}, {"step": 20, "title": "Lưu lịch sử hội thoại cục bộ", "desc": "useChatHistory lưu vào sessionScopedStorage (không rò rỉ user khác)", "node": "client", "code": "sessionScopedStorage.save()", "schema": "Session Storage", "payload": {"saved_session": "sess_8f3a9c2b", "history_count": 2}}], "error_scenarios": [{"id": "ERR_01", "name": "Invalid Session Cookie", "status_code": 401, "gate": "G02", "node": "auth_gate", "err_code": "SESSION_INVALID", "file": "backend/app/main.py", "diag": "Cookie huit_session_id không có trong bộ nhớ hoặc đã hết hạn quá 24h.", "fallback": "Frontend tự động gọi lại useSessionBootstrap() để làm mới phiên."}, {"id": "ERR_02", "name": "CSRF Token Mismatch", "status_code": 403, "gate": "G03", "node": "auth_gate", "err_code": "CSRF_TOKEN_INVALID", "file": "backend/app/main.py", "diag": "Header X-CSRF-Token gửi lên không khớp token lưu trữ trong csrfStore.", "fallback": "apiClient tự động làm mới session một lần và thử lại request."}, {"id": "ERR_03", "name": "Tần suất quá giới hạn (Rate Limit)", "status_code": 429, "gate": "G08", "node": "auth_gate", "err_code": "RATE_LIMIT_EXCEEDED", "file": "backend/app/middleware/rate_limiter.py", "diag": "Vượt quá ngưỡng 60 requests/phút trên mỗi Session / IP.", "fallback": "Hiển thị thông báo giới hạn; client đếm lùi thời gian thử lại."}, {"id": "ERR_04", "name": "Vi phạm JSON Schema Contract", "status_code": 422, "gate": "G09", "node": "schema_gate", "err_code": "CONTRACT_VIOLATION", "file": "backend/app/contracts/schema_registry.py", "diag": "Payload gửi lên thiếu trường bắt buộc hoặc có thuộc tính lạ ngoài schema.", "fallback": "Chặn ngay tại cửa ngõ; không lưu dữ liệu bẩn vào cơ sở dữ liệu."}, {"id": "ERR_05", "name": "Mất kết nối mạng Stream (EOF)", "status_code": 500, "gate": "G10", "node": "transport", "err_code": "STREAM_DISCONNECTED", "file": "frontend/src/features/chat/hooks/useChatStream.ts", "log": "Stream interrupted before completed event", "diag": "Mất kết nối giữa trình duyệt và server khi chưa nhận được sự kiện done.", "fallback": "Client tự động kết nối lại tối đa 2 lần với sequence > n."}, {"id": "ERR_06", "name": "MongoDB tạm thời gián đoạn", "status_code": 503, "gate": "G11", "node": "data_access", "err_code": "DATABASE_UNAVAILABLE", "file": "backend/app/repositories/mongo_repository.py", "diag": "Mất kết nối tới cụm MongoDB Atlas hoặc ping quá thời gian timeout.", "fallback": "LTX Gateway trả về lỗi có cấu trúc; hệ thống dùng RAM fallback nếu ở dev."}, {"id": "ERR_07", "name": "Redis Cache Offline", "status_code": 200, "gate": "G11", "node": "cache", "err_code": "CACHE_OFFLINE_DEGRADED", "file": "backend/app/cache/redis_client.py", "diag": "Dịch vụ Redis không phản hồi hoặc cổng 6379 bị từ chối.", "fallback": "Tự động kích hoạt InMemoryFallbackCache mà không gây sập ứng dụng."}, {"id": "ERR_08", "name": "Worker Task Quá Hạn Lease", "status_code": 504, "gate": "G12", "node": "worker", "err_code": "WORKER_LEASE_EXPIRED", "file": "backend/app/services/job_queue.py", "diag": "Worker gặp sự cố không gia hạn được heartbeat trong vòng 180s.", "fallback": "Lease tự động nhả; daemon phục hồi job chuyển trạng thái để worker khác nhận."}, {"id": "ERR_09", "name": "Worker Result Sai Contract", "status_code": 500, "gate": "G12", "node": "queue", "err_code": "QUEUE_RESULT_CONTRACT_VIOLATION", "file": "backend/app/services/job_queue.py", "diag": "Worker trả về {}, None, thiếu url hoặc có thuộc tính lạ ngoài schema.", "fallback": "Chặn chuyển sang completed; đánh dấu job failed với mã lỗi đã khử khuẩn."}, {"id": "ERR_10", "name": "File vật lý không tìm thấy", "status_code": 404, "gate": "G14", "node": "storage", "err_code": "FILE_NOT_FOUND", "file": "backend/app/storage/storage_adapter.py", "diag": "Tài nguyên đã bị dọn dẹp theo chính sách lưu trữ hoặc storage key không tồn tại.", "fallback": "Trả về 404 với mã lỗi FILE_NOT_FOUND chuẩn hóa."}, {"id": "ERR_11", "name": "Truy cập tài nguyên trái phép", "status_code": 403, "gate": "G07", "node": "auth_gate", "err_code": "ACCESS_DENIED", "file": "backend/app/api/routes/artifacts.py", "diag": "Người dùng A cố gắng tải hoặc phóng to tài nguyên private thuộc về Người dùng B.", "fallback": "Chặn tuyệt đối truy cập chéo giữa các phiên người dùng."}], "directory_tree": [{"name": "chatbot2", "type": "folder", "layer": "root", "desc": "Thư mục gốc của toàn bộ dự án HUIT Chatbot", "children": [{"name": "backend", "type": "folder", "layer": "backend", "desc": "Máy chủ ứng dụng FastAPI, RAG, Services, Workers, Schemas", "children": [{"name": "app", "type": "folder", "layer": "backend", "desc": "Mã nguồn chính của backend", "children": [{"name": "main.py", "type": "file", "layer": "backend", "desc": "Entrypoint FastAPI, CORS, Request ID, CSRF Guard, Routers", "file": "backend/app/main.py"}, {"name": "config.py", "type": "file", "layer": "backend", "desc": "Cấu hình pydantic-settings, xác thực biến môi trường startup", "file": "backend/app/config.py"}, {"name": "api", "type": "folder", "layer": "backend", "desc": "Tầng giao diện RESTful API & Realtime Streaming", "children": [{"name": "routes/chat.py", "type": "file", "layer": "backend", "desc": "POST /api/chat, POST /api/chat-stream (NDJSON v2)", "file": "backend/app/api/routes/chat.py"}, {"name": "routes/artifacts.py", "type": "file", "layer": "backend", "desc": "Quản lý vòng đời Artifacts, Render, Upscale, Export", "file": "backend/app/api/routes/artifacts.py"}, {"name": "routes/images.py", "type": "file", "layer": "backend", "desc": "Sinh ảnh và trích xuất thumbnail", "file": "backend/app/api/routes/images.py"}, {"name": "routes/admin.py", "type": "file", "layer": "backend", "desc": "Cổng quản trị, giám sát metrics, jobs, alert, migrations", "file": "backend/app/api/routes/admin.py"}, {"name": "routes/auth.py", "type": "file", "layer": "backend", "desc": "POST /api/auth/session, cấp phát CSRF token và Cookie", "file": "backend/app/api/routes/auth.py"}, {"name": "routes/health.py", "type": "file", "layer": "backend", "desc": "Liveness & Readiness probe cho container", "file": "backend/app/api/routes/health.py"}, {"name": "schemas/artifact.py", "type": "file", "layer": "backend", "desc": "Pydantic models: JobAcceptedResponse, ArtifactManifest...", "file": "backend/app/api/schemas/artifact.py"}, {"name": "schemas/admin.py", "type": "file", "layer": "backend", "desc": "Pydantic models: AdminLoginRequest, AdminSessionResponse...", "file": "backend/app/api/schemas/admin.py"}, {"name": "schemas/chat.py", "type": "file", "layer": "backend", "desc": "Pydantic model ChatRequest", "file": "backend/app/api/schemas/chat.py"}]}, {"name": "contracts", "type": "folder", "layer": "schema", "desc": "Thẩm định JSON Schema Draft 2020-12 fail-closed", "children": [{"name": "schema_registry.py", "type": "file", "layer": "schema", "desc": "validate_contract(), schema_sha256(), ref resolver", "file": "backend/app/contracts/schema_registry.py"}]}, {"name": "services", "type": "folder", "layer": "backend", "desc": "Tầng nghiệp vụ (Business Service Layer)", "children": [{"name": "job_queue.py", "type": "file", "layer": "backend", "desc": "Durable Lease Queue, fail-closed contract transition", "file": "backend/app/services/job_queue.py"}, {"name": "artifact_service.py", "type": "file", "layer": "backend", "desc": "create_artifact_plan(), upscale, export coordination", "file": "backend/app/services/artifact_service.py"}, {"name": "visual_service.py", "type": "file", "layer": "backend", "desc": "SVG Engine & OpenPyXL Excel Engine", "file": "backend/app/services/visual_service.py"}, {"name": "docx_renderer.py", "type": "file", "layer": "backend", "desc": "Engine xuất file Word .docx nhận diện HUIT", "file": "backend/app/services/docx_renderer.py"}, {"name": "pdf_renderer.py", "type": "file", "layer": "backend", "desc": "Engine xuất file PDF hỗ trợ Unicode tiếng Việt", "file": "backend/app/services/pdf_renderer.py"}, {"name": "asset_store.py", "type": "file", "layer": "backend", "desc": "Deduplication Canonical Hash & asyncio.Lock", "file": "backend/app/services/asset_store.py"}, {"name": "auth_service.py", "type": "file", "layer": "backend", "desc": "Xác thực Session token, CSRF token, Signed download URL", "file": "backend/app/services/auth_service.py"}]}, {"name": "data_access", "type": "folder", "layer": "mongo", "desc": "Cổng kiểm soát truy cập dữ liệu duy nhất", "children": [{"name": "operation_gateway.py", "type": "file", "layer": "mongo", "desc": "LTX Operation Gateway (Policy, Budget, Audit)", "file": "backend/app/data_access/operation_gateway.py"}]}, {"name": "workers", "type": "folder", "layer": "backend", "desc": "Background Job Workers", "children": [{"name": "artifact_worker.py", "type": "file", "layer": "backend", "desc": "Standalone Worker xử lý render tác vụ nền", "file": "backend/app/workers/artifact_worker.py"}]}, {"name": "storage", "type": "folder", "layer": "backend", "desc": "Trừu tượng hóa lưu trữ file vật lý", "children": [{"name": "storage_adapter.py", "type": "file", "layer": "backend", "desc": "LocalStorageAdapter & ObjectStorageAdapter (S3/R2)", "file": "backend/app/storage/storage_adapter.py"}]}]}, {"name": "json_schemas", "type": "folder", "layer": "schema", "desc": "Nguồn chân lý Canonical JSON Schemas Draft 2020-12", "children": [{"name": "registry.json", "type": "file", "layer": "schema", "desc": "Manifest đăng ký 34 schemas, sha256 checksums", "file": "backend/json_schemas/registry.json"}, {"name": "api/", "type": "folder", "layer": "schema", "desc": "13 schemas cho REST endpoints", "file": "backend/json_schemas/api/"}, {"name": "stream/", "type": "folder", "layer": "schema", "desc": "2 schemas cho NDJSON stream protocol v1 & v2", "file": "backend/json_schemas/stream/"}, {"name": "queue/", "type": "folder", "layer": "schema", "desc": "5 schemas cho Background Job Queue contracts", "file": "backend/json_schemas/queue/"}, {"name": "mongo/", "type": "folder", "layer": "schema", "desc": "10 schemas cho MongoDB collection validators", "file": "backend/json_schemas/mongo/"}]}, {"name": "tests", "type": "folder", "layer": "test", "desc": "Bộ 302 kiểm thử tự động Backend (Pytest)", "children": [{"name": "test_canonical_json_schema_registry.py", "type": "file", "layer": "test", "desc": "38 contract tests kiểm tra 34 schemas", "file": "backend/tests/test_canonical_json_schema_registry.py"}, {"name": "test_queue_contract_validation.py", "type": "file", "layer": "test", "desc": "17 tests kiểm tra queue fail-closed negative paths", "file": "backend/tests/test_queue_contract_validation.py"}, {"name": "test_migration_023_canonical_validators.py", "type": "file", "layer": "test", "desc": "7 tests kiểm tra migration 023 dry-run & preflight", "file": "backend/tests/test_migration_023_canonical_validators.py"}]}]}, {"name": "frontend", "type": "folder", "layer": "frontend", "desc": "Ứng dụng Client React 19 + TypeScript + Vite", "children": [{"name": "hooks", "type": "folder", "layer": "hook", "desc": "Public Hook Facade - Bề mặt công khai cấp cao nhất ngoài src", "children": [{"name": "index.ts", "type": "file", "layer": "hook", "desc": "Main Entrypoint re-export toàn bộ 17 public hooks", "file": "frontend/hooks/index.ts"}, {"name": "chat.ts", "type": "file", "layer": "hook", "desc": "Re-export useChatStream, useConversation", "file": "frontend/hooks/chat.ts"}, {"name": "artifacts.ts", "type": "file", "layer": "hook", "desc": "Re-export useArtifactWorkflow, useArtifactExport, useArtifactUpscale", "file": "frontend/hooks/artifacts.ts"}, {"name": "admin.ts", "type": "file", "layer": "hook", "desc": "Re-export useAdminAuth, useAdminDashboard, useAdminOps", "file": "frontend/hooks/admin.ts"}, {"name": "session.ts", "type": "file", "layer": "hook", "desc": "Re-export useSessionBootstrap", "file": "frontend/hooks/session.ts"}, {"name": "voice.ts", "type": "file", "layer": "hook", "desc": "Re-export useSpeechRecognition, useSpeechSynthesis", "file": "frontend/hooks/voice.ts"}, {"name": "common.ts", "type": "file", "layer": "hook", "desc": "Re-export useDebounce, useLocalStorage, useTheme...", "file": "frontend/hooks/common.ts"}]}, {"name": "src", "type": "folder", "layer": "frontend", "desc": "Mã nguồn triển khai nội bộ (Feature-Based Architecture)", "children": [{"name": "app/App.tsx", "type": "file", "layer": "frontend", "desc": "App Shell chính, Drawer lịch sử, Header, Tabs", "file": "frontend/src/app/App.tsx"}, {"name": "features/chat/", "type": "folder", "layer": "frontend", "desc": "Chat UI, useChatStream (NDJSON v2 đệm token 35ms)", "file": "frontend/src/features/chat/"}, {"name": "features/artifacts/", "type": "folder", "layer": "frontend", "desc": "Thẻ Artifact, Export modal, Upscale viewer", "file": "frontend/src/features/artifacts/"}, {"name": "features/admission-visuals/", "type": "folder", "layer": "frontend", "desc": "VisualCard, VisualLightbox phóng to SVG", "file": "frontend/src/features/admission-visuals/"}, {"name": "features/admin/", "type": "folder", "layer": "frontend", "desc": "Admin Portal, Dashboard metrics, Jobs panel", "file": "frontend/src/features/admin/"}, {"name": "shared/contracts/", "type": "folder", "layer": "schema", "desc": "Runtime JSON Schema validator & 18 generated schemas", "file": "frontend/src/shared/contracts/"}, {"name": "shared/api/httpClient.ts", "type": "file", "layer": "frontend", "desc": "Unified HTTP client tự động gắn CSRF token & credentials", "file": "frontend/src/shared/api/httpClient.ts"}]}, {"name": "tests", "type": "folder", "layer": "test", "desc": "Bộ 126 kiểm thử tự động Frontend (Vitest)", "children": [{"name": "architectureContract.test.ts", "type": "file", "layer": "test", "desc": "19 tests kiểm tra cấu trúc Facade và cấm import chéo", "file": "frontend/tests/architectureContract.test.ts"}, {"name": "jsonSchemaContracts.test.ts", "type": "file", "layer": "test", "desc": "12 tests kiểm tra runtime JSON Schema validator", "file": "frontend/tests/jsonSchemaContracts.test.ts"}]}]}, {"name": "scripts", "type": "folder", "layer": "script", "desc": "Công cụ vận hành và kịch bản di chuyển dữ liệu", "children": [{"name": "sync_json_schemas.py", "type": "file", "layer": "script", "desc": "Đồng bộ canonical schemas sang frontend và cờ --check", "file": "scripts/sync_json_schemas.py"}, {"name": "migrations/023_sync_canonical_mongo_validators.py", "type": "file", "layer": "mongo", "desc": "Đồng bộ canonical validator vào 9 collection MongoDB (Mặc định dry-run)", "file": "scripts/migrations/023_sync_canonical_mongo_validators.py"}, {"name": "migrations/022_backup_json_schema_registry.py", "type": "file", "layer": "mongo", "desc": "Sao lưu bản sao Schema Registry vào collection schema_registry", "file": "scripts/migrations/022_backup_json_schema_registry.py"}]}, {"name": "docs", "type": "folder", "layer": "docs", "desc": "Tài liệu kỹ thuật và bản đồ trực quan", "children": [{"name": "ARCHITECTURE.md", "type": "file", "layer": "docs", "desc": "Đặc tả kiến trúc hệ thống toàn diện", "file": "docs/ARCHITECTURE.md"}, {"name": "HUIT_CHATBOT_SYSTEM_ARCHITECTURE_VISUAL.html", "type": "file", "layer": "docs", "desc": "Bản đồ tương tác trực quan toàn diện (File hiện tại)", "file": "docs/HUIT_CHATBOT_SYSTEM_ARCHITECTURE_VISUAL.html"}]}]}]}
+  </script>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+
+(function() {
+  const dataEl = document.getElementById('system-data');
+  if (!dataEl) return;
+  const SYSTEM_DATA = JSON.parse(dataEl.textContent);
+
+  // DOM Elements
+  const htmlEl = document.documentElement;
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const navItems = document.querySelectorAll('.nav-item');
+  const modal = document.getElementById('detail-modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalBody = document.getElementById('modal-body');
+  const modalCloseBtn = document.getElementById('modal-close');
+  const modalCloseBtn2 = document.getElementById('modal-btn-close');
+
+  // 1. Theme Switcher
+  const savedTheme = localStorage.getItem('huit_theme') || 'dark';
+  htmlEl.setAttribute('data-theme', savedTheme);
+
+  themeToggleBtn.addEventListener('click', () => {
+    const currentTheme = htmlEl.getAttribute('data-theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    htmlEl.setAttribute('data-theme', newTheme);
+    localStorage.setItem('huit_theme', newTheme);
+  });
+
+  // 2. Navigation Routing & Active Highlighting
+  function setActiveNav(targetId) {
+    navItems.forEach(item => {
+      if (item.getAttribute('data-target') === targetId) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  navItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      const target = item.getAttribute('data-target');
+      setActiveNav(target);
+    });
+  });
+
+  // Listen to scroll to update active nav
+  const sections = document.querySelectorAll('.section-block');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    if (current) setActiveNav(current);
+  }, { passive: true });
+
+  // 3. Modal Helpers
+  function openModal(title, contentHtml) {
+    modalTitle.textContent = title;
+    modalBody.innerHTML = contentHtml;
+    modal.classList.add('open');
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+  }
+
+  modalCloseBtn.addEventListener('click', closeModal);
+  modalCloseBtn2.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+
+  // 4. Populate Technologies Table
+  const techTableBody = document.querySelector('#tech-table tbody');
+  function renderTechTable(categoryFilter = 'all', searchQuery = '') {
+    techTableBody.innerHTML = '';
+    const search = searchQuery.toLowerCase().trim();
+    
+    SYSTEM_DATA.technologies.forEach(t => {
+      if (categoryFilter !== 'all' && t.cat !== categoryFilter) return;
+      if (search && !t.name.toLowerCase().includes(search) && !t.role.toLowerCase().includes(search) && !t.file.toLowerCase().includes(search)) return;
+
+      const tr = document.createElement('tr');
+      const badgeClass = t.status.includes('VERIFIED') ? 'badge-verified' : (t.status.includes('PLANNED') ? 'badge-planned' : 'badge-partial');
+      tr.innerHTML = `
+        <td><strong>${escapeHtml(t.name)}</strong></td>
+        <td><span class="badge badge-tag">${escapeHtml(t.cat)}</span></td>
+        <td>${escapeHtml(t.role)}</td>
+        <td><span class="code-path">${escapeHtml(t.file)}</span></td>
+        <td><span style="font-family:var(--font-mono); font-size:11px;">${escapeHtml(t.version)}</span></td>
+        <td><span class="badge ${badgeClass}">${escapeHtml(t.status)}</span></td>
+      `;
+      techTableBody.appendChild(tr);
+    });
+  }
+  renderTechTable();
+
+  // Tech Category Filter
+  document.querySelectorAll('[data-tech-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-tech-filter]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTechTable(btn.getAttribute('data-tech-filter'), document.getElementById('tech-search').value);
+    });
+  });
+  document.getElementById('tech-search').addEventListener('input', (e) => {
+    const activeCat = document.querySelector('[data-tech-filter].active')?.getAttribute('data-tech-filter') || 'all';
+    renderTechTable(activeCat, e.target.value);
+  });
+
+  // 5. Populate JSON Schema Table
+  const schemaTableBody = document.querySelector('#schema-table tbody');
+  function renderSchemaTable(kindFilter = 'all', searchQuery = '') {
+    schemaTableBody.innerHTML = '';
+    const search = searchQuery.toLowerCase().trim();
+
+    SYSTEM_DATA.contracts.forEach(c => {
+      if (kindFilter === 'frontend' && !c.frontend) return;
+      if (kindFilter !== 'all' && kindFilter !== 'frontend' && c.kind !== kindFilter) return;
+      if (search && !c.schema_id.toLowerCase().includes(search) && !c.description.toLowerCase().includes(search)) return;
+
+      const tr = document.createElement('tr');
+      tr.style.cursor = 'pointer';
+      tr.innerHTML = `
+        <td><strong style="color:var(--c-backend);">${escapeHtml(c.schema_id)}</strong></td>
+        <td><span style="font-family:var(--font-mono); font-size:11px;">${escapeHtml(c.version)}</span></td>
+        <td><span class="badge badge-tag">${escapeHtml(c.kind)}</span></td>
+        <td><span class="code-path">${escapeHtml(c.file)}</span></td>
+        <td>${c.frontend ? '<span class="badge badge-verified">YES</span>' : '<span style="color:var(--text-dim);">No</span>'}</td>
+        <td><span class="badge badge-verified">${escapeHtml(c.status)}</span></td>
+        <td style="font-size:12px; color:var(--text-muted); max-width:320px;">${escapeHtml(c.description)}</td>
+        <td><code style="font-size:10px; font-family:var(--font-mono);">${c.sha256.substring(0, 8)}...</code></td>
+      `;
+
+      tr.addEventListener('click', () => {
+        openModal(
+          `Schema: ${c.schema_id} @ ${c.version}`,
+          `
+            <div style="line-height:1.7;">
+              <div style="margin-bottom:12px;"><strong>Mô tả:</strong> ${escapeHtml(c.description)}</div>
+              <div style="margin-bottom:12px;"><strong>Tập tin Canonical:</strong> <code class="code-path">${escapeHtml(c.file)}</code></div>
+              <div style="margin-bottom:12px;"><strong>SHA-256 Checksum:</strong> <code style="font-family:var(--font-mono); font-size:11px; word-break:break-all;">${escapeHtml(c.sha256)}</code></div>
+              <div style="margin-bottom:12px;"><strong>Frontend Exposed:</strong> ${c.frontend ? '<span class="badge badge-verified">Đã đồng bộ frontend (frontend: true)</span>' : '<span class="badge badge-tag">Nội bộ backend / worker</span>'}</div>
+              <div style="margin-bottom:12px;">
+                <strong>Thành phần tiêu thụ (Consumers):</strong>
+                <ul style="padding-left:20px; font-family:var(--font-mono); font-size:12px; margin-top:4px;">
+                  ${c.consumers.map(cons => `<li>${escapeHtml(cons)}</li>`).join('')}
+                </ul>
+              </div>
+            </div>
+          `
+        );
+      });
+      schemaTableBody.appendChild(tr);
+    });
+  }
+  renderSchemaTable();
+
+  document.querySelectorAll('[data-schema-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-schema-filter]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderSchemaTable(btn.getAttribute('data-schema-filter'), document.getElementById('schema-search').value);
+    });
+  });
+  document.getElementById('schema-search').addEventListener('input', (e) => {
+    const activeFilter = document.querySelector('[data-schema-filter].active')?.getAttribute('data-schema-filter') || 'all';
+    renderSchemaTable(activeFilter, e.target.value);
+  });
+
+  // 6. Populate Public Hook Facade Table
+  const facadeTableBody = document.querySelector('#sec-facade table tbody');
+  SYSTEM_DATA.hooks.forEach(h => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong style="color:var(--c-hook);">${escapeHtml(h.hook)}</strong></td>
+      <td><span class="code-path">${escapeHtml(h.facade)}</span></td>
+      <td><span class="code-path">${escapeHtml(h.impl)}</span></td>
+      <td><span class="badge badge-tag">${escapeHtml(h.feature)}</span></td>
+      <td><span style="font-size:12px;">${escapeHtml(h.api)}</span></td>
+      <td style="font-size:11px; font-family:var(--font-mono); color:var(--text-muted);">${escapeHtml(h.contract)}</td>
+      <td><span class="badge badge-verified">${escapeHtml(h.status)}</span></td>
+    `;
+    facadeTableBody.appendChild(tr);
+  });
+
+  // 7. Populate Security Gates Table
+  const securityTableBody = document.getElementById('security-table-body');
+  SYSTEM_DATA.security_gates.forEach(g => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${escapeHtml(g.id)}</strong></td>
+      <td><strong style="color:var(--text-main);">${escapeHtml(g.name)}</strong></td>
+      <td><span class="code-path">${escapeHtml(g.file)}</span></td>
+      <td style="font-size:12px; color:var(--text-muted);">${escapeHtml(g.input)}</td>
+      <td style="font-size:12px; color:var(--s-verified-text);">${escapeHtml(g.pass_cond)}</td>
+      <td style="font-size:12px; color:var(--s-error-text);">${escapeHtml(g.deny_cond)}</td>
+      <td><span class="badge badge-error" style="font-size:10px;">${escapeHtml(g.error)}</span></td>
+      <td><span class="badge badge-tag">${escapeHtml(g.layer)}</span></td>
+    `;
+    securityTableBody.appendChild(tr);
+  });
+
+  // 8. Populate Troubleshooting Table
+  const troubleTableBody = document.querySelector('#trouble-table tbody');
+  function renderTroubleTable(query = '') {
+    troubleTableBody.innerHTML = '';
+    const search = query.toLowerCase().trim();
+
+    SYSTEM_DATA.troubleshooting.forEach(t => {
+      if (search && !t.symptom.toLowerCase().includes(search) && !t.layer.toLowerCase().includes(search) && !t.file.toLowerCase().includes(search) && !t.log.toLowerCase().includes(search)) return;
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong style="color:var(--c-security);">${escapeHtml(t.symptom)}</strong></td>
+        <td><span class="badge badge-tag">${escapeHtml(t.layer)}</span></td>
+        <td><span class="code-path">${escapeHtml(t.file)}</span></td>
+        <td><code style="font-size:11px; font-family:var(--font-mono); color:var(--text-muted);">${escapeHtml(t.log)}</code></td>
+        <td style="font-size:12px;">${escapeHtml(t.fix)}</td>
+      `;
+      troubleTableBody.appendChild(tr);
+    });
+  }
+  renderTroubleTable();
+  document.getElementById('trouble-search').addEventListener('input', (e) => {
+    renderTroubleTable(e.target.value);
+  });
+
+  // 9. Interactive Directory Tree Builder
+  const treeRoot = document.getElementById('tree-root');
+  const fileInspectorContent = document.getElementById('file-inspector-content');
+
+  function buildTreeNode(node) {
+    const container = document.createElement('div');
+    container.style.paddingLeft = node.type === 'folder' ? '12px' : '20px';
+    container.style.position = 'relative';
+
+    const row = document.createElement('div');
+    row.style.cursor = 'pointer';
+    row.style.display = 'flex';
+    row.style.alignItems = 'center';
+    row.style.gap = '6px';
+    row.style.padding = '2px 6px';
+    row.style.borderRadius = '4px';
+    row.classList.add('tree-node-row');
+
+    const icon = node.type === 'folder' ? '📁' : '📄';
+    row.innerHTML = `<span>${icon}</span> <span class="tree-node-name">${escapeHtml(node.name)}</span>`;
+
+    row.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // Highlight selected
+      document.querySelectorAll('.tree-node-row').forEach(r => r.style.background = 'transparent');
+      row.style.background = 'var(--bg-card-hover)';
+
+      // Toggle folder
+      if (node.type === 'folder' && node.children) {
+        const childrenContainer = container.querySelector('.tree-children');
+        if (childrenContainer) {
+          const isHidden = childrenContainer.style.display === 'none';
+          childrenContainer.style.display = isHidden ? 'block' : 'none';
+        }
+      }
+
+      // Show in inspector
+      showFileInInspector(node);
+    });
+
+    container.appendChild(row);
+
+    if (node.type === 'folder' && node.children) {
+      const childrenContainer = document.createElement('div');
+      childrenContainer.classList.add('tree-children');
+      childrenContainer.style.borderLeft = '1px dashed var(--border-color)';
+      childrenContainer.style.marginLeft = '6px';
+      node.children.forEach(child => {
+        childrenContainer.appendChild(buildTreeNode(child));
+      });
+      container.appendChild(childrenContainer);
+    }
+
+    return container;
+  }
+
+  function showFileInInspector(node) {
+    fileInspectorContent.innerHTML = `
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <div>
+            <h4 style="font-size:16px; font-weight:700; color:var(--text-main);">${escapeHtml(node.name)}</h4>
+            <span class="badge badge-tag" style="margin-top:4px;">Layer: ${escapeHtml(node.layer)}</span>
+          </div>
+          ${node.file ? `<button id="btn-copy-node-path" class="btn" style="font-size:11px; padding:4px 10px;">📋 Sao chép đường dẫn</button>` : ''}
+        </div>
+
+        <div style="background:var(--bg-card); padding:12px; border-radius:6px; font-size:12px; margin-bottom:12px; border:1px solid var(--border-color);">
+          <div><strong>Vị trí tệp tin:</strong> <code class="code-path">${escapeHtml(node.file || node.name)}</code></div>
+          <div style="margin-top:6px;"><strong>Trách nhiệm:</strong> ${escapeHtml(node.desc)}</div>
+        </div>
+
+        <div style="font-size:12px; line-height:1.7; color:var(--text-muted);">
+          <div><strong>Quy tắc kiến trúc:</strong> Không nhập khẩu chéo ngoài ranh giới layer đã định nghĩa.</div>
+          <div><strong>Rào chắn kiểm thử:</strong> Được bảo vệ bởi bộ kiểm thử tự động tại <code>backend/tests/</code> hoặc <code>frontend/tests/</code>.</div>
+        </div>
+      </div>
+    `;
+
+    const copyBtn = document.getElementById('btn-copy-node-path');
+    if (copyBtn && node.file) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(node.file).then(() => {
+          copyBtn.textContent = '✓ Đã sao chép!';
+          setTimeout(() => { copyBtn.textContent = '📋 Sao chép đường dẫn'; }, 2000);
+        });
+      });
+    }
+  }
+
+  SYSTEM_DATA.directory_tree.forEach(rootNode => {
+    treeRoot.appendChild(buildTreeNode(rootNode));
+  });
+
+  // Tree search
+  document.getElementById('tree-search').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase().trim();
+    document.querySelectorAll('.tree-node-row').forEach(row => {
+      const name = row.querySelector('.tree-node-name')?.textContent.toLowerCase() || '';
+      if (!term || name.includes(term)) {
+        row.style.opacity = '1';
+      } else {
+        row.style.opacity = '0.3';
+      }
+    });
+  });
+
+  // 10. Interactive Chat & NDJSON Simulator
+  let currentSimStep = 0;
+  let simTimer = null;
+  let simSpeed = 1000;
+
+  const simBtnStart = document.getElementById('sim-btn-start');
+  const simBtnNext = document.getElementById('sim-btn-next');
+  const simBtnAuto = document.getElementById('sim-btn-auto');
+  const simBtnPause = document.getElementById('sim-btn-pause');
+  const simBtnReset = document.getElementById('sim-btn-reset');
+  const simStepBadge = document.getElementById('sim-step-badge');
+  const simStepNum = document.getElementById('sim-step-num');
+  const simStepNode = document.getElementById('sim-step-node');
+  const simStepTitle = document.getElementById('sim-step-title');
+  const simStepDesc = document.getElementById('sim-step-desc');
+  const simStepSchema = document.getElementById('sim-step-schema');
+  const simWirePayload = document.getElementById('sim-wire-payload');
+  const simLogBody = document.getElementById('sim-log-body');
+  const btnClearLog = document.getElementById('btn-clear-log');
+
+  function appendLog(tag, msg) {
+    const line = document.createElement('div');
+    line.classList.add('log-line');
+    const now = new Date();
+    const timeStr = now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
+    line.innerHTML = `<span class="log-time">[${timeStr}]</span> <span class="log-tag ${tag}">[${tag}]</span> <span>${escapeHtml(msg)}</span>`;
+    simLogBody.appendChild(line);
+    simLogBody.scrollTop = simLogBody.scrollHeight;
+  }
+
+  btnClearLog.addEventListener('click', () => {
+    simLogBody.innerHTML = '<div class="log-line"><span class="log-time">[Log Cleared]</span> Sẵn sàng ghi nhận sự kiện mới.</div>';
+  });
+
+  function renderSimStep(stepIdx) {
+    if (stepIdx <= 0 || stepIdx > SYSTEM_DATA.chat_simulation.length) return;
+    const step = SYSTEM_DATA.chat_simulation[stepIdx - 1];
+
+    simStepBadge.textContent = `Bước: ${step.step} / 20`;
+    simStepNum.textContent = `BƯỚC ${step.step}: ${step.code}`;
+    simStepNode.textContent = `NODE: ${step.node.toUpperCase()}`;
+    simStepTitle.textContent = step.title;
+    simStepDesc.textContent = step.desc;
+    simStepSchema.textContent = `Schema: ${step.schema}`;
+    simWirePayload.textContent = JSON.stringify(step.payload, null, 2);
+
+    // Highlight SVG node
+    document.querySelectorAll('.svg-node').forEach(n => {
+      if (n.getAttribute('data-node') === step.node) {
+        n.querySelector('rect').setAttribute('stroke-width', '3');
+        n.querySelector('rect').setAttribute('stroke', '#3fb950');
+      } else {
+        n.querySelector('rect').setAttribute('stroke-width', '2');
+        n.querySelector('rect').setAttribute('stroke', '#30363d');
+      }
+    });
+
+    appendLog('INFO', `[Bước ${step.step}] ${step.title} (${step.code})`);
+  }
+
+  function nextSimStep() {
+    if (currentSimStep < SYSTEM_DATA.chat_simulation.length) {
+      currentSimStep++;
+      renderSimStep(currentSimStep);
+      if (currentSimStep === SYSTEM_DATA.chat_simulation.length) {
+        appendLog('SUCCESS', 'Mô phỏng 20 bước hoàn tất thành công 100%.');
+        pauseSim();
+      }
+    } else {
+      pauseSim();
+    }
+  }
+
+  function startSim() {
+    currentSimStep = 1;
+    renderSimStep(currentSimStep);
+  }
+
+  function autoPlaySim() {
+    pauseSim();
+    if (currentSimStep >= SYSTEM_DATA.chat_simulation.length) currentSimStep = 0;
+    simTimer = setInterval(nextSimStep, simSpeed);
+    simBtnAuto.textContent = 'Đang chạy...';
+  }
+
+  function pauseSim() {
+    if (simTimer) {
+      clearInterval(simTimer);
+      simTimer = null;
+      simBtnAuto.textContent = '⚡ Tự Động Chạy';
+    }
+  }
+
+  function resetSim() {
+    pauseSim();
+    currentSimStep = 0;
+    simStepBadge.textContent = 'Bước: 0 / 20';
+    simStepNum.textContent = 'Chưa bắt đầu mô phỏng';
+    simStepNode.textContent = 'IDLE';
+    simStepTitle.textContent = 'Nhấn "Bắt Đầu" hoặc "Bước Tiếp Theo"';
+    simStepDesc.textContent = 'Quá trình mô phỏng sẽ minh họa chi tiết từng gói tin, mã lệnh và điểm chốt hợp đồng.';
+    simStepSchema.textContent = 'Schema: N/A';
+    simWirePayload.textContent = '{}';
+    document.querySelectorAll('.svg-node').forEach(n => {
+      n.querySelector('rect').setAttribute('stroke-width', '2');
+      n.classList.remove('pulse-error');
+    });
+    appendLog('INFO', 'Đã đặt lại trạng thái mô phỏng.');
+  }
+
+  simBtnStart.addEventListener('click', startSim);
+  simBtnNext.addEventListener('click', nextSimStep);
+  simBtnAuto.addEventListener('click', autoPlaySim);
+  simBtnPause.addEventListener('click', pauseSim);
+  simBtnReset.addEventListener('click', resetSim);
+
+  document.querySelectorAll('[data-speed]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-speed]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      simSpeed = parseInt(btn.getAttribute('data-speed'), 10);
+      if (simTimer) autoPlaySim();
+    });
+  });
+
+  // 11. Interactive Fault Injection
+  const errorButtonsContainer = document.getElementById('error-scenario-buttons');
+  const errorInspectionCard = document.getElementById('error-inspection-card');
+  const errCardStatus = document.getElementById('err-card-status');
+  const errCardCode = document.getElementById('err-card-code');
+  const errCardGate = document.getElementById('err-card-gate');
+  const errCardTitle = document.getElementById('err-card-title');
+  const errCardDiag = document.getElementById('err-card-diag');
+  const errCardFile = document.getElementById('err-card-file');
+  const errCardFallback = document.getElementById('err-card-fallback');
+
+  SYSTEM_DATA.error_scenarios.forEach(err => {
+    const btn = document.createElement('button');
+    btn.classList.add('btn', 'btn-danger');
+    btn.style.fontSize = '12px';
+    btn.textContent = `💥 ${err.id}: ${err.name}`;
+    btn.addEventListener('click', () => {
+      // Pause simulator
+      pauseSim();
+
+      // Highlight node on SVG
+      document.querySelectorAll('.svg-node').forEach(n => {
+        n.classList.remove('pulse-error');
+        if (n.getAttribute('data-node') === err.node) {
+          n.classList.add('pulse-error');
+          n.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+
+      // Display in card
+      errorInspectionCard.style.display = 'block';
+      errCardStatus.textContent = `HTTP ${err.status_code}`;
+      errCardCode.textContent = err.err_code;
+      errCardGate.textContent = `Rào chắn: ${err.gate}`;
+      errCardTitle.textContent = `${err.id}: ${err.name}`;
+      errCardDiag.textContent = err.diag;
+      errCardFile.textContent = err.file;
+      errCardFallback.textContent = err.fallback;
+
+      appendLog('ERROR', `[FAULT INJECTION ${err.id}] ${err.err_code} tại ${err.file} (HTTP ${err.status_code})`);
+    });
+    errorButtonsContainer.appendChild(btn);
+  });
+
+  // 12. Global Search
+  const globalSearchInput = document.getElementById('global-search');
+  globalSearchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const term = globalSearchInput.value.toLowerCase().trim();
+      if (!term) return;
+
+      // Search in schema
+      const foundSchema = SYSTEM_DATA.contracts.find(c => c.schema_id.toLowerCase().includes(term));
+      if (foundSchema) {
+        window.location.hash = '#sec-schema';
+        document.getElementById('schema-search').value = term;
+        renderSchemaTable('all', term);
+        return;
+      }
+
+      // Search in tech
+      const foundTech = SYSTEM_DATA.technologies.find(t => t.name.toLowerCase().includes(term));
+      if (foundTech) {
+        window.location.hash = '#sec-tech';
+        document.getElementById('tech-search').value = term;
+        renderTechTable('all', term);
+        return;
+      }
+
+      // Search in troubleshooting
+      const foundTrouble = SYSTEM_DATA.troubleshooting.find(t => t.symptom.toLowerCase().includes(term));
+      if (foundTrouble) {
+        window.location.hash = '#sec-troubleshooting';
+        document.getElementById('trouble-search').value = term;
+        renderTroubleTable(term);
+        return;
+      }
+    }
+  });
+
+  // Helper function for HTML escaping
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+
+  // 13. HUIT Typed Decision Engine Interactive Lab Logic
+  const confSlider = document.getElementById('confidence-slider');
+  const sliderConfVal = document.getElementById('slider-conf-val');
+  const sliderActionLabel = document.getElementById('slider-action-label');
+  const sliderBadge = document.getElementById('slider-badge');
+
+  function updateSliderOutcome(val) {
+    sliderConfVal.textContent = val.toFixed(2);
+    if (val >= 0.90) {
+      sliderActionLabel.innerHTML = '✅ TỰ ĐỘNG THỰC THI (Auto Action - Không cần can thiệp con người)';
+      sliderActionLabel.style.color = 'var(--s-verified-text)';
+      sliderBadge.className = 'decision-badge-result res-allow';
+      sliderBadge.textContent = 'ALLOW_EXECUTE';
+    } else if (val >= 0.65) {
+      sliderActionLabel.innerHTML = '⚠️ KÍCH HOẠT QUY TẮC BỔ SUNG (Rule Fallback & Secondary Validation)';
+      sliderActionLabel.style.color = 'var(--s-partial-text)';
+      sliderBadge.className = 'decision-badge-result res-fallback';
+      sliderBadge.textContent = 'RULE_FALLBACK';
+    } else {
+      sliderActionLabel.innerHTML = '🚨 YÊU CẦU NGƯỜI KIỂM DUYỆT (Human Review Escalation / Safe Deny)';
+      sliderActionLabel.style.color = 'var(--s-error-text)';
+      sliderBadge.className = 'decision-badge-result res-human';
+      sliderBadge.textContent = 'HUMAN_REVIEW_REQUIRED';
+    }
+  }
+
+  if (confSlider) {
+    confSlider.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      updateSliderOutcome(val);
+    });
+  }
+
+  // Lab Presets & Execution
+  const labInputState = document.getElementById('lab-input-state');
+  const labRuleToggle = document.getElementById('lab-rule-toggle');
+  const labOutputResult = document.getElementById('lab-output-result');
+  const labResultBadge = document.getElementById('lab-result-badge');
+
+  const btnPresetExport = document.getElementById('btn-preset-export');
+  const btnPresetAdmin = document.getElementById('btn-preset-admin');
+  const btnPresetUncertain = document.getElementById('btn-preset-uncertain');
+  const btnPresetInvalid = document.getElementById('btn-preset-invalid');
+  const labBtnRun = document.getElementById('lab-btn-run');
+  const labBtnRandom = document.getElementById('lab-btn-random');
+  const labBtnHuman = document.getElementById('lab-btn-human');
+  const labBtnReset = document.getElementById('lab-btn-reset');
+
+  if (btnPresetExport) {
+    btnPresetExport.addEventListener('click', () => {
+      labInputState.value = JSON.stringify({
+        "intent": "artifact_export",
+        "authenticated": true,
+        "owns_resource": true,
+        "schema_valid": true,
+        "estimated_cost": "low",
+        "risk_score": 0.08
+      }, null, 2);
+      evaluateDecision();
+    });
+  }
+
+  if (btnPresetAdmin) {
+    btnPresetAdmin.addEventListener('click', () => {
+      labInputState.value = JSON.stringify({
+        "intent": "admin_delete_corpus",
+        "authenticated": true,
+        "owns_resource": true,
+        "schema_valid": true,
+        "estimated_cost": "high",
+        "risk_score": 0.88,
+        "target": "huit_kb"
+      }, null, 2);
+      evaluateDecision();
+    });
+  }
+
+  if (btnPresetUncertain) {
+    btnPresetUncertain.addEventListener('click', () => {
+      labInputState.value = JSON.stringify({
+        "intent": "major_consulting",
+        "authenticated": true,
+        "owns_resource": true,
+        "schema_valid": true,
+        "prompt_ambiguity": 0.72,
+        "risk_score": 0.45
+      }, null, 2);
+      evaluateDecision();
+    });
+  }
+
+  if (btnPresetInvalid) {
+    btnPresetInvalid.addEventListener('click', () => {
+      labInputState.value = JSON.stringify({
+        "intent": "unknown_exploit",
+        "authenticated": false,
+        "owns_resource": false,
+        "schema_valid": false,
+        "risk_score": 0.99
+      }, null, 2);
+      evaluateDecision();
+    });
+  }
+
+  function evaluateDecision(forcedConfidence = null, forceHuman = false) {
+    let state = {};
+    try {
+      state = JSON.parse(labInputState.value);
+    } catch (e) {
+      labOutputResult.textContent = '// Lỗi cú pháp JSON trong dữ liệu đầu vào:\n' + e.message;
+      labResultBadge.className = 'decision-badge-result res-deny';
+      labResultBadge.textContent = 'JSON_SYNTAX_ERROR';
+      return;
+    }
+
+    const useRules = labRuleToggle.checked;
+    let decision = "allow";
+    let confidence = forcedConfidence !== null ? forcedConfidence : (0.91 + Math.random() * 0.08);
+    let reasonCode = "SCHEMA_VALID_AUTHORIZED";
+    let requiresHumanReview = false;
+
+    // Rule 1: Schema Validity
+    if (useRules && state.schema_valid === false) {
+      decision = "deny";
+      confidence = 1.0;
+      reasonCode = "SCHEMA_VALIDATION_FAILED";
+      requiresHumanReview = false;
+    }
+    // Rule 2: Unauthenticated
+    else if (useRules && state.authenticated === false) {
+      decision = "deny";
+      confidence = 1.0;
+      reasonCode = "UNAUTHENTICATED_ACCESS";
+      requiresHumanReview = false;
+    }
+    // Rule 3: High Risk Admin Action
+    else if (state.risk_score && state.risk_score > 0.75) {
+      decision = "escalate";
+      confidence = 0.62;
+      reasonCode = "HIGH_RISK_POLICY_ESCALATION";
+      requiresHumanReview = true;
+    }
+    // Rule 4: High Ambiguity
+    else if (state.prompt_ambiguity && state.prompt_ambiguity > 0.6) {
+      decision = "fallback";
+      confidence = 0.72;
+      reasonCode = "AMBIGUOUS_INTENT_RULE_FALLBACK";
+      requiresHumanReview = false;
+    }
+
+    if (forceHuman) {
+      decision = "escalate";
+      confidence = 0.55;
+      reasonCode = "FORCED_HUMAN_REVIEW_FLAG";
+      requiresHumanReview = true;
+    }
+
+    // Determine badge style
+    if (decision === "allow" && confidence >= 0.90) {
+      labResultBadge.className = 'decision-badge-result res-allow';
+      labResultBadge.textContent = 'ALLOW (CONF >= 0.90)';
+    } else if (decision === "allow" || decision === "fallback") {
+      labResultBadge.className = 'decision-badge-result res-fallback';
+      labResultBadge.textContent = 'RULE_FALLBACK';
+    } else if (requiresHumanReview || decision === "escalate") {
+      labResultBadge.className = 'decision-badge-result res-human';
+      labResultBadge.textContent = 'HUMAN_REVIEW';
+    } else {
+      labResultBadge.className = 'decision-badge-result res-deny';
+      labResultBadge.textContent = 'DENY';
+    }
+
+    const resultPayload = {
+      "decision": decision,
+      "confidence": parseFloat(confidence.toFixed(2)),
+      "reason_code": reasonCode,
+      "requires_human_review": requiresHumanReview,
+      "contract_id": "huit.decision.hook-gate.v1",
+      "contract_version": "1.0.0",
+      "evaluation_type": useRules ? "hybrid_rule_calibrated" : "pure_model_unconstrained",
+      "timestamp": new Date().toISOString(),
+      "trace_id": "trace_lab_" + Math.random().toString(36).substring(2, 9)
+    };
+
+    labOutputResult.textContent = JSON.stringify(resultPayload, null, 2);
+    if (confSlider) {
+      confSlider.value = resultPayload.confidence;
+      updateSliderOutcome(resultPayload.confidence);
+    }
+  }
+
+  if (labBtnRun) labBtnRun.addEventListener('click', () => evaluateDecision());
+  if (labBtnRandom) labBtnRandom.addEventListener('click', () => evaluateDecision(0.40 + Math.random() * 0.58));
+  if (labBtnHuman) labBtnHuman.addEventListener('click', () => evaluateDecision(null, true));
+  if (labBtnReset) labBtnReset.addEventListener('click', () => {
+    labInputState.value = JSON.stringify({
+      "intent": "artifact_export",
+      "authenticated": true,
+      "owns_resource": true,
+      "schema_valid": true,
+      "estimated_cost": "low",
+      "risk_score": 0.12
+    }, null, 2);
+    evaluateDecision();
+  });
+
+
+})();
+
+  </script>
+</body>
+</html>

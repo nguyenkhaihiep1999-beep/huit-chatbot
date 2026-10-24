@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:artifact-upscale-request:1.0.0",
+  "title": "HUIT artifact upscale request",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "scale": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 4,
+      "default": 2
+    }
+  }
+}

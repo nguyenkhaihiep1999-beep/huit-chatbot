@@ -1,0 +1,1015 @@
+{
+  "timestamp": "2026-10-04T08:07:40.059736+00:00",
+  "runner_mode": "mock",
+  "mode_disclaimer": "Kết quả chế độ mock chỉ kiểm chứng tính đúng đắn của công cụ runner và logic tính metric, tuyệt đối không dùng để chứng minh năng lực thực tế của mô hình Jev.",
+  "staging_config": {
+    "target_mode": "shadow",
+    "active_mode": "shadow",
+    "timeout_seconds": 2.0,
+    "total_budget_ms": 2000.0,
+    "max_concurrency": 10,
+    "confidence_threshold": 0.8,
+    "max_state_bytes": 8192,
+    "production_default_is_off": true,
+    "api_key_configured": true,
+    "api_key_status": "CONFIGURED"
+  },
+  "rubric_summary": {
+    "version": "1.0.0",
+    "total_dataset_cases": 68,
+    "accepted_ground_truth_cases": 57,
+    "human_review_flagged_cases": 11
+  },
+  "coverage_and_status": {
+    "total_cases": 68,
+    "accepted_ground_truth_cases": 57,
+    "human_review_flagged_cases": 11,
+    "evaluated_count": 68,
+    "success_count": 68,
+    "fallback_count": 0,
+    "skipped_count": 0,
+    "error_count": 0,
+    "coverage_rate": 100.0,
+    "success_rate": 100.0,
+    "fallback_rate": 0.0,
+    "skipped_rate": 0.0,
+    "error_rate": 0.0,
+    "workflow_breakdown": {
+      "intent": {
+        "total": 68,
+        "valid": 68,
+        "missing": 0,
+        "fallback": 0,
+        "skipped": 0,
+        "error": 0
+      },
+      "evidence": {
+        "total": 16,
+        "valid": 16,
+        "missing": 0,
+        "fallback": 0,
+        "skipped": 0,
+        "error": 0
+      },
+      "clarification": {
+        "total": 68,
+        "valid": 68,
+        "missing": 0,
+        "fallback": 0,
+        "skipped": 0,
+        "error": 0
+      }
+    }
+  },
+  "ground_truth_metrics": {
+    "intent_evaluation": {
+      "evaluated_count": 57,
+      "valid_count": 57,
+      "correct_count": 41,
+      "missing_count": 0,
+      "fallback_count": 0,
+      "skipped_count": 0,
+      "error_count": 0,
+      "accuracy": 71.93,
+      "macro_f1": 56.04,
+      "per_class": {
+        "admission": {
+          "precision": 36.36,
+          "recall": 100.0,
+          "f1": 53.33,
+          "tp": 4,
+          "fp": 7,
+          "fn": 0,
+          "support": 4
+        },
+        "admission_procedure": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "career": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 3,
+          "fn": 1,
+          "support": 1
+        },
+        "contact": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "support": 2
+        },
+        "cutoff": {
+          "precision": 100.0,
+          "recall": 87.5,
+          "f1": 93.33,
+          "tp": 7,
+          "fp": 0,
+          "fn": 1,
+          "support": 8
+        },
+        "floor_score": {
+          "precision": 100.0,
+          "recall": 100.0,
+          "f1": 100.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "support": 1
+        },
+        "general": {
+          "precision": 75.0,
+          "recall": 90.0,
+          "f1": 81.82,
+          "tp": 9,
+          "fp": 3,
+          "fn": 1,
+          "support": 10
+        },
+        "major": {
+          "precision": 66.67,
+          "recall": 40.0,
+          "f1": 50.0,
+          "tp": 2,
+          "fp": 1,
+          "fn": 3,
+          "support": 5
+        },
+        "out_of_scope": {
+          "precision": 100.0,
+          "recall": 70.0,
+          "f1": 82.35,
+          "tp": 7,
+          "fp": 0,
+          "fn": 3,
+          "support": 10
+        },
+        "scholarship": {
+          "precision": 100.0,
+          "recall": 50.0,
+          "f1": 66.67,
+          "tp": 3,
+          "fp": 0,
+          "fn": 3,
+          "support": 6
+        },
+        "tuition": {
+          "precision": 80.0,
+          "recall": 100.0,
+          "f1": 88.89,
+          "tp": 8,
+          "fp": 2,
+          "fn": 0,
+          "support": 8
+        }
+      },
+      "classes_evaluated": [
+        "admission",
+        "admission_procedure",
+        "career",
+        "contact",
+        "cutoff",
+        "floor_score",
+        "general",
+        "major",
+        "out_of_scope",
+        "scholarship",
+        "tuition"
+      ]
+    },
+    "evidence_sufficiency_evaluation": {
+      "evaluated_count": 14,
+      "valid_count": 14,
+      "correct_count": 12,
+      "missing_count": 0,
+      "fallback_count": 0,
+      "skipped_count": 0,
+      "error_count": 0,
+      "accuracy": 85.71,
+      "macro_f1": 82.5,
+      "per_class": {
+        "conflicting": {
+          "precision": 100.0,
+          "recall": 100.0,
+          "f1": 100.0,
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "support": 3
+        },
+        "insufficient": {
+          "precision": 100.0,
+          "recall": 100.0,
+          "f1": 100.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "support": 4
+        },
+        "partial": {
+          "precision": 100.0,
+          "recall": 33.33,
+          "f1": 50.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 2,
+          "support": 3
+        },
+        "sufficient": {
+          "precision": 66.67,
+          "recall": 100.0,
+          "f1": 80.0,
+          "tp": 4,
+          "fp": 2,
+          "fn": 0,
+          "support": 4
+        }
+      },
+      "classes_evaluated": [
+        "conflicting",
+        "insufficient",
+        "partial",
+        "sufficient"
+      ]
+    },
+    "needs_clarification_evaluation": {
+      "evaluated_count": 57,
+      "valid_count": 57,
+      "correct_count": 38,
+      "missing_count": 0,
+      "fallback_count": 0,
+      "skipped_count": 0,
+      "error_count": 0,
+      "accuracy": 66.67,
+      "precision": 77.78,
+      "recall": 29.17,
+      "f1": 42.42,
+      "tp": 7,
+      "fp": 2,
+      "fn": 17,
+      "tn": 31
+    }
+  },
+  "baseline_agreement": {
+    "total_compared": 68,
+    "agreement_count": 49,
+    "disagreement_count": 19,
+    "agreement_rate": 72.06,
+    "agreement_note": "Tỷ lệ đồng thuận đo lường mức độ tương đồng giữa Jev và bộ luật regex/heuristic cũ của baseline. Đồng thuận cao KHÔNG đồng nghĩa với độ chính xác cao và KHÔNG thể thay thế Ground Truth.",
+    "disagreements_sample": [
+      {
+        "case_id": "eval_05",
+        "group": "clear_intent",
+        "predicted_intent": "major",
+        "baseline_intent": "career",
+        "expected_intent": "career"
+      },
+      {
+        "case_id": "eval_07",
+        "group": "clear_intent",
+        "predicted_intent": "admission",
+        "baseline_intent": "contact",
+        "expected_intent": "contact"
+      },
+      {
+        "case_id": "eval_08",
+        "group": "clear_intent",
+        "predicted_intent": "admission",
+        "baseline_intent": "admission_procedure",
+        "expected_intent": "admission_procedure"
+      },
+      {
+        "case_id": "eval_16",
+        "group": "ambiguous_intent",
+        "predicted_intent": "admission",
+        "baseline_intent": "general",
+        "expected_intent": "general"
+      },
+      {
+        "case_id": "eval_19",
+        "group": "ambiguous_intent",
+        "predicted_intent": "major",
+        "baseline_intent": "career",
+        "expected_intent": "career"
+      },
+      {
+        "case_id": "eval_21",
+        "group": "multiple_intents",
+        "predicted_intent": "tuition",
+        "baseline_intent": "cutoff",
+        "expected_intent": "cutoff"
+      },
+      {
+        "case_id": "eval_22",
+        "group": "multiple_intents",
+        "predicted_intent": "tuition",
+        "baseline_intent": "scholarship",
+        "expected_intent": "scholarship"
+      },
+      {
+        "case_id": "eval_23",
+        "group": "multiple_intents",
+        "predicted_intent": "admission",
+        "baseline_intent": "admission_procedure",
+        "expected_intent": "admission"
+      },
+      {
+        "case_id": "eval_28",
+        "group": "multiple_intents",
+        "predicted_intent": "tuition",
+        "baseline_intent": "scholarship",
+        "expected_intent": "scholarship"
+      },
+      {
+        "case_id": "eval_36",
+        "group": "needs_clarification",
+        "predicted_intent": "admission",
+        "baseline_intent": "admission_procedure",
+        "expected_intent": "admission_procedure"
+      }
+    ]
+  },
+  "latency_percentiles": {
+    "sample_count": 68,
+    "min_ms": 90.81,
+    "mean_ms": 198.12,
+    "p50_ms": 186.3,
+    "p95_ms": 366.38,
+    "p99_ms": null,
+    "p99_note": "Bỏ qua P99: Cỡ mẫu N=68 < 100 không đủ độ tin cậy thống kê"
+  },
+  "shadow_non_interference": {
+    "output_identical": true,
+    "stream_protocol_intact": true,
+    "fault_tolerance_intact": true,
+    "overall_pass": true
+  },
+  "chat_performance": {
+    "off_baseline": {
+      "sample_count": 3,
+      "content_token_samples": 3,
+      "ttft_p50_ms": 0.76,
+      "ttft_p95_ms": 1898.19,
+      "total_p50_ms": 0.89,
+      "total_p95_ms": 1898.56
+    },
+    "shadow_profiles": {
+      "success": {
+        "sample_count": 3,
+        "content_token_samples": 3,
+        "missing_content_tokens": 0,
+        "ttft_p50_ms": 51.45,
+        "ttft_p95_ms": 52.54,
+        "ttft_p99_ms": null,
+        "total_p50_ms": 51.65,
+        "total_p95_ms": 52.92,
+        "total_p99_ms": null,
+        "overhead_ttft_p50_ms": 50.69,
+        "overhead_total_p50_ms": 50.76,
+        "target_concurrency": 1,
+        "peak_in_flight": 1,
+        "output_identical": true,
+        "protocol_intact": true,
+        "branch_verified": true,
+        "p99_note": "Bỏ qua P99: Cỡ mẫu N=3 < 100 không đủ độ tin cậy thống kê"
+      },
+      "slow_provider": {
+        "sample_count": 3,
+        "content_token_samples": 3,
+        "missing_content_tokens": 0,
+        "ttft_p50_ms": 193.47,
+        "ttft_p95_ms": 196.59,
+        "ttft_p99_ms": null,
+        "total_p50_ms": 193.7,
+        "total_p95_ms": 196.76,
+        "total_p99_ms": null,
+        "overhead_ttft_p50_ms": 192.71,
+        "overhead_total_p50_ms": 192.81,
+        "target_concurrency": 1,
+        "peak_in_flight": 1,
+        "output_identical": true,
+        "protocol_intact": true,
+        "branch_verified": true,
+        "p99_note": "Bỏ qua P99: Cỡ mẫu N=3 < 100 không đủ độ tin cậy thống kê"
+      },
+      "timeout": {
+        "sample_count": 3,
+        "content_token_samples": 3,
+        "missing_content_tokens": 0,
+        "ttft_p50_ms": 409.83,
+        "ttft_p95_ms": 417.73,
+        "ttft_p99_ms": null,
+        "total_p50_ms": 409.98,
+        "total_p95_ms": 417.95,
+        "total_p99_ms": null,
+        "overhead_ttft_p50_ms": 409.07,
+        "overhead_total_p50_ms": 409.09,
+        "target_concurrency": 1,
+        "peak_in_flight": 1,
+        "output_identical": true,
+        "protocol_intact": true,
+        "branch_verified": true,
+        "p99_note": "Bỏ qua P99: Cỡ mẫu N=3 < 100 không đủ độ tin cậy thống kê"
+      },
+      "error": {
+        "sample_count": 3,
+        "content_token_samples": 3,
+        "missing_content_tokens": 0,
+        "ttft_p50_ms": 21.24,
+        "ttft_p95_ms": 23.69,
+        "ttft_p99_ms": null,
+        "total_p50_ms": 21.4,
+        "total_p95_ms": 23.85,
+        "total_p99_ms": null,
+        "overhead_ttft_p50_ms": 20.48,
+        "overhead_total_p50_ms": 20.51,
+        "target_concurrency": 1,
+        "peak_in_flight": 1,
+        "output_identical": true,
+        "protocol_intact": true,
+        "branch_verified": true,
+        "p99_note": "Bỏ qua P99: Cỡ mẫu N=3 < 100 không đủ độ tin cậy thống kê"
+      },
+      "concurrent": {
+        "sample_count": 3,
+        "content_token_samples": 3,
+        "missing_content_tokens": 0,
+        "ttft_p50_ms": 57.61,
+        "ttft_p95_ms": 60.57,
+        "ttft_p99_ms": null,
+        "total_p50_ms": 57.74,
+        "total_p95_ms": 60.77,
+        "total_p99_ms": null,
+        "overhead_ttft_p50_ms": 56.85,
+        "overhead_total_p50_ms": 56.85,
+        "target_concurrency": 3,
+        "peak_in_flight": 3,
+        "output_identical": true,
+        "protocol_intact": true,
+        "branch_verified": true,
+        "p99_note": "Bỏ qua P99: Cỡ mẫu N=3 < 100 không đủ độ tin cậy thống kê"
+      }
+    },
+    "disclaimer": "Các số đo độ trễ trên hoàn toàn là kết quả mock trên môi trường kiểm thử tổng hợp; chỉ phục vụ kiểm tra tính tương đối của overhead đồng bộ và tính toàn vẹn của stream NDJSON v2, tuyệt đối KHÔNG PHẢI cam kết độ trễ cho môi trường production."
+  },
+  "go_no_go": {
+    "decision": "GO",
+    "recommendation": "TIẾP TỤC SHADOW TRÊN STAGING; CHƯA BẬT ASSIST CHO PRODUCTION"
+  },
+  "anonymized_telemetry_records": [
+    {
+      "id": "eval_01",
+      "group": "clear_intent",
+      "state_hash": "42a8a2d846051298",
+      "status": "success",
+      "latency_ms": 221.2,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_02",
+      "group": "clear_intent",
+      "state_hash": "49b2f03a9487460a",
+      "status": "success",
+      "latency_ms": 167.58,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_03",
+      "group": "clear_intent",
+      "state_hash": "22ee939bc5dbf1b5",
+      "status": "success",
+      "latency_ms": 171.15,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_04",
+      "group": "clear_intent",
+      "state_hash": "493e66712ad182b9",
+      "status": "success",
+      "latency_ms": 201.77,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_05",
+      "group": "clear_intent",
+      "state_hash": "5a87fa221c3e08c6",
+      "status": "success",
+      "latency_ms": 171.05,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_06",
+      "group": "clear_intent",
+      "state_hash": "c73e4f4d08b3b63a",
+      "status": "success",
+      "latency_ms": 213.98,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_07",
+      "group": "clear_intent",
+      "state_hash": "e2c592a848980a75",
+      "status": "success",
+      "latency_ms": 182.32,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_08",
+      "group": "clear_intent",
+      "state_hash": "cedfe12823496436",
+      "status": "success",
+      "latency_ms": 124.13,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_09",
+      "group": "clear_intent",
+      "state_hash": "b404a3abd0d6bfa4",
+      "status": "success",
+      "latency_ms": 198.83,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_10",
+      "group": "clear_intent",
+      "state_hash": "827b3b41afe7e866",
+      "status": "success",
+      "latency_ms": 169.57,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_11",
+      "group": "clear_intent",
+      "state_hash": "00c7adc37409cfc3",
+      "status": "success",
+      "latency_ms": 169.13,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_12",
+      "group": "clear_intent",
+      "state_hash": "c071859cbec4869f",
+      "status": "success",
+      "latency_ms": 108.68,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_13",
+      "group": "ambiguous_intent",
+      "state_hash": "4c19f47ebca428fa",
+      "status": "success",
+      "latency_ms": 123.27,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_14",
+      "group": "ambiguous_intent",
+      "state_hash": "48d7e179eed5db34",
+      "status": "success",
+      "latency_ms": 200.8,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_15",
+      "group": "ambiguous_intent",
+      "state_hash": "7b82abecd1d5dd3f",
+      "status": "success",
+      "latency_ms": 122.92,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_16",
+      "group": "ambiguous_intent",
+      "state_hash": "bfab76a0600cf0e5",
+      "status": "success",
+      "latency_ms": 186.14,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_17",
+      "group": "ambiguous_intent",
+      "state_hash": "c87f58a9dc4a8368",
+      "status": "success",
+      "latency_ms": 199.18,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_18",
+      "group": "ambiguous_intent",
+      "state_hash": "ce786a863234b8a9",
+      "status": "success",
+      "latency_ms": 125.33,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_19",
+      "group": "ambiguous_intent",
+      "state_hash": "548a035091e4bc2c",
+      "status": "success",
+      "latency_ms": 90.81,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_20",
+      "group": "ambiguous_intent",
+      "state_hash": "8e59b8802af3a3c4",
+      "status": "success",
+      "latency_ms": 124.63,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_21",
+      "group": "multiple_intents",
+      "state_hash": "8e35b6b6e9fb352a",
+      "status": "success",
+      "latency_ms": 109.0,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_22",
+      "group": "multiple_intents",
+      "state_hash": "83f1d02bb6d457fa",
+      "status": "success",
+      "latency_ms": 138.25,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_23",
+      "group": "multiple_intents",
+      "state_hash": "09b4b9e7e0a593ba",
+      "status": "success",
+      "latency_ms": 139.09,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_24",
+      "group": "multiple_intents",
+      "state_hash": "e317f67517f5c3d6",
+      "status": "success",
+      "latency_ms": 214.08,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_25",
+      "group": "multiple_intents",
+      "state_hash": "b95c3a59ac53ffb1",
+      "status": "success",
+      "latency_ms": 152.83,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_26",
+      "group": "multiple_intents",
+      "state_hash": "c5175502baa56bc8",
+      "status": "success",
+      "latency_ms": 139.78,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_27",
+      "group": "multiple_intents",
+      "state_hash": "5d6cae99a2c3b427",
+      "status": "success",
+      "latency_ms": 92.3,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_28",
+      "group": "multiple_intents",
+      "state_hash": "d18371de7e8c2abf",
+      "status": "success",
+      "latency_ms": 154.65,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_29",
+      "group": "needs_clarification",
+      "state_hash": "d5a5e2f1873bddcc",
+      "status": "success",
+      "latency_ms": 229.02,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_30",
+      "group": "needs_clarification",
+      "state_hash": "c59d1a403c50e620",
+      "status": "success",
+      "latency_ms": 91.77,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_31",
+      "group": "needs_clarification",
+      "state_hash": "c85e6a98b81cbe80",
+      "status": "success",
+      "latency_ms": 201.87,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_32",
+      "group": "needs_clarification",
+      "state_hash": "adc2eefd5d302d67",
+      "status": "success",
+      "latency_ms": 198.37,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_33",
+      "group": "needs_clarification",
+      "state_hash": "517797a742131c13",
+      "status": "success",
+      "latency_ms": 170.63,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_34",
+      "group": "needs_clarification",
+      "state_hash": "e9fce0a6dfdc587a",
+      "status": "success",
+      "latency_ms": 216.73,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_35",
+      "group": "needs_clarification",
+      "state_hash": "5f24b7e1320f118b",
+      "status": "success",
+      "latency_ms": 203.89,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_36",
+      "group": "needs_clarification",
+      "state_hash": "e07b95d4c70ec4d0",
+      "status": "success",
+      "latency_ms": 105.39,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_37",
+      "group": "evidence_sufficiency",
+      "state_hash": "9da3d0a69bc7eafb",
+      "status": "success",
+      "latency_ms": 416.24,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_38",
+      "group": "evidence_sufficiency",
+      "state_hash": "faa9931d3ca431f7",
+      "status": "success",
+      "latency_ms": 436.57,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_39",
+      "group": "evidence_sufficiency",
+      "state_hash": "820217fd99766746",
+      "status": "success",
+      "latency_ms": 276.59,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_40",
+      "group": "evidence_sufficiency",
+      "state_hash": "ac31d57691926dba",
+      "status": "success",
+      "latency_ms": 278.56,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_41",
+      "group": "evidence_sufficiency",
+      "state_hash": "aaaadf2a642461af",
+      "status": "success",
+      "latency_ms": 264.3,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_42",
+      "group": "evidence_sufficiency",
+      "state_hash": "ac882370b067968a",
+      "status": "success",
+      "latency_ms": 277.92,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_43",
+      "group": "evidence_sufficiency",
+      "state_hash": "dd2c19ff98b8370c",
+      "status": "success",
+      "latency_ms": 327.3,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_44",
+      "group": "evidence_sufficiency",
+      "state_hash": "c9adca585fd89e5f",
+      "status": "success",
+      "latency_ms": 244.67,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_45",
+      "group": "evidence_sufficiency",
+      "state_hash": "2d4c254d84044123",
+      "status": "success",
+      "latency_ms": 403.26,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_46",
+      "group": "evidence_sufficiency",
+      "state_hash": "f0f49e547992b0a2",
+      "status": "success",
+      "latency_ms": 264.52,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_47",
+      "group": "evidence_sufficiency",
+      "state_hash": "fe46e0ef13b08b5e",
+      "status": "success",
+      "latency_ms": 277.16,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_48",
+      "group": "evidence_sufficiency",
+      "state_hash": "49ed3cfde91d3969",
+      "status": "success",
+      "latency_ms": 324.65,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_49",
+      "group": "evidence_sufficiency",
+      "state_hash": "8117f24c6625e16e",
+      "status": "success",
+      "latency_ms": 355.71,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_50",
+      "group": "evidence_sufficiency",
+      "state_hash": "1e139b4d79f702dc",
+      "status": "success",
+      "latency_ms": 292.87,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_51",
+      "group": "evidence_sufficiency",
+      "state_hash": "f57d09b03fd1e5b1",
+      "status": "success",
+      "latency_ms": 372.12,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_52",
+      "group": "evidence_sufficiency",
+      "state_hash": "f7f48aa5d5de13ff",
+      "status": "success",
+      "latency_ms": 279.83,
+      "requires_human_review": true
+    },
+    {
+      "id": "eval_53",
+      "group": "out_of_scope",
+      "state_hash": "9dea474a71a986f8",
+      "status": "success",
+      "latency_ms": 215.59,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_54",
+      "group": "out_of_scope",
+      "state_hash": "ca7dfd6e8cb57bad",
+      "status": "success",
+      "latency_ms": 169.29,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_55",
+      "group": "out_of_scope",
+      "state_hash": "f8f0fbf1ce71423b",
+      "status": "success",
+      "latency_ms": 139.58,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_56",
+      "group": "out_of_scope",
+      "state_hash": "4bb07678209c37e8",
+      "status": "success",
+      "latency_ms": 140.06,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_57",
+      "group": "out_of_scope",
+      "state_hash": "0e1327b79e589aa6",
+      "status": "success",
+      "latency_ms": 200.16,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_58",
+      "group": "out_of_scope",
+      "state_hash": "92399c085793555e",
+      "status": "success",
+      "latency_ms": 140.09,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_59",
+      "group": "privacy_redaction",
+      "state_hash": "415db3c12d1a52a6",
+      "status": "success",
+      "latency_ms": 135.99,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_60",
+      "group": "privacy_redaction",
+      "state_hash": "d520c957998403fa",
+      "status": "success",
+      "latency_ms": 219.62,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_61",
+      "group": "privacy_redaction",
+      "state_hash": "619e613e681cb400",
+      "status": "success",
+      "latency_ms": 201.81,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_62",
+      "group": "privacy_redaction",
+      "state_hash": "1b0f57b7270686b3",
+      "status": "success",
+      "latency_ms": 93.13,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_63",
+      "group": "privacy_redaction",
+      "state_hash": "9051209b63fa73ce",
+      "status": "success",
+      "latency_ms": 198.12,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_64",
+      "group": "guardrail_safety",
+      "state_hash": "70a9cd98a13a1dcd",
+      "status": "success",
+      "latency_ms": 107.59,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_65",
+      "group": "guardrail_safety",
+      "state_hash": "b1820c6c229e4dc4",
+      "status": "success",
+      "latency_ms": 94.51,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_66",
+      "group": "guardrail_safety",
+      "state_hash": "4336a0e3eb11cf4e",
+      "status": "success",
+      "latency_ms": 186.46,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_67",
+      "group": "guardrail_safety",
+      "state_hash": "7ae217bd30dca975",
+      "status": "success",
+      "latency_ms": 184.57,
+      "requires_human_review": false
+    },
+    {
+      "id": "eval_68",
+      "group": "guardrail_safety",
+      "state_hash": "d4a3f3da077b9d23",
+      "status": "success",
+      "latency_ms": 123.17,
+      "requires_human_review": false
+    }
+  ]
+}

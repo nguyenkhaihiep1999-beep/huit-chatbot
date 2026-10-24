@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1880" viewBox="0 0 2400 1880">
+<title>JEV — Kiến trúc cải tiến đề xuất</title>
+<desc>Sơ đồ đề xuất dựa trên mã nguồn ngày 22/10/2026; chưa triển khai và chưa đối chiếu ảnh gốc.</desc>
+<rect width="2400" height="1880" fill="#f5f7fa"/>
+<text x="70" y="86" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#172636" text-anchor="start">JEV / KIẾN TRÚC CẢI TIẾN ĐỀ XUẤT</text>
+<text x="70" y="131" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#536477" text-anchor="start">HUIT Chatbot · Kiểm tra mã nguồn 22/10/2026 · Chưa triển khai · Chưa đối chiếu ảnh gốc</text>
+<rect x="70" y="158" width="24" height="24" rx="4" fill="#e8f3f8" stroke="#176b91" stroke-width="2" />
+<text x="108" y="178" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477" text-anchor="start">Khối xanh: phần cần bổ sung hoặc thay đổi</text>
+<text x="1520" y="178" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477" text-anchor="start">Nét đứt: đo lường ngoài luồng trả lời</text>
+<rect x="760" y="220" width="720" height="90" rx="16" fill="white" stroke="#cad4de" stroke-width="2" />
+<text x="785" y="267" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172636" text-anchor="start">Câu hỏi + lịch sử hội thoại liên quan</text>
+<rect x="760" y="360" width="720" height="100" rx="16" fill="white" stroke="#cad4de" stroke-width="2" />
+<text x="785" y="407" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172636" text-anchor="start">Guardrail → Danh mục → Cache</text>
+<text x="785" y="445" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Giữ các lối trả lời nhanh đang có</text>
+<rect x="1660" y="360" width="650" height="100" rx="16" fill="white" stroke="#cad4de" stroke-width="2" />
+<text x="1685" y="407" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172636" text-anchor="start">Trả lời trực tiếp</text>
+<text x="1685" y="445" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Guardrail / danh mục / cache có kết quả</text>
+<rect x="760" y="520" width="720" height="140" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2" />
+<text x="785" y="567" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#176b91" text-anchor="start">1. Chuẩn hóa ngữ cảnh tối thiểu</text>
+<text x="785" y="605" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Ngành · năm · phương thức · ý định hiện có</text>
+<text x="785" y="639" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Dữ liệu gửi JEV phải được che thông tin riêng tư</text>
+<rect x="70" y="520" width="590" height="140" rx="16" fill="white" stroke="#cad4de" stroke-width="2" />
+<text x="95" y="567" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172636" text-anchor="start">JEV A / Phân giải ý định</text>
+<text x="95" y="605" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Chỉ gọi khi mơ hồ; kiểm tra schema + ngưỡng</text>
+<text x="95" y="639" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Giữ baseline nếu lỗi / thiếu độ tin cậy</text>
+<rect x="760" y="780" width="720" height="130" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2" />
+<text x="785" y="827" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#176b91" text-anchor="start">2. Truy xuất + xếp hạng theo intent</text>
+<text x="785" y="865" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Truyền intent đã duyệt vào retrieve / rerank</text>
+<text x="785" y="899" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Ràng buộc ngành · năm; giữ tìm kiếm dự phòng</text>
+<rect x="70" y="1010" width="590" height="175" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2" />
+<text x="95" y="1057" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#176b91" text-anchor="start">3. JEV B / Đánh giá minh chứng</text>
+<text x="95" y="1095" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Dùng cùng dữ kiện thực tế sẽ gửi cho LLM</text>
+<text x="95" y="1129" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Kèm URL · năm · đoạn chứa câu trả lời</text>
+<text x="95" y="1163" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Giới hạn byte sau khi che dữ liệu riêng tư</text>
+<rect x="760" y="1000" width="720" height="200" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2" />
+<text x="785" y="1047" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#176b91" text-anchor="start">4. Policy quyết định hành động</text>
+<text x="785" y="1085" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Đủ → trả lời; một phần → nêu phần còn thiếu</text>
+<text x="785" y="1119" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Thiếu chi tiết câu hỏi → hỏi lại cụ thể</text>
+<text x="785" y="1153" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Thiếu / xung đột nguồn → thử truy xuất lại</text>
+<text x="785" y="1187" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Hết lượt hoặc vẫn thiếu → nêu giới hạn</text>
+<rect x="1660" y="1000" width="650" height="100" rx="16" fill="white" stroke="#cad4de" stroke-width="2" />
+<text x="1685" y="1047" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172636" text-anchor="start">Hỏi lại hoặc trả lời giới hạn</text>
+<text x="1685" y="1085" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Không khẳng định dữ kiện thiếu căn cứ</text>
+<rect x="1660" y="1160" width="650" height="140" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2" />
+<text x="1685" y="1207" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#176b91" text-anchor="start">Truy xuất bổ sung tối đa 1 lần</text>
+<text x="1685" y="1245" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Chỉ khi còn ngân sách request</text>
+<text x="1685" y="1279" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Nếu vẫn thiếu → quay về policy</text>
+<rect x="760" y="1320" width="720" height="110" rx="16" fill="white" stroke="#cad4de" stroke-width="2" />
+<text x="785" y="1367" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172636" text-anchor="start">LLM chính sinh câu trả lời</text>
+<text x="785" y="1405" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Chỉ dùng minh chứng được policy cho phép</text>
+<rect x="760" y="1490" width="720" height="100" rx="16" fill="white" stroke="#cad4de" stroke-width="2" />
+<text x="785" y="1537" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172636" text-anchor="start">NDJSON → giao diện người dùng</text>
+<text x="785" y="1575" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Câu trả lời + nguồn trích dẫn</text>
+<rect x="1660" y="520" width="650" height="290" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2" />
+<text x="1685" y="567" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#176b91" text-anchor="start">5. Shadow qua hàng đợi có giới hạn</text>
+<text x="1685" y="605" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Đề xuất: tách khỏi thời gian chờ trả lời</text>
+<text x="1685" y="639" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Nhận câu hỏi + evidence của baseline</text>
+<text x="1685" y="673" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Lấy mẫu state đã che dữ liệu riêng tư</text>
+<text x="1685" y="707" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Worker được quản lý, timeout rõ ràng</text>
+<text x="1685" y="741" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Đầy hàng đợi → bỏ mẫu, không chặn chat</text>
+<text x="1685" y="775" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Không dùng kết quả để sửa câu trả lời</text>
+<rect x="1660" y="1460" width="650" height="130" rx="16" fill="white" stroke="#cad4de" stroke-width="2" />
+<text x="1685" y="1507" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172636" text-anchor="start">Telemetry đã khử thông tin nhạy cảm</text>
+<text x="1685" y="1545" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">TTFT · timeout · fallback · quyết định áp dụng</text>
+<text x="1685" y="1579" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Chất lượng câu trả lời · token / chi phí</text>
+<rect x="70" y="1270" width="590" height="320" rx="16" fill="white" stroke="#cad4de" stroke-width="2" />
+<text x="95" y="1317" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#172636" text-anchor="start">RÀO CHẮN XUYÊN SUỐT</text>
+<text x="95" y="1364" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477" text-anchor="start">Sửa cap UTF-8 và evidence_count.</text>
+<text x="95" y="1400" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477" text-anchor="start">Che dữ liệu trước khi cắt đoạn.</text>
+<text x="95" y="1436" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477" text-anchor="start">Deadline chung + phần dành cho evidence.</text>
+<text x="95" y="1472" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477" text-anchor="start">Giữ breaker / giới hạn đồng thời / retry.</text>
+<text x="95" y="1508" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477" text-anchor="start">Lỗi JEV → baseline hiện có.</text>
+<text x="95" y="1544" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477" text-anchor="start">Bump policy_version trong cache assist.</text>
+<polyline points="1120,310 1120,360" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1120,360 1112.8086169209369,346.8362615716444 1127.1913830790631,346.8362615716444" fill="#8a9bad"/>
+<polyline points="1480,410 1660,410" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1660,410 1646.8362615716444,417.19138307906303 1646.8362615716444,402.80861692093697" fill="#8a9bad"/>
+<rect x="1483" y="371" width="122.0" height="32" fill="#f5f7fa"/>
+<text x="1488" y="396" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#536477" text-anchor="start">Có kết quả</text>
+<polyline points="1120,460 1120,520" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1120,520 1112.8086169209369,506.8362615716444 1127.1913830790631,506.8362615716444" fill="#8a9bad"/>
+<rect x="1131" y="471" width="99.0" height="32" fill="#f5f7fa"/>
+<text x="1136" y="496" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#536477" text-anchor="start">Chưa có</text>
+<polyline points="760,590 660,590" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="660,590 673.1637384283556,582.808616920937 673.1637384283556,597.191383079063" fill="#8a9bad"/>
+<rect x="670" y="551" width="76.0" height="32" fill="#f5f7fa"/>
+<text x="675" y="576" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#536477" text-anchor="start">Mơ hồ</text>
+<polyline points="365,660 365,725 900,725 900,780" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="900,780 892.808616920937,766.8362615716444 907.191383079063,766.8362615716444" fill="#8a9bad"/>
+<rect x="395" y="685" width="298.0" height="32" fill="#f5f7fa"/>
+<text x="400" y="710" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#536477" text-anchor="start">Intent đạt ngưỡng / baseline</text>
+<polyline points="1120,660 1120,780" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1120,780 1112.8086169209369,766.8362615716444 1127.1913830790631,766.8362615716444" fill="#8a9bad"/>
+<rect x="1135" y="692" width="182.0" height="32" fill="#f5f7fa"/>
+<text x="1140" y="717" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#536477" text-anchor="start">Rõ / off / shadow</text>
+<polyline points="760,845 705,845 705,975 365,975 365,1010" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="365,1010 357.80861692093697,996.8362615716444 372.19138307906303,996.8362615716444" fill="#8a9bad"/>
+<rect x="369" y="931" width="212.0" height="32" fill="#f5f7fa"/>
+<text x="374" y="956" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#536477" text-anchor="start">Assist + còn budget</text>
+<polyline points="660,1090 760,1090" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="760,1090 746.8362615716444,1097.1913830790631 746.8362615716444,1082.8086169209369" fill="#8a9bad"/>
+<polyline points="1120,910 1120,1000" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1120,1000 1112.8086169209369,986.8362615716444 1127.1913830790631,986.8362615716444" fill="#8a9bad"/>
+<rect x="1135" y="939" width="260.0" height="32" fill="#f5f7fa"/>
+<text x="1140" y="964" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#536477" text-anchor="start">Baseline khi bỏ qua JEV</text>
+<polyline points="1480,1040 1660,1040" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1660,1040 1646.8362615716444,1047.1913830790631 1646.8362615716444,1032.8086169209369" fill="#8a9bad"/>
+<polyline points="1480,1160 1550,1160 1550,1215 1660,1215" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1660,1215 1646.8362615716444,1222.1913830790631 1646.8362615716444,1207.8086169209369" fill="#8a9bad"/>
+<polyline points="1985,1300 1985,1335 1590,1335 1590,845 1480,845" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1480,845 1493.1637384283556,837.808616920937 1493.1637384283556,852.191383079063" fill="#8a9bad"/>
+<polyline points="1120,1200 1120,1320" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1120,1320 1112.8086169209369,1306.8362615716444 1127.1913830790631,1306.8362615716444" fill="#8a9bad"/>
+<rect x="1133" y="1235" width="300.0" height="32" fill="#f5f7fa"/>
+<text x="1138" y="1260" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#536477" text-anchor="start">Có dữ kiện được phép dùng</text>
+<polyline points="1120,1430 1120,1490" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1120,1490 1112.8086169209369,1476.8362615716444 1127.1913830790631,1476.8362615716444" fill="#8a9bad"/>
+<polyline points="1480,1540 1660,1540" fill="none" stroke="#8a9bad" stroke-width="3" stroke-dasharray="10 7"/>
+<polygon points="1660,1540 1646.8362615716444,1547.1913830790631 1646.8362615716444,1532.8086169209369" fill="#8a9bad"/>
+<polyline points="1480,590 1660,590" fill="none" stroke="#8a9bad" stroke-width="3" stroke-dasharray="10 7"/>
+<polygon points="1660,590 1646.8362615716444,597.191383079063 1646.8362615716444,582.808616920937" fill="#8a9bad"/>
+<polyline points="1480,890 1620,890 1620,750 1660,750" fill="none" stroke="#8a9bad" stroke-width="3" stroke-dasharray="10 7"/>
+<polygon points="1660,750 1646.8362615716444,757.191383079063 1646.8362615716444,742.808616920937" fill="#8a9bad"/>
+<polyline points="2310,670 2350,670 2350,1525 2310,1525" fill="none" stroke="#8a9bad" stroke-width="3" stroke-dasharray="10 7"/>
+<polygon points="2310,1525 2323.1637384283554,1517.8086169209369 2323.1637384283554,1532.1913830790631" fill="#8a9bad"/>
+<rect x="70" y="1660" width="2240" height="160" rx="16" fill="#eaf0f5" stroke="#cad4de" stroke-width="2" />
+<text x="95" y="1709" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172636" text-anchor="start">6. KIỂM CHỨNG TRƯỚC KHI MỞ RỘNG ASSIST</text>
+<text x="95" y="1755" font-family="Arial, sans-serif" font-size="27" font-weight="400" fill="#536477" text-anchor="start">Tập câu hỏi có nhãn người duyệt → so sánh off / shadow / assist → đánh giá câu trả lời và nguồn trích dẫn.</text>
+<text x="95" y="1797" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#536477" text-anchor="start">Các báo cáo đã đọc dùng mock; chưa đủ kết luận JEV thật cải thiện chất lượng. Ngưỡng cần hiệu chỉnh bằng dữ liệu live.</text>
+<text x="70" y="1863" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#536477" text-anchor="start">Nguồn: pipeline.py · reranker.py · decision_engine/{service,policies,redaction}.py · docs/ARCHITECTURE.md</text>
+</svg>

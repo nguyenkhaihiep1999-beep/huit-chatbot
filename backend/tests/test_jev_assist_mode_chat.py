@@ -27,6 +27,7 @@ EVIDENCE_HINT = "[LƯU Ý ĐÁNH GIÁ MINH CHỨNG]"
 @pytest.fixture
 def assist_chat(monkeypatch):
     monkeypatch.setenv("APP_ENV", "development")
+    monkeypatch.setenv("ACTIVE_PROFILE", "huit")
     monkeypatch.setenv("JEV_MODE", "assist")
     monkeypatch.setenv("TYPESAFE_API_KEY", "test-key")
     monkeypatch.setenv("JEV_CONFIDENCE_THRESHOLD", "0.80")

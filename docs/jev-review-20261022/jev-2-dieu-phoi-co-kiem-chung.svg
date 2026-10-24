@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1980" viewBox="0 0 2200 1980">
+<title>JEV 2.0 — Điều phối đa yêu cầu có kiểm chứng</title>
+<desc>Đề xuất kiến trúc, chưa triển khai. JEV chọn hành động trong policy; code điều phối công cụ và ngân sách.</desc>
+<rect width="2200" height="1980" fill="#f5f7fa"/>
+<text x="70" y="83" font-family="Arial, sans-serif" font-size="43" font-weight="700" fill="#172636">JEV 2.0 / ĐIỀU PHỐI ĐA YÊU CẦU CÓ KIỂM CHỨNG</text>
+<text x="70" y="131" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#536477">Đề xuất thay đổi kiến trúc · HUIT Chatbot · 22/10/2026 · Chưa triển khai</text>
+<rect x="70" y="170" width="2060" height="125" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="92" y="216" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">BƯỚC THAY ĐỔI CHÍNH</text>
+<text x="92" y="255" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Hiện tại: chọn một intent chính + đánh giá minh chứng → LLM trả lời.</text>
+<text x="92" y="290" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Đề xuất: tách từng yêu cầu → tìm nguồn riêng → kiểm tra từng kết luận → tổng hợp câu trả lời.</text>
+<rect x="660" y="355" width="870" height="115" rx="16" fill="white" stroke="#cad4de" stroke-width="2"/>
+<text x="682" y="401" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172636">Câu hỏi nhiều ý + ngữ cảnh cần thiết</text>
+<text x="682" y="440" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">“Học phí, điểm chuẩn CNTT và học bổng năm 2026?”</text>
+<rect x="70" y="530" width="480" height="185" rx="16" fill="white" stroke="#cad4de" stroke-width="2"/>
+<text x="92" y="576" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172636">Ngữ cảnh hội thoại</text>
+<text x="92" y="615" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Ngành · năm · phương thức</text>
+<text x="92" y="650" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Chỉ giữ thông tin có căn cứ</text>
+<text x="92" y="685" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Che dữ liệu riêng tư trước gửi</text>
+<rect x="660" y="530" width="870" height="185" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="682" y="576" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">1. Tách yêu cầu + JEV chọn bước tiếp theo</text>
+<text x="682" y="615" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Bộ lập kế hoạch dùng rule / LLM với schema chặt chẽ</text>
+<text x="682" y="650" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">JEV hỗ trợ chọn: tìm nguồn / hỏi lại / trả lời</text>
+<text x="682" y="685" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Code kiểm tra kế hoạch và thực thi action cho phép</text>
+<rect x="1650" y="530" width="480" height="185" rx="16" fill="white" stroke="#cad4de" stroke-width="2"/>
+<text x="1672" y="576" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172636">Bộ điều khiển bằng code</text>
+<text x="1672" y="615" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Giới hạn thời gian và chi phí</text>
+<text x="1672" y="650" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Giới hạn số tác vụ song song</text>
+<text x="1672" y="685" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Lỗi JEV → luồng RAG hiện có</text>
+<text x="70" y="851" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#176b91">2. TRUY XUẤT TỪNG YÊU CẦU</text>
+<text x="70" y="894" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Song song trong giới hạn cấu hình</text>
+<rect x="660" y="825" width="270" height="145" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="682" y="871" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">Học phí</text>
+<text x="682" y="910" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">CNTT · 2026</text>
+<text x="682" y="945" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Nguồn + dữ kiện</text>
+<rect x="960" y="825" width="270" height="145" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="982" y="871" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">Điểm chuẩn</text>
+<text x="982" y="910" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">CNTT · 2026</text>
+<text x="982" y="945" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Nguồn + dữ kiện</text>
+<rect x="1260" y="825" width="270" height="145" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="1282" y="871" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">Học bổng</text>
+<text x="1282" y="910" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Điều kiện · 2026</text>
+<text x="1282" y="945" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Nguồn + dữ kiện</text>
+<rect x="660" y="1060" width="870" height="150" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="682" y="1106" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">3. Bảng kết luận gắn minh chứng</text>
+<text x="682" y="1145" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Mỗi kết luận có document_id + đoạn trích + năm + URL</text>
+<text x="682" y="1180" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Ghi rõ: đã đủ / còn thiếu / xung đột nguồn</text>
+<rect x="660" y="1300" width="870" height="150" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="682" y="1346" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">4. Cổng kiểm chứng trước khi trả lời</text>
+<text x="682" y="1385" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">JEV đánh giá độ đủ; code kiểm tra nguồn / năm / số liệu</text>
+<text x="682" y="1420" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Kết luận chưa có căn cứ → không cho khẳng định</text>
+<rect x="1650" y="1060" width="480" height="185" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="1672" y="1106" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">Tự bổ sung minh chứng</text>
+<text x="1672" y="1145" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Tìm lại đúng phần còn thiếu</text>
+<text x="1672" y="1180" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Tối đa 1 vòng, còn budget</text>
+<text x="1672" y="1215" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Nguồn xung đột → nêu rõ</text>
+<rect x="1650" y="1450" width="480" height="150" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="1672" y="1496" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">Hỏi lại đúng một điểm</text>
+<text x="1672" y="1535" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Chỉ hỏi khi thiếu ngữ cảnh</text>
+<text x="1672" y="1570" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Giữ các phần đã đủ dữ kiện</text>
+<rect x="660" y="1550" width="870" height="115" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="682" y="1596" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">5. LLM tổng hợp từ kết luận được duyệt</text>
+<text x="682" y="1635" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Đủ các ý · trích dẫn từng phần · nêu phần chưa biết</text>
+<rect x="660" y="1750" width="870" height="115" rx="16" fill="white" stroke="#cad4de" stroke-width="2"/>
+<text x="682" y="1796" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172636">Giao diện trả lời có nguồn kiểm chứng</text>
+<text x="682" y="1835" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Chỉ stream nội dung sau khi qua cổng kiểm chứng</text>
+<rect x="70" y="1060" width="480" height="360" rx="16" fill="#e8f3f8" stroke="#176b91" stroke-width="2"/>
+<text x="92" y="1106" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b91">GIÁ TRỊ NGƯỜI DÙNG THẤY</text>
+<text x="92" y="1145" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Một câu hỏi → xử lý đủ 3 ý</text>
+<text x="92" y="1180" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Mỗi ý có nguồn riêng</text>
+<text x="92" y="1215" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Thiếu học bổng → tìm lại</text>
+<text x="92" y="1250" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Không hỏi lại toàn bộ câu</text>
+<text x="92" y="1285" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Không tự suy ra số liệu</text>
+<text x="92" y="1320" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Đo cải thiện trên câu trả lời</text>
+<rect x="70" y="1530" width="480" height="335" rx="16" fill="white" stroke="#cad4de" stroke-width="2"/>
+<text x="92" y="1576" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172636">LƯU Ý TRIỂN KHAI</text>
+<text x="92" y="1615" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Câu đơn giản giữ luồng nhanh</text>
+<text x="92" y="1650" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Thử trên câu nhiều ý trước</text>
+<text x="92" y="1685" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Kiểm chứng có thể tăng TTFT</text>
+<text x="92" y="1720" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Đo độ phủ ý / đúng trích dẫn</text>
+<text x="92" y="1755" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Đặt budget trước khi mở rộng</text>
+<text x="92" y="1790" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Không tự học từ chat thô</text>
+<rect x="1650" y="1720" width="480" height="145" rx="16" fill="white" stroke="#cad4de" stroke-width="2"/>
+<text x="1672" y="1766" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172636">Quan sát và đánh giá</text>
+<text x="1672" y="1805" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Chất lượng · TTFT · chi phí</text>
+<text x="1672" y="1840" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">Bộ câu hỏi có nhãn người duyệt</text>
+<polyline points="1095,470 1095,530" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1095,530 1087.8086169209369,516.8362615716444 1102.1913830790631,516.8362615716444" fill="#8a9bad"/>
+<polyline points="550,622 660,622" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="660,622 646.8362615716444,629.191383079063 646.8362615716444,614.808616920937" fill="#8a9bad"/>
+<polyline points="1650,622 1530,622" fill="none" stroke="#8a9bad" stroke-width="3" stroke-dasharray="10 8"/>
+<polygon points="1530,622 1543.1637384283556,614.808616920937 1543.1637384283556,629.191383079063" fill="#8a9bad"/>
+<polyline points="1095,715 1095,745 795,745 795,825" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="795,825 787.808616920937,811.8362615716444 802.191383079063,811.8362615716444" fill="#8a9bad"/>
+<polyline points="1095,745 1095,825" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1095,825 1087.8086169209369,811.8362615716444 1102.1913830790631,811.8362615716444" fill="#8a9bad"/>
+<polyline points="1095,745 1395,745 1395,825" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1395,825 1387.8086169209369,811.8362615716444 1402.1913830790631,811.8362615716444" fill="#8a9bad"/>
+<polyline points="795,970 795,1010 1095,1010 1095,1060" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1095,1060 1087.8086169209369,1046.8362615716444 1102.1913830790631,1046.8362615716444" fill="#8a9bad"/>
+<polyline points="1095,970 1095,1010" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1095,1010 1087.8086169209369,996.8362615716444 1102.1913830790631,996.8362615716444" fill="#8a9bad"/>
+<polyline points="1395,970 1395,1010 1095,1010" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1095,1010 1108.1637384283556,1002.808616920937 1108.1637384283556,1017.191383079063" fill="#8a9bad"/>
+<polyline points="1095,1210 1095,1300" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1095,1300 1087.8086169209369,1286.8362615716444 1102.1913830790631,1286.8362615716444" fill="#8a9bad"/>
+<polyline points="1530,1365 1590,1365 1590,1150 1650,1150" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1650,1150 1636.8362615716444,1157.1913830790631 1636.8362615716444,1142.8086169209369" fill="#8a9bad"/>
+<text x="1587" y="1292" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#536477">Thiếu nguồn</text>
+<polyline points="1890,1060 1890,900 1530,900" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1530,900 1543.1637384283556,892.808616920937 1543.1637384283556,907.191383079063" fill="#8a9bad"/>
+<polyline points="1530,1415 1555,1415 1555,1520 1650,1520" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1650,1520 1636.8362615716444,1527.1913830790631 1636.8362615716444,1512.8086169209369" fill="#8a9bad"/>
+<polyline points="1095,1450 1095,1550" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1095,1550 1087.8086169209369,1536.8362615716444 1102.1913830790631,1536.8362615716444" fill="#8a9bad"/>
+<text x="1115" y="1504" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#536477">Đủ / trả lời một phần có căn cứ</text>
+<polyline points="1890,1600 1890,1635 1530,1635" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1530,1635 1543.1637384283556,1627.8086169209369 1543.1637384283556,1642.1913830790631" fill="#8a9bad"/>
+<polyline points="1095,1665 1095,1750" fill="none" stroke="#8a9bad" stroke-width="3" />
+<polygon points="1095,1750 1087.8086169209369,1736.8362615716444 1102.1913830790631,1736.8362615716444" fill="#8a9bad"/>
+<polyline points="1530,1805 1650,1805" fill="none" stroke="#8a9bad" stroke-width="3" stroke-dasharray="10 8"/>
+<polygon points="1650,1805 1636.8362615716444,1812.1913830790631 1636.8362615716444,1797.8086169209369" fill="#8a9bad"/>
+<text x="70" y="1934" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#536477">JEV chọn quyết định; code giữ quyền thực thi. LLM lập kế hoạch / diễn đạt. Kiến trúc mới cần kiểm chứng thực nghiệm.</text>
+<text x="70" y="1967" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#536477">Cơ sở: pipeline.py · reranker.py · decision_engine/policies.py · Không giả định JEV có sẵn khả năng tự chạy công cụ.</text>
+</svg>

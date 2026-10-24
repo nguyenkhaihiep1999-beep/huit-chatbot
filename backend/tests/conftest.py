@@ -302,11 +302,39 @@ class MockCollection:
             ids.append(res.inserted_id)
         return MagicMock(inserted_ids=ids)
 
-    def aggregate(self, pipeline: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def aggregate(self, pipeline: List[Dict[str, Any]], **kwargs) -> List[Dict[str, Any]]:
         results = [copy.deepcopy(d) for d in self.docs.values()]
         for stage in pipeline:
+            if "$vectorSearch" in stage:
+                vsearch = stage["$vectorSearch"]
+                filt = vsearch.get("filter")
+                if filt and "cluster_id" in filt:
+                    target_cid = filt["cluster_id"]
+                    if isinstance(target_cid, dict) and "$in" in target_cid:
+                        results = [d for d in results if d.get("cluster_id") in target_cid["$in"]]
+                    else:
+                        results = [d for d in results if d.get("cluster_id") == target_cid]
+                limit = vsearch.get("limit", 15)
+                for d in results:
+                    d["score"] = 0.95
+                results = results[:limit]
             if "$match" in stage:
                 results = [d for d in results if self._matches(d, stage["$match"])]
+            if "$project" in stage:
+                proj = stage["$project"]
+                projected = []
+                for d in results:
+                    item = {}
+                    for k, v in proj.items():
+                        if k == "_id" and v == 0:
+                            continue
+                        if isinstance(v, dict) and "$meta" in v:
+                            item[k] = d.get(k, 0.95)
+                        elif v == 1:
+                            if k in d:
+                                item[k] = d[k]
+                    projected.append(item)
+                results = projected
             if "$limit" in stage:
                 results = results[:stage["$limit"]]
         return results

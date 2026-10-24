@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo Nghiệm Thu Luồng Chạy Thật & Sẵn Sàng Phát Hành - HUIT Chatbot</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --success-bg: #064e3b;
+      --success-text: #34d399;
+      --success-border: #059669;
+      --warn-bg: #78350f;
+      --warn-text: #fbbf24;
+      --warn-border: #d97706;
+      --danger-bg: #7f1d1d;
+      --danger-text: #f87171;
+      --danger-border: #dc2626;
+      --badge-neutral: #475569;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .meta-bar span strong { color: var(--text-main); }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+    .card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 0.5rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-go { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+    .badge-pending { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-border); }
+    .badge-danger { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+    .badge-neutral { background: var(--badge-neutral); color: #fff; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+    th {
+      background: rgba(0,0,0,0.2);
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .status-pill {
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .status-pass { color: var(--success-text); }
+    .status-warn { color: var(--warn-text); }
+    .status-fail { color: var(--danger-text); }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.825rem;
+      background: rgba(0,0,0,0.3);
+      padding: 0.15rem 0.35rem;
+      border-radius: 0.25rem;
+      color: #38bdf8;
+    }
+    pre {
+      background: rgba(0,0,0,0.4);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.825rem;
+      border: 1px solid var(--card-border);
+      color: #e2e8f0;
+      margin-top: 0.5rem;
+    }
+    .alert {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+      border-left: 4px solid;
+    }
+    .alert-info { background: rgba(56,189,248,0.1); border-color: var(--accent); color: #e0f2fe; }
+    .alert-warn { background: rgba(245,158,11,0.1); border-color: var(--warn-border); color: #fef3c7; }
+    .alert-success { background: rgba(16,185,129,0.1); border-color: var(--success-border); color: #d1fae5; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-secondary {
+      background: var(--card-border);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover { background: #475569; }
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>
+        <span>📋</span> Báo Cáo Nghiệm Thu Luồng Chạy Thật & Mức Độ Sẵn Sàng Release
+      </h1>
+      <div class="meta-bar">
+        <span><strong>Thời gian:</strong> 2026-10-06 20:15:00 (Asia/Saigon)</span>
+        <span><strong>Dự án:</strong> D:\chatbot2</span>
+        <span><strong>HEAD Commit:</strong> <code>3f338839fcbec4d1337ae10378d9c78c69350127</code></span>
+        <span><strong>Trạng thái Git:</strong> <span class="badge badge-neutral">Working Tree Preserved</span></span>
+      </div>
+    </header>
+
+    <!-- SECTION 1: VERDICT -->
+    <div class="grid-2">
+      <div class="card">
+        <h2>Kết Luận GO / NO-GO</h2>
+        <table>
+          <tr>
+            <th>Hạng mục</th>
+            <th>Trạng thái</th>
+            <th>Mô tả</th>
+          </tr>
+          <tr>
+            <td><strong>Mã nguồn & Kiểm thử Cục bộ</strong></td>
+            <td><span class="badge badge-go">GO</span></td>
+            <td>557 backend tests, 126 frontend tests, lint/build đạt 100%.</td>
+          </tr>
+          <tr>
+            <td><strong>Môi trường Runtime Cục bộ</strong></td>
+            <td><span class="badge badge-go">GO</span></td>
+            <td>Stream NDJSON v2, Session/CSRF, Cache, Fallback, Hủy stream đạt.</td>
+          </tr>
+          <tr>
+            <td><strong>Triển khai & Live Jev Production</strong></td>
+            <td><span class="badge badge-pending">PENDING</span></td>
+            <td>Chờ phê duyệt ngân sách/số request live và quyền triển khai.</td>
+          </tr>
+          <tr>
+            <td><strong>Tuyên bố Chất lượng Jev</strong></td>
+            <td><span class="badge badge-neutral">CHƯA KHẲNG ĐỊNH</span></td>
+            <td>Mới kiểm thử mock/guardrail offline, chưa đo benchmark thực tế.</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Nguyên Tắc An Toàn & Đã Tuân Thủ</h2>
+        <div class="alert alert-success">
+          <strong>✓ 0 cuộc gọi API trả phí</strong> (Gemini/OpenRouter/Jev) trong đợt kiểm tra.
+        </div>
+        <div class="alert alert-success">
+          <strong>✓ 0 thao tác ghi/xóa</strong> cơ sở dữ liệu MongoDB Atlas hay Local.
+        </div>
+        <div class="alert alert-success">
+          <strong>✓ Không tự ý restart</strong> hoặc kill tiến trình backend/frontend đang chạy của người dùng.
+        </div>
+        <div class="alert alert-info">
+          <strong>✓ Bảo toàn toàn bộ mã nguồn</strong> và không tái cấu trúc folder.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: TEST MATRIX -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h2>Bảng Số Liệu Kiểm Tra Thực Tế (100% Theo Source Hiện Tại)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Bộ kiểm tra</th>
+            <th>Lệnh thực thi</th>
+            <th>Số lượng test</th>
+            <th>Kết quả</th>
+            <th>Thời gian</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Backend Pytest Suite</strong></td>
+            <td><code>pytest backend/tests/ -q</code></td>
+            <td>557 tests</td>
+            <td><span class="status-pill status-pass">✓ 557 Passed (0 Failed, 34 warnings)</span></td>
+            <td>74.71s</td>
+          </tr>
+          <tr>
+            <td><strong>Frontend Vitest Suite</strong></td>
+            <td><code>npm run test -- --run</code></td>
+            <td>126 tests (16 files)</td>
+            <td><span class="status-pill status-pass">✓ 126 Passed (0 Failed)</span></td>
+            <td>12.01s</td>
+          </tr>
+          <tr>
+            <td><strong>Frontend Linter (Oxlint)</strong></td>
+            <td><code>npm run lint</code></td>
+            <td>100 files / 116 rules</td>
+            <td><span class="status-pill status-pass">✓ 0 Errors, 0 Warnings</span></td>
+            <td>122ms</td>
+          </tr>
+          <tr>
+            <td><strong>Frontend Production Build</strong></td>
+            <td><code>tsc -b && vite build</code></td>
+            <td>1951 modules</td>
+            <td><span class="status-pill status-pass">✓ Built successfully (dist bundle)</span></td>
+            <td>460ms</td>
+          </tr>
+          <tr>
+            <td><strong>JSON Schema Sync</strong></td>
+            <td><code>python scripts/sync_json_schemas.py --check</code></td>
+            <td>18 contracts + manifest</td>
+            <td><span class="status-pill status-pass">✓ In Sync</span></td>
+            <td>~1s</td>
+          </tr>
+          <tr>
+            <td><strong>Working-Tree Secret Scan</strong></td>
+            <td><code>python scripts/run_secret_scan.py</code></td>
+            <td>479 files</td>
+            <td><span class="status-pill status-pass">✓ 0 Real Leaks (PASSED GO)</span></td>
+            <td>~2s</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 3: RUNTIME PROBES -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h2>Kiểm Tra Tình Trạng Runtime Đang Phục Vụ</h2>
+      <div class="grid-2">
+        <div>
+          <h3 style="font-size: 1rem; color: #fff; margin-bottom: 0.5rem;">Tiến trình & Cổng Mạng</h3>
+          <ul>
+            <li style="margin-bottom: 0.5rem;">
+              <strong>Backend Uvicorn:</strong> <code>http://127.0.0.1:8000</code><br>
+              <small style="color: var(--text-muted);">PID: 31968 | Chạy từ ~17:00 | Khởi động không có cờ <code>--reload</code>. Trạng thái: <code>/health/live</code> trả HTTP 200.</small>
+            </li>
+            <li style="margin-bottom: 0.5rem;">
+              <strong>Frontend Vite Dev:</strong> <code>http://localhost:3000</code><br>
+              <small style="color: var(--text-muted);">PID: 3132 | Bound IPv6 <code>::1:3000</code> | Proxy <code>/api</code> sang <code>:8000</code> | Trả HTTP 200.</small>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size: 1rem; color: #fff; margin-bottom: 0.5rem;">Cơ Sở Dữ Liệu & Worker (Chỉ Đọc)</h3>
+          <ul>
+            <li style="margin-bottom: 0.5rem;">
+              <strong>MongoDB Atlas:</strong> <code>cluster0.hyj8rab.mongodb.net</code><br>
+              <small style="color: var(--text-muted);">Ping: <code>ok: 1</code> | Database: <code>huit_chatbot</code> | Đoạn tri thức trong <code>huit_kb</code>: <strong>399 documents</strong>.</small>
+            </li>
+            <li style="margin-bottom: 0.5rem;">
+              <strong>MongoDB Local:</strong> <code>127.0.0.1:27017</code> (PID 6672)<br>
+              <small style="color: var(--text-muted);">Ping: <code>ok: 1.0</code> | Databases: admin, config, huit_chatbot, local.</small>
+            </li>
+            <li style="margin-bottom: 0.5rem;">
+              <strong>Background Worker:</strong> Không chạy cục bộ (chạy trên container sản xuất với UID 10001).
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: E2E PROTOCOL PROBE -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h2>Nghiệm Thu Luồng E2E Runtime (Protocol & Guardrail Mock)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Luồng kiểm thử</th>
+            <th>Endpoint</th>
+            <th>Chi tiết kiểm tra</th>
+            <th>Độ trễ</th>
+            <th>Kết quả</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Session Bootstrap</strong></td>
+            <td><code>POST /api/auth/session</code></td>
+            <td>Cấp Session ID, sinh CSRF token, gán cookie <code>huit_session_id</code>.</td>
+            <td>~5ms</td>
+            <td><span class="status-pill status-pass">✓ 200 OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>NDJSON v2 Streaming</strong></td>
+            <td><code>POST /api/chat-stream</code></td>
+            <td>Câu hỏi <em>"Xin chào"</em> (Guardrail): 132 sự kiện NDJSON đúng thứ tự <code>start → progress → token → done</code>. Không gọi LLM ngoài.</td>
+            <td>358ms</td>
+            <td><span class="status-pill status-pass">✓ 200 OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Cache Hit Handling</strong></td>
+            <td><code>POST /api/chat-stream</code></td>
+            <td>Lặp lại câu hỏi với <code>enable_cache=True</code>: Trả về luồng nhanh không phụ thuộc LLM.</td>
+            <td>324ms</td>
+            <td><span class="status-pill status-pass">✓ 200 OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Fallback Out-of-Scope</strong></td>
+            <td><code>POST /api/chat-stream</code></td>
+            <td>Câu hỏi <em>"Thời tiết hôm nay thế nào?"</em>: Trả về phản hồi từ chối an toàn kèm hướng dẫn hỗ trợ tuyển sinh.</td>
+            <td>271ms</td>
+            <td><span class="status-pill status-pass">✓ 200 OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Stream Cancellation</strong></td>
+            <td><code>POST /api/chat/:id/cancel</code></td>
+            <td>Kiểm tra endpoint hủy luồng theo đúng mã request.</td>
+            <td>~3ms</td>
+            <td><span class="status-pill status-pass">✓ 200 OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bảo Mật Cross-Owner Stream</strong></td>
+            <td><code>stream_coordinator</code></td>
+            <td>Yêu cầu stream thuộc sở hữu của session khác bị từ chối <strong>HTTP 403</strong> (Chống chiếm đoạt luồng stream).</td>
+            <td>~2ms</td>
+            <td><span class="status-pill status-pass">✓ 403 Enforced</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 5: REMAINING WORK & ROLLBACK -->
+    <div class="grid-2">
+      <div class="card">
+        <h2>Rủi Ro & Các Việc Còn Lại</h2>
+        <div class="alert alert-warn">
+          <strong>1. Backend Runtime In-Memory:</strong> Tiến trình PID 31968 chưa có cờ <code>--reload</code> nên cần được khởi động lại hoặc deploy mới để nạp các bản sửa telemetry mới nhất.
+        </div>
+        <div class="alert alert-warn">
+          <strong>2. Playwright Upstream CDN:</strong> Driver Playwright 1.57.0 win32_x64 bị lỗi 404 trên upstream CDN Azure/Verizon, khiến tool browser GUI không thể bật trực tiếp. Toàn bộ logic đã được nghiệm thu qua HTTP/NDJSON protocol automation và Vitest jsdom.
+        </div>
+        <div class="alert alert-warn">
+          <strong>3. Đánh Giá Jev Live:</strong> Cần thống nhất tập câu hỏi holdout, danh sách nhãn chuẩn và hạn mức chi phí (10–20 câu) trước khi bật <code>JEV_MODE=assist</code> trên server production.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Kế Hoạch Rollback</h2>
+        <ul>
+          <li style="margin-bottom: 0.75rem;">
+            <strong>Chuyển về Shadow Mode:</strong><br>
+            Đặt <code>JEV_MODE=shadow</code> trên biến môi trường host. Hệ thống sử dụng 100% câu trả lời của RAG baseline; Jev chỉ ghi log ngầm để phân tích, không thay đổi prompt hay luồng chat của thí sinh.
+          </li>
+          <li style="margin-bottom: 0.75rem;">
+            <strong>Ngắt Hoàn Toàn Jev (Bypass 0ms):</strong><br>
+            Đặt <code>JEV_MODE=off</code>. Pipeline bỏ qua hoàn toàn Decision Engine (0 cuộc gọi API, 0 latency overhead).
+          </li>
+          <li>
+            <strong>Rollback Mã Nguồn:</strong><br>
+            Kích hoạt tính năng Instant Rollback trên Railway/Vercel về commit <code>3f338839fcbec4d1337ae10378d9c78c69350127</code>.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SECTION 6: NEXT ACTIONS -->
+    <div class="card">
+      <h2>Bước Tiếp Theo Đề Xuất</h2>
+      <p style="margin-bottom: 1rem; color: var(--text-muted);">
+        Khi bạn sẵn sàng chuyển sang giai đoạn kiểm thử live hoặc phát hành:
+      </p>
+      <ol style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li>Thống nhất thời điểm khởi động lại backend dev (hoặc tiến hành push commit để build container sản xuất mới).</li>
+        <li>Chốt hạn mức ngân sách (vd: tối đa 20 truy vấn thử nghiệm trực tiếp).</li>
+        <li>Chạy nhóm so sánh đối đầu giữa <code>JEV_MODE=off</code> và <code>JEV_MODE=assist</code> trên tập câu hỏi tuyển sinh có ground-truth để đo độ chính xác, tỷ lệ fallback và chi phí thực tế.</li>
+      </ol>
+      <button class="btn" id="copyPromptBtn" onclick="copyPrompt()">📋 Sao Chép Tóm Tắt Nghiệm Thu</button>
+      <span id="copyStatus" style="margin-left: 1rem; font-size: 0.875rem; color: var(--success-text); display: none;">Đã sao chép!</span>
+    </div>
+
+    <footer>
+      HUIT Chatbot RAG System • Audit Snapshot ID: <code>runtime-acceptance-20261006-201500</code> • D:\chatbot2
+    </footer>
+  </div>
+
+  <script>
+    function copyPrompt() {
+      const summary = `HUIT Chatbot Audit Snapshot: runtime-acceptance-20261006-201500
+- Backend tests: 557/557 Passed (0 failed)
+- Frontend tests: 126/126 Passed (16 files)
+- Lint/Build/Schemas/Secrets: All PASS (0 leaks)
+- Local Runtime: Frontend :3000 & Backend :8000 OK, NDJSON v2 streaming OK, Session/CSRF OK, Cache & Fallback OK.
+- Production Live: PENDING APPROVAL (Chờ phê duyệt ngân sách/request live).`;
+      navigator.clipboard.writeText(summary).then(() => {
+        const el = document.getElementById('copyStatus');
+        el.style.display = 'inline';
+        setTimeout(() => { el.style.display = 'none'; }, 2500);
+      });
+    }
+  </script>
+</body>
+</html>

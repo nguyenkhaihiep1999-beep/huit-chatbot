@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:error-response:1.0.0",
+  "title": "HUIT API error response",
+  "type": "object",
+  "additionalProperties": true,
+  "anyOf": [
+    { "required": ["error_code", "message"] },
+    { "required": ["detail"] }
+  ],
+  "properties": {
+    "error_code": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "message": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "detail": {
+      "description": "FastAPI standard error detail string, dictionary, or array",
+      "anyOf": [
+        { "type": "string" },
+        { "type": "object" },
+        { "type": "array" }
+      ]
+    },
+    "request_id": {
+      "anyOf": [
+        { "type": "string", "maxLength": 64 },
+        { "type": "null" }
+      ],
+      "default": null
+    },
+    "details": {
+      "description": "Optional debug details, sanitized error context or structured error payload"
+    }
+  }
+}

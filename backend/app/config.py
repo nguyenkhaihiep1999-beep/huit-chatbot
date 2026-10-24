@@ -92,12 +92,24 @@ class Settings:
     TOP_K: int = int(os.getenv("TOP_K", "3"))
 
     # LLM Models
+    PRIMARY_LLM_PROVIDER: str = os.getenv("PRIMARY_LLM_PROVIDER", "gemini").strip().lower()
     GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY", "")
     GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
     OPENROUTER_KEY: str = os.getenv("HUIT_OPENROUTER_KEY") or os.getenv("OPENROUTER_API_KEY", "")
     OPENROUTER_MODEL: str = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
+    QWEN_MODEL: str = os.getenv("QWEN_MODEL", "qwen/qwen-2.5-72b-instruct").strip()
+    QWEN_API_KEY: str = os.getenv("QWEN_API_KEY", "").strip()
+    QWEN_BASE_URL: str = os.getenv("QWEN_BASE_URL", "").strip()
     LLM_MAX_TOKENS: int = int(os.getenv("LLM_MAX_TOKENS", "750"))
+    MAX_RETRIEVAL_ROUNDS: int = int(os.getenv("MAX_RETRIEVAL_ROUNDS", "2"))
+
+
+    # Active Serving Profile
+    @property
+    def ACTIVE_PROFILE(self) -> str:
+        p = os.getenv("ACTIVE_PROFILE", "huit").strip().lower()
+        return p if p in ("huit", "ilt") else "huit"
 
     # Jev Decision Engine (TypeSafe AI)
     @property
@@ -108,6 +120,55 @@ class Settings:
                 f"Lỗi cấu hình: JEV_MODE '{mode}' không hợp lệ. Chỉ chấp nhận 'off', 'shadow', hoặc 'assist'."
             )
         return mode
+
+    @property
+    def HUIT_JEV_INTENT_MODE(self) -> str:
+        mode = (
+            os.getenv("HUIT_JEV_INTENT_MODE")
+            or os.getenv("JEV_INTENT_MODE")
+            or self.JEV_MODE
+        ).strip().lower()
+        if mode not in ("off", "shadow", "assist"):
+            return self.JEV_MODE
+        return mode
+
+    @property
+    def HUIT_JEV_EVIDENCE_MODE(self) -> str:
+        mode = (
+            os.getenv("HUIT_JEV_EVIDENCE_MODE")
+            or os.getenv("JEV_EVIDENCE_MODE")
+            or self.JEV_MODE
+        ).strip().lower()
+        if mode not in ("off", "shadow", "assist"):
+            return self.JEV_MODE
+        return mode
+
+    @property
+    def ILT_JEV_INTENT_MODE(self) -> str:
+        mode = os.getenv("ILT_JEV_INTENT_MODE", "off").strip().lower()
+        if mode not in ("off", "shadow", "assist"):
+            return "off"
+        return mode
+
+    @property
+    def ILT_JEV_EVIDENCE_MODE(self) -> str:
+        mode = os.getenv("ILT_JEV_EVIDENCE_MODE", "assist").strip().lower()
+        if mode not in ("off", "shadow", "assist"):
+            return "assist"
+        return mode
+
+    @property
+    def ENABLE_CLUSTER_PREFILTER(self) -> bool:
+        return os.getenv("ENABLE_CLUSTER_PREFILTER", "false").strip().lower() in (
+            "true",
+            "1",
+            "yes",
+            "on",
+        )
+
+    # ILT MongoDB Collection & Index Configuration
+    ILT_MONGODB_COLL: str = os.getenv("ILT_MONGODB_COLL", "ilt_kb")
+    ILT_VECTOR_INDEX: str = os.getenv("ILT_VECTOR_INDEX", "ilt_vector_index")
 
     @property
     def TYPESAFE_API_KEY(self) -> str:

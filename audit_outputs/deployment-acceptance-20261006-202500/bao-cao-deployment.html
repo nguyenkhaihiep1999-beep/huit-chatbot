@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo Sẵn Sàng Triển Khai Vercel & Railway - HUIT Chatbot</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --success-bg: #064e3b;
+      --success-text: #34d399;
+      --success-border: #059669;
+      --warn-bg: #78350f;
+      --warn-text: #fbbf24;
+      --warn-border: #d97706;
+      --danger-bg: #7f1d1d;
+      --danger-text: #f87171;
+      --danger-border: #dc2626;
+      --railway-purple: #a855f7;
+      --vercel-black: #000;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .meta-bar span strong { color: var(--text-main); }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+    .card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-go { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+    .badge-pending { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-border); }
+    .badge-danger { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+    .badge-railway { background: rgba(168,85,247,0.2); color: #c084fc; border: 1px solid #a855f7; }
+    .badge-vercel { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+    th {
+      background: rgba(0,0,0,0.25);
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .status-pill {
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .status-pass { color: var(--success-text); }
+    .status-fail { color: var(--danger-text); }
+    .status-warn { color: var(--warn-text); }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.825rem;
+      background: rgba(0,0,0,0.35);
+      padding: 0.15rem 0.35rem;
+      border-radius: 0.25rem;
+      color: #38bdf8;
+    }
+    pre {
+      background: rgba(0,0,0,0.5);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.825rem;
+      border: 1px solid var(--card-border);
+      color: #e2e8f0;
+      margin-top: 0.5rem;
+    }
+    .alert {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+      border-left: 4px solid;
+    }
+    .alert-info { background: rgba(56,189,248,0.1); border-color: var(--accent); color: #e0f2fe; }
+    .alert-warn { background: rgba(245,158,11,0.1); border-color: var(--warn-border); color: #fef3c7; }
+    .alert-danger { background: rgba(239,68,68,0.1); border-color: var(--danger-border); color: #fee2e2; }
+    .alert-success { background: rgba(16,185,129,0.1); border-color: var(--success-border); color: #d1fae5; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>
+        <span>🚀</span> Báo Cáo Sẵn Sàng Triển Khai Vercel & Railway
+      </h1>
+      <div class="meta-bar">
+        <span><strong>Thời gian:</strong> 2026-10-06 20:25:00 (Asia/Saigon)</span>
+        <span><strong>Dự án:</strong> D:\chatbot2</span>
+        <span><strong>Git Branch Hiện Tại:</strong> <code>main</code> (HEAD: <code>3f33883</code>)</span>
+        <span><strong>Nhánh Triển Khai Được Chọn:</strong> <code style="color: #34d399; font-weight: bold;">release/v2.0.0-staging</code> (Staging / Preview)</span>
+      </div>
+    </header>
+
+    <!-- SECTION 1: VERDICT & BLOCKER ALERT -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h2>Trạng Thái Tổng Quan & Điểm Chặn Trực Tiếp (Release Gate)</h2>
+      <div class="grid-2" style="margin-bottom: 0;">
+        <div>
+          <table>
+            <tr>
+              <th>Hạng mục</th>
+              <th>Đánh giá</th>
+              <th>Chi tiết</th>
+            </tr>
+            <tr>
+              <td><strong>Mã nguồn & Đóng gói Cục bộ</strong></td>
+              <td><span class="badge badge-go">GO</span></td>
+              <td>557 backend tests, 126 frontend tests, build, lint và schemas đều đạt 100%.</td>
+            </tr>
+            <tr>
+              <td><strong>Frontend Vercel (SPA)</strong></td>
+              <td><span class="badge badge-go">SẴN SÀNG</span></td>
+              <td><code>huit-chatbot.vercel.app</code> hoạt động tốt. Cấu hình build & rewrite chuẩn.</td>
+            </tr>
+            <tr>
+              <td><strong>Backend Railway (API & Worker)</strong></td>
+              <td><span class="badge badge-danger">CHẶN ĐÍCH ĐẾN</span></td>
+              <td>Domain <code>bacsihiep-production.up.railway.app</code> trả về <strong>HTTP 404 (Application not found)</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>Quyền Deploy & Autodeploy Guard</strong></td>
+              <td><span class="badge badge-pending">CHỜ PHÊ DUYỆT</span></td>
+              <td>Tuân thủ quy tắc: Không tự ý push commit hoặc kích hoạt deploy khi chưa có lệnh.</td>
+            </tr>
+          </table>
+        </div>
+
+        <div>
+          <div class="alert alert-danger" style="margin-top: 0;">
+            <strong style="display: block; font-size: 1rem; margin-bottom: 0.5rem;">⚠️ Điểm Chặn Quan Trọng: Endpoint Railway Chưa Hoạt Động</strong>
+            Domain ghi trong <code>vercel.json</code> là <code>https://bacsihiep-production.up.railway.app</code> khi probe trả về:
+            <pre>HTTP 404: {"status":"error","code":404,"message":"Application not found"}</pre>
+            Điều này có nghĩa là dịch vụ Railway chưa được cấp domain này, project bị xóa/đổi tên, hoặc chưa được kích hoạt triển khai. Nếu Vercel proxy vào đây, tất cả API <code>/api/*</code> của người dùng sẽ bị lỗi 404.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: TEST MATRIX -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h2>Bảng Kết Quả Kiểm Tra Trước Triển Khai (6/6 Cổng Đạt)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Cổng kiểm soát</th>
+            <th>Lệnh thực thi</th>
+            <th>Số lượng</th>
+            <th>Kết quả</th>
+            <th>Thời gian</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Backend Tests</strong></td>
+            <td><code>pytest backend/tests/ -q</code></td>
+            <td>557 tests</td>
+            <td><span class="status-pill status-pass">✓ 557 Passed (0 Failed, 34 warnings)</span></td>
+            <td>62.69s</td>
+          </tr>
+          <tr>
+            <td><strong>Frontend Vitest</strong></td>
+            <td><code>npm run test -- --run</code></td>
+            <td>126 tests (16 files)</td>
+            <td><span class="status-pill status-pass">✓ 126 Passed (0 Failed)</span></td>
+            <td>9.98s</td>
+          </tr>
+          <tr>
+            <td><strong>Frontend Linter</strong></td>
+            <td><code>npm run lint</code> (oxlint)</td>
+            <td>100 files / 116 rules</td>
+            <td><span class="status-pill status-pass">✓ 0 Errors, 0 Warnings</span></td>
+            <td>113ms</td>
+          </tr>
+          <tr>
+            <td><strong>Frontend Build</strong></td>
+            <td><code>tsc -b && vite build</code></td>
+            <td>1951 modules</td>
+            <td><span class="status-pill status-pass">✓ Build thành công (bundle dist/)</span></td>
+            <td>379ms</td>
+          </tr>
+          <tr>
+            <td><strong>Schema Synchronization</strong></td>
+            <td><code>python scripts/sync_json_schemas.py --check</code></td>
+            <td>18 contracts</td>
+            <td><span class="status-pill status-pass">✓ 18 frontend contracts in sync</span></td>
+            <td>~1s</td>
+          </tr>
+          <tr>
+            <td><strong>Secret Hygiene Scan</strong></td>
+            <td><code>python scripts/run_secret_scan.py</code></td>
+            <td>482 files</td>
+            <td><span class="status-pill status-pass">✓ 0 Real Leaks (PASSED GO)</span></td>
+            <td>~2s</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 3: PLATFORM ARCHITECTURE & CONFIG -->
+    <div class="grid-2">
+      <!-- VERCEL -->
+      <div class="card">
+        <h2><span class="badge badge-vercel">▲ Vercel</span> Cấu Hình Frontend</h2>
+        <table>
+          <tr>
+            <td><strong>Framework</strong></td>
+            <td>React 18.3.1 + TypeScript + Vite 8.3.0 (SPA)</td>
+          </tr>
+          <tr>
+            <td><strong>Root Directory</strong></td>
+            <td><code>.</code> (Gốc repo, đồng bộ với <code>vercel.json</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>Install Command</strong></td>
+            <td><code>cd frontend && npm install</code></td>
+          </tr>
+          <tr>
+            <td><strong>Build Command</strong></td>
+            <td><code>cd frontend && npm run build</code></td>
+          </tr>
+          <tr>
+            <td><strong>Output Directory</strong></td>
+            <td><code>frontend/dist</code></td>
+          </tr>
+          <tr>
+            <td><strong>API Rewrites</strong></td>
+            <td>
+              <code>/api/:path*</code> → <code>https://&lt;railway-domain&gt;/api/:path*</code><br>
+              <small style="color: var(--text-muted);">Giữ same-origin cho cookie <code>huit_session_id</code> và CSRF.</small>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Streaming Headers</strong></td>
+            <td>
+              <code>Cache-Control: no-cache, no-transform</code><br>
+              <code>X-Accel-Buffering: no</code> (Chống proxy buffer NDJSON v2)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Bảo Mật Build</strong></td>
+            <td><code>.vercelignore</code> đã loại trừ <code>backend/</code>, <code>scripts/</code>, <code>.env*</code></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- RAILWAY -->
+      <div class="card">
+        <h2><span class="badge badge-railway">🚂 Railway</span> Cấu Hình API & Worker</h2>
+        <table>
+          <tr>
+            <td><strong>Build Context</strong></td>
+            <td><code>.</code> (Gốc repo để copy <code>requirements.txt</code>, <code>scripts/</code>, <code>data/</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>API Service</strong></td>
+            <td>
+              Dockerfile: <code>Dockerfile</code><br>
+              User: <code>appuser:appgroup</code> (UID/GID 10001:10001)<br>
+              Port: <code>0.0.0.0:${PORT:-8000}</code> (Dynamic PORT Railway)<br>
+              Healthcheck: <code>/health/live</code> (HTTP 200)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Worker Service</strong></td>
+            <td>
+              Dockerfile: <code>Dockerfile.worker</code><br>
+              Start: <code>python -m backend.app.workers.artifact_worker</code><br>
+              Cổng công khai: <strong>KHÔNG</strong> (Không mở public HTTP)<br>
+              Healthcheck: File heartbeat <code>/tmp/huit_worker_heartbeat</code>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Cơ Sở Dữ Liệu</strong></td>
+            <td>MongoDB Atlas TLS (Cluster0: <code>huit_kb</code> có 399 đoạn tri thức)</td>
+          </tr>
+          <tr>
+            <td><strong>Storage</strong></td>
+            <td>S3 / Cloudflare R2 / MinIO hoặc persistent volume tại <code>/app/data/artifacts_store</code></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 4: ENVIRONMENT VARIABLES -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h2>Bảng Danh Mục Biến Môi Trường Cần Đặt Trên Host (Không Chứa Secret)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tên biến môi trường</th>
+            <th>Service áp dụng</th>
+            <th>Mục đích & Giá trị khuyến nghị</th>
+            <th>Bắt buộc</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>APP_ENV</code></td>
+            <td>Backend & Worker</td>
+            <td><code>production</code></td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>PORT</code></td>
+            <td>Backend API</td>
+            <td>Tự động cấp phát bởi Railway (mặc định fallback 8000)</td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>MONGODB_URI</code></td>
+            <td>Backend & Worker</td>
+            <td>URI kết nối MongoDB Atlas (e.g. <code>mongodb+srv://...</code> có TLS)</td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>MONGODB_DB</code> / <code>MONGODB_COLL</code></td>
+            <td>Backend & Worker</td>
+            <td><code>huit_chatbot</code> / <code>huit_kb</code></td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>CORS_ALLOWED_ORIGINS</code></td>
+            <td>Backend API</td>
+            <td><code>https://huit-chatbot.vercel.app</code> (Domain frontend chính thức)</td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>ADMIN_USERNAME</code> / <code>PASSWORD</code> / <code>TOKEN</code></td>
+            <td>Backend API</td>
+            <td>Tài khoản và token bảo mật của portal quản trị viên</td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>GEMINI_API_KEY</code> / <code>GEMINI_MODEL</code></td>
+            <td>Backend & Worker</td>
+            <td>API Key Google AI Studio & <code>gemini-2.0-flash</code></td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>JEV_MODE</code></td>
+            <td>Backend API</td>
+            <td><code>assist</code> (hoặc đặt <code>shadow</code> trong giai đoạn kiểm chứng đầu)</td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>TYPESAFE_API_KEY</code> / <code>JEV_MODEL</code></td>
+            <td>Backend API</td>
+            <td>Khóa TypeSafe Jev & <code>jev-latest</code></td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>JEV_TIMEOUT_SECONDS</code> / <code>CONFIDENCE_THRESHOLD</code></td>
+            <td>Backend API</td>
+            <td><code>2</code> (giây) / <code>0.80</code> (ngưỡng tin cậy)</td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>JEV_TOTAL_BUDGET_MS</code> / <code>MAX_CONCURRENCY</code></td>
+            <td>Backend API</td>
+            <td><code>2000.0</code> (ms) / <code>10</code> (luồng đồng thời)</td>
+            <td><span class="status-pill status-pass">Có</span></td>
+          </tr>
+          <tr>
+            <td><code>STORAGE_BACKEND</code> / <code>STORAGE_BUCKET</code></td>
+            <td>Backend & Worker</td>
+            <td><code>s3</code> (hoặc <code>local</code> nếu dùng persistent volume)</td>
+            <td>Tùy chọn</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 5: ROLLBACK & NEXT STEPS -->
+    <div class="grid-2">
+      <div class="card">
+        <h2>Kế Hoạch Rollback</h2>
+        <ul>
+          <li style="margin-bottom: 0.75rem;">
+            <strong>Tắt Nóng Jev (Zero Downtime):</strong><br>
+            - Đặt <code>JEV_MODE=shadow</code> trên Railway: Luồng chat dùng 100% baseline, Jev chỉ log giám sát.<br>
+            - Đặt <code>JEV_MODE=off</code> trên Railway: Bỏ qua hoàn toàn Jev Engine (0 API call, 0 latency).
+          </li>
+          <li style="margin-bottom: 0.75rem;">
+            <strong>Rollback trên Railway:</strong><br>
+            Truy cập Dashboard Railway → Chọn Service → Deployments → Bấm <strong>Rollback</strong> về phiên bản trước.
+          </li>
+          <li>
+            <strong>Rollback trên Vercel:</strong><br>
+            Truy cập Dashboard Vercel → Deployments → Bấm <strong>Instant Rollback</strong> về bản deploy trước.
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Các Quyết Định Cần Người Dùng Xác Nhận</h2>
+        <ol style="margin-left: 1.5rem; margin-bottom: 1.25rem;">
+          <li style="margin-bottom: 0.5rem;">
+            <strong>Phê duyệt Branch Triển Khai: <span style="color: #34d399;">✓ ĐÃ XÁC NHẬN</span></strong><br>
+            Người dùng đã chọn nhánh <code>release/v2.0.0-staging</code> để triển khai staging/preview trước.
+          </li>
+          <li style="margin-bottom: 0.5rem;">
+            <strong>Cung cấp Domain Railway Đang Hoạt Động (Điểm Chặn Chính):</strong><br>
+            Cần URL public domain backend thực tế từ Railway Dashboard (do <code>https://bacsihiep-production.up.railway.app</code> trả về 404). Sau khi có URL này, sẽ cập nhật vào <code>vercel.json</code>.
+          </li>
+          <li>
+            <strong>Phê duyệt Lệnh Push / Kích Hoạt Deploy:</strong><br>
+            Xác nhận khi bạn sẵn sàng để thực hiện push lên <code>release/v2.0.0-staging</code> và chạy smoke test E2E.
+          </li>
+        </ol>
+        <button class="btn" onclick="copyChecklist()">📋 Sao Chép Checklist Xác Nhận</button>
+        <span id="copyMsg" style="margin-left: 1rem; color: var(--success-text); display: none;">Đã sao chép!</span>
+      </div>
+    </div>
+
+    <footer>
+      HUIT Chatbot Deployment Audit • ID: <code>deployment-acceptance-20261006-202500</code> • D:\chatbot2
+    </footer>
+  </div>
+
+  <script>
+    function copyChecklist() {
+      const text = `Checklist Xác Nhận Triển Khai HUIT Chatbot:
+1. Domain Railway Backend đang chạy (Thay thế domain 404 hiện tại): [Điền domain backend]
+2. Branch Git triển khai: [main hoặc release/v2.0.0-staging]
+3. Phê duyệt ngân sách chạy live acceptance: [Đồng ý chạy 10-20 câu hỏi kiểm thử]`;
+      navigator.clipboard.writeText(text).then(() => {
+        const el = document.getElementById('copyMsg');
+        el.style.display = 'inline';
+        setTimeout(() => { el.style.display = 'none'; }, 2500);
+      });
+    }
+  </script>
+</body>
+</html>

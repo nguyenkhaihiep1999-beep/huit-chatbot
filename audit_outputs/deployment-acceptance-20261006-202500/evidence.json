@@ -1,0 +1,158 @@
+{
+  "report_id": "deployment-acceptance-20261006-202500",
+  "review_date_local": "2026-10-06",
+  "timezone": "Asia/Saigon",
+  "recorded_at_utc": "2026-10-06T13:25:00Z",
+  "workspace": "D:\\chatbot2",
+  "head_commit": "3f338839fcbec4d1337ae10378d9c78c69350127",
+  "git_branch": "main",
+  "git_remote": "https://github.com/nguyenkhaihiep1999-beep/huit-chatbot.git",
+  "working_tree_dirty": true,
+  "verdict": {
+    "local_code_and_packaging": "GO",
+    "staging_preview_prepared": "READY_APPROVED_BY_USER",
+    "target_branch_selected": "release/v2.0.0-staging",
+    "production_deployment": "BLOCKED_PENDING_CONFIRMATION"
+  },
+  "deployment_blockers": [
+    {
+      "id": "DEP-01",
+      "severity": "CRITICAL",
+      "component": "Railway Backend Target",
+      "issue": "Endpoint https://bacsihiep-production.up.railway.app configured in vercel.json returns HTTP 404 'Application not found'.",
+      "remediation": "Confirm the exact Railway project ID, environment, and generated public domain name in Railway dashboard, then update vercel.json rewrite destination before triggering live deploy."
+    },
+    {
+      "id": "DEP-02",
+      "severity": "POLICY",
+      "component": "Authorization & Autodeploy Guard",
+      "issue": "Git push to linked branch will trigger automated cloud build on Vercel/Railway. Requires explicit user approval before commit/push.",
+      "remediation": "Awaiting user confirmation of deployment branch and live testing budget."
+    }
+  ],
+  "gates_verified": {
+    "backend_pytest": {
+      "command": "pytest backend/tests/ -q",
+      "total_tests": 557,
+      "passed": 557,
+      "failed": 0,
+      "errors": 0,
+      "warnings": 34,
+      "duration_seconds": 62.69,
+      "status": "PASS"
+    },
+    "frontend_vitest": {
+      "command": "npm run test -- --run",
+      "test_files": 16,
+      "total_tests": 126,
+      "passed": 126,
+      "failed": 0,
+      "duration_seconds": 9.98,
+      "status": "PASS"
+    },
+    "frontend_oxlint": {
+      "command": "npm run lint",
+      "files_scanned": 100,
+      "warnings": 0,
+      "errors": 0,
+      "duration_ms": 113,
+      "status": "PASS"
+    },
+    "frontend_build": {
+      "command": "npm run build (tsc -b && vite build)",
+      "duration_ms": 379,
+      "dist_files": ["dist/index.html", "dist/assets/index-Ds9LwIgh.css", "dist/assets/index-CtkFPk3t.js"],
+      "status": "PASS"
+    },
+    "schema_contract_sync": {
+      "command": "python scripts/sync_json_schemas.py --check",
+      "contracts_verified": 18,
+      "manifest_in_sync": true,
+      "status": "PASS"
+    },
+    "secret_scan": {
+      "command": "python scripts/run_secret_scan.py",
+      "files_scanned": 482,
+      "real_leaks": 0,
+      "findings": 8,
+      "placeholders": 5,
+      "synthetic_allowlisted": 3,
+      "status": "PASS"
+    }
+  },
+  "platforms": {
+    "vercel": {
+      "framework": "React / Vite (SPA)",
+      "root_directory": ".",
+      "config_file": "vercel.json",
+      "install_command": "cd frontend && npm install",
+      "build_command": "cd frontend && npm run build",
+      "output_directory": "frontend/dist",
+      "registered_domain": "https://huit-chatbot.vercel.app",
+      "domain_http_status": 200,
+      "api_rewrite": {
+        "source": "/api/:path*",
+        "destination": "https://bacsihiep-production.up.railway.app/api/:path*",
+        "proxy_status": "404 Application not found (Railway target offline)"
+      },
+      "spa_fallback": "/index.html",
+      "headers": {
+        "ndjson_streaming": "Cache-Control: no-cache, no-transform; X-Accel-Buffering: no",
+        "security": "X-Content-Type-Options: nosniff; X-Frame-Options: SAMEORIGIN; Referrer-Policy: strict-origin-when-cross-origin"
+      },
+      "exclusions": [".vercelignore configured excluding backend/, scripts/, docs/, .env*"]
+    },
+    "railway_api": {
+      "service_type": "FastAPI Web Service",
+      "build_context": ".",
+      "dockerfile": "Dockerfile",
+      "user": "appuser:appgroup (UID:GID 10001:10001)",
+      "port_binding": "0.0.0.0:${PORT:-8000}",
+      "start_command": "sh -c \"exec uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-8000}\"",
+      "health_check": "curl -f http://127.0.0.1:${PORT:-8000}/health/live",
+      "domain_probed": "https://bacsihiep-production.up.railway.app",
+      "probe_http_status": 404,
+      "probe_response": "Application not found"
+    },
+    "railway_worker": {
+      "service_type": "Background Artifact Worker",
+      "build_context": ".",
+      "dockerfile": "Dockerfile.worker",
+      "user": "appuser:appgroup (UID:GID 10001:10001)",
+      "start_command": "python -m backend.app.workers.artifact_worker",
+      "public_ports": "NONE (No public exposure)",
+      "health_check": "Heartbeat file /tmp/huit_worker_heartbeat (<90s check)"
+    }
+  },
+  "environment_variables_readiness": [
+    {"name": "APP_ENV", "service": "Backend/Worker", "status": "PRESENT_LOCAL", "prod_recommended": "production"},
+    {"name": "PORT", "service": "Backend", "status": "DYNAMIC_RAILWAY", "prod_recommended": "Allocated by Railway"},
+    {"name": "MONGODB_URI", "service": "Backend/Worker", "status": "CONFIGURED", "prod_recommended": "Atlas SRV with TLS"},
+    {"name": "MONGODB_DB", "service": "Backend/Worker", "status": "CONFIGURED", "prod_recommended": "huit_chatbot"},
+    {"name": "MONGODB_COLL", "service": "Backend/Worker", "status": "CONFIGURED", "prod_recommended": "huit_kb"},
+    {"name": "REDIS_PASSWORD", "service": "Backend/Worker", "status": "CONFIGURED", "prod_recommended": "Complex secret"},
+    {"name": "GEMINI_API_KEY", "service": "Backend/Worker", "status": "CONFIGURED", "prod_recommended": "Google AI Studio API key"},
+    {"name": "GEMINI_MODEL", "service": "Backend/Worker", "status": "CONFIGURED", "prod_recommended": "gemini-2.0-flash"},
+    {"name": "ADMIN_USERNAME", "service": "Backend", "status": "CONFIGURED", "prod_recommended": "Custom admin user"},
+    {"name": "ADMIN_PASSWORD", "service": "Backend", "status": "CONFIGURED", "prod_recommended": "Strong password"},
+    {"name": "ADMIN_TOKEN", "service": "Backend", "status": "CONFIGURED", "prod_recommended": "Secret bearer token"},
+    {"name": "CORS_ALLOWED_ORIGINS", "service": "Backend", "status": "CONFIGURED", "prod_recommended": "https://huit-chatbot.vercel.app"},
+    {"name": "JEV_MODE", "service": "Backend", "status": "CONFIGURED", "prod_recommended": "assist (or shadow for initial observation)"},
+    {"name": "TYPESAFE_API_KEY", "service": "Backend", "status": "CONFIGURED", "prod_recommended": "TypeSafe Jev API key"},
+    {"name": "JEV_MODEL", "service": "Backend", "status": "CONFIGURED", "prod_recommended": "jev-latest"},
+    {"name": "JEV_CONFIDENCE_THRESHOLD", "service": "Backend", "status": "CONFIGURED", "prod_recommended": "0.80"},
+    {"name": "JEV_TOTAL_BUDGET_MS", "service": "Backend", "status": "CONFIGURED", "prod_recommended": "2000.0"},
+    {"name": "STORAGE_BACKEND", "service": "Backend/Worker", "status": "CONFIGURED", "prod_recommended": "s3 (or shared persistent volume)"}
+  ],
+  "rollback_strategy": {
+    "hot_toggle_jev": {
+      "step_1": "Set JEV_MODE=shadow on Railway variables (reverts to baseline RAG, 0 prompt change)",
+      "step_2": "Set JEV_MODE=off on Railway variables (bypasses Jev engine completely, 0ms overhead)"
+    },
+    "code_rollback": {
+      "railway": "In Railway dashboard, click Deployments -> select previous active deployment -> click 'Rollback'",
+      "vercel": "In Vercel dashboard, click Deployments -> select previous active deployment -> click 'Instant Rollback'",
+      "git": "Target commit for rollback: 3f338839fcbec4d1337ae10378d9c78c69350127"
+    }
+  }
+}

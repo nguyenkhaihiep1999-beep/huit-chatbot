@@ -343,3 +343,69 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ==============================================================================
+   INNOVATIVE LIGHTING TECHNOLOGIES (ILT) LUXURY OBSIDIAN & BRASS THEME
+   Tôn vinh vẻ đẹp ánh sáng kiến trúc, viền kính mờ glassmorphism và điểm nhấn màu đồng thau/vàng ấm.
+   ============================================================================== */
+
+:root[data-profile='ilt'],
+[data-profile='ilt'] {
+  --ilt-brass: #b8863b;
+  --ilt-brass-hover: #9e712c;
+  --ilt-brass-glow: rgba(184, 134, 59, 0.2);
+  --ilt-brass-subtle: rgba(184, 134, 59, 0.1);
+
+  --color-primary: var(--ilt-brass);
+  --color-primary-hover: var(--ilt-brass-hover);
+  --color-primary-subtle: var(--ilt-brass-subtle);
+  --color-primary-glow: var(--ilt-brass-glow);
+
+  --border-focus: var(--ilt-brass);
+  --color-info: var(--ilt-brass);
+
+  /* Clean Minimal Basic Flat Surfaces */
+  --surface-canvas: #ffffff;
+  --surface-panel: #f8fafc;
+  --surface-card: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-hover: rgba(0, 0, 0, 0.04);
+  --surface-active: rgba(0, 0, 0, 0.08);
+  --border-default: #e2e8f0;
+  --border-subtle: #f1f5f9;
+}
+
+[data-theme='dark'][data-profile='ilt'],
+[data-profile='ilt'][data-theme='dark'] {
+  --ilt-brass: #dfab58;
+  --ilt-brass-hover: #e9ba6e;
+  --ilt-brass-glow: rgba(223, 171, 88, 0.25);
+  --ilt-brass-subtle: rgba(223, 171, 88, 0.12);
+
+  --color-primary: var(--ilt-brass);
+  --color-primary-hover: var(--ilt-brass-hover);
+  --color-primary-subtle: var(--ilt-brass-subtle);
+  --color-primary-glow: var(--ilt-brass-glow);
+
+  /* Clean Neutral Basic Dark Surfaces */
+  --surface-canvas: #121212;
+  --surface-panel: #18181b;
+  --surface-card: #1f1f23;
+  --surface-elevated: #27272a;
+  --surface-overlay: rgba(0, 0, 0, 0.7);
+  --surface-hover: rgba(255, 255, 255, 0.04);
+  --surface-active: rgba(255, 255, 255, 0.08);
+
+  --text-primary: #f4f4f5;
+  --text-secondary: #d4d4d8;
+  --text-muted: #a1a1aa;
+  --text-subtle: #71717a;
+
+  --border-subtle: #27272a;
+  --border-default: #323238;
+  --border-strong: #3f3f46;
+  --border-focus: #dfab58;
+
+  --focus-ring: 0 0 0 2px var(--surface-canvas), 0 0 0 4px var(--border-focus);
+}
+

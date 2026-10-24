@@ -1,0 +1,162 @@
+[
+  {
+    "id": "ilt_q01_exact_sku_oren",
+    "query": "Cho tôi thông số kỹ thuật của đèn ốp trần OREN mã ALB-103022-12-BL-1D-5?",
+    "category": "sku_lookup",
+    "expected_sku": "ALB-103022-12-BL-1D-5",
+    "expected_series": "OREN",
+    "expected_page": 132,
+    "expected_keywords": ["ALB-103022-12-BL-1D-5", "OREN", "132", "Black", "3000K", "CRI >= 90"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q02_exact_sku_arno",
+    "query": "Đèn thả ARNO mã ARN-101E26-9-NS-C dùng đui đèn gì và có hoàn thiện nào?",
+    "category": "sku_lookup",
+    "expected_sku": "ARN-101E26-9-NS-C",
+    "expected_series": "ARNO",
+    "expected_page": 24,
+    "expected_keywords": ["ARN-101E26-9-NS-C", "E26", "Brushed Nickel", "Clear Glass"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q03_series_bora",
+    "query": "Dòng sản phẩm BORA có những loại đèn nào và phong cách thiết kế ra sao?",
+    "category": "series_overview",
+    "expected_sku": null,
+    "expected_series": "BORA",
+    "expected_page": 42,
+    "expected_keywords": ["BORA", "vanity", "pendant", "sconce"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q04_series_vita",
+    "query": "Các mẫu đèn trong bộ sưu tập VITA có đặc điểm gì nổi bật?",
+    "category": "series_overview",
+    "expected_sku": null,
+    "expected_series": "VITA",
+    "expected_page": 54,
+    "expected_keywords": ["VITA"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q05_series_dune",
+    "query": "Bộ sưu tập DUNE có những mẫu đèn chùm hoặc thả nào?",
+    "category": "series_overview",
+    "expected_sku": null,
+    "expected_series": "DUNE",
+    "expected_page": 90,
+    "expected_keywords": ["DUNE"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q06_exact_sku_terr",
+    "query": "Thông số chi tiết của mẫu đèn TERR mã TER-100012-BL-1D-5 ở trang 134?",
+    "category": "sku_lookup",
+    "expected_sku": "TER-100012-BL-1D-5",
+    "expected_series": "TERR",
+    "expected_page": 134,
+    "expected_keywords": ["TER-100012-BL-1D-5", "TERR", "134"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q07_company_factory_dongnai",
+    "query": "Nhà máy của Innovative Lighting tại Việt Nam nằm ở đâu và quy mô như thế nào?",
+    "category": "company_info",
+    "expected_sku": null,
+    "expected_series": null,
+    "expected_page": null,
+    "expected_keywords": ["Nhơn Trạch", "Đồng Nai", "2019", "50,000", "Lô 206", "KCN Dệt may Nhơn Trạch"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q08_company_oem_odm",
+    "query": "Công ty có nhận sản xuất OEM/ODM cho các thương hiệu chiếu sáng quốc tế không?",
+    "category": "company_info",
+    "expected_sku": null,
+    "expected_series": null,
+    "expected_page": null,
+    "expected_keywords": ["OEM", "ODM", "Bắc Mỹ", "Hoa Kỳ", "tích hợp dọc"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q09_certifications",
+    "query": "Sản phẩm của công ty đạt những chứng chỉ an toàn và tiêu chuẩn chất lượng nào?",
+    "category": "certifications",
+    "expected_sku": null,
+    "expected_series": null,
+    "expected_page": null,
+    "expected_keywords": ["UL", "ETL", "CE", "ISO 9001", "Bắc Mỹ"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q10_missing_price_quote",
+    "query": "Giá bán sỉ của mẫu đèn ARN-101E26-9-NS-C là bao nhiêu tiền một chiếc?",
+    "category": "missing_data",
+    "expected_sku": "ARN-101E26-9-NS-C",
+    "expected_series": "ARNO",
+    "expected_page": 24,
+    "expected_keywords": ["liên hệ", "Sales@innovativelightingco.com", "báo giá"],
+    "should_have_info": false
+  },
+  {
+    "id": "ilt_q11_missing_moq_leadtime",
+    "query": "Số lượng đặt hàng tối thiểu (MOQ) và thời gian giao hàng về TP.HCM là mấy ngày?",
+    "category": "missing_data",
+    "expected_sku": null,
+    "expected_series": null,
+    "expected_page": null,
+    "expected_keywords": ["liên hệ", "Sales@innovativelightingco.com", "báo giá"],
+    "should_have_info": false
+  },
+  {
+    "id": "ilt_q12_contact_info",
+    "query": "Làm thế nào để liên hệ phòng kinh doanh của Innovative Lighting Việt Nam?",
+    "category": "contact",
+    "expected_sku": null,
+    "expected_series": null,
+    "expected_page": null,
+    "expected_keywords": ["Sales@innovativelightingco.com", "(+84) 251 368 5680", "Đồng Nai"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q13_wrong_company_iowa",
+    "query": "Công ty Innovative Lighting có trụ sở tại Iowa, Hoa Kỳ không?",
+    "category": "disambiguation",
+    "expected_sku": null,
+    "expected_series": null,
+    "expected_page": null,
+    "expected_keywords": ["Đồng Nai", "Việt Nam", "nhà máy", "khác biệt"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q14_cross_cluster_comparison",
+    "query": "So sánh sự khác nhau giữa đèn dòng ARNO và đèn dòng OREN?",
+    "category": "cross_cluster",
+    "expected_sku": null,
+    "expected_series": "ARNO",
+    "expected_page": null,
+    "expected_keywords": ["ARNO", "OREN", "ốp trần", "thả"],
+    "should_have_info": true
+  },
+  {
+    "id": "ilt_q15_out_of_scope_huit_tuition",
+    "query": "Học phí một học kỳ của trường Đại học Công Thương HUIT là bao nhiêu?",
+    "category": "out_of_scope",
+    "expected_sku": null,
+    "expected_series": null,
+    "expected_page": null,
+    "expected_keywords": ["Innovative Lighting", "không hỗ trợ", "ngoài phạm vi"],
+    "should_have_info": false
+  },
+  {
+    "id": "ilt_q16_out_of_scope_huit_cutoff",
+    "query": "Điểm chuẩn ngành Công nghệ thông tin năm 2026 là bao nhiêu điểm?",
+    "category": "out_of_scope",
+    "expected_sku": null,
+    "expected_series": null,
+    "expected_page": null,
+    "expected_keywords": ["Innovative Lighting", "đèn", "không hỗ trợ"],
+    "should_have_info": false
+  }
+]

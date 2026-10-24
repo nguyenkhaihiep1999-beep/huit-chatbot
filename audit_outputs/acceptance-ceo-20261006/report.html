@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nghiệm thu HUIT Chatbot và bằng chứng Jev — 06/10/2026</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: Canvas; color: CanvasText; font: 16px/1.6 system-ui, sans-serif; }
+    main { max-width: 1080px; margin: auto; padding: 32px 24px 64px; }
+    h1 { font-size: 24px; line-height: 1.3; margin: 8px 0 14px; }
+    h2 { font-size: 21px; margin: 36px 0 12px; padding-top: 14px; border-top: 1px solid GrayText; }
+    h3 { font-size: 18px; margin: 24px 0 8px; }
+    p { margin: 10px 0; }
+    a { color: LinkText; text-underline-offset: 3px; }
+    .meta, .note { color: GrayText; font-size: 14px; }
+    nav { display: flex; flex-wrap: wrap; gap: 10px 20px; padding: 12px 0; }
+    .summary, blockquote { border-left: 3px solid CanvasText; padding: 8px 18px; margin: 18px 0; }
+    .facts { display: flex; gap: 16px 28px; flex-wrap: wrap; margin: 20px 0; padding: 14px 0; border-block: 1px solid GrayText; }
+    .facts strong { display: block; font-size: 20px; }
+    .facts span { font-size: 14px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; vertical-align: top; padding: 12px; border-bottom: 1px solid GrayText; }
+    th { font-weight: 650; }
+    th:first-child { width: 20%; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 8px 0; }
+    code { font-size: 13px; overflow-wrap: anywhere; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 16px; border: 1px solid GrayText; font-size: 13px; }
+    details { margin: 16px 0; }
+    summary { cursor: pointer; font-weight: 600; }
+    .source-list li { margin: 12px 0; }
+    @media (max-width: 600px) { main { padding: 20px 16px 40px; } th, td { padding: 9px; } table { min-width: 660px; } }
+    @media print { nav { display: none; } main { max-width: none; padding: 0; } details { display: block; } .table-wrap { overflow: visible; } table { min-width: 0; } a { color: inherit; } }
+  </style>
+</head>
+<body>
+<main>
+  <p class="meta">Báo cáo nghiệm thu có giới hạn • 06/10/2026 • HUIT Chatbot RAG • Mã: acceptance-ceo-20261006</p>
+  <h1>Đã tích hợp Jev; chưa đủ bằng chứng để khẳng định Jev nâng chất lượng hoặc ROI</h1>
+  <p>Đây là đánh giá hệ thống ứng dụng đang có trong <code>D:\chatbot2</code>, không phải xếp hạng năng lực mô hình trên thế giới. Phạm vi gồm đọc mã/cấu hình, chạy kiểm thử offline, kiểm tra báo cáo sẵn có và đối chiếu tài liệu quốc tế. Không gọi API trả phí, không ghi MongoDB, không thay đổi mã ứng dụng hoặc triển khai hệ thống.</p>
+  <nav aria-label="Mục lục">
+    <a href="#verdict">Kết luận</a><a href="#world">Đối chiếu quốc tế</a><a href="#jev">Jev thực sự làm gì</a><a href="#proof">Chứng minh cho CEO</a><a href="#next">Điều kiện hoàn thành</a><a href="#evidence">Hồ sơ bằng chứng</a>
+  </nav>
+
+  <section id="verdict">
+    <h2>1. Kết luận nghiệm thu</h2>
+    <div class="summary">
+      <p><strong>Chưa đạt nghiệm thu kỹ thuật toàn bộ bản hiện tại.</strong> Lượt cuối có 549/550 test backend đạt, 1 test về phân vùng mạng worker thất bại. Hệ thống có nền tảng RAG theo miền, quyết định có cấu trúc và cơ chế dự phòng, nhưng không được báo là toàn bộ test xanh.</p>
+      <p><strong>Chưa đủ để ký nghiệm thu production; có thể đề xuất pilot có kiểm soát sau khi chốt chính sách mạng.</strong> Đây là khuyến nghị, không phải đã deploy hoặc đã phê duyệt chi phí. Thiếu bằng chứng chạy bản đóng gói mới trên môi trường đích và đánh giá đối chứng chất lượng thực tế.</p>
+      <p><strong>Chưa nghiệm thu hiệu quả kinh doanh của Jev.</strong> Thiếu dữ liệu độc lập cho câu trả lời đúng hơn, giảm trả lời thiếu căn cứ, chi phí trên ca xử lý thành công hoặc cải thiện kết quả người dùng.</p>
+    </div>
+    <div class="facts" aria-label="Các kiểm tra kỹ thuật">
+      <div><strong id="backend-count">549 / 550</strong><span>backend: 549 đạt, 1 thất bại — lượt cuối</span></div>
+      <div><strong>126</strong><span>test frontend / 16 tệp — đạt</span></div>
+      <div><strong>18</strong><span>hợp đồng frontend + manifest đồng bộ</span></div>
+      <div><strong>0</strong><span>secret thực trong phạm vi quét working tree</span></div>
+    </div>
+    <p>Frontend lint/build đạt. Riêng 20 test tích hợp Jev assist đều đạt, gồm các nhánh áp dụng, dự phòng, cache và telemetry mới. Test Jev dùng provider/LLM giả lập để kiểm tra tích hợp, không đo độ chính xác của mô hình thật. Quét secret: 470 tệp, 8 phát hiện gồm 5 placeholder và 3 dữ liệu giả lập được cho phép; không phải kiểm toán lịch sử Git, image hoặc xác nhận khóa cũ đã thu hồi.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Hạng mục</th><th>Bằng chứng hiện tại</th><th>Kết luận được phép</th></tr></thead>
+      <tbody>
+        <tr><td>Logic và hợp đồng</td><td>Backend 549 đạt/1 thất bại; frontend 126 đạt, schema, lint/build đạt; các nhánh Jev timeout, quota, lỗi provider, ngưỡng và cache được kiểm tra offline.</td><td>Chưa đạt toàn bộ suite backend. Không quy đổi số test thành tỷ lệ trả lời đúng.</td></tr>
+        <tr><td>Jev đã phản hồi</td><td>Log người dùng cung cấp: assist, typesafe_jev, jev-1.13.0, partial, confidence 0.40, có token usage.</td><td>Có bằng chứng tích hợp nhận phản hồi tại thời điểm log; chưa được gọi lại độc lập trong đợt này.</td></tr>
+        <tr><td>Jev đã tác động</td><td>Mã mới có DECISION_APPLICATION, decision_applied và apply_reason; test ứng dụng được bổ sung.</td><td>Chứng minh nhánh xử lý bằng mã/test. Chưa có log thật của bản mới cho một ca được áp dụng rồi chấm đúng.</td></tr>
+        <tr><td>Đóng gói</td><td>Compose đã truyền biến Jev; .dockerignore chặn .env lồng nhau; UID/GID 10001 đồng bộ; worker thêm frontend_net, trái kỳ vọng của test cô lập mạng.</td><td>Cần chốt ranh giới mạng và đồng bộ test. Chưa build/chạy image, kiểm tra quyền volume, egress hay secret trong image.</td></tr>
+        <tr><td>Production</td><td>Ảnh health là development, Redis disabled/in-memory. Smoke/load sẵn có là localhost, ngày 17/09/2026.</td><td>Không thay thế nghiệm thu bản mới trên domain HTTPS, Redis/worker và hạ tầng đích.</td></tr>
+        <tr><td>Chất lượng/ROI</td><td>RAG baseline là simulated/offline; báo cáo Jev là mock. Chưa có đối chứng bật/tắt Jev được người đánh giá độc lập.</td><td>Chưa đủ bằng chứng lợi ích thực tế. Thiếu bằng chứng không đồng nghĩa hệ thống chắc chắn kém.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Cảnh báo kiểm thử có deprecation và thay đổi pooling được FastEmbed thông báo cho multilingual-e5-large. Cần kiểm tra tương thích vector khi cố định môi trường; đây chưa phải bằng chứng retrieval đang sai. Không tự động đổi embedding hoặc reindex trong lần nghiệm thu này.</p>
+  </section>
+
+  <section id="world">
+    <h2>2. So với tình hình quốc tế hiện tại</h2>
+    <p>Xu hướng đánh giá ứng dụng AI không chỉ nhìn mô hình mạnh: phải đo độ tin cậy, chất lượng theo miền và chi phí. Benchmark tổng quát không thay thế kiểm nghiệm tuyển sinh HUIT. Đây là suy luận đối chiếu với <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance">Stanford AI Index 2026</a>, không phải chứng nhận hoặc xếp hạng toàn cầu.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Thực hành đối chiếu</th><th>Hệ thống hiện tại</th><th>Khoảng thiếu cần đo/xác minh</th></tr></thead>
+      <tbody>
+        <tr><td>RAG theo miền; tách retrieval và generation</td><td>Đã có pipeline riêng, nguồn/trích dẫn và bộ đánh giá.</td><td>Tập câu hỏi thật có nguồn chuẩn; đánh giá retrieval, căn cứ của từng claim và câu trả lời cuối riêng. <a href="https://arxiv.org/abs/2309.15217">RAGAS</a> đưa ra hướng đánh giá tách các thành phần.</td></tr>
+        <tr><td>AI có giới hạn và dự phòng</td><td>Jev chỉ hỗ trợ quyết định; có off/shadow/assist, timeout, circuit breaker và fallback.</td><td>Diễn tập lỗi trong môi trường đích; đo tác động lên toàn phiên chat và chứng minh rollback.</td></tr>
+        <tr><td>Đánh giá theo bối cảnh sử dụng</td><td>Có fixture, runner, taxonomy lỗi và nhãn chờ duyệt.</td><td>Người chuyên môn duyệt nhãn, bộ holdout chưa dùng để chỉnh prompt, kết quả có độ bất định. Phù hợp hướng Govern–Map–Measure–Manage của <a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/">NIST AI RMF</a>.</td></tr>
+        <tr><td>Quan sát quyết định và kết quả</td><td>Đã có DECISION_METRIC; bản mới thêm DECISION_APPLICATION.</td><td>Tương quan request_id với câu trả lời, nguồn và điểm người chấm. Trạng thái success/applied chưa chứng minh quyết định đúng.</td></tr>
+        <tr><td>An toàn với dữ liệu không tin cậy</td><td>Có auth/CSRF, redaction và kiểm thử guardrail; chưa thấy chiến dịch tấn công toàn diện.</td><td>Prompt injection trực tiếp/gián tiếp trong tài liệu retrieval, phân quyền và rò dữ liệu. RAG không tự loại bỏ prompt injection theo <a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">OWASP</a>.</td></tr>
+        <tr><td>Tái lập và vận hành</td><td>Có Docker/Compose, worker, cấu hình production và frontend lockfile.</td><td>Image/dependency phiên bản xác định, snapshot corpus, model thực tế; phục hồi backup, cảnh báo, tải và SLO trên bản deploy mới.</td></tr>
+        <tr><td>Giá trị kinh doanh</td><td>Chưa có dữ liệu đối chứng và hóa đơn gắn với ca xử lý đúng.</td><td>Đo tác vụ hoàn thành, giảm chuyển người tư vấn, chi phí/ca đúng; không suy ROI từ token count hoặc quảng cáo nhà cung cấp.</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Đánh giá tổng hợp:</strong> kiến trúc đi đúng hướng của ứng dụng AI theo miền; độ trưởng thành kiểm chứng hiệu quả và vận hành production chưa theo kịp phần triển khai kỹ thuật. Không có căn cứ để nói “top thế giới”, “ngang mô hình lớn”, hoặc chấm một điểm quốc tế giả định.</p>
+    <p>TypeSafe công bố Jev ở giai đoạn early access ngày 15/09/2026. Các <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">tuyên bố tốc độ/chi phí của nhà cung cấp</a> và <a href="https://evals.typesafe.ai/">benchmark bốn workflow</a> không phải kết quả của chatbot này; chuẩn so sánh của họ dùng đồng thuận LLM, không phải toàn bộ sự thật chuyên môn. Chưa có bằng chứng trong hồ sơ này để khẳng định Jev đã được dùng rộng rãi trên thế giới. Đúng schema/kiểu dữ liệu không bảo đảm đúng ý nghĩa hay không có thông tin bịa.</p>
+  </section>
+
+  <section id="jev">
+    <h2>3. Jev đang làm gì trong ứng dụng?</h2>
+    <ol>
+      <li><strong>Phân biệt ý định khi mơ hồ:</strong> nếu assist, kết quả hợp lệ, confidence đạt ngưỡng và choice được phép thì cập nhật intent. Intent hiện ảnh hưởng trace/lựa chọn artifact; không trực tiếp đổi câu truy vấn hoặc thuật toán retrieval.</li>
+      <li><strong>Đánh giá đủ minh chứng:</strong> chỉ thêm chỉ dẫn hỏi rõ vào ngữ cảnh LLM khi sufficiency là insufficient/conflicting, confidence ≥ 0.80 và needs_clarification (NOUL) ≥ 0.70. partial/sufficient không kích hoạt chỉ dẫn này.</li>
+      <li><strong>Không thay thế LLM trả lời chính:</strong> LLM sinh câu trả lời vẫn là thành phần riêng. Chỉ dẫn hỏi rõ được thêm không bảo đảm LLM luôn thực hiện đúng; phải chấm đầu ra cuối.</li>
+      <li><strong>Không gọi ở mọi câu hỏi:</strong> guardrail/cache có thể bỏ qua; intent rõ không cần gọi bước intent. Không gọi Jev không tự động là lỗi.</li>
+    </ol>
+    <p>Ngưỡng hiện tại và budget local đã được kiểm tra theo whitelist: assist, confidence 0.80, budget 2.000 ms, key đã cấu hình, endpoint chính thức TypeSafe. Compose mặc định vẫn off; phải đặt cấu hình riêng ở môi trường deploy. Key trong .env local không tự chuyển lên server.</p>
+    <h3>Log bạn cung cấp chứng minh đến đâu?</h3>
+    <pre>request_id: req-5fe877812c4f
+time: 2026-10-06 17:54:11
+mode: assist | provider: typesafe_jev | model: jev-1.13.0
+decision_type: evidence_sufficiency
+selected_choice: partial | confidence: 0.40
+status: fallback | fallback_reason: confidence_below_threshold
+latency_ms: 328.0 | input_tokens: 896 | output_tokens: 77</pre>
+    <p><strong>Chứng minh:</strong> hệ thống nhận một phản hồi có cấu trúc và chặn quyết định dưới ngưỡng, giữ đường dự phòng. <strong>Không chứng minh:</strong> partial đúng, câu trả lời cuối đúng hơn, Jev đã được áp dụng vào câu trả lời này hoặc tiết kiệm tiền. 328 ms là một quan sát, không phải trung bình/p95/SLA. Confidence 0.40 cũng không có nghĩa độ chính xác đã đo là 40%.</p>
+    <h3>Lưu ý về telemetry mới</h3>
+    <p>Hãy tìm <code>[DECISION_APPLICATION]</code> trong log backend và nối bằng <code>request_id</code> với <code>[DECISION_METRIC]</code>. Mã mới đã có <code>decision_applied</code>, <code>apply_reason</code>, baseline/selected choice và confidence.</p>
+    <p><code>api_called=true</code> hiện được gán trước lời gọi dịch vụ quyết định; dịch vụ có thể dừng ở circuit/concurrency/budget trước HTTP. Vì vậy, trường này hiện phù hợp để hiểu “đã gọi tầng quyết định”, chưa đủ để đếm request HTTP/billing. <code>decision_applied=true</code> chỉ chứng minh nhánh áp dụng đã chạy; intent có thể trùng baseline và chỉ dẫn có thể chưa làm thay đổi câu trả lời. Cần tách “được chọn/áp dụng”, “thay đổi hành vi”, và “thay đổi có lợi”.</p>
+    <p>Mã còn chứa dữ kiện tuyển sinh/năm/mốc thời gian cố định trong SYSTEM_PROMPT. Chưa xác minh các dữ kiện này bằng nguồn chính thức trong đợt kiểm tra; cần đối chiếu và quản lý phiên bản để tránh thông tin cũ vượt qua kiểm soát RAG. Đây là rủi ro dữ liệu, không phải kết luận các con số đang sai.</p>
+  </section>
+
+  <section id="proof">
+    <h2>4. Chứng minh “Jev hoạt động tốt” với CEO</h2>
+    <p>Không dùng một ảnh health hoặc một log success làm kết luận hiệu quả. Chuỗi bằng chứng phải đi từ kết nối → áp dụng → đúng → tốt hơn baseline → có giá trị kinh doanh.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Tầng chứng minh</th><th>CEO cần thấy</th><th>Trạng thái hiện tại</th></tr></thead>
+      <tbody>
+        <tr><td>1. Đã tích hợp</td><td>Provider/model/mode, request ID, kết quả phản hồi và lỗi được xử lý.</td><td>Có mã, test và log người dùng cung cấp.</td></tr>
+        <tr><td>2. Có áp dụng</td><td>Log ứng dụng thật: baseline, selected, decision_applied, apply_reason; nguồn và đầu ra cuối cùng.</td><td>Mã/test mới có; chưa có chuỗi runtime thật đã chấm.</td></tr>
+        <tr><td>3. Quyết định đúng</td><td>Nhãn chuẩn do người chuyên môn duyệt; confusion matrix, precision trên ca áp dụng, coverage/fallback và kiểm tra calibration.</td><td>Chưa đủ; mock/synthetic không phải năng lực Jev thật.</td></tr>
+        <tr><td>4. Cải thiện ứng dụng</td><td>Cùng câu hỏi, OFF và ASSIST; chấm mù câu trả lời và nguồn; chênh lệch chất lượng, độ trễ, chi phí cùng khoảng tin cậy.</td><td>Chưa thực hiện trong phạm vi nghiệm thu này.</td></tr>
+        <tr><td>5. Giá trị kinh doanh</td><td>Chi phí thực/ca giải quyết đúng, tỷ lệ hoàn thành tác vụ/chuyển tư vấn viên và chỉ số vận hành theo thời gian.</td><td>Chưa có. Cần pilot với ngân sách và tiêu chí định trước.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Thiết kế pilot đề xuất — chưa chạy, cần chấp thuận ngân sách</h3>
+    <ol>
+      <li><strong>Chốt mục tiêu trước:</strong> ví dụ giảm trả lời thiếu căn cứ trong câu hỏi thiếu thông tin mà không làm tăng lỗi quan trọng. CEO/chủ sản phẩm duyệt mức cải thiện tối thiểu, SLO độ trễ, ngân sách và rủi ro chấp nhận; không tự đặt rồi đổi theo kết quả.</li>
+      <li><strong>Tạo holdout được duyệt:</strong> câu hỏi tuyển sinh tiếng Việt, gồm rõ/mơ hồ/thiếu tham số/không có nguồn/nguồn mâu thuẫn/sai năm/ngoài phạm vi/prompt injection. Ẩn danh dữ liệu. Có thể bắt đầu 100–200 cặp để thăm dò; đây không phải cỡ mẫu mặc định đủ chứng minh mọi mức cải thiện.</li>
+      <li><strong>Giữ các yếu tố khác cố định:</strong> mã/image, snapshot và nguồn corpus, LLM chính/settings, phiên bản Jev thực trả về, threshold/budget/cache. So OFF với ASSIST trên cùng đầu vào; không dùng SHADOW làm baseline về độ trễ/chi phí vì shadow vẫn có gọi Jev. Kiểm soát cache cả hai nhánh, đảo thứ tự chạy, lặp nếu đầu ra có biến thiên.</li>
+      <li><strong>Chấm độc lập và mù:</strong> người chấm không biết câu nào bật Jev. Hai người duyệt các ca quan trọng và xử lý bất đồng; lưu rubric và nguồn chuẩn. LLM judge chỉ hỗ trợ, Jev không tự chấm năng lực của chính mình.</li>
+      <li><strong>Báo đủ mẫu số:</strong> giữ tất cả lỗi/timeout/fallback/retry trong báo cáo; nhãn chưa được duyệt vẫn hiển thị, tách khỏi metric cần ground truth. Không chỉ báo ca thành công hoặc loại ca khó.</li>
+    </ol>
+    <h3>Các chỉ số cần ghi nhận</h3>
+    <ul>
+      <li><strong>Quyết định Jev:</strong> macro-F1/confusion matrix theo nhóm, tỷ lệ quyết định đúng trên ca thực áp dụng, coverage và lý do không áp dụng. Confidence cần đối chiếu tỷ lệ đúng thực nghiệm; threshold 0.80 không bảo đảm 80% đúng. Brier score chỉ dùng khi có phân phối xác suất phù hợp.</li>
+      <li><strong>Retrieval và câu trả lời:</strong> Recall@k/MRR theo ID tài liệu; nguồn hợp lệ; claim được nguồn hỗ trợ; trả lời đầy đủ, hỏi rõ/từ chối đúng. Tách retrieval sai khỏi generation sai.</li>
+      <li><strong>Hiệu năng toàn ứng dụng:</strong> TTFT và tổng thời gian p50/p95, độ trễ cộng thêm của Jev, 429/402/timeout, concurrency; chia cache hit/miss. Đo thêm trace retrieval/rerank/LLM/DB để xác định bottleneck thật, không dùng sleep giả lập.</li>
+      <li><strong>Chi phí và tác vụ:</strong> hóa đơn thực của Jev + LLM + phần hạ tầng liên quan; chi phí trên ca giải quyết đúng, ca chuyển người tư vấn và tỷ lệ hoàn thành. Token count đơn lẻ chưa đủ để suy số tiền.</li>
+      <li><strong>Độ chắc chắn:</strong> chênh lệch theo cặp và khoảng tin cậy 95% với phương pháp công bố; cỡ mẫu đủ cho mức cải thiện muốn phát hiện. Không đạt ý nghĩa/inconclusive thì chưa tuyên bố tốt hơn.</li>
+    </ul>
+    <p><strong>Điều kiện PASS hiệu quả:</strong> đạt mục tiêu đã duyệt, không có hồi quy nghiêm trọng ở nhóm quan trọng, đạt giới hạn chi phí/độ trễ và kiểm tra an toàn/rollback. Nếu mục tiêu là không kém về chất lượng nhưng rẻ hơn, phải thỏa thuận biên non-inferiority trước. Không cần buộc mọi ca đều gọi/áp dụng Jev; fallback đúng có thể là kết quả tốt.</p>
+
+    <h3>Câu báo cáo CEO có thể dùng ngay</h3>
+    <blockquote>
+      Đã tích hợp Jev vào tầng hỗ trợ quyết định và kiểm chứng cơ chế dự phòng bằng test giả lập. Lượt nghiệm thu cuối đạt 549/550 test backend và 126 test frontend; còn một xung đột tiêu chí phân vùng mạng worker cần giải quyết trước production. Log vận hành hiện có chứng minh hệ thống nhận phản hồi Jev và chặn quyết định thiếu tin cậy; bản mới đã thêm dấu vết áp dụng quyết định. Chưa đủ dữ liệu đối chứng để khẳng định Jev cải thiện chất lượng hoặc ROI. Đề xuất pilot có ngân sách, người chấm độc lập và tiêu chí nghiệm thu định trước.
+    </blockquote>
+    <p>Bản báo cáo sau pilot phải có số thực: “OFF đạt x/n; ASSIST đạt y/n; chênh lệch và khoảng tin cậy; lỗi quan trọng; p95; chi phí/ca đúng”. x/y/n ở đây là trường cần đo, không phải kết quả hiện có.</p>
+  </section>
+
+  <section id="next">
+    <h2>5. Điều kiện kết thúc để chuyển sang cải tiến khác</h2>
+    <h3>Điểm chặn mới: cấu hình mạng và test đang mâu thuẫn</h3>
+    <p><code>backend/tests/test_production_infrastructure_hardening.py:110</code> yêu cầu worker chỉ có <code>[backend_net]</code>, trong khi <code>docker-compose.prod.yml</code> hiện đặt <code>[frontend_net, backend_net]</code>. Worker vẫn không publish host port; thêm mạng bridge không tự động có nghĩa một cổng worker đã mở công khai. Tuy vậy ranh giới kết nối giữa các container đã thay đổi, nên chưa thể ký tiêu chí cô lập cũ.</p>
+    <p>Hướng xử lý: xác định dịch vụ ngoài worker thực sự cần gọi và ranh giới được duyệt; có thể dùng mạng egress riêng nếu phù hợp, rồi cập nhật cấu hình/tài liệu/test theo chính sách thống nhất. Không chỉ xóa assertion để làm test xanh. Sau đó kiểm tra outbound, truy cập ngang và host ports bằng container thật. Đợt nghiệm thu này chỉ ghi nhận vấn đề, không sửa cấu hình/test.</p>
+    <ol>
+      <li><strong>Đóng băng bản nghiệm thu:</strong> chốt chính sách mạng và chạy lại suite xanh; commit/release và image digest, dependency/model/corpus versions; xác minh dữ kiện tuyển sinh trong prompt/KB. Không tiếp tục tái cấu trúc folder nếu không có lỗi cụ thể cần sửa.</li>
+      <li><strong>Đóng hồ sơ vận hành:</strong> build sạch, kiểm tra image không chứa secret, chạy Compose thực tế; domain HTTPS, auth, Redis/worker/storage/egress; load test, cảnh báo và diễn tập backup restore/rollback trên dữ liệu kiểm thử an toàn.</li>
+      <li><strong>Đóng hồ sơ Jev:</strong> trace thật liên kết phản hồi provider → áp dụng/không áp dụng → câu trả lời được chấm, rồi pilot OFF/ASSIST theo mục tiêu đã duyệt.</li>
+      <li><strong>Ký kết luận hữu hạn:</strong> đạt thì đóng giai đoạn tích hợp, chuyển sang bottleneck/chất lượng KB/UX dựa trên số đo; chưa đạt thì sửa đúng nguyên nhân hoặc giữ/tắt Jev. Không kéo dài bằng một chuỗi refactor không có tiêu chí.</li>
+    </ol>
+    <p>Không có Docker CLI trong môi trường kiểm tra này nên phần container chưa thể xác nhận. Không kiểm toán pháp lý, không xác nhận tuân thủ đầy đủ và không cấp “chứng nhận NIST/OWASP”. NIST AI RMF/GenAI Profile là tài liệu tham chiếu quản trị rủi ro, không phải chứng chỉ tự động có được khi test pass. <a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence">NIST AI 600-1</a>.</p>
+  </section>
+
+  <section id="evidence">
+    <h2>6. Hồ sơ bằng chứng và giới hạn</h2>
+    <p><a href="evidence.json">Bản tóm tắt bằng chứng có cấu trúc</a> • <a href="backend-tests.xml">JUnit kiểm thử backend lượt cuối: 549 đạt, 1 thất bại</a>. Lượt cuối mất 94,31 giây, có 34 cảnh báo. Kết quả 547 test đạt ở lượt đầu đã được thay thế do mã/cấu hình tiếp tục cập nhật. Các kết quả frontend/lint/build/schema/quét secret được quan sát từ lệnh trong đợt kiểm tra; không giả là có một gói release CI bất biến đã ký.</p>
+    <ul>
+      <li><code>D:\chatbot2\backend\app\rag\pipeline.py</code>: SYSTEM_PROMPT; log_decision_application; điều kiện intent/evidence, cache, budget. <code>service.py</code> trong <code>backend\app\decision_engine</code>: ngưỡng, fallback, metric và circuit breaker.</li>
+      <li><code>D:\chatbot2\backend\tests\test_jev_assist_mode_chat.py</code>: provider giả lập, điều kiện áp dụng, lỗi/cache và telemetry. Đây là bằng chứng logic, không phải mô hình thật.</li>
+      <li><code>D:\chatbot2\audit_outputs\rag_baseline_report_20261006_071542.json</code>: provenance simulated/offline_replay, 36 ca synthetic, 11 ca chờ duyệt; 10 ca generation gồm 4 full success và 6 chưa xác minh. Không dùng con số này làm accuracy hoặc latency production.</li>
+      <li><code>D:\chatbot2\audit_outputs\jev_evaluation_report_20261004_080623.json</code>: runner_mode mock, 68 ca, 11 ca chờ duyệt; cờ accepted của nhãn chưa thay thế biên bản chuyên gia duyệt độc lập. 100% mock success không phải Jev thật đúng 100%.</li>
+      <li><code>D:\chatbot2\audit_outputs\smoke_test_report.json</code> và <code>load_test_report.json</code>: bản localhost cũ 17/09/2026, không nghiệm thu bản assist production mới.</li>
+      <li><code>D:\chatbot2\temp\acceptance-secret-9872eab133724cbd8e4ac7851d0a84c8\secret_scan_report.json</code>: phạm vi quét working tree trong đợt kiểm tra.</li>
+      <li>Ảnh health/log Jev do người dùng cung cấp trong chat: bằng chứng vận hành được báo cáo, chưa replay độc lập hoặc xác minh toàn chuỗi request của môi trường production.</li>
+    </ul>
+    <details>
+      <summary>Khả năng tái lập và bằng chứng cần lưu sau pilot</summary>
+      <p>HEAD lúc kiểm tra: <code>3f338839fcbec4d1337ae10378d9c78c69350127</code>; working tree có nhiều sửa đổi và tệp chưa tracked. HEAD không đại diện toàn bộ mã đang chạy. Các tệp được cập nhật trong lúc kiểm tra; SHA-256 của các tệp trọng yếu được lưu riêng trong evidence.json để giới hạn kết luận theo snapshot.</p>
+      <p>Hồ sơ cuối cần report ID/thời gian, release/image/config/model/corpus/dataset hash, rubric/biên bản duyệt nhãn, trace đã ẩn danh, toàn bộ cặp OFF/ASSIST, điểm và nguồn, cách tính CI, latency/cost thật, lỗi và ngoại lệ, kết quả restore/rollback cùng domain đích. Giới hạn quyền truy cập hồ sơ; không lưu API key hoặc PII vào bản gửi CEO.</p>
+      <p>Backend test chạy với key giả và HF/Transformers offline; không bật Jev thật ở global config test. Các test tự thiết lập mode/provider giả theo trường hợp. Không sử dụng kết quả này để tuyên bố môi trường đích hay dịch vụ ngoài đã đạt SLA.</p>
+    </details>
+    <h3>Nguồn đối chiếu chính</h3>
+    <ul class="source-list">
+      <li><a href="https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance">Stanford HAI — AI Index 2026: Technical Performance</a>: bối cảnh năng lực/đánh giá mô hình; không xếp hạng ứng dụng này.</li>
+      <li><a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/">NIST — AI RMF Core</a> và <a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence">GenAI Profile AI 600-1</a>: quản trị, đo lường và xử lý rủi ro theo bối cảnh.</li>
+      <li><a href="https://arxiv.org/abs/2309.15217">RAGAS: Automated Evaluation of Retrieval Augmented Generation (2023)</a>: tách đánh giá chất lượng retrieval, sử dụng context và generation.</li>
+      <li><a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">OWASP GenAI — Prompt Injection</a>: rủi ro từ chỉ dẫn không tin cậy; không coi RAG là miễn nhiễm.</li>
+      <li><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">TypeSafe — Introducing System One Models and Jev</a>, <a href="https://evals.typesafe.ai/">TypeSafe Evals</a> và <a href="https://api.typesafe.ai/redoc">API chính thức</a>: tài liệu/tuyên bố nhà cung cấp, không phải thử nghiệm độc lập trên HUIT.</li>
+      <li><a href="https://docs.docker.com/build/concepts/context/">Docker — Build context/.dockerignore</a> và <a href="https://docs.docker.com/reference/compose-file/networks/#internal">Compose networks/internal</a>: đối chiếu kiểm tra cấu hình đóng gói/mạng; không thay thế chạy container.</li>
+    </ul>
+    <p class="note">Báo cáo HTML tự chứa, không tải thư viện hoặc gửi dữ liệu. Đánh giá nguồn quốc tế theo thông tin truy cập ngày 06/10/2026. Canvas không có workspace tương ứng được provision trong phiên này, nên dùng HTML như phương án thay thế.</p>
+  </section>
+</main>
+</body>
+</html>

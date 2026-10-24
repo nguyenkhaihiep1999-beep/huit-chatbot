@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:stream:chat-event:2.0.0",
+  "title": "HUIT canonical NDJSON chat event v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "stream_id",
+    "request_id",
+    "sequence",
+    "type",
+    "timestamp",
+    "payload"
+  ],
+  "properties": {
+    "protocol_version": { "const": 2 },
+    "stream_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "request_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "type": {
+      "enum": [
+        "start",
+        "token",
+        "progress",
+        "artifact",
+        "error",
+        "done",
+        "cancelled",
+        "heartbeat"
+      ]
+    },
+    "timestamp": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "payload": { "type": "object" }
+  },
+  "allOf": [
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "type": { "const": "start" },
+            "payload": { "$ref": "#/$defs/startPayload" }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "token" },
+            "payload": { "$ref": "#/$defs/tokenPayload" }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "progress" },
+            "payload": { "$ref": "#/$defs/progressPayload" }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "artifact" },
+            "payload": { "$ref": "#/$defs/artifactPayload" }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "error" },
+            "payload": { "$ref": "#/$defs/errorPayload" }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "done" },
+            "payload": { "$ref": "#/$defs/donePayload" }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "cancelled" },
+            "payload": { "$ref": "#/$defs/cancelledPayload" }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "heartbeat" },
+            "payload": { "$ref": "#/$defs/heartbeatPayload" }
+          }
+        }
+      ]
+    }
+  ],
+  "$defs": {
+    "startPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": { "type": "string", "maxLength": 32 },
+        "timestamp": {
+          "anyOf": [
+            { "type": "string", "maxLength": 64 },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "tokenPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["token"],
+      "properties": {
+        "token": { "type": "string" },
+        "delta": {
+          "anyOf": [
+            { "type": "string" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "progressPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stage": {
+          "anyOf": [
+            { "type": "string", "maxLength": 64 },
+            { "type": "null" }
+          ]
+        },
+        "sources": { "type": "array", "items": { "type": "object" } },
+        "trace": { "type": "array", "items": { "type": "object" } },
+        "visual": {
+          "anyOf": [
+            { "type": "object" },
+            { "type": "null" }
+          ]
+        },
+        "cached": { "type": "boolean" }
+      }
+    },
+    "artifactPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "title"],
+      "properties": {
+        "artifact_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "type": { "type": "string", "maxLength": 64 },
+        "title": { "type": "string", "maxLength": 255 },
+        "preview_url": {
+          "anyOf": [
+            { "type": "string", "maxLength": 500 },
+            { "type": "null" }
+          ]
+        },
+        "manifest_url": {
+          "anyOf": [
+            { "type": "string", "maxLength": 500 },
+            { "type": "null" }
+          ]
+        },
+        "available_formats": { "type": "array", "items": { "type": "string" } },
+        "chart_type": {
+          "anyOf": [
+            { "type": "string", "maxLength": 64 },
+            { "type": "null" }
+          ]
+        },
+        "status": {
+          "anyOf": [
+            { "type": "string", "maxLength": 32 },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "errorPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["error_code", "message"],
+      "properties": {
+        "error_code": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "message": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "retryable": { "type": "boolean" }
+      }
+    },
+    "donePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "latency_ms": { "type": "number", "minimum": 0 },
+        "cached": { "type": "boolean" },
+        "metrics": {
+          "anyOf": [
+            { "type": "object" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "cancelledPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "detail": { "type": "string", "maxLength": 500 }
+      }
+    },
+    "heartbeatPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": { "type": "string", "maxLength": 32 }
+      }
+    }
+  }
+}

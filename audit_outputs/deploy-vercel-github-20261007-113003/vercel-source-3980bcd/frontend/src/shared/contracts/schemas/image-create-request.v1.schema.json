@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:huit:schema:api:image-create-request:1.0.0",
+  "title": "HUIT image generation request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["prompt"],
+  "properties": {
+    "prompt": { "type": "string", "minLength": 1, "maxLength": 800 },
+    "width": { "type": "integer", "minimum": 128, "maximum": 1024, "default": 512 },
+    "height": { "type": "integer", "minimum": 128, "maximum": 1024, "default": 512 },
+    "max_json_kb": { "type": "integer", "minimum": 2, "maximum": 24, "default": 12 },
+    "style": { "type": "string", "default": "photorealistic" },
+    "backend": { "enum": ["flux", "svg"], "default": "flux" },
+    "regenerate": { "type": "boolean", "default": false }
+  }
+}

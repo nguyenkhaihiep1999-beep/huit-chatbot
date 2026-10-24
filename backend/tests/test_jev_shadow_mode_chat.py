@@ -46,6 +46,7 @@ from backend.app.rag import pipeline
 def clean_environment(monkeypatch):
     """Bảo đảm môi trường test sạch, không phụ thuộc vào .env bên ngoài."""
     monkeypatch.setenv("APP_ENV", "development")
+    monkeypatch.setenv("ACTIVE_PROFILE", "huit")
     monkeypatch.setenv("JEV_MODE", "shadow")
     monkeypatch.setenv("TYPESAFE_API_KEY", "apikey_mock_test_key_shadow_mode_1234567890")
     monkeypatch.setenv("JEV_TOTAL_BUDGET_MS", "2000.0")

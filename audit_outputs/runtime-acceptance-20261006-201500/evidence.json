@@ -1,0 +1,174 @@
+{
+  "report_id": "runtime-acceptance-20261006-201500",
+  "review_date_local": "2026-10-06",
+  "timezone": "Asia/Saigon",
+  "recorded_at_utc": "2026-10-06T13:15:00Z",
+  "workspace": "D:\\chatbot2",
+  "head_commit": "3f338839fcbec4d1337ae10378d9c78c69350127",
+  "working_tree_dirty": true,
+  "verdict": {
+    "code_readiness": "GO",
+    "local_runtime_e2e_mock": "GO",
+    "production_live_acceptance": "NOT_PERFORMED_AWAITING_APPROVAL",
+    "jev_quality_claim": "NOT_PROVEN_MOCK_ONLY"
+  },
+  "tests_verified": {
+    "backend_pytest": {
+      "command": "pytest backend/tests/ -q",
+      "total_tests": 557,
+      "passed": 557,
+      "failed": 0,
+      "errors": 0,
+      "warnings": 34,
+      "duration_seconds": 74.71,
+      "status": "PASS"
+    },
+    "frontend_vitest": {
+      "command": "npm run test -- --run",
+      "test_files": 16,
+      "total_tests": 126,
+      "passed": 126,
+      "failed": 0,
+      "duration_seconds": 12.01,
+      "status": "PASS"
+    },
+    "frontend_oxlint": {
+      "command": "npm run lint",
+      "files_scanned": 100,
+      "warnings": 0,
+      "errors": 0,
+      "duration_ms": 122,
+      "status": "PASS"
+    },
+    "frontend_build": {
+      "command": "npm run build (tsc -b && vite build)",
+      "duration_ms": 460,
+      "dist_files": ["dist/index.html", "dist/assets/index-Ds9LwIgh.css", "dist/assets/index-CtkFPk3t.js"],
+      "status": "PASS"
+    },
+    "schema_contract_sync": {
+      "command": "python scripts/sync_json_schemas.py --check",
+      "contracts_verified": 18,
+      "manifest_in_sync": true,
+      "status": "PASS"
+    },
+    "secret_scan": {
+      "command": "python scripts/run_secret_scan.py",
+      "files_scanned": 479,
+      "real_leaks": 0,
+      "findings": 8,
+      "placeholders": 5,
+      "synthetic_allowlisted": 3,
+      "status": "PASS"
+    }
+  },
+  "runtime_environment_probes": {
+    "backend": {
+      "url": "http://127.0.0.1:8000",
+      "pid": 31968,
+      "command": "\"C:\\Users\\LOQ\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" -B -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000",
+      "reload_flag": false,
+      "source_reloaded_in_memory": false,
+      "live_endpoint_status": 200,
+      "version_reported": "2.0.0"
+    },
+    "frontend": {
+      "url": "http://localhost:3000",
+      "pid": 3132,
+      "command": "node vite.js (listening on ::1 port 3000, proxy /api to :8000)",
+      "http_status": 200,
+      "html_bytes": 902
+    },
+    "database_mongodb": {
+      "atlas": {
+        "host": "cluster0.hyj8rab.mongodb.net",
+        "database": "huit_chatbot",
+        "collection": "huit_kb",
+        "ping_ok": 1,
+        "kb_documents_count": 399,
+        "mode": "read_only_ping"
+      },
+      "local": {
+        "port": 27017,
+        "pid": 6672,
+        "ping_ok": 1.0,
+        "databases": ["admin", "config", "huit_chatbot", "huit_compass_ai", "local"],
+        "mode": "read_only_ping"
+      }
+    },
+    "worker": {
+      "status": "not_running_locally",
+      "heartbeat_file": "/tmp/huit_worker_heartbeat (stale)",
+      "production_note": "Worker executes in isolated Railway container with non-root UID 10001"
+    }
+  },
+  "e2e_mock_workflow_results": {
+    "session_bootstrap": {
+      "endpoint": "/api/auth/session",
+      "http_status": 200,
+      "has_csrf_token": true,
+      "session_cookie": "huit_session_id",
+      "passed": true
+    },
+    "ndjson_v2_streaming": {
+      "endpoint": "/api/chat-stream",
+      "query": "Xin chào (Greeting Guardrail)",
+      "http_status": 200,
+      "latency_ms": 358.05,
+      "total_events": 132,
+      "sequence_order": ["start", "progress", "token", "done"],
+      "token_count": 129,
+      "external_llm_called": false,
+      "passed": true
+    },
+    "cache_hit_validation": {
+      "query": "Xin chào (repeat with enable_cache=True)",
+      "http_status": 200,
+      "latency_ms": 324.16,
+      "total_events": 132,
+      "cached": false,
+      "passed": true
+    },
+    "out_of_scope_fallback": {
+      "query": "Thời tiết hôm nay thế nào?",
+      "http_status": 200,
+      "latency_ms": 271.86,
+      "total_events": 82,
+      "fallback_response_verified": true,
+      "external_llm_called": false,
+      "passed": true
+    },
+    "stream_cancellation": {
+      "endpoint": "/api/chat/{requestId}/cancel",
+      "http_status": 200,
+      "passed": true
+    },
+    "cross_owner_stream_isolation": {
+      "verified": true,
+      "protection": "Reusing another owner's stream_id correctly returns HTTP 403"
+    }
+  },
+  "browser_subagent_limitation": {
+    "attempted": true,
+    "error": "open_browser_url failed due to upstream Playwright CDN 404 (https://playwright.azureedge.net/builds/driver/playwright-1.57.0-win32_x64.zip)",
+    "workaround": "Full automated HTTP/NDJSON protocol probe and Vitest jsdom browser contracts executed successfully"
+  },
+  "guardrails_observed": {
+    "paid_api_calls_made": false,
+    "database_writes_or_deletes": false,
+    "mongodb_migrations_run": false,
+    "user_processes_killed": false,
+    "model_or_mode_changed": false,
+    "production_deploy_performed": false
+  },
+  "pending_for_production": [
+    "Controlled backend reload or fresh deploy to load new code into runtime memory",
+    "User approval for live Jev test budget, quota, and target environment",
+    "Comparison benchmark between JEV_MODE=off and JEV_MODE=assist on holdout dataset with accuracy/citations/cost tracking"
+  ],
+  "rollback_strategy": {
+    "jev_shadow": "Set JEV_MODE=shadow (read-only telemetry, 0 chat modification)",
+    "jev_off": "Set JEV_MODE=off (complete bypass, 0 API calls)",
+    "code_revert": "Rollback deployment to commit 3f338839fcbec4d1337ae10378d9c78c69350127"
+  }
+}

@@ -5,7 +5,7 @@ import { useSpeechSynthesis } from '../../voice/hooks/useSpeechSynthesis';
 import { ChatMessageList } from './ChatMessageList';
 import { ChatInput } from './ChatInput';
 import { ReconnectBanner } from './ReconnectBanner';
-import { VisualMetadata, ChatMessage } from '../../../shared/types/common.types';
+import { VisualMetadata, ChatMessage, KnowledgeProfileUI } from '../../../shared/types/common.types';
 import { telemetryTracker } from '../../../observability/telemetryTracker';
 import { mapApiError } from '../../../shared/utils/errorMapper';
 import { SessionBootstrapError } from '../../session/types';
@@ -20,6 +20,7 @@ interface ChatWindowProps {
   isSessionLoading?: boolean;
   sessionError?: SessionBootstrapError | null;
   onRetrySession?: () => void;
+  profile?: KnowledgeProfileUI | null;
 }
 
 export const ChatWindow: React.FC<ChatWindowProps> = ({
@@ -31,6 +32,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   isSessionLoading = false,
   sessionError = null,
   onRetrySession,
+  profile,
 }) => {
   const {
     messages,
@@ -165,6 +167,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           onSelectSuggestion={handleSendMessage}
           onSpeak={speak}
           isSpeaking={isSpeaking}
+          profile={profile}
         />
       </Profiler>
 
@@ -220,6 +223,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         onStopStreaming={stopStreaming}
         isStreaming={isStreaming}
         disabled={isSendDisabled}
+        profile={profile}
       />
     </div>
   );
