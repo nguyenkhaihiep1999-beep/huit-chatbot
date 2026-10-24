@@ -74,7 +74,7 @@ export const ChatInput: React.FC<ChatInputProps> = React.memo(({
   const placeholder = isListening
     ? '🎙️ Đang lắng nghe bạn nói...'
     : isIlt
-    ? 'Hỏi về thông số kỹ thuật đèn, kích thước, chứng chỉ hoặc dịch vụ OEM/ODM...'
+    ? 'Đặt câu hỏi về thông số kỹ thuật đèn, kích thước, chứng chỉ hoặc dịch vụ OEM/ODM...'
     : 'Đặt câu hỏi về ngành học, học phí hoặc điểm chuẩn HUIT 2026...';
   const ariaLabel = isIlt ? 'Nội dung câu hỏi sản phẩm đèn ILT' : 'Nội dung câu hỏi tuyển sinh HUIT';
 

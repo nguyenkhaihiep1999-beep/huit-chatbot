@@ -108,8 +108,8 @@ class Settings:
     # Active Serving Profile
     @property
     def ACTIVE_PROFILE(self) -> str:
-        p = os.getenv("ACTIVE_PROFILE", "huit").strip().lower()
-        return p if p in ("huit", "ilt") else "huit"
+        p = os.getenv("ACTIVE_PROFILE", "ilt").strip().lower()
+        return p if p in ("huit", "ilt") else "ilt"
 
     # Jev Decision Engine (TypeSafe AI)
     @property
@@ -360,7 +360,11 @@ class Settings:
 
     @property
     def RATE_LIMIT_REDIS_URL(self) -> str:
-        return os.getenv("RATE_LIMIT_REDIS_URL", "").strip()
+        return (
+            os.getenv("RATE_LIMIT_REDIS_URL", "").strip()
+            or os.getenv("REDIS_URL", "").strip()
+            or os.getenv("REDIS_PRIVATE_URL", "").strip()
+        )
 
     @property
     def REDIS_URL(self) -> str:

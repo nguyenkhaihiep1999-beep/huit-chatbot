@@ -6,6 +6,8 @@ FROM python:3.11-slim AS base
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     APP_ENV=production \
+    ALLOW_IN_MEMORY_RATE_LIMIT=true \
+    ACTIVE_PROFILE=ilt \
     PORT=8000
 
 WORKDIR /app

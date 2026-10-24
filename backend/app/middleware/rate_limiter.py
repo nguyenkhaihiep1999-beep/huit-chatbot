@@ -164,10 +164,24 @@ def get_rate_limit_store() -> RateLimitStore:
 
     app_env = (os.getenv("APP_ENV") or getattr(settings, "APP_ENV", "development")).strip().lower()
     is_prod = getattr(settings, "IS_PRODUCTION", False) or app_env == "production" or os.getenv("IS_PRODUCTION", "").lower() == "true"
-    redis_url = os.getenv("RATE_LIMIT_REDIS_URL", "").strip() or getattr(settings, "RATE_LIMIT_REDIS_URL", "").strip()
+    redis_url = (
+        os.getenv("RATE_LIMIT_REDIS_URL", "").strip()
+        or getattr(settings, "RATE_LIMIT_REDIS_URL", "").strip()
+        or os.getenv("REDIS_URL", "").strip()
+        or getattr(settings, "REDIS_URL", "").strip()
+        or os.getenv("REDIS_PRIVATE_URL", "").strip()
+    )
+    allow_in_memory = os.getenv("ALLOW_IN_MEMORY_RATE_LIMIT", "false").strip().lower() in ("true", "1", "yes")
 
     if is_prod or app_env == "production":
         if not redis_url:
+            if allow_in_memory:
+                logger.warning(
+                    "RATE_LIMIT_REDIS_URL chưa được cấu hình trên production. Fallback an toàn sang InMemoryRateLimitStore do ALLOW_IN_MEMORY_RATE_LIMIT=true."
+                )
+                if _global_rate_limit_store is None:
+                    _global_rate_limit_store = InMemoryRateLimitStore()
+                return _global_rate_limit_store
             _global_rate_limit_store = None
             raise RuntimeError(
                 "CẤU HÌNH THIẾU TRÊN PRODUCTION: RATE_LIMIT_REDIS_URL bắt buộc phải được thiết lập."

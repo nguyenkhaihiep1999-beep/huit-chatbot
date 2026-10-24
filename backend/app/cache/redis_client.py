@@ -37,8 +37,9 @@ def get_async_redis_client() -> Optional[Any]:
         return _async_redis_client
 
     url = get_redis_url()
+    allow_in_memory = os.getenv("ALLOW_IN_MEMORY_RATE_LIMIT", "false").strip().lower() in ("true", "1", "yes")
     if not url:
-        if settings.IS_PRODUCTION:
+        if settings.IS_PRODUCTION and not allow_in_memory:
             raise RuntimeError(
                 "Lỗi cấu hình Production: Bắt buộc phải cấu hình Redis URL (RATE_LIMIT_REDIS_URL hoặc REDIS_URL)."
             )
@@ -69,8 +70,9 @@ def get_sync_redis_client() -> Optional[Any]:
         return _sync_redis_client
 
     url = get_redis_url()
+    allow_in_memory = os.getenv("ALLOW_IN_MEMORY_RATE_LIMIT", "false").strip().lower() in ("true", "1", "yes")
     if not url:
-        if settings.IS_PRODUCTION:
+        if settings.IS_PRODUCTION and not allow_in_memory:
             raise RuntimeError(
                 "Lỗi cấu hình Production: Bắt buộc phải cấu hình Redis URL (RATE_LIMIT_REDIS_URL hoặc REDIS_URL)."
             )
